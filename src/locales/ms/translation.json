@@ -1,0 +1,206 @@
+{
+    "lg": "Bahasa Melayu",
+    "upperSection": {
+    "Login": "Log Masuk",
+    "menu": "Menu",
+    "closeMenu": "Tutup Menu",
+    "Cheap_flights_para": "Harga murah di seluruh dunia, hanya dengan satu carian mudah",
+    "Our_search": "Carian kami menjimatkan wang anda",
+    "flights": "Penerbangan",
+    "hotels": "Hotel",
+    "cars_Rentals": "Sewa Kereta",
+    "oneWay": "Sehala",
+    "return": "Pergi-Balik",
+    "multiCity": "Pelbagai Bandar",
+    "flying_from": "Berlepas Dari",
+    "flying_to": "Terbang Ke",
+    "departure_date": "Tarikh Berlepas",
+    "return_date": "Tarikh Pulang",
+    "start_journey": "Mulakan Perjalanan",
+    "add_flight": "Tambah Penerbangan",
+    
+    "ECONOMY": "Ekonomi",
+    "PREMIUM_ECONOMY": "Ekonomi Premium",
+    "BUSINESS": "Perniagaan",
+    "FIRST": "Kelas Pertama",
+    "cabinClass":"Kelas Kabin",
+
+    "Adults": "Dewasa",
+    "Aged18": "Dewasa",
+    "Children": "Kanak-kanak",
+    "Aged17": "Kanak-kanak",
+    "city": "Bandar",
+    "CheckIn": "Daftar Masuk",
+    "CheckOut": "Daftar Keluar",
+    "Rooms": "Bilik",
+    "Done": "Selesai",
+    "Search_Hotels": "Cari Hotel",
+    "Rent_car": "Sewa Kereta",
+    "rent_a_car": "Sewa Sebuah Kereta",
+    "airport_shuttle": "Pengangkutan Lapangan Terbang",
+    "within_city": "Dalam Bandar",
+    "out_of_city": "Luar Bandar",
+    "pickup_time": "Masa Pengambilan",
+    "dropoff_time": "Masa Pemulangan",
+    "pickup_date": "Tarikh Pengambilan",
+    "dropoff_date": "Tarikh Pemulangan",
+    "search": "Cari"
+    },
+    "section2": {
+        "Search_simply": "Carian Mudah",
+        "Search_simply_para": "Permudahkan perancangan perjalanan anda dengan carian mudah. Temui penerbangan ideal anda dengan hanya beberapa klik.",
+        "Comparison": "Bandingkan dengan Yakin",
+        "Comparison_para": "Bandingkan pilihan secara berdampingan untuk menemui tawaran terbaik. Tempah dengan yakin, mengetahui bahawa anda telah membuat pilihan yang tepat.",
+        "Maximize_Savings": "Maksimumkan Penjimatan",
+        "Maximize_Savings_para": "Temui penjimatan yang menjadikan setiap perjalanan berpatutan. Berjalan dengan bijak dan simpan lebih banyak wang dalam poket anda."
+    },
+    "buttons": {
+        "more": "Lagi",
+        "showLess": "Tunjuk kurang",
+        "searchHere": "Cari di sini",
+        "book": "Tempah"
+    },
+    "Useful Articles": "Artikel Berguna",
+    "flightFaqSection": {
+        "heading": "Soalan Lazim",
+        "faqs": {
+            "hotel_search": {
+                "question": "Bagaimana saya boleh mencari hotel di Flay Arzan?",
+                "answer": "Hanya masukkan destinasi, tarikh perjalanan dan bilangan tetamu di bar carian kami. Platform kami akan memaparkan pelbagai pilihan hotel yang sesuai dengan keutamaan anda, termasuk pilihan ekonomi, pertengahan dan mewah, memastikan anda menemui tempat penginapan yang sempurna."
+            },
+            "filter_amenities": {
+                "question": "Bolehkah saya menapis hasil carian hotel mengikut kemudahan?",
+                "answer": "Ya, sistem penapisan lanjutan kami membolehkan anda menyesuaikan carian mengikut keperluan khusus anda. Anda boleh menapis mengikut kemudahan seperti WiFi, kolam renang, tempat letak kereta dan banyak lagi."
+            },
+            "book_hotel": {
+                "question": "Bolehkah saya menempah hotel melalui Flay Arzan?",
+                "answer": "Ya, anda boleh menempah terus melalui platform kami. Kami bekerjasama dengan hotel-hotel yang dipercayai untuk memberikan proses tempahan yang selamat dan telus."
+            },
+            "hotel_availability": {
+                "question": "Sejauh mana ketepatan ketersediaan hotel di platform anda?",
+                "answer": "Kami mengemaskini ketersediaan dalam masa nyata melalui penyegerakan langsung dengan rakan hotel kami, memastikan maklumat yang tepat."
+            },
+            "customer_reviews": {
+                "question": "Bolehkah saya melihat ulasan pelanggan untuk hotel yang disenaraikan?",
+                "answer": "Ya, anda boleh membaca ulasan tulen daripada pengembara lain untuk setiap hotel, membantu anda membuat keputusan yang bermaklumat."
+            },
+            "hidden_fees": {
+                "question": "Adakah terdapat yuran tersembunyi semasa menempah hotel?",
+                "answer": "Tidak, kami memaparkan semua yuran secara telus. Harga akhir termasuk semua cukai dan yuran wajib."
+            },
+            "cancel_modify": {
+                "question": "Bolehkah saya membatalkan atau mengubah tempahan hotel saya?",
+                "answer": "Dasar pembatalan dan pengubahsuaian berbeza mengikut hotel. Syarat-syarat khusus ditunjukkan dengan jelas sebelum tempahan."
+            },
+            "hotel_suitability": {
+                "question": "Bagaimana saya tahu jika sesebuah hotel sesuai dengan keperluan saya?",
+                "answer": "Semak penerangan terperinci, gambar, kemudahan dan ulasan pelanggan untuk menilai sama ada hotel tersebut memenuhi jangkaan anda."
+            },
+            "special_deals": {
+                "question": "Adakah anda menawarkan tawaran khas atau diskaun untuk hotel?",
+                "answer": "Ya, kami sering menawarkan tawaran khas dan diskaun eksklusif. Langgan surat berita kami untuk mengetahui tentang tawaran terbaik."
+            },
+            "direct_booking": {
+                "question": "Adakah saya menempah hotel secara langsung melalui Flay Arzan?",
+                "answer": "Ya, semua tempahan dibuat terus melalui platform kami, memastikan proses yang selamat dan khidmat pelanggan yang berdedikasi."
+            }
+        }
+    },
+    "BeginJourney": "Mulakan Perjalanan Anda Hari Ini",
+    "footer": {
+        "quickLinks": {
+            "title": "Pautan Pantas",
+            "about": "Tentang Kami",
+            "faqs": "Soalan Lazim",
+            "privacyPolicy": "Dasar Privasi",
+            "contact": "Hubungi"
+        },
+        "travelSupport": {
+            "title": "Sokongan Perjalanan",
+            "covid": "Kemas Kini COVID-19",
+            "visa": "Keperluan Visa",
+            "airport": "Maklumat Lapangan Terbang Terdekat"
+        },
+        "newsletter": {
+            "title": "Temui Permata Tersembunyi: Inspirasi Perjalanan dalam Peti Masuk Anda",
+            "placeholder": "Masukkan alamat emel anda"
+        },
+        "copyright": "©2025 Hak Cipta FlyArzan. Semua hak cipta terpelihara."
+    },
+    "hotel_section": {
+        "Cheap_hotels_para": "Hotel murah di mana-mana, satu carian mudah",
+        "Our_search": "Carian kami menjimatkan wang anda",
+        "Discover_Hotel": "Temui tawaran hotel terbaik",
+        "Explore_hotel_para": "Terokai pilihan hotel dengan harga terbaik, menawarkan harga yang tidak dapat ditandingi dan nilai yang luar biasa untuk penginapan anda seterusnya",
+        "Articles_utiles": "Artikel berguna",
+        "Extended_hotel_options": "Pilihan hotel yang diperluaskan",
+        "Guests and rooms": "Tetamu dan Bilik"
+
+    },
+    "hotelFaqs": {
+        "heading": "Soalan Lazim",
+        "search": {
+            "question": "Bagaimana saya boleh mencari hotel di Flay Arzan?",
+            "answer": "Hanya masukkan destinasi, tarikh perjalanan dan bilangan tetamu di bar carian kami. Platform kami akan memaparkan pelbagai pilihan hotel yang sesuai dengan keutamaan anda, termasuk pilihan ekonomi, pertengahan dan mewah, memastikan anda menemui tempat penginapan yang sempurna."
+        },
+        "amenities": {
+            "question": "Bolehkah saya menapis hasil carian hotel mengikut kemudahan?",
+            "answer": "Ya, sistem penapisan lanjutan kami membolehkan anda menyesuaikan carian mengikut keperluan khusus anda. Anda boleh menapis mengikut kemudahan seperti WiFi, kolam renang, tempat letak kereta dan banyak lagi."
+        },
+        "booking": {
+            "question": "Bolehkah saya menempah hotel melalui Flay Arzan?",
+            "answer": "Ya, anda boleh menempah terus melalui platform kami. Kami bekerjasama dengan hotel-hotel yang dipercayai untuk memberikan proses tempahan yang selamat dan telus."
+        },
+        "availability": {
+            "question": "Sejauh mana ketepatan ketersediaan hotel di platform anda?",
+            "answer": "Kami mengemaskini ketersediaan dalam masa nyata melalui penyegerakan langsung dengan rakan hotel kami, memastikan maklumat yang tepat."
+        },
+        "reviews": {
+            "question": "Bolehkah saya melihat ulasan pelanggan untuk hotel yang disenaraikan?",
+            "answer": "Ya, anda boleh membaca ulasan tulen daripada pengembara lain untuk setiap hotel, membantu anda membuat keputusan yang bermaklumat."
+        },
+        "fees": {
+            "question": "Adakah terdapat yuran tersembunyi semasa menempah hotel?",
+            "answer": "Tidak, kami memaparkan semua yuran secara telus. Harga akhir termasuk semua cukai dan yuran wajib."
+        },
+        "cancellation": {
+            "question": "Bolehkah saya membatalkan atau mengubah tempahan hotel saya?",
+            "answer": "Dasar pembatalan dan pengubahsuaian berbeza mengikut hotel. Syarat-syarat khusus ditunjukkan dengan jelas sebelum tempahan."
+        },
+        "suitability": {
+            "question": "Bagaimana saya tahu jika sesebuah hotel sesuai dengan keperluan saya?",
+            "answer": "Semak penerangan terperinci, gambar, kemudahan dan ulasan pelanggan untuk menilai sama ada hotel tersebut memenuhi jangkaan anda."
+        },
+        "deals": {
+            "question": "Adakah anda menawarkan tawaran khas atau diskaun untuk hotel?",
+            "answer": "Ya, kami sering menawarkan tawaran khas dan diskaun eksklusif. Langgan surat berita kami untuk mengetahui tentang tawaran terbaik."
+        },
+        "directBooking": {
+            "question": "Adakah saya menempah hotel secara langsung melalui Flay Arzan?",
+            "answer": "Ya, semua tempahan dibuat terus melalui platform kami, memastikan proses yang selamat dan khidmat pelanggan yang berdedikasi."
+        }
+    },
+    "Logsec": {
+        "heading": "Log masuk untuk bermula",
+        "para": "Sila masukkan maklumat anda",
+        "label1": "Alamat E-mel/Nama Pengguna",
+        "label2": "Kata Laluan",
+        "label3": "Ingat saya",
+        "label4": "Lupa kata laluan?",
+        "btn1": "Log Masuk",
+        "label5": "Atau teruskan dengan",
+        "label6": "atau",
+        "label7": "Belum ada akaun?",
+        "heading1": "Cipta akaun anda",
+        "para1": "Terima amaran harga, rancang dengan mudah, dan nikmati tempahan pantas.",
+        "label8": "E-mel",
+        "label9": "Kata Laluan Baharu",
+        "label10": "Sahkan Kata Laluan",
+        "label11": "Saya bersetuju dengan",
+        "label12": "Syarat Perkhidmatan",
+        "label13": "dan",
+        "label14": "Dasar Privasi",
+        "btn2": "Cipta Akaun",
+        "label15": "Sudah ada akaun?"
+    }
+}

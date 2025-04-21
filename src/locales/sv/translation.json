@@ -1,0 +1,963 @@
+{
+  "lg": "Swedish",
+  "upperSection": {
+    "Login": "Logga in",
+    "menu": "Meny",
+    "closeMenu": "Stäng meny",
+    "Cheap_flights_para": "Låga priser över hela världen, med en enkel sökning",
+    "Our_search": "Vår sökning sparar dina pengar",
+    "flights": "Flyg",
+    "hotels": "Hotell",
+    "cars_Rentals": "Hyrbilar",
+    "oneWay": "Enkelresa",
+    "return": "Tur och retur",
+    "multiCity": "Flera städer",
+    "flying_from": "Flyga från",
+    "flying_to": "Flyga till",
+    "departure_date": "Avresedatum",
+    "return_date": "Återresedatum",
+    "start_journey": "Påbörja resan",
+    "Cabin_Class_Adults": "Kabinklass och vuxna",
+
+    "add_flight": "Lägg till flyg",
+    "ECONOMY": "Ekonomi",
+    "PREMIUM_ECONOMY": "Premium Economy",
+    "BUSINESS": "Business",
+    "FIRST": "Första klass",
+    "cabinClass": "Kabinklass",
+    "Adults": "Vuxna",
+    "Aged18": "Vuxna",
+    "Children": "Barn",
+    "Aged17": "Barn",
+    "city": "Stad",
+    "CheckIn": "Incheckning",
+    "CheckOut": "Utcheckning",
+    "Rooms": "Rum",
+    "Done": "Klar",
+    "Search_Hotels": "Sök hotell",
+    "Rent_car": "Hyrbil",
+    "rent_a_car": "Hyr en bil",
+    "airport_shuttle": "Flygplatstransfer",
+    "within_city": "I staden",
+    "out_of_city": "Utanför staden",
+    "pickup_time": "Upphämtningstid",
+    "dropoff_time": "Återlämningstid",
+    "pickup_date": "Upphämtningsdatum",
+    "dropoff_date": "Återlämningsdatum",
+    "search": "Sök",
+    "input": "Klicka här"
+  },
+  "section2": {
+    "Search_simply": "Enkel Sökning",
+    "Search_simply_para": "Förenkla din resplanering med enkla sökningar. Hitta dina perfekta flyg med bara några klick.",
+    "Comparison": "Jämför med Självförtroende",
+    "Comparison_para": "Jämför alternativ sida vid sida för att hitta de bästa erbjudandena. Boka med tillförsikt, väl medveten om att du gjort rätt val.",
+    "Maximize_Savings": "Maximera Besparingarna",
+    "Maximize_Savings_para": "Upptäck besparingar som gör varje resa överkomlig. Res smart och behåll mer pengar i plånboken."
+  },
+  "buttons": {
+    "more": "Mer",
+    "showLess": "Visa mindre",
+    "searchHere": "Sök här",
+    "book": "Boka",
+    "Search": "Sök",
+    "Learn_More": "Läs mer",
+    "Submit": "Skicka",
+    "BookNow": "Boka nu",
+    "Save": "Spara",
+    "apply": "Tillämpa",
+    "reset": "Återställ",
+    "clear": "Rensa"
+  },
+  "Useful Articles": "Användbara artiklar",
+  "flightFaqSection": {
+    "heading": "Vanliga frågor",
+    "faqs": {
+      "hotel_search": {
+        "question": "Hur söker jag efter hotell på Flay Arzan?",
+        "answer": "Ange bara din destination, resdatum och antal gäster i vårt sökfält. Vår plattform visar ett brett utbud av hotellalternativ som passar dina preferenser, inklusive ekonomiska, mellanklassiga och lyxiga alternativ, vilket säkerställer att du hittar det perfekta boendet."
+      },
+      "filter_amenities": {
+        "question": "Kan jag filtrera hotellsökresultat efter bekvämligheter?",
+        "answer": "Ja, vårt avancerade filtreringssystem låter dig anpassa sökningen efter dina specifika behov. Du kan filtrera efter bekvämligheter som WiFi, pool, parkering och mycket mer."
+      },
+      "book_hotel": {
+        "question": "Kan jag boka hotell genom Flay Arzan?",
+        "answer": "Ja, du kan boka direkt genom vår plattform. Vi samarbetar med pålitliga hotell för att ge dig en säker och transparent bokningsprocess."
+      },
+      "hotel_availability": {
+        "question": "Hur exakt är hotellens tillgänglighet på er plattform?",
+        "answer": "Vi uppdaterar tillgängligheten i realtid genom direkt synkronisering med våra hotellpartners, vilket säkerställer korrekt information."
+      },
+      "customer_reviews": {
+        "question": "Kan jag se kundrecensioner för de listade hotellen?",
+        "answer": "Ja, du kan läsa autentiska recensioner från andra resenärer för varje hotell, vilket hjälper dig att fatta ett välgrundat beslut."
+      },
+      "hidden_fees": {
+        "question": "Finns det dolda avgifter när jag bokar hotell?",
+        "answer": "Nej, vi visar alla avgifter transparent. Slutpriset inkluderar alla obligatoriska skatter och avgifter."
+      },
+      "cancel_modify": {
+        "question": "Kan jag avboka eller ändra min hotellbokning?",
+        "answer": "Avboknings- och ändringspolicyer varierar per hotell. Specifika villkor anges tydligt före bokning."
+      },
+      "hotel_suitability": {
+        "question": "Hur vet jag om ett hotell passar mina behov?",
+        "answer": "Kontrollera detaljerade beskrivningar, foton, bekvämligheter och kundrecensioner för att bedöma om hotellet uppfyller dina förväntningar."
+      },
+      "special_deals": {
+        "question": "Erbjuder ni specialerbjudanden eller rabatter på hotell?",
+        "answer": "Ja, vi erbjuder regelbundet specialerbjudanden och exklusiva rabatter. Prenumerera på vårt nyhetsbrev för att få veta mer om de bästa erbjudandena."
+      },
+      "direct_booking": {
+        "question": "Bokar jag hotellet direkt genom Flay Arzan?",
+        "answer": "Ja, alla bokningar görs direkt genom vår plattform, vilket säkerställer en säker process och dedikerad kundservice."
+      }
+    },
+    "flightCard": {
+      "PlacesLike": "Platser du kanske gillar",
+      "PlacesLikePara": "Upptäck de bästa flygerbjudandena från Frankrike till de lägsta priserna. Dessa erbjudanden är tillgängliga under en begränsad tid, så du kan utforska dem i din egen takt!",
+      "FlightDealsFrom": "Flygerbjudanden från {{country}}",
+      "Discover_flight_deals": "Upptäck de bästa flygerbjudandena från",
+      "at_the_lowest_prices": "till de lägsta priserna. Dessa erbjudanden är tillgängliga under en begränsad tid, så du kan utforska dem i din egen takt!",
+      "day": "dag",
+      "night": "natt",
+      "Beaches": "Stränder",
+      "Snorkeling": "Snorkling",
+      "Food": "Mat"
+    }
+  },
+  "BeginJourney": "Börja Din Resa Idag",
+  "footer": {
+    "quickLinks": {
+      "title": "Snabblänkar",
+      "about": "Om Oss",
+      "faqs": "Vanliga Frågor",
+      "privacyPolicy": "Integritetspolicy",
+      "contact": "Kontakt"
+    },
+    "travelSupport": {
+      "title": "Resestöd",
+      "covid": "COVID-19 Uppdateringar",
+      "visa": "Visumkrav",
+      "airport": "Information om Närmaste Flygplats"
+    },
+    "newsletter": {
+      "title": "Upptäck Dolda Pärlor: Reseinspiration i Din Inkorg",
+      "placeholder": "Ange din e-postadress"
+    },
+    "copyright": "©2025 Copyright FlyArzan. Alla rättigheter förbehållna."
+  },
+  "hotel_section": {
+    "Cheap_hotels_para": "Billiga hotell överallt, bara en enkel sökning",
+    "Our_search": "Vår sökning sparar dina pengar",
+"Discover_Hotel": "Upptäck de bästa hotellerbjudandena från {{country}}",
+    "Explore_hotel_para": "Utforska de bäst prissatta hotellalternativen, som erbjuder oslagbara priser och exceptionellt värde för din nästa vistelse",
+    "Articles_utiles": "Användbara artiklar",
+    "Extended_hotel_options": "Utökade hotellalternativ",
+    "Guests and rooms": "Gäster och rum"
+  },
+  "hotelFaqs": {
+    "heading": "Vanliga frågor",
+    "search": {
+      "question": "Hur söker jag efter hotell på Flay Arzan?",
+      "answer": "Ange bara din destination, resdatum och antal gäster i vår sökruta. Vår plattform visar då ett brett utbud av hotellalternativ som passar dina preferenser, inklusive budgetvänliga, mellanklassiga och lyxiga alternativ, så att du hittar det perfekta boendet för din vistelse."
+    },
+    "amenities": {
+      "question": "Kan jag filtrera hotellsökresultaten efter bekvämligheter?",
+      "answer": "Ja, vårt avancerade filtreringssystem låter dig anpassa sökningen efter dina specifika behov. Du kan filtrera efter bekvämligheter som WiFi, pool, parkering och mycket mer."
+    },
+    "booking": {
+      "question": "Kan jag boka ett hotell genom Flay Arzan?",
+      "answer": "Ja, du kan boka direkt genom vår plattform. Vi samarbetar med pålitliga hotell för att erbjuda dig en säker och transparent bokningsprocess."
+    },
+    "availability": {
+      "question": "Hur exakt är hotelltillgängligheten på er plattform?",
+      "answer": "Vi uppdaterar tillgängligheten i realtid genom direkt synkronisering med våra hotellpartners, vilket säkerställer korrekt information."
+    },
+    "reviews": {
+      "question": "Kan jag se kundrecensioner för de listade hotellen?",
+      "answer": "Ja, du kan läsa autentiska recensioner från andra resenärer för varje hotell, vilket hjälper dig att fatta ett välgrundat beslut."
+    },
+    "fees": {
+      "question": "Finns det några dolda avgifter när jag bokar ett hotell?",
+      "answer": "Nej, vi visar alla avgifter transparent. Slutpriset inkluderar alla obligatoriska skatter och avgifter."
+    },
+    "cancellation": {
+      "question": "Kan jag avboka eller ändra min hotellbokning?",
+      "answer": "Avboknings- och ändringspolicyer varierar per hotell. Specifika villkor anges tydligt före bokning."
+    },
+    "suitability": {
+      "question": "Hur vet jag om ett hotell passar mina behov?",
+      "answer": "Kontrollera de detaljerade beskrivningarna, bilderna, bekvämligheterna och kundrecensionerna för att bedöma om hotellet uppfyller dina förväntningar."
+    },
+    "deals": {
+      "question": "Erbjuder ni några specialerbjudanden eller rabatter på hotell?",
+      "answer": "Ja, vi erbjuder regelbundet specialerbjudanden och exklusiva rabatter. Prenumerera på vårt nyhetsbrev för att få veta mer om de bästa erbjudandena."
+    },
+    "directBooking": {
+      "question": "Bokar jag hotellet direkt genom Flay Arzan?",
+      "answer": "Ja, alla bokningar görs direkt genom vår plattform, vilket säkerställer en säker process och dedikerad kundservice."
+    }
+  },
+  "carsection": {
+    "Find_the_best_car": "Hitta den bästa bilen, med en enkel sökning",
+    "Our_search": "Vår sökning, dina besparingar",
+"Find_the_Best": "Hitta de bästa biluthyrningserbjudandena från {{country}}",
+    "Explore_top_car": "Utforska toppbiluthyrningsleverantörer som erbjuder konkurrenskraftiga priser och exceptionellt värde för din bilresa.",
+    "Begin_your": "Börja din bilresa"
+  },
+  "carfaq": {
+    "Frequently": "Vanliga frågor",
+    "search": {
+      "question": "Hur söker jag efter hotell på Flay Arzan?",
+      "answer": "Ange bara din destination, resdatum och antal gäster i vår sökruta. Vår plattform visar då ett brett utbud av hotellalternativ som passar dina preferenser, inklusive budgetvänliga, mellanklassiga och lyxiga alternativ, så att du hittar det perfekta boendet för din vistelse."
+    },
+    "faq2": {
+      "question": "Kan jag filtrera hotellsökresultaten efter bekvämligheter?",
+      "answer": "För att hitta de bästa flygerbjudandena, använd våra filter för flexibla datum, flygbolag och destinationer. Prenumerera för erbjudanden."
+    },
+    "faq3": {
+      "question": "Kan jag boka ett hotell genom Flay Arzan?",
+      "answer": "De visade priserna inkluderar uppskattade skatter och obligatoriska avgifter. Bagagepolicyer och biljettvillkor kan variera"
+    },
+    "faq4": {
+      "question": "Hur exakt är hotelltillgängligheten på Fly Arzan?"
+    },
+    "faq5": {
+      "question": "Kan jag söka efter flerstadsresor eller resor runt om i världen?"
+    },
+    "faq6": {
+      "question": "Stödjer er plattform sökningar med flexibla datum?"
+    },
+    "faq7": {
+      "question": "Kan jag ställa in prisvarningar för flyg eller hotell?"
+    },
+    "faq8": {
+      "question": "Vad ska jag göra om jag stöter på problem med min bokning?"
+    },
+    "faq9": {
+      "question": "Inkluderar ni lågprisflygbolag i sökresultaten?"
+    }
+  },
+ "PrivacyPolicypage": {
+  "heading": "Informationsinsamling",
+  "heading1": "Fly Arzan Integritetspolicy",
+  "para": "Välkommen till Fly Arzan! Vi är en sökmotor för flyg, hotell och biluthyrning. Din integritet är viktig för oss, och vi är engagerade i att skydda din personliga information. Denna integritetspolicy förklarar hur vi samlar in, använder och skyddar dina uppgifter när du använder vår webbplats.",
+  "text1": "Fly Arzan samlar in minimal användarinformation för att förbättra din upplevelse. De enda personuppgifter vi samlar in är:",
+  "text2": "E-postadress",
+  "text3": "Endast om du frivilligt tillhandahåller den för att ta emot meddelanden om erbjudanden, kampanjer och uppdateringar.",
+  "text4": "Vi samlar inte in:",
+  "text5": "Betalningsinformation (vi omdirigerar dig till tredjeparts bokningsplattformar).",
+  "text6": "Pass eller ID-uppgifter.",
+  "text7": "Hemmaadresser eller telefonnummer.",
+  "text8": "Användning av information",
+  "text9": "Din e-postadress (om du tillhandahåller den) kommer enbart att användas för:",
+  "text10": "Skicka reklam- och rabattkampanjer.",
+  "text11": "Informera dig om nya funktioner eller uppdateringar på Fly Arzan.",
+  "text12": "Svara på kundförfrågningar (om du kontaktar oss).",
+  "text13": "Vi kommer aldrig att sälja, hyra ut eller dela din e-postadress med tredje part för marknadsföringsändamål utan ditt uttryckliga samtycke.",
+  "text14": "Dataskydd",
+  "text15": "Vi implementerar branschstandard säkerhetsåtgärder för att skydda din information, inklusive",
+  "text16": "Kryptering (SSL) för datatransmission.",
+  "text17": "Säker lagring av e-postadresser i skyddade databaser.",
+  "text18": "Regelbundna säkerhetsrevisioner för att förhindra obehörig åtkomst.",
+  "text19": "Trots våra ansträngningar kan ingen onlineplattform garantera 100 % säkerhet. Vi uppmuntrar användare att vara försiktiga när de delar personlig information online.",
+  "text20": "Tredjepartsdelning",
+  "text21": "Fly Arzan samarbetar med tredjeparts tjänsteleverantörer (t.ex. flygbolag, hotell, biluthyrningsbyråer) för att leverera sökresultat. När du klickar på en bokningslänk omdirigeras du till deras webbplatser, som har sina egna integritetspolicys. Vi kontrollerar eller lagrar inte:",
+  "text22": "Bokningstransaktioner.",
+  "text23": "Betalningsuppgifter.",
+  "text24": "Personuppgifter som anges på tredjepartswebbplatser.",
+  "text25": "Cookiespolicy",
+  "text26": "Fly Arzan använder cookies och liknande spårningstekniker för att:",
+  "text27": "Förbättra webbplatsens funktionalitet.",
+  "text28": "Personalisera sökresultat.",
+  "text29": "Analysera användarbeteende (t.ex. via Google Analytics) för att förbättra prestanda.",
+  "text30": "Du kan inaktivera cookies i din webbläsarens inställningar, men vissa funktioner kan sluta fungera korrekt.",
+  "text31": "Användarrättigheter",
+  "text32": "Du har rätt att:",
+  "text33": "Åtkomst – Begära detaljer om de uppgifter vi har om dig.",
+  "text34": "Radera – Be oss ta bort din e-postadress från vår databas.",
+  "text35": "Avprenumerera – Avsluta marknadsföringsmejl när som helst via länken för att avprenumerera i e-postmeddelanden.",
+  "text36": "Ändringar av denna policy",
+  "text37": "Vi kan uppdatera denna integritetspolicy ibland. Alla ändringar kommer att publiceras här och vi uppmuntrar dig att regelbundet granska den.",
+  "text38": "Kontakta oss",
+  "text39": "För frågor, begäran om uppgifter eller integritetsproblem, vänligen kontakta oss på:",
+  "text40": "E-post: info@flyarzan.com",
+  "text41": "Webbplats: www.flyarzan.com",
+  "text42": "Tack för att du litar på Fly Arzan för dina rese-sökningar!"
+}
+,
+"AboutUs": {
+    "heading": "Om Oss",
+    "Who_We_Are": "Vem Vi Är",
+    "text1": "På Fly Arzan gör vi det enkelt att hitta de bästa erbjudandena på flyg, hotell och biluthyrning – allt på ett ställe.",
+    "text2": "Vi är inte en bokningssida – vi är din resekompis. Säg bara vart du vill åka, så hjälper vi dig att jämföra priser från olika flygbolag, hotell och biluthyrningsföretag så att du kan välja det som passar dig (och din plånbok) bäst.",
+    "text3": "Namnet ”Arzan” betyder prisvärd, och det är vårt mål: att hjälpa dig att resa smartare och billigare utan stress.",
+    "text4": "Vi samlar bara in din e-postadress (om du vill ta emot uppdateringar om erbjudanden och kampanjer), och vi kommer aldrig att skicka skräppost eller dela din information.",
+    "text5": "Tack för att du reser smart med Fly Arzan. Låt oss planera något fantastiskt tillsammans."
+}
+,
+  "AboutUssec1": {
+   "heading": "Den perfekta resan blir verklighet med vår resebyrå.",
+"text1": "Jämför enkelt flyg, hotell och biluthyrning – allt på ett ställe, så att du kan hitta de bästa erbjudandena och göra din drömresa till verklighet."
+,
+    "Ticket": "Biljettbokning",
+    "text2": "Tillgång till inrikes- och utrikesflyg till konkurrenskraftiga priser. Enkel sökning och jämförelse för att hitta de bästa erbjudandena för ditt schema.",
+    "Hotel": "Hotellbokning",
+    "text3": "Utvalda hotell, från budget till lyxiga boenden. Filter för att hjälpa dig välja baserat på plats, bekvämligheter och pris.",
+    "Rent": "Biluthyrningstjänster",
+    "text4": "Pålitliga fordon för självkörande eller med förare. Flexibla hyresplaner för affärs-, fritids- eller gruppresor."
+  },
+"AboutUssec2": {
+  "titel1": "Globalt nätverk",
+  "text1": "Under havskryssningar, transport, reseplaner, reseförsäkring och lokala guider.",
+  "titel2": "Användarvänlig plattform",
+"text2": "Vår webbplats och app är utformade för att erbjuda en smidig bokningsupplevelse."
+
+,  "titel3": "Dedikerat stöd",
+  "text3": "Vårt team är här för att assistera dig via e-post med alla reseförfrågningar."
+}
+,
+  "AboutUssec3": {
+    "heading": "Den perfekta resan blir verklighet",
+    "para": "Fly Arzan skapades med målet att göra reseplanering enklare och mer prisvärd. Vi har arbetat hårt för att samla de bästa alternativen för flyg, hotell och biluthyrning, så att resenärer kan hitta allt de behöver på ett och samma ställe. Med tiden har vi byggt starka relationer med toppleverantörer för att erbjuda bra erbjudanden och en sömlös upplevelse för våra kunder."
+,
+"text2": "För närvarande erbjuder vi inga tjänster. Vårt team finns här för att assistera dig via e-post med alla resefrågor."
+,
+    "text1": "Vi samarbetar med ledande reseleverantörer för att ge dig tillgång till ett brett utbud av tjänster.",
+    "titel1": "Flygbiljetter",
+    "titel2": "Kryssningar",
+    "titel3": "Transport",
+    "titel4": "Resrutten",
+    "titel5": "Reseförsäkring",
+    "titel6": "Lokal guide"
+  },
+"ContactUspage": {
+  "heading": "Kontakt",
+  "titel1": "Wir freuen uns immer, mit Ihnen in Kontakt zu treten!",
+  "text1": "Wenn Sie an Werbung, Aktionen, Partnerschaften interessiert sind oder einfach nur Feedback teilen möchten, verwenden Sie bitte das untenstehende Kontaktformular. Füllen Sie einfach Ihren Namen, Ihre E-Mail-Adresse, den Betreff aus und hinterlassen Sie Ihre Nachricht im Kommentarfeld – unser Team wird es überprüfen und sich so schnell wie möglich bei Ihnen melden.",
+  "para1": "Standort",
+  "para2": "Manchester, Vereinigtes Königreich",
+  "para4": "Unsere E-Mail",
+  "para6": "info@flyarzan.com",
+  "para7": "Arbeitszeiten",
+  "para8": "Wir bemühen uns, alle Anfragen während unserer Geschäftszeiten zu beantworten",
+  "para9": "Montag bis Freitag | 9:00 AM – 5:00 PM (GMT)"
+}
+,
+
+
+
+"Faqpage1": {
+  "faq1": {
+    "question": "Hur söker jag efter hotell på er webbplats?",
+    "answer": "Ange din destination, resedatum och antal gäster för att direkt kunna bläddra bland tillgängliga hotell från flera leverantörer på ett ställe."
+  },
+  "faq2": {
+    "question": "Kan jag boka ett hotell direkt på er plattform?",
+    "answer": "Nej, vi är en jämförelsesajt. När du har valt ett hotell kommer vi att omdirigera dig till bokningsleverantörens sida för att slutföra din bokning."
+  },
+  "faq3": {
+    "question": "Visas hotellpriserna per person eller per rum?",
+    "answer": "Priser visas vanligtvis per rum, men detaljer som antal gäster och inkluderade tjänster finns på leverantörens sida."
+  },
+  "faq4": {
+    "question": "Inkluderar era listningar skatter och avgifter?",
+    "answer": "Vissa leverantörer inkluderar skatter och avgifter i det totala priset, medan andra visar dem vid kassan. Vi rekommenderar att du granskar detta på den slutliga bokningssidan."
+  },
+  "faq5": {
+    "question": "Hur kan jag hitta hotell med gratis avbokning?",
+    "answer": "Använd filtret ”Gratis avbokning” i dina sökresultat för att se fastigheter som erbjuder flexibla avbokningspolicyer."
+  },
+  "faq6": {
+    "question": "Kan jag filtrera hotell efter bekvämligheter som Wi-Fi, frukost eller pool?",
+    "answer": "Ja, du kan precisera din sökning med filter som gratis Wi-Fi, frukost inkluderad, swimmingpool, djurvänligt och mer."
+  },
+  "faq7": {
+    "question": "Visar ni både budgethotell och lyxhotell?",
+    "answer": "Ja, vi listar boende i alla prisklasser - från vandrarhem och pensionat till boutiquehotell och lyxresorter."
+  },
+  "faq8": {
+    "question": "Kan jag se hotellfoton och recensioner innan jag bokar?",
+    "answer": "Absolut. Du kan se detaljerade foton, stjärnbetyg och verifierade gästrecensioner för varje hotell innan du fattar ditt beslut."
+  },
+  "faq9": {
+    "question": "Hur vet jag om ett hotell är tillgängligt för mina datum?",
+    "answer": "Tillgängligheten uppdateras i realtid baserat på dina valda resedatum. Endast rum som är öppna för bokning visas."
+  },
+  "faq10": {
+    "question": "Kan jag söka efter boenden som lägenheter eller villor?",
+    "answer": "Ja, vi inkluderar alternativa boenden som serviced apartments, semesterhus och villor i dina sökresultat."
+  },
+  "faq11": {
+    "question": "Visas hotellannonser på en karta med exakt placering?",
+    "answer": "Ja, du kan se hotellens placering på en karta för att kontrollera närhet till sevärdheter, transportnav eller områden."
+  },
+  "faq12": {
+    "question": "Hur bokar jag flera rum för en grupp?",
+    "answer": "Du kan välja det antal rum du behöver under din sökning och visa priser baserat på gruppstorlek."
+  },
+  "faq13": {
+    "question": "Vad ska jag göra om jag vill göra ändringar i min hotellbokning?",
+    "answer": "Kontakta hotellet eller bokningsleverantören direkt för att göra ändringar, eftersom alla bokningar hanteras genom deras plattformar."
+  },
+  "faq14": {
+    "question": "Kan jag tjäna belöningar eller lojalitetspoäng med hotellbokningar?",
+    "answer": "Det beror på bokningsleverantören. Vissa plattformar låter dig tjäna lojalitetspoäng eller tillämpa rabatter om du är medlem."
+  },
+  "faq15": {
+    "question": "Är frukost inkluderad i hotellpriset?",
+    "answer": "Vissa annonser inkluderar frukost, medan andra inte gör det. Denna information kommer tydligt att visas innan du omdirigeras till leverantörens sida."
+  }
+}
+,
+
+
+"Faqpage2": {
+  "faq1": {
+    "question": "Hur söker jag efter biluthyrning?",
+    "answer": "Ange din upphämtningsplats, datum och tider för att omedelbart jämföra hyrbilsanbud från olika företag på ett ställe."
+  },
+  "faq2": {
+    "question": "Kan jag boka en hyrbil direkt på din plattform?",
+    "answer": "Nej, vi omdirigerar dig till uthyrningsbyråns eller bokningspartners webbplats där du kan slutföra din bokning."
+  },
+  "faq3": {
+    "question": "Behöver jag ett kreditkort för att hyra en bil?",
+    "answer": "De flesta hyrbilsföretag kräver ett kreditkort för säkerhetsdepositionen och bokningen. Kontrollera uthyrningsvillkoren på leverantörens webbplats för specifika detaljer."
+  },
+  "faq4": {
+    "question": "Kan jag hyra en bil utan körkort?",
+    "answer": "Nej, ett giltigt körkort krävs för alla uthyrningar. Vissa företag kräver också att du har haft körkortet i minst ett år."
+  },
+  "faq5": {
+    "question": "Ingår försäkring och skatter i hyrbilspriset?",
+    "answer": "Vissa leverantörer inkluderar grundläggande försäkring och skatter, medan andra erbjuder dessa som tillägg. Fullständiga detaljer finns på betalningssidan."
+  },
+  "faq6": {
+    "question": "Vilka typer av bilar kan jag hyra?",
+    "answer": "Du kan välja mellan ett brett utbud, inklusive ekonomi, kompakt, SUV, lyx och skåpbilar beroende på dina resebehov."
+  },
+  "faq7": {
+    "question": "Kan jag hämta bilen i en stad och lämna den i en annan?",
+    "answer": "Ja, detta kallas för en enkelriktad uthyrning. Använd det lämpliga alternativet under din sökning. Extraförsäkringar kan tillkomma beroende på rutten."
+  },
+  "faq8": {
+    "question": "Finns det åldersrestriktioner för att hyra en bil?",
+    "answer": "De flesta företag kräver att föraren är minst 21 år gammal, och extra avgifter kan tillkomma för de under 25. Kontrollera leverantörens villkor för exakta regler."
+  },
+  "faq9": {
+    "question": "Erbjuder ni filter som automatisk eller manuell växellåda?",
+    "answer": "Ja, du kan filtrera sökresultaten efter växellåda, bränslepolicy, passagerarkapacitet och mer."
+  },
+  "faq10": {
+    "question": "Kan jag lägga till en andra förare på min hyrbil?",
+    "answer": "Många leverantörer tillåter ytterligare förare mot en extra avgift. Se till att inkludera detta alternativ när du slutför din bokning på partnerwebbplatsen."
+  },
+  "faq11": {
+    "question": "Ingår bränsle i hyrbilspriset?",
+    "answer": "Vanligtvis inte. De flesta uthyrningar följer en full-till-full bränslepolicy, vilket innebär att du returnerar bilen med samma bränslenivå som vid upphämtning."
+  },
+  "faq12": {
+    "question": "Kan jag avboka eller ändra min hyrbilbokning?",
+    "answer": "Det beror på leverantörens policy. De flesta erbjuder gratis avbokning inom ett visst fönster. Detaljer finns på deras webbplats."
+  },
+  "faq13": {
+    "question": "Vilka dokument behöver jag när jag hämtar bilen?",
+    "answer": "Du behöver vanligtvis ett körkort, ett kreditkort och ibland en bokningsbekräftelse eller ID. Kontrollera alltid i förväg med uthyrningsföretaget."
+  },
+  "faq14": {
+    "question": "Kan jag hyra en bil på flygplatsen?",
+    "answer": "Ja, vår plattform visar alternativ för upphämtning på flygplatsen, inklusive uthyrningar på plats och med skjuts för ökad bekvämlighet."
+  },
+  "faq15": {
+    "question": "Vad händer om mitt flyg är försenat och jag missar upphämtningstiden?",
+    "answer": "De flesta hyrbilsföretag tillåter en nådperiod. Det är dock bäst att informera dem direkt om du förväntar dig förseningar, särskilt för upphämtning efter kontorstid."
+  }
+},
+
+"Faqpage3": {
+  "faq1": {
+    "question": "Betalar jag något på din webbplats?",
+    "answer": "Nej, vi hanterar inga transaktioner. När du har valt en flygning, hotell eller hyrbil omdirigeras du till leverantörens webbplats för att slutföra din bokning och betalning."
+  },
+  "faq2": {
+    "question": "Vilka betalningsmetoder kan jag använda med reseleverantörer?",
+    "answer": "De flesta leverantörer accepterar större kredit- och betalkort (Visa, Mastercard, American Express), och många stöder också PayPal, Apple Pay eller regionala betalningsalternativ."
+  },
+  "faq3": {
+    "question": "Är det säkert att ange mina betalningsuppgifter på bokningssidan?",
+    "answer": "Ja. Vi samarbetar bara med pålitliga reseleverantörer som använder säkra, krypterade betalningsportaler för att skydda din personliga och finansiella information."
+  },
+  "faq4": {
+    "question": "Finns det några dolda avgifter eller bokningsavgifter från vår sida?",
+    "answer": "Nej, vår plattform är helt gratis att använda. Du debiteras aldrig några extra avgifter från oss — din betalning går direkt till reseleverantören."
+  },
+  "faq5": {
+    "question": "Kommer jag att debiteras i min lokala valuta?",
+    "answer": "Det beror på leverantören. Många erbjuder valutaväxling och låter dig se och betala i din lokala valuta vid utcheckning."
+  },
+  "faq6": {
+    "question": "Kan jag dela upp betalningen över flera kort eller personer?",
+    "answer": "De flesta leverantörer kräver full betalning från en enda kortinnehavare. För gruppbokningar eller delade kostnader kan du behöva ordna betalningen separat."
+  },
+  "faq7": {
+    "question": "Behöver jag betala hela beloppet på en gång?",
+    "answer": "Det beror på leverantören och typen av tjänst. Vissa erbjuder 'betala senare' eller depositionsalternativ, medan andra kräver full betalning vid bokning."
+  },
+  "faq8": {
+    "question": "Vad händer om min betalning misslyckas på leverantörens webbplats?",
+    "answer": "Om en betalning misslyckas får du vanligtvis ett meddelande om att försöka igen eller använda en annan metod. Du kan också kontakta leverantörens supportteam för hjälp."
+  },
+  "faq9": {
+    "question": "Kan jag få en återbetalning om jag avbokar min bokning?",
+    "answer": "Återbetalningspolicyer varierar beroende på leverantör och tjänstetyp. Vissa erbjuder full återbetalning inom ett tidsfönster, medan andra kan ta ut en avbokningsavgift. Kontrollera alltid villkoren innan du bokar."
+  },
+  "faq10": {
+    "question": "Kommer jag att få en betalningsbekräftelse eller faktura?",
+    "answer": "Ja. När din betalning är slutförd på leverantörens webbplats får du en bekräftelse via e-post och en faktura direkt från dem."
+  }
+}
+,
+"Faqpage": {
+  "heading": "Har du frågor om oss? Vi har de rätta svaren för dig.",
+  "input": "Sök dina frågor här",
+  "tital1": "Vanliga Frågor",
+  "text1": "Välkommen till vår FAQ-sektion, där vi har besvarat de vanligaste frågorna för att hjälpa dig planera och boka din resa med förtroende. Oavsett om du söker efter flyg, hotell eller biluthyrning, hittar du tydliga och hjälpsamma svar om hur vår rese-sökmotor fungerar. Utforska varje kategori nedan för att lära dig mer och fatta informerade resebeslut med lätthet.",
+  "tab1": "Webbplatsens Funktion",
+  "tab2": "Hotellbokningar",
+  "tab3": "Biluthyrning",
+  "tab4": "Betalningar",
+  "faq1": {
+    "question": "Hur söker jag efter flyg på er webbplats?",
+    "answer": "Ange enkelt din avreseort, destination, resedatum och antal passagerare. Vårt system söker omedelbart bland flera flygbolag och reseleverantörer för att visa de bästa tillgängliga alternativen."
+  },
+  "faq2": {
+    "question": "Kan jag boka ett flyg direkt på er webbplats?",
+    "answer": "Nej, vi är en rese-sökmotor. När du hittar ett flyg som passar dina behov, omdirigerar vi dig till flygbolagets eller resebyråns webbplats för att slutföra bokningen."
+  },
+  "faq3": {
+    "question": "Visas flygpriser i realtid?",
+    "answer": "Ja, vår plattform hämtar realtidsdata från leverantörer för att säkerställa att du ser de senaste priserna och tillgången. Slutgiltig bekräftelse sker dock på leverantörens webbplats."
+  },
+  "faq4": {
+    "question": "Ingår skatter och avgifter i flygpriserna?",
+    "answer": "De flesta priser inkluderar grundläggande skatter och avgifter, men valfria tillägg som bagage, måltider eller platsval kan kosta mer och visas på bokningsleverantörens webbplats."
+  },
+  "faq5": {
+    "question": "Kan jag söka efter enkelresor, tur-och-retur eller flervägsflyg?",
+    "answer": "Absolut. Du kan välja önskad typ av resa innan du börjar din sökning och även lägga till flera destinationer för en anpassad resplan."
+  },
+  "faq6": {
+    "question": "Erbjuder ni flexibla datumalternativ?",
+    "answer": "Ja, vår funktion för flexibla datum låter dig se de billigaste flygen inom ett intervall av dagar runt dina valda avresedatum och returdatum."
+  },
+  "faq7": {
+    "question": "Hur kan jag filtrera flyg efter flygbolag, pris eller varaktighet?",
+    "answer": "Efter sökningen kan du använda våra filter för att begränsa resultaten efter flygbolag, prisklass, antal stopp, restid och mer."
+  },
+  "faq8": {
+    "question": "Kan jag sortera flyg efter kortast restid eller lägsta pris?",
+    "answer": "Ja, du kan enkelt sortera resultaten för att hitta den snabbaste rutten, det billigaste priset eller de mest bekväma avgångstiderna."
+  },
+  "faq9": {
+    "question": "Visar ni både budgetflygbolag och fullserviceflygbolag?",
+    "answer": "Ja, vi inkluderar resultat från både större flygbolag, budgetflygbolag och online-resebyråer för att ge dig en komplett bild av dina alternativ."
+  },
+  "faq10": {
+    "question": "Kan jag boka internationella och inrikes flyg?",
+    "answer": "Ja, vi stödjer sökningar för både inrikes- och internationella rutter över ett brett utbud av destinationer och flygbolag."
+  },
+  "faq11": {
+    "question": "Kan jag ställa in prisaviseringar för flyg?",
+    "answer": "Vi erbjuder en funktion för prisaviseringar där du kan prenumerera för att få meddelanden när priser för en vald rutt sjunker."
+  },
+  "faq12": {
+    "question": "Varför ändras priset ibland när jag klickar för att boka?",
+    "answer": "Flygpriser fluktuerar ständigt beroende på efterfrågan och tillgång. Om priset ändras, uppdateras det vanligtvis i realtid av leverantören."
+  },
+  "faq13": {
+    "question": "Hur vet jag om bagage ingår i flygpriset?",
+    "answer": "Varje listning anger om incheckat eller kabinbagage ingår, och fullständiga detaljer finns på bokningspartnerns webbplats."
+  },
+  "faq14": {
+    "question": "Vad ska jag göra om jag har problem med min flygbokning?",
+    "answer": "Eftersom bokningen genomförs på flygbolagets eller agentens webbplats måste du kontakta dem direkt för hjälp med ändringar, avbokningar eller återbetalningar."
+  },
+  "faq15": {
+    "question": "Kan jag boka flyg för grupper eller stora familjer?",
+    "answer": "Ja, du kan söka efter flyg för upp till 9 passagerare. För större grupper rekommenderar vi att du kontaktar flygbolaget eller reseleverantören direkt."
+  }
+}
+,
+  "FlightsInner": {
+    "Suggested": "Föreslagna",
+    "Fastest": "Snabbaste",
+    "Cheapest": "Billigaste",
+    "No_Flights_Found": "Inga flyg hittades",
+    "departing": "Välj ditt avgångsflyg",
+    "Results": "Resultat",
+    "departingflight": "Välj ditt avgångsflyg till Dubai",
+    "Nonstop": "Direkt",
+    "Economy": "Ekonomi",
+    "Select": "Välj",
+    "Round": "Pris för resa med retur",
+    "Show": "Visa fler resultat",
+    "More Filters": "Fler filter",
+    "Hide Filters": "Dölj filter"
+  },
+  "BookYourTicket": {
+    "Book": "Boka ditt flyg",
+    "Back_result": "Tillbaka till resultat",
+    "text1": "De visade priserna inkluderar uppskattade skatter och obligatoriska avgifter. Bagagepolicyer och biljettvillkor kan variera",
+    "text2": "Vissa leverantörer kan tillkomma ytterligare avgifter för bagage, försäkring eller kreditkortsbetalningar",
+    "text3": "Vänligen kontrollera alla biljettdetaljer och slutliga avgifter på leverantörens webbplats innan du slutför din bokning",
+    "Extra": "Extra tjänster",
+    "Saver": "Ekonomi",
+    "Premium": "Premium",
+    "Standard": "Standard",
+    "Flight_Details": "Flygdetaljer",
+    "Outbound": "Utgående",
+    "Directing_To": "Riktar sig mot"
+  },
+  "HotelsInnerlabel": {
+    "label1": "Visa efter",
+    "label2": "Pris",
+    "label3": "Boendetyp",
+    "label4": "Bekvämligheter",
+    "label5": "Stjärnor",
+    "label6": "Plats",
+    "text": "Välj ditt hotell för vistelse i London",
+    "para": "Morem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "Suppliers": "Leverantörer",
+    "All_Filters": "Alla filter"
+  },
+  "HotelfilterSections": {
+    "sortOptions": {
+      "select": "Välj",
+      "recommended": "Rekommenderade",
+      "priceLowToHigh": "Pris: Lågt till Högt",
+      "priceHighToLow": "Pris: Högt till Lågt",
+      "starRatingHighToLow": "Stjärnbetyg: Högt till Lågt",
+      "distanceClosest": "Avstånd: Närmast stadskärnan"
+    },
+    "starRating": {
+      "select": "Välj",
+      "options": {
+        "fiveStars": "5 stjärnor",
+        "fourStars": "4 stjärnor",
+        "threeStars": "3 stjärnor",
+        "twoStars": "2 stjärnor",
+        "oneStar": "1 stjärna",
+        "unrated": "Obedömd"
+      }
+    },
+    "categories": {
+      "traditional": {
+        "label": "Traditionella",
+        "options": {
+          "hotels": "Hotell",
+          "motels": "Motell",
+          "guesthouses": "Pensionat",
+          "bedAndBreakfasts": "B&B"
+        }
+      },
+      "luxuryStays": {
+        "label": "Lyxiga boenden",
+        "options": {
+          "resorts": "Resorter",
+          "villas": "Villor",
+          "boutiqueHotels": "Boutiquehotell"
+        }
+      },
+      "budgetFriendly": {
+        "label": "Budgetvänliga",
+        "options": {
+          "hostels": "Vandrarhem",
+          "capsuleHotels": "Kapselhotell"
+        }
+      },
+      "extendedStays": {
+        "label": "Långtidsboende",
+        "options": {
+          "apartments": "Lägenheter",
+          "servicedApartments": "Serviceade lägenheter"
+        }
+      },
+      "uniqueExperiences": {
+        "label": "Unika upplevelser",
+        "options": {
+          "cottages": "Stugor",
+          "farmStays": "Gårdsboende",
+          "holidayHomes": "Semesterboenden",
+          "campingAndGlamping": "Camping & Glamping"
+        }
+      }
+    },
+    "amenities": {
+      "roomFeatures": {
+        "label": "Rumsfunktioner",
+        "options": {
+          "airConditioning": "Luftkonditionering",
+          "heating": "Uppvärmning",
+          "privateBalcony": "Privat balkong",
+          "kitchenKitchenette": "Kök/Kökvrå",
+          "coffeeTeaMaker": "Kaffe-/tekokare",
+          "flatScreenTv": "Platt-TV",
+          "inRoomSafe": "Kassaskåp i rummet",
+          "workDesk": "Arbetsbord",
+          "premiumBedding": "Premium sängkläder"
+        }
+      },
+      "hotelServices": {
+        "label": "Hotelltjänster",
+        "options": {
+          "twentyFourHourFrontDesk": "24-timmars reception",
+          "conciergeService": "Concierge-tjänst",
+          "roomService": "Room service",
+          "dailyHousekeeping": "Daglig städning",
+          "laundryService": "Tvättservice",
+          "luggageStorage": "Bagageförvaring",
+          "wakeUpCallService": "Väckningstjänst"
+        }
+      },
+      "foodAndBeverage": {
+        "label": "Mat & Dryck",
+        "options": {
+          "complimentaryBreakfast": "Gratis frukost",
+          "onSiteRestaurant": "Restaurang på plats",
+          "barLounge": "Bar/Lounge",
+          "coffeeShop": "Kafé",
+          "miniBar": "Minibar"
+        }
+      },
+      "recreationalFacilities": {
+        "label": "Rekreationsanläggningar",
+        "options": {
+          "swimmingPool": "Simbassäng (Inomhus/Utomhus)",
+          "fitnessCenter": "Träningscenter",
+          "spaWellnessCenter": "Spa/Wellness-center",
+          "kidsPlayArea": "Barnlekplats",
+          "gameRoom": "Spelsal"
+        }
+      },
+      "businessFacilities": {
+        "label": "Affärsanläggningar",
+        "options": {
+          "conferenceRooms": "Konferensrum",
+          "businessCenter": "Affärscenter",
+          "freeWiFi": "Gratis Wi-Fi",
+          "meetingRooms": "Mötesrum"
+        }
+      },
+      "accessibility": {
+        "label": "Tillgänglighet",
+        "options": {
+          "wheelchairAccessible": "Rullstolsanpassad",
+          "elevatorLift": "Hiss",
+          "accessibleParking": "Tillgängligt parkering",
+          "hearingVisualAccessibility": "Hörsel-/synanpassning"
+        }
+      },
+      "parkingAndTransportation": {
+        "label": "Parkering & Transport",
+        "options": {
+          "freeParking": "Gratis parkering",
+          "valetParking": "Valetparkering",
+          "shuttleService": "Shuttleservice (Flygplats/Lokal)",
+          "evChargingStations": "Elbilsladdningsstationer"
+        }
+      },
+      "petPolicies": {
+        "label": "Husdjursregler",
+        "options": {
+          "petFriendly": "Husdjursvänligt",
+          "petFreeRooms": "Husdjursfria rum tillgängliga"
+        }
+      },
+      "ecoFriendlyFeatures": {
+        "label": "Miljövänliga funktioner",
+        "options": {
+          "energyEfficientLighting": "Energieffektiv belysning",
+          "recyclingFacilities": "Återvinningsanläggningar",
+          "sustainableProducts": "Hållbara produkter"
+        }
+      }
+    },
+    "location": {
+      "select": "Välj",
+      "options": {
+        "anyDistance": "Valfritt avstånd",
+        "lessThan1Mi": "Mindre än 1 mil",
+        "lessThan2Mi": "Mindre än 2 mil",
+        "lessThan3Mi": "Mindre än 3 mil",
+        "lessThan4Mi": "Mindre än 4 mil",
+        "lessThan5Mi": "Mindre än 5 mil",
+        "lessThan6Mi": "Mindre än 6 mil",
+        "lessThan7Mi": "Mindre än 7 mil",
+        "lessThan8Mi": "Mindre än 8 mil"
+      }
+    },
+    "hotelFilters": {
+  "FoodAndBeverage": {
+    "title": "Mat och dryck",
+    "options": {
+      "complimentaryBreakfast": "Gratis frukost",
+      "onSiteRestaurant": "Restaurang på plats",
+      "barLounge": "Bar / Lounge",
+      "coffeeShop": "Kafé",
+      "miniBar": "Minibar"
+    }
+  },
+  "payments": {
+    "title": "Betalningar",
+    "options": {
+      "payNow": "Betala nu",
+      "payLater": "Betala senare",
+      "partialPayment": "Delbetalning",
+      "flexiblePayment": "Flexibel betalning"
+    }
+  },
+  "accessibility": {
+    "title": "Tillgänglighet",
+    "options": {
+      "wheelchairAccessible": "Rullstolsanpassat",
+      "elevatorLift": "Hiss",
+      "accessibleParking": "Tillgänglig parkering",
+      "hearingVisualAccessibility": "Hörsel-/synanpassningar"
+    }
+  }
+}
+
+  },
+  "CarfilterSections": {
+  "label1": "Sortera efter",
+  "label2": "Biltyp",
+  "label3": "Säten - Väskor",
+  "label4": "Betalningstyp",
+  "label5": "Växellåda",
+  "label6": "Plats",
+  "sortBy": {
+    "select": "Välj",
+    "suggested": "Föreslaget",
+    "cheapest": "Billigast"
+  },
+  "carType": {
+    "select": "Välj",
+    "options": {
+      "small": "Liten",
+      "medium": "Mellan",
+      "standard": "Standard",
+      "fullSize": "Fullstor",
+      "luxury": "Lyx",
+      "suv": "SUV",
+      "convertible": "Cabriolet",
+      "minivan": "Minibuss",
+      "pickupTruck": "Pickup",
+      "sportsCar": "Sportbil",
+      "electricVehicle": "Elbil",
+      "fourByFour": "4x4",
+      "crossover": "Crossover",
+      "luxurySuv": "Lyx SUV"
+    }
+  },
+  "seatsAndBags": {
+    "seats": {
+      "label": "Säten",
+      "options": {
+        "twoSeats": "2 säten",
+        "fourSeats": "4 säten",
+        "fiveSeats": "5 säten",
+        "sevenPlusSeats": "7+ säten"
+      }
+    },
+    "bags": {
+      "label": "Väskor",
+      "options": {
+        "oneToTwoBags": "1-2 väskor",
+        "threeToFourBags": "3-4 väskor",
+        "fiveToSixBags": "5-6 väskor",
+        "sevenPlusBags": "7+ väskor"
+      }
+    }
+  },
+  "paymentType": {
+    "select": "Välj",
+    "options": {
+      "payNow": "Betala nu",
+      "payLater": "Betala senare",
+      "partialPayment": "Delbetalning",
+      "flexiblePayment": "Flexibel betalning"
+    }
+  },
+  "transmissionType": {
+    "select": "Välj",
+    "options": {
+      "manual": "Manuell",
+      "automatic": "Automatisk",
+      "cvt": "CVT",
+      "dct": "DCT",
+      "tiptronic": "Tiptronic"
+    }
+  },
+  "location": {
+    "select": "Välj",
+    "options": {
+      "airport": "Flygplats",
+      "cityCenter": "Stadens centrum",
+      "hotelPickup": "Upphämtning vid hotell",
+      "customLocation": "Annat (Anpassad plats)"
+    }
+  }
+},
+"HeaderMenu": {
+    "tital1": "Sidor",
+    "tital2": "Flyg",
+    "tital3": "Hotell",
+    "tital4": "Bil",
+    "tital5": "Aktivitet",
+    "text1": "Hem",
+    "text2": "Om oss",
+    "text3": "Vanliga Frågor",
+    "text4": "Kontakt",
+    "text5": "Huvuderbjudanden",
+    "text6": "Artiklar",
+    "text7": "Vanliga Frågor",
+    "text8": "Börja din resa idag",
+    "text9": "Visumkrav",
+    "text10": "Detaljer om närmaste flygplats",
+    "text11": "Detalj",
+    "text12": "Artikel",
+    "texth8": "Utökade hotellalternativ",
+    "textc8": "Börja din resa på vägen"
+}
+,
+"Logsec": {
+  "heading": "Logga in för att börja",
+  "para": "Vänligen ange dina uppgifter",
+  "label1": "E-postadress/Användarnamn",
+  "label2": "Lösenord",
+  "label3": "Kom ihåg mig",
+  "label4": "Glömt lösenord?",
+  "btn1": "Logga in",
+  "label5": "Eller fortsätt med",
+  "label6": "eller",
+  "label7": "Inget konto?",
+  "heading1": "Skapa ditt konto",
+  "para1": "Få prisaviseringar, planera enkelt och njut av snabba bokningar.",
+  "label8": "E-post",
+  "label9": "Nytt lösenord",
+  "label10": "Bekräfta lösenord",
+  "label11": "Jag accepterar",
+  "label12": "Användarvillkor",
+  "label13": "och",
+  "label14": "Integritetspolicy",
+  "btn2": "Skapa konto",
+  "btn3": "Loggar in...",
+"btn4": "Logga ut",
+"btn5": "Registrerar...",
+
+  "label15": "Har du redan ett konto?"
+}
+}

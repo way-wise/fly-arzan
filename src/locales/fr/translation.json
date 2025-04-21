@@ -1,0 +1,1259 @@
+{
+  "lg": "Français",
+  "upperSection": {
+    "Login": "Connexion",
+    "menu": "Menu",
+    "closeMenu": "Fermer le menu",
+    "Cheap_flights_para": "Prix abordables dans le monde entier, une seule recherche simple",
+    "Our_search": "Notre recherche vous fait économiser de l'argent",
+    "flights": "Vols",
+    "hotels": "Hôtels",
+    "cars_Rentals": "Location de voitures",
+    "Cabin_Class_Adults": "Classe de cabine et adultes",
+
+    "oneWay": "Aller simple",
+    "return": "Aller-retour",
+    "multiCity": "Multi-villes",
+    "flying_from": "Départ de",
+    "flying_to": "Arrivée à",
+    "departure_date": "Date de départ",
+    "return_date": "Date de retour",
+    "start_journey": "Commencez votre voyage",
+    "add_flight": "Ajouter un vol",
+    "ECONOMY": "Économie",
+    "PREMIUM_ECONOMY": "Économie Premium",
+    "BUSINESS": "Affaires",
+    "FIRST": "Première classe",
+    "cabinClass": "Classe de cabine",
+    "Adults": "Adultes",
+    "Aged18": "Âge 18+",
+    "Children": "Enfants",
+    "Aged17": "Âge 0 à 17",
+    "city": "Ville",
+    "CheckIn": "Arrivée",
+    "CheckOut": "Départ",
+    "Rooms": "Chambres",
+    "Done": "Terminé",
+    "Search_Hotels": "Rechercher des hôtels",
+    "Rent_car": "Louer une voiture",
+    "rent_a_car": "Louer une voiture",
+    "airport_shuttle": "Navette aéroport",
+    "within_city": "Dans la ville",
+    "out_of_city": "Hors de la ville",
+    "pickup_time": "Heure de prise en charge",
+    "dropoff_time": "Heure de restitution",
+    "pickup_date": "Date de prise en charge",
+    "dropoff_date": "Date de restitution",
+    "search": "Rechercher",
+    "input": "Cliquez ici"
+  },
+  "section2": {
+    "Search_simply": "Recherche simplifiée",
+    "Search_simply_para": "Simplifiez la planification de votre voyage avec des recherches faciles. Trouvez vos vols parfaits en quelques clics.",
+    "Comparison": "Comparez en toute confiance",
+    "Comparison_para": "Comparez les options côte à côte pour découvrir les meilleures offres. Réservez en toute confiance, en sachant que vous avez fait le bon choix.",
+    "Maximize_Savings": "Maximisez vos économies",
+    "Maximize_Savings_para": "Débloquez des économies qui rendent chaque voyage abordable. Voyagez intelligemment et gardez plus d'argent dans votre poche."
+  },
+  "buttons": {
+    "more": "Plus",
+    "showLess": "Afficher moins",
+    "searchHere": "Rechercher ici",
+    "book": "Réserver",
+    "Search": "Rechercher",
+    "Learn_More": "En savoir plus",
+    "Submit": "Soumettre",
+    "BookNow": "Réserver maintenant",
+    "Save": "Enregistrer",
+    "apply": "Appliquer",
+    "reset": "Réinitialiser",
+    "clear": "Effacer"
+  },
+  "Useful Articles": "Articles utiles",
+  "flightFaqSection": {
+    "heading": "Questions fréquemment posées",
+    "faqs": {
+      "hotel_search": {
+        "question": "Comment rechercher des hôtels sur Flay Arzan ?",
+        "answer": "Entrez simplement votre destination, vos dates de voyage et le nombre de personnes dans notre barre de recherche. Notre plateforme affichera alors une large gamme d'options d'hôtels adaptées à vos préférences, y compris des choix économiques, intermédiaires et de luxe, pour vous assurer de trouver l'endroit idéal pour votre séjour."
+      },
+      "filter_amenities": {
+        "question": "Puis-je filtrer les résultats de recherche d'hôtels par commodités ?",
+        "answer": "Oui, notre système de filtrage avancé vous permet de personnaliser votre recherche selon vos besoins spécifiques. Vous pouvez filtrer par commodités telles que le WiFi, la piscine, le parking, et bien plus encore."
+      },
+      "book_hotel": {
+        "question": "Puis-je réserver un hôtel via Flay Arzan ?",
+        "answer": "Oui, vous pouvez réserver directement via notre plateforme. Nous collaborons avec des hôtels de confiance pour vous offrir un processus de réservation sécurisé et transparent."
+      },
+      "hotel_availability": {
+        "question": "À quel point les disponibilités des hôtels sur votre plateforme sont-elles précises ?",
+        "answer": "Nous mettons à jour les disponibilités en temps réel grâce à une synchronisation directe avec nos partenaires hôteliers, garantissant des informations précises."
+      },
+      "customer_reviews": {
+        "question": "Puis-je voir les avis des clients pour les hôtels listés ?",
+        "answer": "Oui, vous pouvez lire des avis authentiques d'autres voyageurs pour chaque hôtel, vous aidant à prendre une décision éclairée."
+      },
+      "hidden_fees": {
+        "question": "Y a-t-il des frais cachés lorsque je réserve un hôtel ?",
+        "answer": "Non, nous affichons tous les frais de manière transparente. Le prix final inclut toutes les taxes et charges obligatoires."
+      },
+      "cancel_modify": {
+        "question": "Puis-je annuler ou modifier ma réservation d'hôtel ?",
+        "answer": "Les politiques d'annulation et de modification varient selon l'hôtel. Les conditions spécifiques sont clairement indiquées avant la réservation."
+      },
+      "hotel_suitability": {
+        "question": "Comment savoir si un hôtel correspond à mes besoins ?",
+        "answer": "Consultez les descriptions détaillées, les photos, les commodités et les avis des clients pour évaluer si l'hôtel répond à vos attentes."
+      },
+      "special_deals": {
+        "question": "Proposez-vous des offres spéciales ou des réductions sur les hôtels ?",
+        "answer": "Oui, nous proposons régulièrement des offres spéciales et des réductions exclusives. Abonnez-vous à notre newsletter pour découvrir les meilleures offres."
+      },
+      "direct_booking": {
+        "question": "Est-ce que je réserve mon hôtel directement via Flay Arzan ?",
+        "answer": "Oui, toutes les réservations sont effectuées directement via notre plateforme, garantissant un processus sécurisé et un service client dédié."
+      }
+    },
+    "flightCard": {
+      "PlacesLike": "Des endroits que vous pourriez aimer",
+      "PlacesLikePara": "Découvrez les meilleures offres de vols depuis la France aux prix les plus bas. Ces offres sont disponibles pour une durée limitée, alors explorez-les à votre propre rythme !",
+
+      "FlightDealsFrom": "Offres de vols depuis {{country}}",
+      "Discover_flight_deals": "Découvrez les meilleures offres de vols depuis",
+      "at_the_lowest_prices": "aux prix les plus bas. Ces offres sont disponibles pour une durée limitée, alors explorez-les à votre propre rythme !",
+
+      "day": "Jour",
+      "night": "Nuit",
+      "Beaches": "Plages",
+      "Snorkeling": "Plongée avec tuba",
+      "Food": "Nourriture"
+    }
+  },
+  "BeginJourney": "Commencez votre voyage aujourd'hui",
+  "footer": {
+    "quickLinks": {
+      "title": "Liens rapides",
+      "about": "À propos de nous",
+      "faqs": "FAQ",
+      "privacyPolicy": "Politique de confidentialité",
+      "contact": "Contact"
+    },
+    "travelSupport": {
+      "title": "Informations de soutien aux voyageurs",
+      "covid": "Mises à jour COVID-19",
+      "visa": "Exigences de visa",
+      "airport": "Détails de l'aéroport le plus proche"
+    },
+    "newsletter": {
+      "title": "Découvrez des trésors cachés : Inspiration voyage dans votre boîte de réception",
+      "placeholder": "Entrez votre adresse e-mail"
+    },
+    "copyright": "©2025 Droits d'auteur par FlyArzan. Tous droits réservés."
+  },
+  "hotel_section": {
+    "Cheap_hotels_para": "Hôtels abordables partout, une seule recherche simple",
+    "Our_search": "Notre recherche vous fait économiser de l'argent",
+    "Discover_Hotel": "Découvrez les meilleures offres d'hôtels",
+    "Explore_hotel_para": "Explorez les options d'hôtels aux meilleurs prix, offrant des tarifs imbattables et une valeur exceptionnelle pour votre prochain séjour",
+    "Articles_utiles": "Articles utiles",
+    "Extended_hotel_options": "Options d'hôtels étendues",
+    "Guests and rooms": "Invités et chambres"
+  },
+  "hotelFaqs": {
+    "heading": "Questions fréquemment posées",
+    "search": {
+      "question": "Comment rechercher des hôtels sur Flay Arzan ?",
+      "answer": "Entrez simplement votre destination, vos dates de voyage et le nombre de personnes dans notre barre de recherche. Notre plateforme affichera alors une large gamme d'options d'hôtels adaptées à vos préférences, y compris des choix économiques, intermédiaires et de luxe, pour vous assurer de trouver l'endroit idéal pour votre séjour."
+    },
+    "amenities": {
+      "question": "Puis-je filtrer les résultats de recherche d'hôtels par commodités ?",
+      "answer": "Oui, notre système de filtrage avancé vous permet de personnaliser votre recherche selon vos besoins spécifiques. Vous pouvez filtrer par commodités telles que le WiFi, la piscine, le parking, et bien plus encore."
+    },
+    "booking": {
+      "question": "Puis-je réserver un hôtel via Flay Arzan ?",
+      "answer": "Oui, vous pouvez réserver directement via notre plateforme. Nous collaborons avec des hôtels de confiance pour vous offrir un processus de réservation sécurisé et transparent."
+    },
+    "availability": {
+      "question": "À quel point les disponibilités des hôtels sur votre plateforme sont-elles précises ?",
+      "answer": "Nous mettons à jour les disponibilités en temps réel grâce à une synchronisation directe avec nos partenaires hôteliers, garantissant des informations précises."
+    },
+    "reviews": {
+      "question": "Puis-je voir les avis des clients pour les hôtels listés ?",
+      "answer": "Oui, vous pouvez lire des avis authentiques d'autres voyageurs pour chaque hôtel, vous aidant à prendre une décision éclairée."
+    },
+    "fees": {
+      "question": "Y a-t-il des frais cachés lorsque je réserve un hôtel ?",
+      "answer": "Non, nous affichons tous les frais de manière transparente. Le prix final inclut toutes les taxes et charges obligatoires."
+    },
+    "cancellation": {
+      "question": "Puis-je annuler ou modifier ma réservation d'hôtel ?",
+      "answer": "Les politiques d'annulation et de modification varient selon l'hôtel. Les conditions spécifiques sont clairement indiquées avant la réservation."
+    },
+    "suitability": {
+      "question": "Comment savoir si un hôtel correspond à mes besoins ?",
+      "answer": "Consultez les descriptions détaillées, les photos, les commodités et les avis des clients pour évaluer si l'hôtel répond à vos attentes."
+    },
+    "deals": {
+      "question": "Proposez-vous des offres spéciales ou des réductions sur les hôtels ?",
+      "answer": "Oui, nous proposons régulièrement des offres spéciales et des réductions exclusives. Abonnez-vous à notre newsletter pour découvrir les meilleures offres."
+    },
+    "directBooking": {
+      "question": "Est-ce que je réserve mon hôtel directement via Flay Arzan ?",
+      "answer": "Oui, toutes les réservations sont effectuées directement via notre plateforme, garantissant un processus sécurisé et un service client dédié."
+    }
+  },
+  "carsection": {
+    "Find_the_best_car": "Trouvez la meilleure voiture, une seule recherche simple",
+    "Our_search": "Notre recherche, vos économies",
+    "Find_the_Best": "Trouvez les meilleures offres de location de voitures",
+    "Explore_top_car": "Explorez les meilleurs fournisseurs de location de voitures offrant des prix imbattables et une valeur exceptionnelle pour votre voyage en voiture.",
+    "Begin_your": "Commencez votre voyage en voiture"
+  },
+  "carfaq": {
+    "Frequently": "Questions fréquemment posées",
+    "search": {
+      "question": "Comment rechercher des hôtels sur Flay Arzan ?",
+      "answer": "Entrez simplement votre destination, vos dates de voyage et le nombre de personnes dans notre barre de recherche. Notre plateforme affichera alors une large gamme d'options d'hôtels adaptées à vos préférences, y compris des choix économiques, intermédiaires et de luxe, pour vous assurer de trouver l'endroit idéal pour votre séjour."
+    },
+    "faq2": {
+      "question": "Puis-je filtrer les résultats de recherche d'hôtels par commodités ?",
+      "answer": "Pour trouver les meilleures offres de vols, utilisez nos filtres pour des dates flexibles, des compagnies aériennes et des destinations. Inscrivez-vous pour recevoir des alertes sur les offres."
+    },
+    "faq3": {
+      "question": "Puis-je réserver un hôtel via Flay Arzan ?",
+      "answer": "Les prix affichés incluent la plupart des taxes et frais, mais des frais supplémentaires comme les frais de bagages peuvent s'appliquer."
+    },
+    "faq4": {
+      "question": "À quel point les disponibilités des hôtels sur votre plateforme sont-elles précises ?"
+    },
+    "faq5": {
+      "question": "Puis-je voir les avis des clients pour les hôtels listés ?"
+    },
+    "faq6": {
+      "question": "Y a-t-il des frais cachés lorsque je réserve un hôtel ?"
+    },
+    "faq7": {
+      "question": "Puis-je annuler ou modifier ma réservation d'hôtel ?"
+    },
+    "faq8": {
+      "question": "Comment savoir si un hôtel correspond à mes besoins ?"
+    },
+    "faq9": {
+      "question": "Proposez-vous des offres spéciales ou des réductions sur les hôtels ?"
+    },
+    "faq10": {
+      "question": "Est-ce que je réserve mon hôtel directement via Flay Arzan ?"
+    },
+    "faq11": {
+      "question": "Y a-t-il des frais cachés lorsque je réserve un hôtel ?"
+    },
+    "faq12": {
+      "question": "Puis-je annuler ou modifier ma réservation d'hôtel ?"
+    },
+    "faq13": {
+      "question": "Comment savoir si un hôtel correspond à mes besoins ?"
+    },
+    "faq14": {
+      "question": "Proposez-vous des offres spéciales ou des réductions sur les hôtels ?"
+    },
+    "faq15": {
+      "question": "Est-ce que je réserve mon hôtel directement via Flay Arzan ?"
+    }
+  },
+  "PrivacyPolicypage": {
+    "heading": "Collecte d'informations",
+    "heading1": "Politique de confidentialité de Fly Arzan",
+    "para": "Bienvenue chez Fly Arzan ! Nous sommes un moteur de recherche pour les vols, hôtels et locations de voitures. Votre vie privée est importante pour nous, et nous nous engageons à protéger vos informations personnelles. Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons vos données lorsque vous utilisez notre site web.",
+    "text1": "Fly Arzan collecte un minimum d'informations pour améliorer votre expérience. Les seules données personnelles que nous collectons sont :",
+    "text2": "Adresse e-mail",
+    "text3": "Seulement si vous la fournissez volontairement pour recevoir des notifications sur les offres, promotions et mises à jour.",
+    "text4": "Nous ne collectons pas :",
+    "text5": "Informations de paiement (nous vous redirigeons vers des plateformes de réservation tierces).",
+    "text6": "Détails de passeport ou d'identité.",
+    "text7": "Adresses personnelles ou numéros de téléphone.",
+    "text8": "Utilisation des informations",
+    "text9": "Votre adresse e-mail (si fournie) sera utilisée uniquement pour :",
+    "text10": "Envoyer des offres promotionnelles et des réductions.",
+    "text11": "Vous informer des nouvelles fonctionnalités ou mises à jour sur Fly Arzan.",
+    "text12": "Répondre aux demandes des clients (si vous nous contactez).",
+    "text13": "Nous ne vendrons, louerons ni partagerons jamais votre adresse e-mail à des tiers à des fins marketing sans votre consentement explicite.",
+    "text14": "Sécurité des données",
+    "text15": "Nous mettons en œuvre des mesures de sécurité conformes aux normes de l'industrie pour protéger vos informations, notamment :",
+    "text16": "Chiffrement (SSL) pour la transmission des données.",
+    "text17": "Stockage sécurisé des adresses e-mail dans des bases de données protégées.",
+    "text18": "Audits de sécurité réguliers pour éviter les accès non autorisés.",
+    "text19": "Malgré nos efforts, aucune plateforme en ligne ne peut garantir une sécurité à 100 %. Nous encourageons les utilisateurs à faire preuve de prudence lorsqu’ils partagent des informations personnelles en ligne.",
+    "text20": "Partage avec des tiers",
+    "text21": "Fly Arzan travaille avec des prestataires de services tiers (par exemple, compagnies aériennes, hôtels, agences de location de voitures) pour fournir les résultats de recherche. Lorsque vous cliquez sur un lien de réservation, vous êtes redirigé vers leur site web, qui dispose de sa propre politique de confidentialité. Nous ne contrôlons ni ne stockons :",
+    "text22": "Les transactions de réservation.",
+    "text23": "Les détails de paiement.",
+    "text24": "Les données personnelles saisies sur des sites tiers.",
+    "text25": "Politique de cookies",
+    "text26": "Fly Arzan utilise des cookies et des technologies de suivi similaires pour :",
+    "text27": "Améliorer la fonctionnalité du site web.",
+    "text28": "Personnaliser les résultats de recherche.",
+    "text29": "Analyser le comportement des utilisateurs (par exemple via Google Analytics) pour améliorer les performances.",
+    "text30": "Vous pouvez désactiver les cookies dans les paramètres de votre navigateur, mais certaines fonctionnalités peuvent ne pas fonctionner correctement.",
+    "text31": "Droits des utilisateurs",
+    "text32": "Vous avez le droit de :",
+    "text33": "Accéder – Demander les détails des données que nous détenons sur vous.",
+    "text34": "Supprimer – Demander la suppression de votre adresse e-mail de notre base de données.",
+    "text35": "Se désabonner – Se retirer des e-mails marketing à tout moment via le lien de désinscription dans les e-mails.",
+    "text36": "Modifications de cette politique",
+    "text37": "Nous pouvons mettre à jour cette politique de confidentialité de temps en temps. Toute modification sera publiée ici, et nous vous encourageons à la consulter périodiquement.",
+    "text38": "Contactez-nous",
+    "text39": "Pour toute question, demande de données ou préoccupation concernant la vie privée, veuillez nous contacter à :",
+    "text40": "Email : info@flyarzan.com",
+    "text41": "Site web : www.flyarzan.com",
+    "text42": "Merci de faire confiance à Fly Arzan pour vos recherches de voyages !"
+  },
+  "AboutUs": {
+    "heading": "Qui nous sommes",
+    "Who_We_Are": "Qui nous sommes",
+    "text1": "Chez Fly Arzan, nous facilitons la recherche des meilleures offres de vols, d'hôtels et de locations de voitures — tout en un seul endroit.",
+    "text2": "Nous ne sommes pas un site de réservation — nous sommes votre compagnon de recherche de voyage. Dites-nous simplement où vous voulez aller, et nous vous aiderons à comparer les prix de différentes compagnies aériennes, hôtels et agences de location pour que vous puissiez choisir ce qui vous convient le mieux (et à votre porte-monnaie).",
+    "text3": "Le nom « Arzan » signifie abordable, et c’est notre objectif : vous aider à voyager plus intelligemment et moins cher, sans le stress.",
+    "text4": "Nous collectons uniquement votre adresse e-mail (si vous souhaitez recevoir des mises à jour sur les offres et promotions), et nous ne vous enverrons jamais de spam ni ne partagerons vos informations.",
+    "text5": "Merci de voyager intelligemment avec Fly Arzan. Planifions quelque chose de génial ensemble."
+  },
+  "AboutUssec1": {
+    "heading": "Des vacances parfaites réalisées avec notre agence de voyage.",
+    "text1": "Comparez facilement les vols, les hôtels et les locations de voitures – tout en un seul endroit, afin que vous puissiez trouver les meilleures offres et réaliser votre voyage de rêve.",
+    "Ticket": "Réservation de billets",
+    "text2": "Accès à des vols domestiques et internationaux à des tarifs compétitifs. Recherche et comparaison faciles pour trouver les meilleures offres selon votre emploi du temps.",
+    "Hotel": "Réservation d'hôtel",
+    "text3": "Listes d'hôtels soigneusement sélectionnés, allant des options économiques aux séjours de luxe. Filtres pour choisir en fonction de l'emplacement, des commodités et du prix.",
+    "Rent": "Services de location de voitures",
+    "text4": "Véhicules fiables pour une conduite autonome ou avec chauffeur. Plans de location flexibles pour les affaires, les loisirs ou les voyages en groupe."
+  },
+  "AboutUssec2": {
+    "titel1": "Réseau mondial",
+    "text1": "Sous les croisières océaniques, le transport, les itinéraires de voyage, l'assurance voyage et les guides locaux.",
+    "titel2": "Plateforme conviviale",
+    "text2": "Notre site web et notre application sont conçus pour offrir une expérience de réservation fluide.",
+
+    "titel3": "Support dédié",
+    "text3": "Notre équipe est là pour vous aider par e-mail pour toute question relative au voyage."
+  },
+  "AboutUssec3": {
+    "heading": "Des vacances parfaites réalisées",
+    "para": "Fly Arzan a été créé dans le but de rendre la planification des voyages plus facile et abordable. Nous avons travaillé dur pour rassembler les meilleures options pour les vols, les hôtels et la location de voitures, afin que les voyageurs puissent trouver ce dont ils ont besoin en un seul endroit. Au fil du temps, nous avons établi des relations solides avec les meilleurs fournisseurs pour offrir de superbes offres et une expérience fluide à nos clients.",
+    "text2": "Actuellement, nous ne proposons aucun service. Notre équipe est ici pour vous aider par e-mail avec toutes les demandes de voyage.",
+    "text1": "Nous collaborons avec des fournisseurs de voyage de premier plan pour vous donner accès à une large gamme de services.",
+    "titel1": "Billets d'avion",
+    "titel2": "Croisières océaniques",
+    "titel3": "Transport",
+    "titel4": "Itinéraires de voyage",
+    "titel5": "Assurance voyage",
+    "titel6": "Guide local"
+  },
+  "ContactUspage": {
+    "heading": "Contactez-nous",
+    "titel1": "Nous sommes toujours heureux de vous connecter!",
+    "text1": "Si vous êtes intéressé par la publicité, les promotions, les partenariats, ou si vous souhaitez simplement partager des commentaires, veuillez utiliser le formulaire de contact ci-dessous. Remplissez simplement votre nom, votre e-mail, le sujet, et laissez votre message dans la section des commentaires — notre équipe l'examinera et vous répondra dès que possible.",
+    "para1": "Emplacement",
+    "para2": "Manchester, Royaume-Uni",
+    "para4": "Notre e-mail",
+    "para6": "info@flyarzan.com",
+    "para7": "Heures de travail",
+    "para8": "Nous visons à répondre à toutes les demandes pendant nos heures d'ouverture",
+    "para9": "Lundi à Vendredi | 9h00 – 17h00 (GMT)"
+  },
+  "Faqpage": {
+    "heading": "Having Question About Us? We Have Just The Right Answers For You.",
+    "input": "Search your queries here",
+    "tital1": "Frequently Asked Quessstions",
+    "text1": "Welcome to our FAQ section, where we’ve answered the most common questions to help you plan and book your journey with confidence. Whether you're searching for flights, hotels, or car rentals, you’ll find clear and helpful answers about how our travel search engine works. Explore each category below to learn more and make informed travel decisions with ease.",
+    "tab1": "Website Working",
+    "tab2": "Réservations d'hôtel",
+    "tab3": "Car Rentals",
+    "tab4": "Payments",
+    "faq1": {
+      "question": "How do I search for flights on your website?",
+      "answer": "Simply enter your departure city, destination, travel dates, and number of passengers. Our system will instantly search multiple airlines and travel providers to show you the best available options."
+    },
+    "faq2": {
+      "question": "Can I book a flight directly on your website? ",
+      "answer": "No, we are a travel search engine. Once you find a flight that suits your needs, we’ll redirect you to the airline or travel agency’s website to complete your booking."
+    },
+    "faq3": {
+      "question": "Are the flight prices shown in real-time?",
+      "answer": "Yes, our platform pulls real-time data from providers to ensure you see the latest prices and availability. However, final confirmation happens on the provider's site. "
+    },
+    "faq4": {
+      "question": "Do your flight prices include taxes and fees? ",
+      "answer": "Most prices include basic taxes and fees, but optional extras like baggage, meals, or seat selection may cost more and are shown on the booking provider’s site."
+    },
+    "faq5": {
+      "question": "Can I search for one-way, round-trip, or multi-city flights? ",
+      "answer": "Absolutely. You can choose your preferred trip type before starting your search and even add multiple destinations for a customized itinerary"
+    },
+    "faq6": {
+      "question": "Do you offer flexible date search options? ",
+      "answer": "Yes, our flexible date feature allows you to see the cheapest flights within a range of days around your chosen departure and return dates"
+    },
+    "faq7": {
+      "question": "How can I filter flights by airline, price, or duration? ",
+      "answer": "After searching, use our filters to narrow down results by airline, price range, number of stops, travel time, and more"
+    },
+    "faq8": {
+      "question": "Can I sort flights by shortest travel time or lowest price? ",
+      "answer": "Yes, you can easily sort results to find the fastest route, cheapest fare, or most convenientdeparture times. "
+    },
+    "faq9": {
+      "question": "Do you show both budget and full-service airlines? ",
+      "answer": "Yes, we include results from major carriers, budget airlines, and online travel agencies to give you a complete picture of your options."
+    },
+    "faq10": {
+      "question": "Can I book international and domestic flights? ",
+      "answer": "Yes, we support searches for both domestic and international routes across a wide rangeof destinations and airlines. "
+    },
+    "faq11": {
+      "question": "Can I set flight price alerts?",
+      "answer": "We offer a price alert feature where you can subscribe to receive notifications when fares for a selected route drop."
+    },
+    "faq12": {
+      "question": "Why does the price sometimes change when I click to book? ",
+      "answer": "Airline prices fluctuate constantly based on demand and availability. If the fare changes, it’s usually updated in real time by the provider."
+    },
+    "faq13": {
+      "question": "How do I know if baggage is included in the flight price? ",
+      "answer": "Each listing indicates whether checked or cabin baggage is included, and full details are available on the booking partner’s site."
+    },
+    "faq14": {
+      "question": "What should I do if I have issues with my flight booking? ",
+      "answer": "Since the booking is completed on the airline or agent's site, you’ll need to contact them directly for help with changes, cancellations, or refunds."
+    },
+    "faq15": {
+      "question": "Can I book flights for groups or large families? ",
+      "answer": "Yes, you can search for flights for up to 9 passengers. For larger groups, we recommend contacting the airline or travel provider directly. "
+    }
+  },
+  "Faqpage1": {
+    "faq1": {
+      "question": "Comment puis-je rechercher des hôtels sur votre site ?",
+      "answer": "Saisissez votre destination, vos dates de voyage et le nombre de voyageurs pour explorer instantanément les hôtels disponibles proposés par plusieurs prestataires au même endroit."
+    },
+
+    "faq2": {
+      "question": "Puis-je réserver un hôtel directement sur votre plateforme ?",
+      "answer": "Non, nous sommes un site de comparaison. Une fois que vous avez sélectionné un hôtel, nous vous redirigerons vers le site du prestataire pour finaliser votre réservation."
+    },
+
+    "faq3": {
+      "question": "Les prix des hôtels sont-ils indiqués par personne ou par chambre ?",
+      "answer": "Les prix sont généralement indiqués par chambre, mais les détails comme le nombre de voyageurs et les services inclus sont visibles sur le site du prestataire."
+    },
+
+    "faq4": {
+      "question": "Les taxes et frais sont-ils inclus dans les annonces ?",
+      "answer": "Certains prestataires incluent les taxes et frais dans le prix total, tandis que d'autres les affichent au moment du paiement. Nous vous conseillons de bien vérifier sur la page finale de réservation."
+    },
+
+    "faq5": {
+      "question": "Comment trouver des hôtels avec annulation gratuite ?",
+      "answer": "Utilisez le filtre « Annulation gratuite » dans vos résultats de recherche pour afficher les établissements offrant des politiques d'annulation flexibles."
+    },
+
+    "faq6": {
+      "question": "Puis-je filtrer les hôtels selon les équipements comme le Wi-Fi, le petit-déjeuner ou la piscine ?",
+      "answer": "Oui, vous pouvez affiner votre recherche avec des filtres comme Wi-Fi gratuit, petit-déjeuner inclus, piscine, acceptant les animaux, et plus encore."
+    },
+
+    "faq7": {
+      "question": "Proposez-vous à la fois des hôtels économiques et de luxe ?",
+      "answer": "Oui, nous répertorions des hébergements pour tous les budgets — des auberges et maisons d'hôtes aux hôtels de charme et complexes de luxe."
+    },
+
+    "faq8": {
+      "question": "Puis-je consulter des photos et avis d’hôtels avant de réserver ?",
+      "answer": "Absolument. Vous pouvez consulter des photos détaillées, des évaluations par étoiles et des avis vérifiés de clients pour chaque hôtel avant de prendre une décision."
+    },
+
+    "faq9": {
+      "question": "Comment savoir si un hôtel est disponible à mes dates ?",
+      "answer": "La disponibilité est mise à jour en temps réel selon vos dates de voyage sélectionnées. Seules les chambres disponibles seront affichées."
+    },
+
+    "faq10": {
+      "question": "Puis-je rechercher des logements comme des appartements ou des villas ?",
+      "answer": "Oui, nous incluons des logements alternatifs tels que des appartements avec services, des maisons de vacances et des villas dans vos résultats de recherche."
+    },
+
+    "faq11": {
+      "question": "Les annonces d'hôtels indiquent-elles l’emplacement exact sur une carte ?",
+      "answer": "Oui, vous pouvez voir l’emplacement des hôtels sur une carte pour vérifier leur proximité avec des monuments, des transports ou des quartiers."
+    },
+
+    "faq12": {
+      "question": "Comment réserver plusieurs chambres pour un groupe ?",
+      "answer": "Vous pouvez sélectionner le nombre de chambres nécessaires lors de votre recherche et voir les tarifs en fonction de la taille du groupe."
+    },
+
+    "faq13": {
+      "question": "Que faire si je souhaite modifier ma réservation d'hôtel ?",
+      "answer": "Veuillez contacter directement l'hôtel ou le prestataire de réservation pour toute modification, car toutes les réservations sont gérées via leurs plateformes."
+    },
+
+    "faq14": {
+      "question": "Puis-je gagner des récompenses ou points de fidélité avec mes réservations ?",
+      "answer": "Cela dépend du prestataire. Certaines plateformes permettent de gagner des points de fidélité ou d’appliquer des réductions si vous êtes membre."
+    },
+
+    "faq15": {
+      "question": "Le petit-déjeuner est-il inclus dans le prix de l'hôtel ?",
+      "answer": "Certains hébergements incluent le petit-déjeuner, d'autres non. Cette information sera clairement affichée avant la redirection vers le site du prestataire."
+    }
+  },
+  "Faqpage2": {
+    "faq1": {
+      "question": "Comment rechercher une location de voiture ?",
+      "answer": "Saisissez votre lieu de prise en charge, les dates et les horaires pour comparer instantanément les offres de différentes agences."
+    },
+    "faq2": {
+      "question": "Puis-je réserver une voiture de location directement sur votre plateforme ?",
+      "answer": "Non, nous vous redirigeons vers le site du partenaire ou de l’agence où vous finaliserez votre réservation."
+    },
+    "faq3": {
+      "question": "Ai-je besoin d'une carte de crédit pour louer une voiture ?",
+      "answer": "La plupart des agences exigent une carte de crédit pour la caution et la réservation. Consultez les conditions sur le site du prestataire pour plus de détails."
+    },
+    "faq4": {
+      "question": "Puis-je louer une voiture sans permis de conduire ?",
+      "answer": "Non, un permis de conduire valide est obligatoire. Certaines agences exigent également que vous l'ayez depuis au moins un an."
+    },
+    "faq5": {
+      "question": "L'assurance et les taxes sont-elles incluses dans le prix ?",
+      "answer": "Certains prestataires incluent l’assurance de base et les taxes, d’autres les proposent en supplément. Tous les détails sont disponibles lors du paiement."
+    },
+    "faq6": {
+      "question": "Quels types de voitures puis-je louer ?",
+      "answer": "Vous pouvez choisir parmi des modèles économiques, compacts, SUV, de luxe ou des vans selon vos besoins."
+    },
+    "faq7": {
+      "question": "Puis-je récupérer la voiture dans une ville et la rendre dans une autre ?",
+      "answer": "Oui, cela s'appelle une location en aller simple. Des frais supplémentaires peuvent s’appliquer selon l’itinéraire."
+    },
+    "faq8": {
+      "question": "Y a-t-il une limite d'âge pour louer une voiture ?",
+      "answer": "La plupart des agences exigent un âge minimum de 21 ans. Des frais peuvent s'appliquer pour les conducteurs de moins de 25 ans."
+    },
+    "faq9": {
+      "question": "Proposez-vous des filtres comme boîte automatique ou manuelle ?",
+      "answer": "Oui, vous pouvez filtrer les résultats par type de transmission, politique de carburant, capacité des passagers, etc."
+    },
+    "faq10": {
+      "question": "Puis-je ajouter un second conducteur à ma location ?",
+      "answer": "De nombreuses agences le permettent moyennant des frais supplémentaires. Ajoutez cette option lors de votre réservation."
+    },
+    "faq11": {
+      "question": "Le carburant est-il inclus dans le prix ?",
+      "answer": "En général, non. La plupart des locations suivent la politique 'plein à plein'."
+    },
+    "faq12": {
+      "question": "Puis-je modifier ou annuler ma réservation ?",
+      "answer": "Cela dépend du prestataire. La plupart offrent une annulation gratuite dans un certain délai. Vérifiez toujours les conditions."
+    },
+    "faq13": {
+      "question": "Quels documents dois-je présenter lors du retrait de la voiture ?",
+      "answer": "Un permis de conduire, une carte de crédit, et parfois une pièce d’identité ou la confirmation de réservation sont requis."
+    },
+    "faq14": {
+      "question": "Puis-je louer une voiture à l’aéroport ?",
+      "answer": "Oui, notre plateforme propose des options de location à l’aéroport, sur place ou via navette."
+    },
+    "faq15": {
+      "question": "Que se passe-t-il si mon vol est retardé ?",
+      "answer": "La plupart des agences offrent une période de grâce. Il est préférable de les informer en cas de retard."
+    }
+  },
+  "Faqpage3": {
+    "faq1": {
+      "question": "Dois-je effectuer un paiement sur votre site ?",
+      "answer": "Non, nous ne traitons aucun paiement. Vous serez redirigé vers le site du prestataire pour finaliser votre réservation et paiement."
+    },
+    "faq2": {
+      "question": "Quels moyens de paiement puis-je utiliser avec les prestataires ?",
+      "answer": "La plupart acceptent les cartes de crédit et de débit (Visa, Mastercard, American Express), ainsi que PayPal, Apple Pay ou d'autres moyens régionaux."
+    },
+    "faq3": {
+      "question": "Est-ce sûr de saisir mes informations de paiement sur le site du prestataire ?",
+      "answer": "Oui. Nous travaillons uniquement avec des partenaires de confiance qui utilisent des systèmes de paiement sécurisés et cryptés."
+    },
+    "faq4": {
+      "question": "Y a-t-il des frais cachés ou frais de réservation de votre part ?",
+      "answer": "Non, notre plateforme est entièrement gratuite. Vous ne payez jamais de frais supplémentaires via nous."
+    },
+    "faq5": {
+      "question": "Serai-je facturé dans ma devise locale ?",
+      "answer": "Cela dépend du prestataire. Beaucoup proposent une conversion et permettent de payer dans votre devise locale."
+    },
+    "faq6": {
+      "question": "Puis-je partager le paiement entre plusieurs cartes ou personnes ?",
+      "answer": "La plupart des prestataires exigent un paiement complet via une seule carte. Pour des réservations groupées, vous devez organiser cela séparément."
+    },
+    "faq7": {
+      "question": "Dois-je payer la totalité à l'avance ?",
+      "answer": "Cela dépend du service. Certains proposent un paiement différé ou un acompte, d'autres exigent un paiement complet immédiat."
+    },
+    "faq8": {
+      "question": "Que faire si mon paiement échoue ?",
+      "answer": "Vous serez invité à réessayer ou à utiliser un autre mode de paiement. Vous pouvez aussi contacter le service client du prestataire."
+    },
+    "faq9": {
+      "question": "Puis-je obtenir un remboursement si j’annule ma réservation ?",
+      "answer": "Les politiques de remboursement varient. Certaines permettent un remboursement intégral sous conditions. Vérifiez toujours avant de réserver."
+    },
+    "faq10": {
+      "question": "Recevrai-je une confirmation de paiement ou une facture ?",
+      "answer": "Oui. Après le paiement, vous recevrez un e-mail de confirmation et une facture directement de la part du prestataire."
+    }
+  },
+  "FlightsInner": {
+    "Suggested": "Suggéré",
+    "Fastest": "Le plus rapide",
+    "Cheapest": "Le moins cher",
+    "No_Flights_Found": "Aucun vol trouvé",
+    "departing": "Sélectionnez votre vol de départ",
+    "Results": "Résultats",
+    "departingflight": "Sélectionnez votre vol de départ pour Dubaï",
+    "Nonstop": "Sans escale",
+    "Economy": "Économie",
+    "Select": "Sélectionner",
+    "Round": "Prix aller-retour",
+    "Show": "Afficher plus de résultats",
+    "More Filters": "Plus de filtres",
+    "Hide Filters": "Masquer les filtres"
+  },
+  "BookYourTicket": {
+    "Book": "Réservez votre vol",
+    "Back_result": "Retour aux résultats",
+    "text1": "Les prix affichés incluent les taxes estimées et les frais obligatoires. Les politiques de bagages et les conditions des billets peuvent varier.",
+    "text2": "Certains fournisseurs peuvent appliquer des frais supplémentaires pour les bagages, l'assurance ou les paiements par carte de crédit.",
+    "text3": "Veuillez vérifier tous les détails du billet et les coûts finaux sur le site du fournisseur avant de finaliser votre réservation.",
+    "Extra": "Services supplémentaires",
+    "Saver": "Économique",
+    "Premium": "Premium",
+    "Standard": "Standard",
+    "Flight_Details": "Détails du vol",
+    "Outbound": "Aller",
+    "Directing_To": "Nous vous redirigeons vers"
+  },
+  "HotelsInnerlabel": {
+    "label1": "Trier par",
+    "label2": "Prix",
+    "label3": "Type d'hospitalité",
+    "label4": "Commodités",
+    "label5": "Étoiles",
+    "label6": "Emplacement",
+    "text": "Sélectionnez votre hôtel pour séjourner à Londres",
+    "para": "Morem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "Suppliers": "Fournisseurs",
+    "All_Filters": "Tous les filtres"
+  },
+  "HotelfilterSections": {
+    "sortOptions": {
+      "select": "Sélectionner",
+      "recommended": "Recommandé",
+      "priceLowToHigh": "Prix : Du plus bas au plus haut",
+      "priceHighToLow": "Prix : Du plus haut au plus bas",
+      "starRatingHighToLow": "Étoiles : Du plus haut au plus bas",
+      "distanceClosest": "Distance : Plus proche du centre-ville"
+    },
+    "starRating": {
+      "select": "Sélectionner",
+      "options": {
+        "fiveStars": "5 étoiles",
+        "fourStars": "4 étoiles",
+        "threeStars": "3 étoiles",
+        "twoStars": "2 étoiles",
+        "oneStar": "1 étoile",
+        "unrated": "Non classé"
+      }
+    },
+    "categories": {
+      "traditional": {
+        "label": "Traditionnel",
+        "options": {
+          "hotels": "Hôtels",
+          "motels": "Motels",
+          "guesthouses": "Pensions",
+          "bedAndBreakfasts": "Chambres d'hôtes"
+        }
+      },
+      "luxuryStays": {
+        "label": "Séjours de luxe",
+        "options": {
+          "resorts": "Stations balnéaires",
+          "villas": "Villas",
+          "boutiqueHotels": "Hôtels-boutiques"
+        }
+      },
+      "budgetFriendly": {
+        "label": "Économique",
+        "options": {
+          "hostels": "Auberges de jeunesse",
+          "capsuleHotels": "Hôtels capsules"
+        }
+      },
+      "extendedStays": {
+        "label": "Séjours prolongés",
+        "options": {
+          "apartments": "Appartements",
+          "servicedApartments": "Appartements avec services"
+        }
+      },
+      "uniqueExperiences": {
+        "label": "Expériences uniques",
+        "options": {
+          "cottages": "Chalets",
+          "farmStays": "Séjours à la ferme",
+          "holidayHomes": "Maisons de vacances",
+          "campingAndGlamping": "Camping et glamping"
+        }
+      }
+    },
+    "amenities": {
+      "roomFeatures": {
+        "label": "Caractéristiques de la chambre",
+        "options": {
+          "airConditioning": "Climatisation",
+          "heating": "Chauffage",
+          "privateBalcony": "Balcon privé",
+          "kitchenKitchenette": "Cuisine/Petite cuisine",
+          "coffeeTeaMaker": "Machine à café/thé",
+          "flatScreenTv": "Télévision à écran plat",
+          "inRoomSafe": "Coffre-fort dans la chambre",
+          "workDesk": "Bureau",
+          "premiumBedding": "Literie haut de gamme"
+        }
+      },
+      "hotelServices": {
+        "label": "Services de l'hôtel",
+        "options": {
+          "twentyFourHourFrontDesk": "Réception 24h/24",
+          "conciergeService": "Service de conciergerie",
+          "roomService": "Service en chambre",
+          "dailyHousekeeping": "Ménage quotidien",
+          "laundryService": "Service de blanchisserie",
+          "luggageStorage": "Consigne à bagages",
+          "wakeUpCallService": "Service de réveil"
+        }
+      },
+      "foodAndBeverage": {
+        "label": "Restauration",
+        "options": {
+          "complimentaryBreakfast": "Petit-déjeuner gratuit",
+          "onSiteRestaurant": "Restaurant sur place",
+          "barLounge": "Bar/Salon",
+          "coffeeShop": "Café",
+          "miniBar": "Minibar"
+        }
+      },
+      "recreationalFacilities": {
+        "label": "Installations de loisirs",
+        "options": {
+          "swimmingPool": "Piscine (intérieure/extérieure)",
+          "fitnessCenter": "Centre de fitness",
+          "spaWellnessCenter": "Spa/Centre de bien-être",
+          "kidsPlayArea": "Aire de jeux pour enfants",
+          "gameRoom": "Salle de jeux"
+        }
+      },
+      "businessFacilities": {
+        "label": "Installations professionnelles",
+        "options": {
+          "conferenceRooms": "Salles de conférence",
+          "businessCenter": "Centre d'affaires",
+          "freeWiFi": "Wi-Fi gratuit",
+          "meetingRooms": "Salles de réunion"
+        }
+      },
+      "accessibility": {
+        "label": "Accessibilité",
+        "options": {
+          "wheelchairAccessible": "Accessible en fauteuil roulant",
+          "elevatorLift": "Ascenseur",
+          "accessibleParking": "Parking accessible",
+          "hearingVisualAccessibility": "Fonctionnalités d'accessibilité auditive/visuelle"
+        }
+      },
+      "parkingAndTransportation": {
+        "label": "Parking et transport",
+        "options": {
+          "freeParking": "Parking gratuit",
+          "valetParking": "Service de voiturier",
+          "shuttleService": "Service de navette (aéroport/local)",
+          "evChargingStations": "Stations de recharge pour véhicules électriques"
+        }
+      },
+      "petPolicies": {
+        "label": "Politique pour animaux",
+        "options": {
+          "petFriendly": "Animaux acceptés",
+          "petFreeRooms": "Chambres sans animaux disponibles"
+        }
+      },
+      "ecoFriendlyFeatures": {
+        "label": "Caractéristiques écologiques",
+        "options": {
+          "energyEfficientLighting": "Éclairage écoénergétique",
+          "recyclingFacilities": "Installations de recyclage",
+          "sustainableProducts": "Produits durables"
+        }
+      }
+    },
+    "location": {
+      "select": "Sélectionner",
+      "options": {
+        "anyDistance": "N'importe quelle distance",
+        "lessThan1Mi": "Moins de 1,6 km",
+        "lessThan2Mi": "Moins de 3,2 km",
+        "lessThan3Mi": "Moins de 4,8 km",
+        "lessThan4Mi": "Moins de 6,4 km",
+        "lessThan5Mi": "Moins de 8 km",
+        "lessThan6Mi": "Moins de 9,6 km",
+        "lessThan7Mi": "Moins de 11,2 km",
+        "lessThan8Mi": "Moins de 12,8 km"
+      }
+    },
+    "carFilters": {
+      "suppliers": {
+        "title": "Fournisseurs",
+        "options": {
+          "hertz": "Hertz",
+          "avis": "Avis",
+          "enterprise": "Enterprise",
+          "sixt": "Sixt",
+          "europcar": "Europcar",
+          "budget": "Budget",
+          "alamo": "Alamo",
+          "nationalCarRental": "National Car Rental",
+          "thrifty": "Thrifty",
+          "dollarRent": "Dollar Rent",
+          "greenMotion": "Green Motion",
+          "foxRent": "Fox Rent",
+          "turo": "Turo",
+          "rentcarsCom": "Rentcars.com",
+          "rideSharingServices": "Services de covoiturage"
+        }
+      },
+      "policies": {
+        "title": "Politiques",
+        "categories": {
+          "insurance": {
+            "title": "Assurance",
+            "options": {
+              "collisionDamageWaiver": "Renonciation aux dommages par collision (CDW)",
+              "theftProtection": "Protection contre le vol",
+              "thirdPartyLiability": "Responsabilité civile"
+            }
+          },
+          "fuel": {
+            "title": "Carburant",
+            "options": {
+              "fullToFull": "Plein à plein",
+              "prePaidFuel": "Carburant prépayé"
+            }
+          },
+          "mileageOptions": {
+            "title": "Options de kilométrage",
+            "options": {
+              "unlimitedMileage": "Kilométrage illimité",
+              "limitedMileage": "Kilométrage limité (par ex., 160 km/jour)"
+            }
+          },
+          "driverRequirements": {
+            "title": "Exigences pour le conducteur",
+            "options": {
+              "ageRequirement": "Exigence d'âge (21-75 ans)",
+              "validDrivingLicense": "Permis de conduire valide"
+            }
+          },
+          "cancellation": {
+            "title": "Annulation",
+            "options": {
+              "freeCancellation": "Annulation gratuite (48h)",
+              "lateCancellationFee": "Frais d'annulation tardive"
+            }
+          },
+          "returnPolicies": {
+            "title": "Politiques de retour",
+            "options": {
+              "lateReturnFee": "Frais de retour tardif",
+              "cleanCarReturn": "Retour de la voiture propre"
+            }
+          }
+        }
+      },
+      "carFeatures": {
+        "title": "Caractéristiques de la voiture",
+        "options": {
+          "airConditioning": "Climatisation",
+          "automaticTransmission": "Transmission automatique",
+          "bluetoothConnectivity": "Connectivité Bluetooth",
+          "gpsNavigation": "Navigation GPS",
+          "leatherSeats": "Sièges en cuir",
+          "cruiseControl": "Régulateur de vitesse",
+          "rearviewCamera": "Caméra de recul",
+          "bluetoothHandsFreeCalling": "Appels mains libres Bluetooth",
+          "childSafetySeats": "Sièges de sécurité pour enfants",
+          "sunroof": "Toit ouvrant",
+          "moonroof": "Toit panoramique",
+          "heatedSeats": "Sièges chauffants",
+          "keylessEntry": "Entrée sans clé et démarrage par bouton",
+          "parkingSensors": "Capteurs de stationnement",
+          "towingCapacity": "Capacité de remorquage",
+          "fourWheelDrive": "Quatre roues motrices (4x4)",
+          "allWheelDrive": "Transmission intégrale (AWD)",
+          "bluetoothAudioStreaming": "Diffusion audio Bluetooth",
+          "laneDepartureWarning": "Avertissement de sortie de voie",
+          "collisionAvoidance": "Système d'évitement de collision",
+          "roofRailing": "Barres de toit",
+          "foldableRearSeats": "Sièges arrière rabattables",
+          "adjustableSteeringWheel": "Volant réglable",
+          "climateControl": "Contrôle climatique"
+        }
+      },
+      "brands": {
+        "title": "Marques",
+        "categories": {
+          "toyota": {
+            "title": "Toyota",
+            "options": {
+              "corolla": "Toyota Corolla",
+              "camry": "Toyota Camry",
+              "yaris": "Toyota Yaris",
+              "prius": "Toyota Prius",
+              "highlander": "Toyota Highlander",
+              "rav4": "Toyota RAV4",
+              "landCruiser": "Toyota Land Cruiser"
+            }
+          },
+          "ford": {
+            "title": "Ford",
+            "options": {
+              "fiesta": "Ford Fiesta",
+              "focus": "Ford Focus",
+              "mustang": "Ford Mustang",
+              "explorer": "Ford Explorer",
+              "edge": "Ford Edge"
+            }
+          },
+          "volkswagen": {
+            "title": "Volkswagen",
+            "options": {
+              "golf": "Volkswagen Golf",
+              "passat": "Volkswagen Passat",
+              "tiguan": "Volkswagen Tiguan",
+              "polo": "Volkswagen Polo",
+              "jetta": "Volkswagen Jetta"
+            }
+          },
+          "nissan": {
+            "title": "Nissan",
+            "options": {
+              "altima": "Nissan Altima",
+              "sentra": "Nissan Sentra",
+              "rogue": "Nissan Rogue",
+              "pathfinder": "Nissan Pathfinder"
+            }
+          },
+          "bmw": {
+            "title": "BMW",
+            "options": {
+              "threeSeries": "BMW Série 3",
+              "fiveSeries": "BMW Série 5",
+              "x1": "BMW X1",
+              "x3": "BMW X3"
+            }
+          },
+          "hyundai": {
+            "title": "Hyundai",
+            "options": {
+              "elantra": "Hyundai Elantra",
+              "tucson": "Hyundai Tucson",
+              "santaFe": "Hyundai Santa Fe"
+            }
+          },
+          "chevrolet": {
+            "title": "Chevrolet",
+            "options": {
+              "spark": "Chevrolet Spark",
+              "malibu": "Chevrolet Malibu",
+              "equinox": "Chevrolet Equinox",
+              "traverse": "Chevrolet Traverse"
+            }
+          },
+          "mercedesBenz": {
+            "title": "Mercedes-Benz",
+            "options": {
+              "aClass": "Mercedes-Benz Classe A",
+              "eClass": "Mercedes-Benz Classe E",
+              "glc": "Mercedes-Benz GLC",
+              "gle": "Mercedes-Benz GLE"
+            }
+          },
+          "audi": {
+            "title": "Audi",
+            "options": {
+              "a3": "Audi A3",
+              "a4": "Audi A4",
+              "q3": "Audi Q3",
+              "q5": "Audi Q5"
+            }
+          },
+          "jeep": {
+            "title": "Jeep",
+            "options": {
+              "wrangler": "Jeep Wrangler",
+              "grandCherokee": "Jeep Grand Cherokee",
+              "cherokee": "Jeep Cherokee"
+            }
+          },
+          "kia": {
+            "title": "Kia",
+            "options": {
+              "optima": "Kia Optima",
+              "sorento": "Kia Sorento",
+              "sportage": "Kia Sportage"
+            }
+          },
+          "honda": {
+            "title": "Honda",
+            "options": {
+              "civic": "Honda Civic",
+              "accord": "Honda Accord",
+              "crv": "Honda CR-V",
+              "hrv": "Honda HR-V"
+            }
+          },
+          "renault": {
+            "title": "Renault",
+            "options": {
+              "clio": "Renault Clio",
+              "captur": "Renault Captur",
+              "megane": "Renault Mégane"
+            }
+          },
+          "peugeot": {
+            "title": "Peugeot",
+            "options": {
+              "208": "Peugeot 208",
+              "308": "Peugeot 308",
+              "3008": "Peugeot 3008"
+            }
+          },
+          "landRover": {
+            "title": "Land Rover",
+            "options": {
+              "discovery": "Land Rover Discovery",
+              "defender": "Land Rover Defender",
+              "rangeRover": "Range Rover"
+            }
+          },
+          "mazda": {
+            "title": "Mazda",
+            "options": {
+              "mazda3": "Mazda 3",
+              "cx5": "Mazda CX-5",
+              "mx5": "Mazda MX-5"
+            }
+          },
+          "porsche": {
+            "title": "Porsche",
+            "options": {
+              "911": "Porsche 911",
+              "cayenne": "Porsche Cayenne",
+              "macan": "Porsche Macan"
+            }
+          },
+          "tesla": {
+            "title": "Tesla",
+            "options": {
+              "model3": "Tesla Model 3",
+              "modelS": "Tesla Model S",
+              "modelX": "Tesla Model X"
+            }
+          },
+          "volvo": {
+            "title": "Volvo",
+            "options": {
+              "xc60": "Volvo XC60",
+              "xc90": "Volvo XC90",
+              "v90": "Volvo V90"
+            }
+          },
+          "fiat": {
+            "title": "Fiat",
+            "options": {
+              "500": "Fiat 500",
+              "panda": "Fiat Panda",
+              "500l": "Fiat 500L"
+            }
+          }
+        }
+      },
+      "buttons": {
+        "reset": "Réinitialiser",
+        "apply": "Appliquer"
+      }
+    },
+    "hotelFilters": {
+      "FoodAndBeverage": {
+        "title": "Nourriture et Boissons",
+        "options": {
+          "complimentaryBreakfast": "Petit-déjeuner offert",
+          "onSiteRestaurant": "Restaurant sur place",
+          "barLounge": "Bar / Salon",
+          "coffeeShop": "Café",
+          "miniBar": "Mini-bar"
+        }
+      },
+      "payments": {
+        "title": "Paiements",
+        "options": {
+          "payNow": "Payer maintenant",
+          "payLater": "Payer plus tard",
+          "partialPayment": "Paiement partiel",
+          "flexiblePayment": "Paiement flexible"
+        }
+      },
+      "accessibility": {
+        "title": "Accessibilité",
+        "options": {
+          "wheelchairAccessible": "Accessible en fauteuil roulant",
+          "elevatorLift": "Ascenseur",
+          "accessibleParking": "Parking accessible",
+          "hearingVisualAccessibility": "Caractéristiques d’accessibilité auditive et visuelle"
+        }
+      }
+    }
+  },
+  "CarfilterSections": {
+    "label1": "Trier par",
+    "label2": "Type de voiture",
+    "label3": "Sièges - Bagages",
+    "label4": "Type de paiement",
+    "label5": "Type de transmission",
+    "label6": "Emplacement",
+    "sortBy": {
+      "select": "Sélectionner",
+      "suggested": "Suggéré",
+      "cheapest": "Le moins cher"
+    },
+    "carType": {
+      "select": "Sélectionner",
+      "options": {
+        "small": "Petite",
+        "medium": "Moyenne",
+        "standard": "Standard",
+        "fullSize": "Grande taille",
+        "luxury": "Luxe",
+        "suv": "SUV",
+        "convertible": "Cabriolet",
+        "minivan": "Minivan",
+        "pickupTruck": "Camionnette",
+        "sportsCar": "Voiture de sport",
+        "electricVehicle": "Véhicule électrique",
+        "fourByFour": "4x4",
+        "crossover": "Crossover",
+        "luxurySuv": "SUV de luxe"
+      }
+    },
+    "seatsAndBags": {
+      "seats": {
+        "label": "Sièges",
+        "options": {
+          "twoSeats": "2 sièges",
+          "fourSeats": "4 sièges",
+          "fiveSeats": "5 sièges",
+          "sevenPlusSeats": "7+ sièges"
+        }
+      },
+      "bags": {
+        "label": "Bagages",
+        "options": {
+          "oneToTwoBags": "1-2 bagages",
+          "threeToFourBags": "3-4 bagages",
+          "fiveToSixBags": "5-6 bagages",
+          "sevenPlusBags": "7+ bagages"
+        }
+      }
+    },
+    "paymentType": {
+      "select": "Sélectionner",
+      "options": {
+        "payNow": "Payer maintenant",
+        "payLater": "Payer plus tard",
+        "partialPayment": "Paiement partiel",
+        "flexiblePayment": "Paiement flexible"
+      }
+    },
+    "transmissionType": {
+      "select": "Sélectionner",
+      "options": {
+        "manual": "Manuelle",
+        "automatic": "Automatique",
+        "cvt": "CVT",
+        "dct": "DCT",
+        "tiptronic": "Tiptronic"
+      }
+    },
+    "location": {
+      "select": "Sélectionner",
+      "options": {
+        "airport": "Aéroport",
+        "cityCenter": "Centre-ville",
+        "hotelPickup": "Prise en charge à l'hôtel",
+        "customLocation": "Autre (emplacement personnalisé)"
+      }
+    }
+  },
+  "HeaderMenu": {
+    "tital1": "Pages",
+    "tital2": "Vols",
+    "tital3": "Hôtels",
+    "tital4": "Voitures",
+    "tital5": "Activités",
+    "text1": "Accueil",
+    "text2": "À propos",
+    "text3": "FAQ",
+    "text4": "Contact",
+    "text5": "Offres principales",
+    "text6": "Détails Vol #01",
+    "text7": "Détails Vol #02",
+    "text8": "Détails Vol #03",
+    "text9": "Exigences de visa",
+    "text10": "Détails de l'aéroport le plus proche",
+    "text11": "Détails",
+    "text12": "Article"
+  },
+  "Logsec": {
+    "heading": "Connectez-vous pour commencer",
+    "para": "Veuillez saisir vos informations",
+    "label1": "Adresse e-mail/Nom d'utilisateur",
+    "label2": "Mot de passe",
+    "label3": "Se souvenir de moi",
+    "label4": "Mot de passe oublié ?",
+    "btn1": "Se connecter",
+    "label5": "Ou continuer avec",
+    "label6": "ou",
+    "label7": "Vous n'avez pas de compte ?",
+    "heading1": "Créez votre compte",
+    "para1": "Recevez des alertes de prix, planifiez sans effort et profitez de réservations rapides.",
+    "label8": "E-mail",
+    "label9": "Nouveau mot de passe",
+    "label10": "Confirmer le mot de passe",
+    "label11": "J'accepte les",
+    "label12": "Conditions d'utilisation",
+    "label13": "et la",
+    "label14": "Politique de confidentialité",
+    "btn2": "Créer un compte",
+    "btn3": "Connexion en cours...",
+    "btn4": "Se déconnecter",
+    "btn5": "Inscription en cours...",
+
+    "label15": "Vous avez déjà un compte ?"
+  }
+}

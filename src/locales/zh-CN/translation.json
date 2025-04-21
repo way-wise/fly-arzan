@@ -1,0 +1,1262 @@
+{
+  "lg": "中文 (简体)",
+  "upperSection": {
+    "Login": "登录",
+    "menu": "菜单",
+    "closeMenu": "关闭菜单",
+    "Cheap_flights_para": "全球低价，只需一次简单搜索",
+    "Our_search": "我们的搜索为您节省资金",
+    "flights": "航班",
+    "hotels": "酒店",
+    "cars_Rentals": "租车",
+    "oneWay": "单程",
+    "return": "往返",
+    "multiCity": "多城市",
+    "flying_from": "出发地",
+    "flying_to": "目的地",
+    "departure_date": "出发日期",
+    "return_date": "返回日期",
+    "Cabin_Class_Adults": "舱位等级和成人",
+
+    "start_journey": "开始您的旅程",
+    "add_flight": "添加航班",
+    "ECONOMY": "经济舱",
+    "PREMIUM_ECONOMY": "高级经济舱",
+    "BUSINESS": "商务舱",
+    "FIRST": "头等舱",
+    "cabinClass": "舱位等级",
+    "Adults": "成人",
+    "Aged18": "18岁以上",
+    "Children": "儿童",
+    "Aged17": "0至17岁",
+    "city": "城市",
+    "CheckIn": "入住",
+    "CheckOut": "退房",
+    "Rooms": "房间",
+    "Done": "完成",
+    "Search_Hotels": "搜索酒店",
+    "Rent_car": "租车",
+    "rent_a_car": "租车",
+    "airport_shuttle": "机场接送",
+    "within_city": "市内",
+    "out_of_city": "市外",
+    "pickup_time": "取车时间",
+    "dropoff_time": "还车时间",
+    "pickup_date": "取车日期",
+    "dropoff_date": "还车日期",
+    "search": "搜索",
+    "input": "点击这里"
+  },
+  "section2": {
+    "Search_simply": "简单搜索",
+    "Search_simply_para": "通过轻松的搜索简化您的旅行计划。只需几次点击即可找到完美的航班。",
+    "Comparison": "自信比较",
+    "Comparison_para": "并排比较选项，发现最佳优惠。放心预订，知道您做出了正确的选择。",
+    "Maximize_Savings": "最大化您的节省",
+    "Maximize_Savings_para": "解锁节省，让每次旅行都更加实惠。聪明旅行，保留更多资金。"
+  },
+  "buttons": {
+    "more": "更多",
+    "showLess": "显示更少",
+    "searchHere": "在这里搜索",
+    "book": "预订",
+    "Search": "搜索",
+    "Learn_More": "了解更多",
+    "Submit": "提交",
+    "BookNow": "立即预订",
+    "Save": "保存",
+    "apply": "应用",
+    "reset": "重置",
+    "clear": "清除"
+  },
+  "Useful Articles": "实用文章",
+  "flightFaqSection": {
+    "heading": "常见问题",
+    "faqs": {
+      "hotel_search": {
+        "question": "如何在Flay Arzan上搜索酒店？",
+        "answer": "只需在我们的搜索栏中输入您的目的地、旅行日期和入住人数，我们的平台将展示适合您偏好的多种酒店选择，包括经济型、中档和豪华型，确保您找到理想的住宿地点。"
+      },
+      "filter_amenities": {
+        "question": "我可以按设施过滤酒店搜索结果吗？",
+        "answer": "是的，我们的先进过滤系统允许您根据特定需求自定义搜索。您可以按设施过滤，如WiFi、游泳池、停车场等。"
+      },
+      "book_hotel": {
+        "question": "我可以通过Flay Arzan预订酒店吗？",
+        "answer": "是的，您可以直接通过我们的平台预订。我们与值得信赖的酒店合作，为您提供安全透明的预订流程。"
+      },
+      "hotel_availability": {
+        "question": "你们平台上的酒店可用性有多准确？",
+        "answer": "我们通过与酒店合作伙伴的直接同步实时更新可用性，确保信息准确。"
+      },
+      "customer_reviews": {
+        "question": "我可以查看列出的酒店的客户评价吗？",
+        "answer": "是的，您可以阅读其他旅行者对每家酒店的真实评价，帮助您做出明智的决定。"
+      },
+      "hidden_fees": {
+        "question": "预订酒店时有隐藏费用吗？",
+        "answer": "没有，我们透明地显示所有费用。最终价格包括所有强制性税费和费用。"
+      },
+      "cancel_modify": {
+        "question": "我可以取消或修改酒店预订吗？",
+        "answer": "取消和修改政策因酒店而异。预订前会清楚标明具体条件。"
+      },
+      "hotel_suitability": {
+        "question": "我如何知道酒店是否适合我的需求？",
+        "answer": "查看详细描述、照片、设施和客户评价，以评估酒店是否符合您的期望。"
+      },
+      "special_deals": {
+        "question": "你们提供酒店的特别优惠或折扣吗？",
+        "answer": "是的，我们定期提供特别优惠和独家折扣。订阅我们的新闻简讯，了解最佳优惠。"
+      },
+      "direct_booking": {
+        "question": "我直接通过Flay Arzan预订酒店吗？",
+        "answer": "是的，所有预订都通过我们的平台直接完成，确保安全流程和专用客户服务。"
+      }
+    },
+    "flightCard": {
+  "PlacesLike": "你可能喜欢的地方",
+  "PlacesLikePara": "发现从法国出发的最佳特价机票，价格超低。这些优惠仅限时提供，快按照自己的节奏去探索吧！",
+
+  "FlightDealsFrom": "来自{{country}}的特价机票",
+  "Discover_flight_deals": "发现来自",
+  "at_the_lowest_prices": "的最佳特价机票。限时优惠，快按照自己的节奏去探索吧！",
+  
+  "day": "白天",
+  "night": "夜晚",
+  "Beaches": "海滩",
+  "Snorkeling": "浮潜",
+  "Food": "美食"
+}
+
+  },
+  "BeginJourney": "今天开始您的旅程",
+  "footer": {
+    "quickLinks": {
+      "title": "快速链接",
+      "about": "关于我们",
+      "faqs": "常见问题",
+      "privacyPolicy": "隐私政策",
+      "contact": "联系我们"
+    },
+    "travelSupport": {
+      "title": "旅行支持信息",
+      "covid": "COVID-19更新",
+      "visa": "签证要求",
+      "airport": "最近机场详情"
+    },
+    "newsletter": {
+      "title": "发掘隐藏瑰宝：邮箱中的旅行灵感",
+      "placeholder": "输入您的电子邮件地址"
+    },
+    "copyright": "©2025 FlyArzan版权所有。"
+  },
+  "hotel_section": {
+    "Cheap_hotels_para": "全球廉价酒店，只需一次简单搜索",
+    "Our_search": "我们的搜索为您节省资金",
+"Discover_Hotel": "发现{{country}}的最佳酒店优惠",
+    "Explore_hotel_para": "探索价格最优的酒店选择，为您的下一次住宿提供无与伦比的价格和卓越价值",
+    "Articles_utiles": "实用文章",
+    "Extended_hotel_options": "扩展酒店选择",
+    "Guests and rooms": "宾客和房间"
+  },
+  "hotelFaqs": {
+    "heading": "常见问题",
+    "search": {
+      "question": "如何在Flay Arzan上搜索酒店？",
+      "answer": "只需在我们的搜索栏中输入您的目的地、旅行日期和入住人数，我们的平台将展示适合您偏好的多种酒店选择，包括经济型、中档和豪华型，确保您找到理想的住宿地点。"
+    },
+    "amenities": {
+      "question": "我可以按设施过滤酒店搜索结果吗？",
+      "answer": "是的，我们的先进过滤系统允许您根据特定需求自定义搜索。您可以按设施过滤，如WiFi、游泳池、停车场等。"
+    },
+    "booking": {
+      "question": "我可以通过Flay Arzan预订酒店吗？",
+      "answer": "是的，您可以直接通过我们的平台预订。我们与值得信赖的酒店合作，为您提供安全透明的预订流程。"
+    },
+    "availability": {
+      "question": "你们平台上的酒店可用性有多准确？",
+      "answer": "我们通过与酒店合作伙伴的直接同步实时更新可用性，确保信息准确。"
+    },
+    "reviews": {
+      "question": "我可以查看列出的酒店的客户评价吗？",
+      "answer": "是的，您可以阅读其他旅行者对每家酒店的真实评价，帮助您做出明智的决定。"
+    },
+    "fees": {
+      "question": "预订酒店时有隐藏费用吗？",
+      "answer": "没有，我们透明地显示所有费用。最终价格包括所有强制性税费和费用。"
+    },
+    "cancellation": {
+      "question": "我可以取消或修改酒店预订吗？",
+      "answer": "取消和修改政策因酒店而异。预订前会清楚标明具体条件。"
+    },
+    "suitability": {
+      "question": "我如何知道酒店是否适合我的需求？",
+      "answer": "查看详细描述、照片、设施和客户评价，以评估酒店是否符合您的期望。"
+    },
+    "deals": {
+      "question": "你们提供酒店的特别优惠或折扣吗？",
+      "answer": "是的，我们定期提供特别优惠和独家折扣。订阅我们的新闻简讯，了解最佳优惠。"
+    },
+    "directBooking": {
+      "question": "我直接通过Flay Arzan预订酒店吗？",
+      "answer": "是的，所有预订都通过我们的平台直接完成，确保安全流程和专用客户服务。"
+    }
+  },
+  "carsection": {
+    "Find_the_best_car": "找到最佳租车，只需一次简单搜索",
+    "Our_search": "我们的搜索，您的节省",
+"Find_the_Best": "查找来自{{country}}的最佳租车优惠",
+    "Explore_top_car": "探索顶级租车供应商，提供无与伦比的价格和卓越价值，适合您的公路旅行。",
+    "Begin_your": "开始您的公路旅行"
+  },
+  "carfaq": {
+    "Frequently": "常见问题",
+    "search": {
+      "question": "如何在Flay Arzan上搜索酒店？",
+      "answer": "只需在我们的搜索栏中输入您的目的地、旅行日期和入住人数，我们的平台将展示适合您偏好的多种酒店选择，包括经济型、中档和豪华型，确保您找到理想的住宿地点。"
+    },
+    "faq2": {
+      "question": "我可以按设施过滤酒店搜索结果吗？",
+      "answer": "要找到最佳航班优惠，请使用我们的灵活日期、航空公司和目的地的过滤器。注册以接收优惠通知。"
+    },
+    "faq3": {
+      "question": "我可以通过Flay Arzan预订酒店吗？",
+      "answer": "显示的价格包括大部分税费，但可能会有额外的行李费等费用。"
+    },
+    "faq4": {
+      "question": "你们平台上的酒店可用性有多准确？"
+    },
+    "faq5": {
+      "question": "我可以查看列出的酒店的客户评价吗？"
+    },
+    "faq6": {
+      "question": "预订酒店时有隐藏费用吗？"
+    },
+    "faq7": {
+      "question": "我可以取消或修改酒店预订吗？"
+    },
+    "faq8": {
+      "question": "我如何知道酒店是否适合我的需求？"
+    },
+    "faq9": {
+      "question": "你们提供酒店的特别优惠或折扣吗？"
+    },
+    "faq10": {
+      "question": "我直接通过Flay Arzan预订酒店吗？"
+    },
+    "faq11": {
+      "question": "预订酒店时有隐藏费用吗？"
+    },
+    "faq12": {
+      "question": "我可以取消或修改酒店预订吗？"
+    },
+    "faq13": {
+      "question": "我如何知道酒店是否适合我的需求？"
+    },
+    "faq14": {
+      "question": "你们提供酒店的特别优惠或折扣吗？"
+    },
+    "faq15": {
+      "question": "我直接通过Flay Arzan预订酒店吗？"
+    }
+  },
+ "PrivacyPolicypage": {
+  "heading": "信息收集",
+  "heading1": "Fly Arzan 隐私政策",
+  "para": "欢迎来到 Fly Arzan！我们是一个航班、酒店和租车搜索引擎。您的隐私对我们很重要，我们致力于保护您的个人信息。本隐私政策解释了我们如何在您使用我们的网站时收集、使用和保护您的数据。",
+  "text1": "Fly Arzan 收集最少的用户信息以增强您的体验。我们收集的唯一个人数据是：",
+  "text2": "电子邮件地址",
+  "text3": "仅在您自愿提供以接收有关优惠、促销和更新的通知时。",
+  "text4": "我们不收集：",
+  "text5": "支付信息（我们将您重定向到第三方预订平台）。",
+  "text6": "护照或身份证信息。",
+  "text7": "家庭地址或电话号码。",
+  "text8": "信息使用",
+  "text9": "您的电子邮件地址（如果提供）将仅用于：",
+  "text10": "发送促销优惠和折扣。",
+  "text11": "通知您 Fly Arzan 上的新功能或更新。",
+  "text12": "响应客户咨询（如果您联系我们）。",
+  "text13": "我们绝不会在没有您明确同意的情况下，将您的电子邮件出售、出租或与第三方共享用于营销目的。",
+  "text14": "数据安全",
+  "text15": "我们实施行业标准的安全措施来保护您的信息，包括",
+  "text16": "数据传输加密（SSL）。",
+  "text17": "在受保护的数据库中安全存储电子邮件地址。",
+  "text18": "定期进行安全审计，以防止未经授权的访问。",
+  "text19": "尽管我们做出了努力，但没有任何在线平台可以保证 100% 的安全性。我们鼓励用户在分享个人信息时要小心。",
+  "text20": "第三方共享",
+  "text21": "Fly Arzan 与第三方服务提供商（如航空公司、酒店、租车代理商）合作，提供搜索结果。当您点击预订链接时，您将被重定向到他们的网站，这些网站有自己的隐私政策。我们不控制或存储：",
+  "text22": "预订交易。",
+  "text23": "支付详情。",
+  "text24": "在第三方网站上输入的个人数据。",
+  "text25": "Cookie 政策",
+  "text26": "Fly Arzan 使用 Cookie 和类似的跟踪技术来：",
+  "text27": "改善网站功能。",
+  "text28": "个性化搜索结果。",
+  "text29": "分析用户行为（例如，通过 Google Analytics）以提升性能。",
+  "text30": "您可以在浏览器设置中禁用 Cookie，但某些功能可能无法正常工作。",
+  "text31": "用户权利",
+  "text32": "您有权：",
+  "text33": "访问 – 请求我们持有的关于您的数据的详细信息。",
+  "text34": "删除 – 请求我们从数据库中删除您的电子邮件。",
+  "text35": "退订 – 随时通过电子邮件中的退订链接选择退出营销邮件。",
+  "text36": "本政策的更改",
+  "text37": "我们可能会不定期更新本隐私政策。任何更改将会发布在此处，我们鼓励您定期查看。",
+  "text38": "联系我们",
+  "text39": "如有问题、数据请求或隐私相关问题，请联系我们：",
+  "text40": "电子邮件：info@flyarzan.com",
+  "text41": "网站：www.flyarzan.com",
+  "text42": "感谢您信任 Fly Arzan 进行您的旅行搜索！"
+}
+,
+ "AboutUs": {
+    "heading": "关于我们",
+    "Who_We_Are": "我们是谁",
+    "text1": "在 Fly Arzan，我们让您轻松找到航班、酒店和租车的最佳优惠——一站式服务。",
+    "text2": "我们不是预订网站——我们是您的旅行搜索伙伴。只需告诉我们您想去哪里，我们将帮助您比较不同航空公司、酒店和租车公司的价格，以便您选择最适合您的（也最合适您钱包的）选项。",
+    "text3": "“Arzan”这个名字意味着实惠，这是我们的目标：帮助您更聪明、更便宜地旅行，毫无压力。",
+    "text4": "我们仅收集您的电子邮件地址（如果您希望获取优惠和促销更新），我们绝不会发送垃圾邮件或共享您的信息。",
+    "text5": "感谢您与 Fly Arzan 一起聪明旅行。让我们一起规划一些精彩的旅行吧。"
+}
+,
+  "AboutUssec1": {
+ "heading": "通过我们的旅行社实现完美假期。",
+"text1": "轻松比较航班、酒店和租车服务——一切都在一个地方，帮助你找到最优惠的价格，将你的梦想之旅变为现实。"
+,
+    "Ticket": "机票预订",
+    "text2": "提供国内和国际航班，价格具有竞争力。轻松搜索和比较，找到适合您日程的最佳优惠。",
+    "Hotel": "酒店预订",
+    "text3": "精选酒店列表，从经济型到豪华住宿。根据位置、设施和价格提供过滤器，帮助您选择。",
+    "Rent": "租车服务",
+    "text4": "提供可靠的自驾或司机驾驶车辆。为商务、休闲或团体旅行提供灵活的租车计划。"
+  },
+"AboutUssec2": {
+  "titel1": "全球网络",
+  "text1": "包括海洋邮轮、交通、旅行行程、旅行保险和本地导游。",
+  "titel2": "用户友好平台",
+"text2": "我们的网站和应用程序旨在提供流畅的预订体验。"
+
+,  "titel3": "专门支持",
+  "text3": "我们的团队随时通过电子邮件为您解答任何旅行咨询。"
+}
+,
+  "AboutUssec3": {
+    "heading": "实现完美假期",
+    "para": "Fly Arzan成立于[年份]，旨在弥合旅行者与其梦想目的地之间的差距。多年来，我们成长为一个值得信赖的平台，与顶级航空公司、酒店和租车服务合作，为客户提供最佳选择。",
+    "text1": "我们与领先的旅行供应商合作，为您提供广泛的服务。",
+    "text2": "目前我们不提供任何服务。我们的团队将在通过电子邮件帮助您解决任何旅行咨询。"
+,
+    "titel1": "航空机票",
+    "titel2": "海洋邮轮",
+    "titel3": "交通",
+    "titel4": "旅行行程",
+    "titel5": "旅行保险",
+    "titel6": "当地向导"
+  },
+"ContactUspage": {
+    "heading": "联系我们",
+    "titel1": "我们随时乐意与您联系！",
+    "text1": "如果您对广告、促销、合作伙伴关系感兴趣，或者只是想分享反馈，请使用下面的联系表格。只需填写您的姓名、电子邮件、主题，并在评论区留下您的信息——我们的团队将审查并尽快与您联系。",
+    "para1": "位置",
+    "para2": "曼彻斯特，英国",
+    "para4": "我们的电子邮件",
+    "para6": "info@flyarzan.com",
+    "para7": "工作时间",
+    "para8": "我们旨在在工作时间内回复所有询问",
+    "para9": "周一至周五 | 上午9:00 – 下午5:00（GMT）"
+},
+
+
+"Faqpage1": {
+  "faq1": {
+    "question": "如何在你们的网站上搜索酒店？",
+    "answer": "输入您的目的地、旅行日期和客人数量，立即浏览来自多个供应商的可用酒店。"
+  },
+  "faq2": {
+    "question": "我可以直接在你们的平台上预定酒店吗？",
+    "answer": "不，我们是一个比较网站。选择酒店后，我们会将您重定向到预订供应商的网站，以完成您的预订。"
+  },
+  "faq3": {
+    "question": "酒店价格是按每人还是每间房显示的？",
+    "answer": "价格通常按每间房显示，但包括客人数量和包含的服务等详细信息会在供应商页面上显示。"
+  },
+  "faq4": {
+    "question": "你们的列表中包括税费吗？",
+    "answer": "一些供应商在总价格中包括税费，而其他供应商则在结账时显示。我们建议在最终预订页面查看此信息。"
+  },
+  "faq5": {
+    "question": "如何找到提供免费取消的酒店？",
+    "answer": "在您的搜索结果中使用“免费取消”筛选器，查看提供灵活取消政策的酒店。"
+  },
+  "faq6": {
+    "question": "我可以根据设施如Wi-Fi、早餐或游泳池筛选酒店吗？",
+    "answer": "是的，您可以使用免费Wi-Fi、包含早餐、游泳池、宠物友好等筛选条件来细化您的搜索。"
+  },
+  "faq7": {
+    "question": "你们显示预算型和豪华型酒店吗？",
+    "answer": "是的，我们列出了各种价格范围的住宿——从旅馆和客栈到精品酒店和豪华度假村。"
+  },
+  "faq8": {
+    "question": "我可以在预订前查看酒店的照片和评论吗？",
+    "answer": "当然可以。您可以查看每个酒店的详细照片、星级评分和验证过的客人评论，以便做出决定。"
+  },
+  "faq9": {
+    "question": "如何知道酒店是否在我的日期有空房？",
+    "answer": "根据您选择的旅行日期，酒店的可用性会实时更新。只有可以预订的房间才会显示。"
+  },
+  "faq10": {
+    "question": "我可以搜索像公寓或别墅这样的住宿吗？",
+    "answer": "是的，我们在搜索结果中包括了像服务公寓、度假屋和别墅等替代住宿选项。"
+  },
+  "faq11": {
+    "question": "酒店列表中是否显示酒店的精确位置？",
+    "answer": "是的，您可以在地图上查看酒店位置，检查其与地标、交通枢纽或社区的距离。"
+  },
+  "faq12": {
+    "question": "如何为一个团队预定多个房间？",
+    "answer": "在您的搜索中选择所需的房间数量，并根据团队大小查看价格。"
+  },
+  "faq13": {
+    "question": "如果我想修改我的酒店预订，应该怎么办？",
+    "answer": "请直接联系酒店或预订供应商进行更改，因为所有预订都是通过他们的平台处理的。"
+  },
+  "faq14": {
+    "question": "我可以通过酒店预订赚取奖励或忠诚积分吗？",
+    "answer": "这取决于预订供应商。一些平台允许您赚取忠诚积分或在成为会员时应用折扣。"
+  },
+  "faq15": {
+    "question": "酒店价格中包含早餐吗？",
+    "answer": "一些列表包括早餐，而其他则不包括。在被重定向到供应商网站之前，您会清楚地看到这条信息。"
+  }
+}
+,
+
+"Faqpage2": {
+  "faq1": {
+    "question": "如何搜索租车服务?",
+    "answer": "输入取车地点、日期和时间，即可在一个地方立即比较多个公司提供的租车优惠"
+  },
+  "faq2": {
+    "question": "我可以直接在平台上预定租车吗?",
+    "answer": "不，我们会将您引导到租车公司或预定合作伙伴的网站，您可以在那里完成预定"
+  },
+  "faq3": {
+    "question": "租车需要信用卡吗?",
+    "answer": "大多数租车公司要求提供信用卡作为押金和预定保障。请在租车公司的网站上查看具体要求"
+  },
+  "faq4": {
+    "question": "没有驾驶执照可以租车吗?",
+    "answer": "不，所有租车都需要有效的驾驶执照。一些公司还要求您持有执照至少一年"
+  },
+  "faq5": {
+    "question": "租车费用中包括保险和税费吗?",
+    "answer": "一些租车公司包括基础保险和税费，而其他公司则将其作为附加选项提供。详细信息可以在结账页面查看"
+  },
+  "faq6": {
+    "question": "我可以租什么类型的车?",
+    "answer": "您可以根据旅行需求选择多种车型，包括经济型、紧凑型、SUV、豪华车和面包车"
+  },
+  "faq7": {
+    "question": "我可以在一个城市取车，另一个城市还车吗?",
+    "answer": "可以，这叫做单程租车。在搜索时选择适当的选项。根据路线可能会收取额外费用"
+  },
+  "faq8": {
+    "question": "租车有年龄限制吗?",
+    "answer": "大多数租车公司要求驾驶员至少21岁，并且对于25岁以下的驾驶员可能会收取附加费用。请查看租车公司具体的条款"
+  },
+  "faq9": {
+    "question": "你们提供自动挡与手动挡的筛选功能吗?",
+    "answer": "是的，您可以按变速器类型、燃油政策、乘客容量等筛选搜索结果"
+  },
+  "faq10": {
+    "question": "我可以为租车添加第二位驾驶员吗?",
+    "answer": "许多租车公司允许添加额外驾驶员，但需要额外费用。确保在完成预订时选择此选项"
+  },
+  "faq11": {
+    "question": "租车费用中包括油费吗?",
+    "answer": "通常不包括。大多数租车遵循满油返还政策，即取车时油箱满，归还时也需要满油"
+  },
+  "faq12": {
+    "question": "我可以取消或修改我的租车预定吗?",
+    "answer": "这取决于租车公司政策。大多数公司在特定时间窗口内提供免费取消选项。具体信息请查看租车公司网站"
+  },
+  "faq13": {
+    "question": "取车时我需要哪些文件?",
+    "answer": "通常需要驾驶执照、信用卡，有时还需要预订确认或身份证件。请提前与租车公司确认"
+  },
+  "faq14": {
+    "question": "我可以在机场租车吗?",
+    "answer": "可以，我们的平台提供机场接送选项，包括现场租车和班车接送租车服务，方便快捷"
+  },
+  "faq15": {
+    "question": "如果我的航班延误，我错过了取车时间怎么办?",
+    "answer": "大多数租车公司允许一定的宽限期。如果预计会延误，最好提前通知租车公司，特别是当预定的是非营业时间的取车"
+  }
+},
+
+"Faqpage3": {
+  "faq1": {
+    "question": "我需要在你们的网站上支付费用吗?",
+    "answer": "不，我们不处理任何交易。一旦您选择了航班、酒店或租车，您将被引导到提供商的网站完成预订和支付"
+  },
+  "faq2": {
+    "question": "我可以使用哪些支付方式与旅行服务提供商支付?",
+    "answer": "大多数服务提供商接受主要的信用卡和借记卡（Visa、Mastercard、American Express），许多还支持PayPal、Apple Pay或本地支付选项"
+  },
+  "faq3": {
+    "question": "在预定网站上输入我的支付信息安全吗?",
+    "answer": "是的。我们只与信任的旅行服务提供商合作，他们使用安全加密的支付网关来保护您的个人和财务信息"
+  },
+  "faq4": {
+    "question": "你们会收取任何隐藏费用或预订费用吗?",
+    "answer": "不，我们的平台完全免费使用。您不会被收取任何额外费用，您的付款直接交给旅行服务提供商"
+  },
+  "faq5": {
+    "question": "我会按照本地货币支付费用吗?",
+    "answer": "这取决于服务提供商。许多提供商提供货币转换，允许您在结账时查看并支付本地货币"
+  },
+  "faq6": {
+    "question": "我可以分多张卡支付费用吗?",
+    "answer": "大多数服务提供商要求使用单一持卡人支付全额费用。对于团体预订或共享费用，您可能需要单独安排支付"
+  },
+  "faq7": {
+    "question": "我需要在预定时支付全部费用吗?",
+    "answer": "这取决于服务提供商和服务类型。一些提供商提供“稍后支付”或定金选项，而其他提供商则要求在预订时支付全部费用"
+  },
+  "faq8": {
+    "question": "如果在服务提供商网站上支付失败怎么办?",
+    "answer": "如果支付失败，通常会收到提示要求您重试或使用其他方式支付。您还可以联系服务提供商的支持团队以获取帮助"
+  },
+  "faq9": {
+    "question": "如果我取消预定，能退还费用吗?",
+    "answer": "退款政策因服务提供商和服务类型而异。某些服务提供商在特定时间窗口内提供全额退款，其他则可能收取取消费用。在预订前务必查看条款"
+  },
+  "faq10": {
+    "question": "我会收到支付确认或发票吗?",
+    "answer": "是的，一旦您在服务提供商网站上完成支付，您将直接收到来自服务提供商的确认邮件和发票"
+  }
+}
+,
+"Faqpage": {
+  "heading": "对我们有问题吗？我们有最合适的答案等着你。",
+  "input": "在这里搜索你的问题",
+  "tital1": "常见问题解答",
+  "text1": "欢迎来到我们的FAQ部分，我们已回答最常见的问题，帮助你自信地规划和预订你的行程。无论你是在寻找航班、酒店还是租车，你都能找到有关我们旅行搜索引擎的清晰和有用的答案。探索下面的每个类别，了解更多内容，轻松做出明智的旅行决策。",
+  "tab1": "网站运作",
+  "tab2": "酒店预订",
+  "tab3": "租车",
+  "tab4": "支付",
+  "faq1": {
+    "question": "如何在你们的网站上搜索航班？",
+    "answer": "只需输入出发城市、目的地、旅行日期和乘客数量。我们的系统将立即搜索多个航空公司和旅行提供商，为你展示最佳可用选项。"
+  },
+  "faq2": {
+    "question": "我可以直接在你们的网站上预订航班吗？",
+    "answer": "不，我们是一个旅行搜索引擎。一旦你找到适合你的航班，我们会将你重定向到航空公司或旅行代理商的网站，以完成预订。"
+  },
+  "faq3": {
+    "question": "航班价格是否是实时显示的？",
+    "answer": "是的，我们的平台从提供商处获取实时数据，以确保你看到最新的价格和可用性。然而，最终确认是在提供商的网站上进行的。"
+  },
+  "faq4": {
+    "question": "你们的航班价格是否包含税费？",
+    "answer": "大多数价格包括基本税费，但像行李、餐饮或座位选择等可选附加费用可能需要额外支付，并会在预订提供商的网站上显示。"
+  },
+  "faq5": {
+    "question": "我可以搜索单程、往返或多城市航班吗？",
+    "answer": "当然可以。在开始搜索之前，你可以选择你喜欢的行程类型，甚至可以添加多个目的地，定制你的行程。"
+  },
+  "faq6": {
+    "question": "你们提供灵活日期搜索选项吗？",
+    "answer": "是的，我们的灵活日期功能允许你查看出发和返程日期附近几天内的最便宜航班。"
+  },
+  "faq7": {
+    "question": "如何按航空公司、价格或时长筛选航班？",
+    "answer": "搜索后，使用我们的筛选器按航空公司、价格范围、停留次数、旅行时间等进行筛选。"
+  },
+  "faq8": {
+    "question": "我可以按最短旅行时间或最低价格排序航班吗？",
+    "answer": "是的，你可以轻松排序结果，找到最快的航班、最便宜的票价或最方便的出发时间。"
+  },
+  "faq9": {
+    "question": "你们显示预算航空公司和全服务航空公司吗？",
+    "answer": "是的，我们包括主要航空公司、预算航空公司和在线旅行代理商的结果，为你提供完整的选项视图。"
+  },
+  "faq10": {
+    "question": "我可以预订国际航班和国内航班吗？",
+    "answer": "是的，我们支持搜索国内和国际航线，覆盖广泛的目的地和航空公司。"
+  },
+  "faq11": {
+    "question": "我可以设置航班价格提醒吗？",
+    "answer": "我们提供价格提醒功能，你可以订阅，当特定路线的票价下降时，我们会通知你。"
+  },
+  "faq12": {
+    "question": "为什么我点击预订时价格会发生变化？",
+    "answer": "航空公司价格根据需求和可用性不断波动。如果票价发生变化，通常是由提供商实时更新的。"
+  },
+  "faq13": {
+    "question": "如何知道航班价格是否包含行李费用？",
+    "answer": "每个航班信息都会注明是否包含托运行李或机舱行李，完整的详细信息可在预订合作伙伴的网站上查看。"
+  },
+  "faq14": {
+    "question": "如果我遇到航班预订问题该怎么办？",
+    "answer": "由于预订是在航空公司或代理商的网站上完成的，你需要直接联系他们，帮助你处理更改、取消或退款问题。"
+  },
+  "faq15": {
+    "question": "我可以为团体或大家庭预订航班吗？",
+    "answer": "是的，你可以搜索最多9名乘客的航班。对于更多乘客的团体，我们建议直接联系航空公司或旅行提供商。"
+  }
+}
+,
+  "FlightsInner": {
+    "Suggested": "建议",
+    "Fastest": "最快",
+    "Cheapest": "最便宜",
+    "No_Flights_Found": "未找到航班",
+    "departing": "选择您的出发航班",
+    "Results": "结果",
+    "departingflight": "选择飞往迪拜的出发航班",
+    "Nonstop": "直飞",
+    "Economy": "经济舱",
+    "Select": "选择",
+    "Round": "往返价格",
+    "Show": "显示更多结果",
+    "More Filters": "更多过滤器",
+    "Hide Filters": "隐藏过滤器"
+  },
+  "BookYourTicket": {
+    "Book": "预订您的航班",
+    "Back_result": "返回结果",
+    "text1": "显示的价格包括估算的税费和强制性费用。行李政策和机票条款可能会有所不同。",
+    "text2": "一些供应商可能会对行李、保险或信用卡支付收取额外费用。",
+    "text3": "请在完成预订前，在供应商的网站上审查所有机票详情和最终费用。",
+    "Extra": "额外服务",
+    "Saver": "节省",
+    "Premium": "高级",
+    "Standard": "标准",
+    "Flight_Details": "航班详情",
+    "Outbound": "出发",
+    "Directing_To": "我们正在引导您前往"
+  },
+  "HotelsInnerlabel": {
+    "label1": "查看方式",
+    "label2": "价格",
+    "label3": "酒店类型",
+    "label4": "设施",
+    "label5": "星级",
+    "label6": "位置",
+    "text": "选择您在伦敦的住宿酒店",
+    "para": "Morem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "Suppliers": "供应商",
+    "All_Filters": "所有过滤器"
+  },
+  "HotelfilterSections": {
+    "sortOptions": {
+      "select": "选择",
+      "recommended": "推荐",
+      "priceLowToHigh": "价格：从低到高",
+      "priceHighToLow": "价格：从高到低",
+      "starRatingHighToLow": "星级：从高到低",
+      "distanceClosest": "距离：最靠近市中心"
+    },
+    "starRating": {
+      "select": "选择",
+      "options": {
+        "fiveStars": "5星",
+        "fourStars": "4星",
+        "threeStars": "3星",
+        "twoStars": "2星",
+        "oneStar": "1星",
+        "unrated": "未评级"
+      }
+    },
+    "categories": {
+      "traditional": {
+        "label": "传统",
+        "options": {
+          "hotels": "酒店",
+          "motels": "汽车旅馆",
+          "guesthouses": "宾馆",
+          "bedAndBreakfasts": "床位加早餐"
+        }
+      },
+      "luxuryStays": {
+        "label": "豪华住宿",
+        "options": {
+          "resorts": "度假村",
+          "villas": "别墅",
+          "boutiqueHotels": "精品酒店"
+        }
+      },
+      "budgetFriendly": {
+        "label": "预算友好",
+        "options": {
+          "hostels": "青年旅舍",
+          "capsuleHotels": "胶囊酒店"
+        }
+      },
+      "extendedStays": {
+        "label": "长期住宿",
+        "options": {
+          "apartments": "公寓",
+          "servicedApartments": "服务式公寓"
+        }
+      },
+      "uniqueExperiences": {
+        "label": "独特体验",
+        "options": {
+          "cottages": "小屋",
+          "farmStays": "农场住宿",
+          "holidayHomes": "度假屋",
+          "campingAndGlamping": "露营与豪华露营"
+        }
+      }
+    },
+    "amenities": {
+      "roomFeatures": {
+        "label": "房间特色",
+        "options": {
+          "airConditioning": "空调",
+          "heating": "暖气",
+          "privateBalcony": "私人阳台",
+          "kitchenKitchenette": "厨房/小厨房",
+          "coffeeTeaMaker": "咖啡/茶具",
+          "flatScreenTv": "平面电视",
+          "inRoomSafe": "室内保险箱",
+          "workDesk": "工作台",
+          "premiumBedding": "高级床上用品"
+        }
+      },
+      "hotelServices": {
+        "label": "酒店服务",
+        "options": {
+          "twentyFourHourFrontDesk": "24小时前台",
+          "conciergeService": "礼宾服务",
+          "roomService": "客房服务",
+          "dailyHousekeeping": "每日清洁",
+          "laundryService": "洗衣服务",
+          "luggageStorage": "行李寄存",
+          "wakeUpCallService": "叫醒服务"
+        }
+      },
+      "foodAndBeverage": {
+        "label": "餐饮",
+        "options": {
+          "complimentaryBreakfast": "免费早餐",
+          "onSiteRestaurant": "现场餐厅",
+          "barLounge": "酒吧/休息室",
+          "coffeeShop": "咖啡店",
+          "miniBar": "迷你吧"
+        }
+      },
+      "recreationalFacilities": {
+        "label": "娱乐设施",
+        "options": {
+          "swimmingPool": "游泳池（室内/室外）",
+          "fitnessCenter": "健身中心",
+          "spaWellnessCenter": "水疗/健康中心",
+          "kidsPlayArea": "儿童游乐区",
+          "gameRoom": "游戏室"
+        }
+      },
+      "businessFacilities": {
+        "label": "商务设施",
+        "options": {
+          "conferenceRooms": "会议室",
+          "businessCenter": "商务中心",
+          "freeWiFi": "免费Wi-Fi",
+          "meetingRooms": "会议室"
+        }
+      },
+      "accessibility": {
+        "label": "无障碍设施",
+        "options": {
+          "wheelchairAccessible": "轮椅可进入",
+          "elevatorLift": "电梯",
+          "accessibleParking": "无障碍停车场",
+          "hearingVisualAccessibility": "听力/视觉无障碍功能"
+        }
+      },
+      "parkingAndTransportation": {
+        "label": "停车与交通",
+        "options": {
+          "freeParking": "免费停车",
+          "valetParking": "代客泊车",
+          "shuttleService": "班车服务（机场/本地）",
+          "evChargingStations": "电动车充电站"
+        }
+      },
+      "petPolicies": {
+        "label": "宠物政策",
+        "options": {
+          "petFriendly": "允许携带宠物",
+          "petFreeRooms": "无宠物房间可选"
+        }
+      },
+      "ecoFriendlyFeatures": {
+        "label": "环保特色",
+        "options": {
+          "energyEfficientLighting": "节能照明",
+          "recyclingFacilities": "回收设施",
+          "sustainableProducts": "可持续产品"
+        }
+      }
+    },
+    "location": {
+      "select": "选择",
+      "options": {
+        "anyDistance": "任何距离",
+        "lessThan1Mi": "不到1英里",
+        "lessThan2Mi": "不到2英里",
+        "lessThan3Mi": "不到3英里",
+        "lessThan4Mi": "不到4英里",
+        "lessThan5Mi": "不到5英里",
+        "lessThan6Mi": "不到6英里",
+        "lessThan7Mi": "不到7英里",
+        "lessThan8Mi": "不到8英里"
+      }
+    },
+    "carFilters": {
+      "suppliers": {
+        "title": "供应商",
+        "options": {
+          "hertz": "赫兹",
+          "avis": "安飞士",
+          "enterprise": "企业租车",
+          "sixt": "Sixt",
+          "europcar": "欧洲租车",
+          "budget": "预算租车",
+          "alamo": "阿拉莫",
+          "nationalCarRental": "国家租车",
+          "thrifty": "节俭租车",
+          "dollarRent": "美元租车",
+          "greenMotion": "绿色运动",
+          "foxRent": "福克斯租车",
+          "turo": "Turo",
+          "rentcarsCom": "Rentcars.com",
+          "rideSharingServices": "共享乘车服务"
+        }
+      },
+      "policies": {
+        "title": "政策",
+        "categories": {
+          "insurance": {
+            "title": "保险",
+            "options": {
+              "collisionDamageWaiver": "碰撞损害豁免（CDW）",
+              "theftProtection": "盗窃保护",
+              "thirdPartyLiability": "第三方责任"
+            }
+          },
+          "fuel": {
+            "title": "燃油",
+            "options": {
+              "fullToFull": "满油至满油",
+              "prePaidFuel": "预付燃油"
+            }
+          },
+          "mileageOptions": {
+            "title": "里程选项",
+            "options": {
+              "unlimitedMileage": "无限里程",
+              "limitedMileage": "有限里程（例如，每天100英里）"
+            }
+          },
+          "driverRequirements": {
+            "title": "驾驶员要求",
+            "options": {
+              "ageRequirement": "年龄要求（21-75岁）",
+              "validDrivingLicense": "有效驾驶执照"
+            }
+          },
+          "cancellation": {
+            "title": "取消",
+            "options": {
+              "freeCancellation": "免费取消（48小时）",
+              "lateCancellationFee": "迟取消费"
+            }
+          },
+          "returnPolicies": {
+            "title": "归还政策",
+            "options": {
+              "lateReturnFee": "迟还费",
+              "cleanCarReturn": "清洁车辆归还"
+            }
+          }
+        }
+      },
+      "carFeatures": {
+        "title": "车辆特色",
+        "options": {
+          "airConditioning": "空调",
+          "automaticTransmission": "自动变速箱",
+          "bluetoothConnectivity": "蓝牙连接",
+          "gpsNavigation": "GPS导航",
+          "leatherSeats": "皮革座椅",
+          "cruiseControl": "巡航控制",
+          "rearviewCamera": "后视摄像头",
+          "bluetoothHandsFreeCalling": "蓝牙免提通话",
+          "childSafetySeats": "儿童安全座椅",
+          "sunroof": "天窗",
+          "moonroof": "月窗",
+          "heatedSeats": "加热座椅",
+          "keylessEntry": "无钥匙进入与按钮启动",
+          "parkingSensors": "停车传感器",
+          "towingCapacity": "拖曳能力",
+          "fourWheelDrive": "四轮驱动（4WD）",
+          "allWheelDrive": "全轮驱动（AWD）",
+          "bluetoothAudioStreaming": "蓝牙音频流",
+          "laneDepartureWarning": "车道偏离警告系统",
+          "collisionAvoidance": "碰撞避免系统",
+          "roofRailing": "车顶行李架",
+          "foldableRearSeats": "可折叠后座",
+          "adjustableSteeringWheel": "可调方向盘",
+          "climateControl": "气候控制"
+        }
+      },
+      "brands": {
+        "title": "品牌",
+        "categories": {
+          "toyota": {
+            "title": "丰田",
+            "options": {
+              "corolla": "丰田卡罗拉",
+              "camry": "丰田凯美瑞",
+              "yaris": "丰田雅力士",
+              "prius": "丰田普锐斯",
+              "highlander": "丰田汉兰达",
+              "rav4": "丰田RAV4",
+              "landCruiser": "丰田陆地巡洋舰"
+            }
+          },
+          "ford": {
+            "title": "福特",
+            "options": {
+              "fiesta": "福特嘉年华",
+              "focus": "福特福克斯",
+              "mustang": "福特野马",
+              "explorer": "福特探险者",
+              "edge": "福特锐界"
+            }
+          },
+          "volkswagen": {
+            "title": "大众",
+            "options": {
+              "golf": "大众高尔夫",
+              "passat": "大众帕萨特",
+              "tiguan": "大众途观",
+              "polo": "大众波罗",
+              "jetta": "大众捷达"
+            }
+          },
+          "nissan": {
+            "title": "日产",
+            "options": {
+              "altima": "日产Altima",
+              "sentra": "日产Sentra",
+              "rogue": "日产Rogue",
+              "pathfinder": "日产Pathfinder"
+            }
+          },
+          "bmw": {
+            "title": "宝马",
+            "options": {
+              "threeSeries": "宝马3系",
+              "fiveSeries": "宝马5系",
+              "x1": "宝马X1",
+              "x3": "宝马X3"
+            }
+          },
+          "hyundai": {
+            "title": "现代",
+            "options": {
+              "elantra": "现代伊兰特",
+              "tucson": "现代途胜",
+              "santaFe": "现代圣达菲"
+            }
+          },
+          "chevrolet": {
+            "title": "雪佛兰",
+            "options": {
+              "spark": "雪佛兰Spark",
+              "malibu": "雪佛兰Malibu",
+              "equinox": "雪佛兰Equinox",
+              "traverse": "雪佛兰Traverse"
+            }
+          },
+          "mercedesBenz": {
+            "title": "梅赛德斯-奔驰",
+            "options": {
+              "aClass": "梅赛德斯-奔驰A级",
+              "eClass": "梅赛德斯-奔驰E级",
+              "glc": "梅赛德斯-奔驰GLC",
+              "gle": "梅赛德斯-奔驰GLE"
+            }
+          },
+          "audi": {
+            "title": "奥迪",
+            "options": {
+              "a3": "奥迪A3",
+              "a4": "奥迪A4",
+              "q3": "奥迪Q3",
+              "q5": "奥迪Q5"
+            }
+          },
+          "jeep": {
+            "title": "吉普",
+            "options": {
+              "wrangler": "吉普牧马人",
+              "grandCherokee": "吉普大切诺基",
+              "cherokee": "吉普切诺基"
+            }
+          },
+          "kia": {
+            "title": "起亚",
+            "options": {
+              "optima": "起亚Optima",
+              "sorento": "起亚索兰托",
+              "sportage": "起亚Sportage"
+            }
+          },
+          "honda": {
+            "title": "本田",
+            "options": {
+              "civic": "本田思域",
+              "accord": "本田雅阁",
+              "crv": "本田CR-V",
+              "hrv": "本田HR-V"
+            }
+          },
+          "renault": {
+            "title": "雷诺",
+            "options": {
+              "clio": "雷诺Clio",
+              "captur": "雷诺Captur",
+              "megane": "雷诺Megane"
+            }
+          },
+          "peugeot": {
+            "title": "标致",
+            "options": {
+              "208": "标致208",
+              "308": "标致308",
+              "3008": "标致3008"
+            }
+          },
+          "landRover": {
+            "title": "路虎",
+            "options": {
+              "discovery": "路虎发现",
+              "defender": "路虎卫士",
+              "rangeRover": "揽胜"
+            }
+          },
+          "mazda": {
+            "title": "马自达",
+            "options": {
+              "mazda3": "马自达3",
+              "cx5": "马自达CX-5",
+              "mx5": "马自达MX-5"
+            }
+          },
+          "porsche": {
+            "title": "保时捷",
+            "options": {
+              "911": "保时捷911",
+              "cayenne": "保时捷卡宴",
+              "macan": "保时捷Macan"
+            }
+          },
+          "tesla": {
+            "title": "特斯拉",
+            "options": {
+              "model3": "特斯拉Model 3",
+              "modelS": "特斯拉Model S",
+              "modelX": "特斯拉Model X"
+            }
+          },
+          "volvo": {
+            "title": "沃尔沃",
+            "options": {
+              "xc60": "沃尔沃XC60",
+              "xc90": "沃尔沃XC90",
+              "v90": "沃尔沃V90"
+            }
+          },
+          "fiat": {
+            "title": "菲亚特",
+            "options": {
+              "500": "菲亚特500",
+              "panda": "菲亚特Panda",
+              "500l": "菲亚特500L"
+            }
+          }
+        }
+      },
+      "buttons": {
+        "reset": "重置",
+        "apply": "应用"
+      }
+    },
+    "hotelFilters": {
+  "FoodAndBeverage": {
+    "title": "食品和饮料",
+    "options": {
+      "complimentaryBreakfast": "免费早餐",
+      "onSiteRestaurant": "现场餐厅",
+      "barLounge": "酒吧 / 休息室",
+      "coffeeShop": "咖啡店",
+      "miniBar": "迷你吧"
+    }
+  },
+  "payments": {
+    "title": "付款方式",
+    "options": {
+      "payNow": "立即付款",
+      "payLater": "稍后付款",
+      "partialPayment": "部分付款",
+      "flexiblePayment": "灵活付款"
+    }
+  },
+  "accessibility": {
+    "title": "无障碍设施",
+    "options": {
+      "wheelchairAccessible": "轮椅通道",
+      "elevatorLift": "电梯",
+      "accessibleParking": "无障碍停车位",
+      "hearingVisualAccessibility": "听觉/视觉无障碍设施"
+    }
+  }
+}
+
+  },
+  "CarfilterSections": {
+    "label1": "排序方式",
+    "label2": "车辆类型",
+    "label3": "座位 - 行李",
+    "label4": "支付类型",
+    "label5": "变速箱类型",
+    "label6": "位置",
+    "sortBy": {
+      "select": "选择",
+      "suggested": "建议",
+      "cheapest": "最便宜"
+    },
+    "carType": {
+      "select": "选择",
+      "options": {
+        "small": "小型",
+        "medium": "中型",
+        "standard": "标准",
+        "fullSize": "全尺寸",
+        "luxury": "豪华",
+        "suv": "SUV",
+        "convertible": "敞篷车",
+        "minivan": "小型货车",
+        "pickupTruck": "皮卡车",
+        "sportsCar": "跑车",
+        "electricVehicle": "电动车",
+        "fourByFour": "4x4",
+        "crossover": "跨界车",
+        "luxurySuv": "豪华SUV"
+      }
+    },
+    "seatsAndBags": {
+      "seats": {
+        "label": "座位",
+        "options": {
+          "twoSeats": "2座",
+          "fourSeats": "4座",
+          "fiveSeats": "5座",
+          "sevenPlusSeats": "7座以上"
+        }
+      },
+      "bags": {
+        "label": "行李",
+        "options": {
+          "oneToTwoBags": "1-2件行李",
+          "threeToFourBags": "3-4件行李",
+          "fiveToSixBags": "5-6件行李",
+          "sevenPlusBags": "7件以上行李"
+        }
+      }
+    },
+    "paymentType": {
+      "select": "选择",
+      "options": {
+        "payNow": "立即支付",
+        "payLater": "稍后支付",
+        "partialPayment": "部分支付",
+        "flexiblePayment": "灵活支付"
+      }
+    },
+    "transmissionType": {
+      "select": "选择",
+      "options": {
+        "manual": "手动",
+        "automatic": "自动",
+        "cvt": "无级变速",
+        "dct": "双离合",
+        "tiptronic": "手自一体"
+      }
+    },
+    "location": {
+      "select": "选择",
+      "options": {
+        "airport": "机场",
+        "cityCenter": "市中心",
+        "hotelPickup": "酒店接送",
+        "customLocation": "其他（自定义位置）"
+      }
+    }
+  },
+  "HeaderMenu": {
+    "tital1": "页面",
+    "tital2": "航班",
+    "tital3": "酒店",
+    "tital4": "汽车",
+    "tital5": "活动",
+    "text1": "首页",
+    "text2": "关于我们",
+    "text3": "常见问题",
+    "text4": "联系我们",
+    "text5": "主要优惠",
+    "text6": "文章",
+    "text7": "常见问题",
+    "text8": "今天就开始您的旅程",
+    "text9": "签证要求",
+    "text10": "最近机场详情",
+    "text11": "详情",
+    "text12": "文章",
+    "texth8": "扩展酒店选项",
+    "textc8": "开始您的道路之旅"
+}
+,
+  "Logsec": {
+    "heading": "登录以开始",
+    "para": "请输入您的信息",
+    "label1": "电子邮件/用户名",
+    "label2": "密码",
+    "label3": "记住我",
+    "label4": "忘记密码？",
+    "btn1": "登录",
+    "label5": "或继续使用",
+    "label6": "或",
+    "label7": "没有账号？",
+    "heading1": "创建您的账号",
+    "para1": "接收价格提醒、轻松规划并享受快速预订。",
+    "label8": "电子邮件",
+    "label9": "新密码",
+    "label10": "确认密码",
+    "label11": "我同意",
+    "label12": "服务条款",
+    "label13": "和",
+    "label14": "隐私政策",
+    "btn2": "创建账号",
+    "btn3": "正在登录...",
+"btn4": "退出登录",
+"btn5": "正在注册...",
+
+    "label15": "已有账号？"
+  }
+}

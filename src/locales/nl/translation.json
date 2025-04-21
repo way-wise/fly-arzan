@@ -1,0 +1,964 @@
+{
+  "lg": "Nederlands",
+  "upperSection": {
+    "Login": "Inloggen",
+    "menu": "Menu",
+    "closeMenu": "Menu sluiten",
+    "Cheap_flights_para": "Lage prijzen wereldwijd, met één eenvoudige zoekopdracht",
+    "Our_search": "Onze zoekmachine bespaart u geld",
+    "flights": "Vluchten",
+    "hotels": "Hotels",
+    "cars_Rentals": "Huurauto's",
+    "oneWay": "Enkele reis",
+    "return": "Retour",
+    "multiCity": "Meerdere steden",
+    "flying_from": "Vertrek vanaf",
+    "flying_to": "Aankomst in",
+    "Cabin_Class_Adults": "Cabineklasse en volwassenen",
+
+    "departure_date": "Vertrekdatum",
+    "return_date": "Retourdatum",
+    "start_journey": "Begin uw reis",
+    "add_flight": "Vlucht toevoegen",
+    "ECONOMY": "Economy",
+    "PREMIUM_ECONOMY": "Premium Economy",
+    "BUSINESS": "Business",
+    "FIRST": "Eerste klas",
+    "cabinClass": "Cabineklasse",
+    "Adults": "Volwassenen",
+    "Aged18": "18+ jaar",
+    "Children": "Kinderen",
+    "Aged17": "0-17 jaar",
+    "city": "Stad",
+    "CheckIn": "Inchecken",
+    "CheckOut": "Uitchecken",
+    "Rooms": "Kamers",
+    "Done": "Klaar",
+    "Search_Hotels": "Hotels zoeken",
+    "Rent_car": "Auto huren",
+    "rent_a_car": "Auto huren",
+    "airport_shuttle": "Luchthavenvervoer",
+    "within_city": "In de stad",
+    "out_of_city": "Buiten de stad",
+    "pickup_time": "Ophaaltijd",
+    "dropoff_time": "Inlevertijd",
+    "pickup_date": "Ophaaldatum",
+    "dropoff_date": "Inleverdatum",
+    "search": "Zoeken",
+    "input": "Klik hier"
+  },
+  "section2": {
+    "Search_simply": "Eenvoudig zoeken",
+    "Search_simply_para": "Vereenvoudig uw reisplanning met gemakkelijk zoeken. Vind uw ideale vluchten met slechts enkele klikken.",
+    "Comparison": "Vergelijk met vertrouwen",
+    "Comparison_para": "Vergelijk opties naast elkaar om de beste aanbiedingen te vinden. Boek met vertrouwen, wetende dat u de juiste keuze heeft gemaakt.",
+    "Maximize_Savings": "Maximaliseer uw besparingen",
+    "Maximize_Savings_para": "Ontdek besparingen die elke reis betaalbaar maken. Reis slim en houd meer geld in uw zak."
+  },
+  "buttons": {
+    "more": "Meer",
+    "showLess": "Toon minder",
+    "searchHere": "Zoek hier",
+    "book": "Boeken",
+    "Search": "Zoeken",
+    "Learn_More": "Meer informatie",
+    "Submit": "Verzenden",
+    "BookNow": "Nu boeken",
+    "Save": "Opslaan",
+    "apply": "Toepassen",
+    "reset": "Resetten",
+    "clear": "Wissen"
+  },
+  "Useful Articles": "Nuttige artikelen",
+  "flightFaqSection": {
+    "heading": "Veelgestelde vragen",
+    "faqs": {
+      "hotel_search": {
+        "question": "Hoe kan ik hotels zoeken op Flay Arzan?",
+        "answer": "Voer simpelweg uw bestemming, reisdata en aantal gasten in onze zoekbalk in. Ons platform toont een breed scala aan hotelopties die bij uw voorkeuren passen, inclusief budgetvriendelijke, middenklasse en luxe opties, zodat u de perfecte accommodatie vindt."
+      },
+      "filter_amenities": {
+        "question": "Kan ik hotelzoekresultaten filteren op voorzieningen?",
+        "answer": "Ja, ons geavanceerde filtersysteem stelt u in staat om uw zoekopdracht aan te passen aan uw specifieke behoeften. U kunt filteren op voorzieningen zoals WiFi, zwembad, parkeren en nog veel meer."
+      },
+      "book_hotel": {
+        "question": "Kan ik een hotel boeken via Flay Arzan?",
+        "answer": "Ja, u kunt direct boeken via ons platform. We werken samen met betrouwbare hotels om u een veilig en transparant boekingsproces te bieden."
+      },
+      "hotel_availability": {
+        "question": "Hoe nauwkeurig is de hotelbeschikbaarheid op uw platform?",
+        "answer": "We updaten de beschikbaarheid in realtime via directe synchronisatie met onze hotelpartners, wat zorgt voor nauwkeurige informatie."
+      },
+      "customer_reviews": {
+        "question": "Kan ik klantbeoordelingen zien voor de vermelde hotels?",
+        "answer": "Ja, u kunt authentieke beoordelingen van andere reizigers lezen voor elk hotel, wat u helpt bij het maken van een weloverwogen beslissing."
+      },
+      "hidden_fees": {
+        "question": "Zijn er verborgen kosten bij het boeken van een hotel?",
+        "answer": "Nee, we tonen alle kosten transparant. De eindprijs is inclusief alle verplichte belastingen en toeslagen."
+      },
+      "cancel_modify": {
+        "question": "Kan ik mijn hotelboeking annuleren of wijzigen?",
+        "answer": "Annulerings- en wijzigingsbeleid verschilt per hotel. Specifieke voorwaarden worden duidelijk aangegeven vóór het boeken."
+      },
+      "hotel_suitability": {
+        "question": "Hoe weet ik of een hotel geschikt is voor mijn behoeften?",
+        "answer": "Bekijk de gedetailleerde beschrijvingen, foto's, voorzieningen en klantbeoordelingen om te beoordelen of het hotel aan uw verwachtingen voldoet."
+      },
+      "special_deals": {
+        "question": "Biedt u speciale aanbiedingen of kortingen op hotels?",
+        "answer": "Ja, we bieden regelmatig speciale aanbiedingen en exclusieve kortingen. Abonneer u op onze nieuwsbrief om op de hoogte te blijven van de beste aanbiedingen."
+      },
+      "direct_booking": {
+        "question": "Boek ik het hotel rechtstreeks via Flay Arzan?",
+        "answer": "Ja, alle boekingen worden direct via ons platform gedaan, wat zorgt voor een veilig proces en toegewijde klantenservice."
+      }
+    },
+    "flightCard": {
+      "PlacesLike": "Bestemmingen die u mogelijk leuk vindt",
+      "PlacesLikePara": "Ontdek de beste vliegtuigdeals vanuit Frankrijk tegen de laagste prijzen. Deze aanbiedingen zijn beperkt beschikbaar, dus u kunt ze op uw eigen tempo bekijken!",
+      "FlightDealsFrom": "Vliegtuigdeals vanuit {{country}}",
+      "Discover_flight_deals": "Ontdek de beste vliegtuigdeals vanuit",
+      "at_the_lowest_prices": "tegen de laagste prijzen. Deze aanbiedingen zijn beperkt beschikbaar, dus u kunt ze op uw eigen tempo bekijken!",
+      "day": "dag",
+      "night": "nacht",
+      "Beaches": "Stranden",
+      "Snorkeling": "Snorkelen",
+      "Food": "Eten"
+    }
+  },
+  "BeginJourney": "Begin vandaag aan uw reis",
+  "footer": {
+    "quickLinks": {
+      "title": "Snelle links",
+      "about": "Over ons",
+      "faqs": "Veelgestelde vragen",
+      "privacyPolicy": "Privacybeleid",
+      "contact": "Contact"
+    },
+    "travelSupport": {
+      "title": "Reisondersteuning",
+      "covid": "COVID-19 Updates",
+      "visa": "Visumvereisten",
+      "airport": "Details dichtstbijzijnde luchthaven"
+    },
+    "newsletter": {
+      "title": "Ontdek verborgen parels: Reisinspiratie in uw inbox",
+      "placeholder": "Voer uw e-mailadres in"
+    },
+    "copyright": "©2025 Copyright FlyArzan. Alle rechten voorbehouden."
+  },
+  "hotel_section": {
+    "Cheap_hotels_para": "Goedkope hotels overal ter wereld, met één eenvoudige zoekopdracht",
+    "Our_search": "Onze zoekmachine bespaart u geld",
+    "Discover_Hotel": "Ontdek de beste hotelaanbiedingen uit {{country}}",
+    "Explore_hotel_para": "Verken de best geprijsde hotelopties, met onverslaanbare prijzen en uitzonderlijke waarde voor uw volgende verblijf",
+    "Articles_utiles": "Nuttige artikelen",
+    "Extended_hotel_options": "Uitgebreide hotelopties",
+    "Guests and rooms": "Gasten en kamers"
+  },
+  "hotelFaqs": {
+    "heading": "Veelgestelde vragen",
+    "search": {
+      "question": "Hoe kan ik hotels zoeken op Flay Arzan?",
+      "answer": "Voer simpelweg uw bestemming, reisdata en aantal gasten in onze zoekbalk in. Ons platform toont een breed scala aan hotelopties die bij uw voorkeuren passen, inclusief budgetvriendelijke, middenklasse en luxe opties, zodat u de perfecte accommodatie vindt."
+    },
+    "amenities": {
+      "question": "Kan ik hotelzoekresultaten filteren op voorzieningen?",
+      "answer": "Ja, ons geavanceerde filtersysteem stelt u in staat om uw zoekopdracht aan te passen aan uw specifieke behoeften. U kunt filteren op voorzieningen zoals WiFi, zwembad, parkeren en nog veel meer."
+    },
+    "booking": {
+      "question": "Kan ik een hotel boeken via Flay Arzan?",
+      "answer": "Ja, u kunt direct boeken via ons platform. We werken samen met betrouwbare hotels om u een veilig en transparant boekingsproces te bieden."
+    },
+    "availability": {
+      "question": "Hoe nauwkeurig is de hotelbeschikbaarheid op uw platform?",
+      "answer": "We updaten de beschikbaarheid in realtime via directe synchronisatie met onze hotelpartners, wat zorgt voor nauwkeurige informatie."
+    },
+    "reviews": {
+      "question": "Kan ik klantbeoordelingen zien voor de vermelde hotels?",
+      "answer": "Ja, u kunt authentieke beoordelingen van andere reizigers lezen voor elk hotel, wat u helpt bij het maken van een weloverwogen beslissing."
+    },
+    "fees": {
+      "question": "Zijn er verborgen kosten bij het boeken van een hotel?",
+      "answer": "Nee, we tonen alle kosten transparant. De eindprijs is inclusief alle verplichte belastingen en toeslagen."
+    },
+    "cancellation": {
+      "question": "Kan ik mijn hotelboeking annuleren of wijzigen?",
+      "answer": "Annulerings- en wijzigingsbeleid verschilt per hotel. Specifieke voorwaarden worden duidelijk aangegeven vóór het boeken."
+    },
+    "suitability": {
+      "question": "Hoe weet ik of een hotel geschikt is voor mijn behoeften?",
+      "answer": "Bekijk de gedetailleerde beschrijvingen, foto's, voorzieningen en klantbeoordelingen om te beoordelen of het hotel aan uw verwachtingen voldoet."
+    },
+    "deals": {
+      "question": "Biedt u speciale aanbiedingen of kortingen op hotels?",
+      "answer": "Ja, we bieden regelmatig speciale aanbiedingen en exclusieve kortingen. Abonneer u op onze nieuwsbrief om op de hoogte te blijven van de beste aanbiedingen."
+    },
+    "directBooking": {
+      "question": "Boek ik het hotel rechtstreeks via Flay Arzan?",
+      "answer": "Ja, alle boekingen worden direct via ons platform gedaan, wat zorgt voor een veilig proces en toegewijde klantenservice."
+    }
+  },
+  "carsection": {
+    "Find_the_best_car": "Vind de beste auto met één eenvoudige zoekopdracht",
+    "Our_search": "Onze zoekmachine bespaart u geld",
+    "Find_the_Best": "Vind de beste autoverhuur aanbiedingen uit {{country}}",
+    "Explore_top_car": "Verken de beste huurauto aanbieders met onverslaanbare prijzen en uitzonderlijke waarde voor uw roadtrip.",
+    "Begin_your": "Begin uw roadtrip avontuur"
+  },
+  "carfaq": {
+    "Frequently": "Veelgestelde vragen",
+    "search": {
+      "question": "Hoe kan ik huurauto's zoeken op Flay Arzan?",
+      "answer": "Voer simpelweg uw bestemming, reisdata en aantal reizigers in onze zoekbalk in. Ons platform toont een breed scala aan huurauto-opties die bij uw voorkeuren passen."
+    },
+    "faq2": {
+      "question": "Kan ik huurauto zoekresultaten filteren op voorzieningen?",
+      "answer": "Om de beste vliegtuigdeals te vinden, gebruik onze filters voor flexibele data, luchtvaartmaatschappijen en bestemmingen. Schrijf u in voor waarschuwingen om op de hoogte te blijven van aanbiedingen."
+    },
+    "faq3": {
+      "question": "Kan ik een huurauto boeken via Flay Arzan?",
+      "answer": "De getoonde prijzen zijn inclusief de meeste belastingen en toeslagen, maar extra kosten zoals bagagekosten kunnen van toepassing zijn."
+    },
+    "faq4": {
+      "question": "Hoe nauwkeurig is de beschikbaarheid van huurauto's op uw platform?"
+    },
+    "faq5": {
+      "question": "Kan ik klantbeoordelingen zien voor de vermelde huurauto's?"
+    },
+    "faq6": {
+      "question": "Zijn er verborgen kosten bij het boeken van een huurauto?"
+    },
+    "faq7": {
+      "question": "Kan ik mijn huurauto boeking annuleren of wijzigen?"
+    },
+    "faq8": {
+      "question": "Hoe weet ik of een huurauto geschikt is voor mijn behoeften?"
+    },
+    "faq9": {
+      "question": "Biedt u speciale aanbiedingen of kortingen op huurauto's?"
+    },
+    "faq10": {
+      "question": "Boek ik mijn huurauto rechtstreeks via Flay Arzan?"
+    },
+    "faq11": {
+      "question": "Zijn er verborgen kosten bij het boeken van een huurauto?"
+    },
+    "faq12": {
+      "question": "Kan ik mijn huurauto boeking annuleren of wijzigen?"
+    },
+    "faq13": {
+      "question": "Hoe weet ik of een huurauto geschikt is voor mijn behoeften?"
+    },
+    "faq14": {
+      "question": "Biedt u speciale aanbiedingen of kortingen op huurauto's?"
+    },
+    "faq15": {
+      "question": "Boek ik mijn huurauto rechtstreeks via Flay Arzan?"
+    }
+  },
+  "PrivacyPolicypage": {
+    "heading": "Gebruik van informatie",
+    "heading1": "Fly Arzan Privacybeleid",
+    "para": "Welkom bij Fly Arzan! Wij zijn een zoekmachine voor vluchten, hotels en autoverhuur. Uw privacy is belangrijk voor ons en wij zetten ons in voor het beschermen van uw persoonlijke gegevens. Dit Privacybeleid legt uit hoe wij uw gegevens verzamelen, gebruiken en beveiligen wanneer u onze website gebruikt.",
+    "text1": "Fly Arzan verzamelt minimale gebruikersinformatie om uw ervaring te verbeteren. De enige persoonlijke gegevens die wij verzamelen zijn:",
+    "text2": "E-mailadres",
+    "text3": "Alleen als u deze vrijwillig verstrekt om meldingen te ontvangen over aanbiedingen, promoties en updates.",
+    "text4": "Wij verzamelen geen:",
+    "text5": "Betaalinformatie (wij leiden u door naar derde boekingsplatforms).",
+    "text6": "Paspoort- of ID-gegevens.",
+    "text7": "Thuisadressen of telefoonnummers.",
+    "text8": "Gebruik van Informatie",
+    "text9": "Uw e-mailadres (indien verstrekt) wordt uitsluitend gebruikt voor:",
+    "text10": "Het verzenden van promotieaanbiedingen en kortingen.",
+    "text11": "Het informeren over nieuwe functies of updates op Fly Arzan.",
+    "text12": "Het beantwoorden van klantvragen (indien u contact met ons opneemt).",
+    "text13": "Wij zullen uw e-mailadres nooit verkopen, verhuren of delen met derden voor marketingdoeleinden zonder uw uitdrukkelijke toestemming.",
+    "text14": "Gegevensbeveiliging",
+    "text15": "Wij implementeren beveiligingsmaatregelen volgens de industrienormen om uw gegevens te beschermen, inclusief",
+    "text16": "Encryptie (SSL) voor gegevensoverdracht.",
+    "text17": "Veilige opslag van e-mailadressen in beschermde databases.",
+    "text18": "Regelmatige beveiligingsaudits om ongeautoriseerde toegang te voorkomen.",
+    "text19": "Ondanks onze inspanningen kan geen enkel online platform 100% beveiliging garanderen. Wij moedigen gebruikers aan om voorzichtig te zijn bij het delen van persoonlijke gegevens online.",
+    "text20": "Delen met Derden",
+    "text21": "Fly Arzan werkt samen met derde serviceproviders (bijv. luchtvaartmaatschappijen, hotels, autoverhuurbedrijven) om zoekresultaten te leveren. Wanneer u op een boekingslink klikt, wordt u doorgestuurd naar hun websites, die hun eigen privacybeleid hebben. Wij hebben geen controle over of slaan op:",
+    "text22": "Boekingstransacties.",
+    "text23": "Betalingsgegevens.",
+    "text24": "Persoonlijke gegevens die op derde partijen sites worden ingevoerd.",
+    "text25": "Cookiebeleid",
+    "text26": "Fly Arzan maakt gebruik van cookies en vergelijkbare trackingtechnologieën om:",
+    "text27": "De functionaliteit van de website te verbeteren.",
+    "text28": "Zoekresultaten te personaliseren.",
+    "text29": "Gebruikersgedrag te analyseren (bijv. via Google Analytics) om de prestaties te verbeteren.",
+    "text30": "U kunt cookies uitschakelen in de instellingen van uw browser, maar sommige functies werken mogelijk niet correct.",
+    "text31": "Gebruikersrechten",
+    "text32": "U hebt het recht om:",
+    "text33": "Toegang – Vraag details op over de gegevens die wij over u hebben.",
+    "text34": "Verwijderen – Vraag ons om uw e-mailadres uit onze database te verwijderen.",
+    "text35": "Afmelden – Meld u op elk moment af voor marketing-e-mails via de afmeldlink in de e-mails.",
+    "text36": "Wijzigingen in Dit Beleid",
+    "text37": "We kunnen dit Privacybeleid af en toe bijwerken. Alle wijzigingen worden hier gepost en we moedigen u aan om het periodiek te herzien.",
+    "text38": "Neem contact met ons op",
+    "text39": "Voor vragen, gegevensverzoeken of zorgen over privacy kunt u contact met ons opnemen via:",
+    "text40": "E-mail: info@flyarzan.com",
+    "text41": "Website: www.flyarzan.com",
+    "text42": "Bedankt voor het vertrouwen in Fly Arzan voor uw reiszoekopdrachten!"
+  },
+  "AboutUs": {
+    "heading": "Wie zijn wij",
+    "Who_We_Are": "Wie zijn wij",
+    "text1": "Bij Fly Arzan maken we het gemakkelijk om de beste deals voor vluchten, hotels en autoverhuur te vinden — allemaal op één plek.",
+    "text2": "We zijn geen boekingssite — we zijn je reiszoekmaatje. Vertel ons gewoon waar je naartoe wilt, en we helpen je prijzen van verschillende luchtvaartmaatschappijen, hotels en autoverhuurbedrijven te vergelijken, zodat je kunt kiezen wat het beste bij jou past (en je portemonnee).",
+    "text3": "De naam “Arzan” betekent betaalbaar, en dat is ons doel: je helpen slimmer en goedkoper te reizen zonder stress.",
+    "text4": "We verzamelen alleen je e-mailadres (als je updates wilt ontvangen over aanbiedingen en deals), en we zullen je nooit spam sturen of je gegevens delen.",
+    "text5": "Bedankt dat je slim reist met Fly Arzan. Laten we samen iets geweldig plannen."
+  },
+  "AboutUssec1": {
+    "heading": "De perfecte vakantie wordt werkelijkheid met ons reisbureau.",
+    "text1": "Vergelijk gemakkelijk vluchten, hotels en autoverhuur – alles op één plek, zodat je de beste deals kunt vinden en je droomreis werkelijkheid kunt maken.",
+    "Ticket": "Ticket boeken",
+    "text2": "Toegang tot binnenlandse en internationale vluchten tegen concurrerende tarieven. Eenvoudig zoeken en vergelijken om de beste deals voor uw schema te vinden.",
+    "Hotel": "Hotel boeken",
+    "text3": "Gecureerde lijsten van hotels, van budgetvriendelijk tot luxe verblijven. Filters om u te helpen kiezen op basis van locatie, voorzieningen en prijs.",
+    "Rent": "Huurauto diensten",
+    "text4": "Betrouwbare voertuigen voor zelfrijden of met chauffeur. Flexibele huurplannen voor zakenreizen, vrije tijd of groepsreizen."
+  },
+  "AboutUssec2": {
+    "titel1": "Wereldwijd netwerk",
+    "text1": "Onder Oceaancruises, Vervoer, Reisroutes, Reisverzekering en Lokale gids.",
+    "titel2": "Gebruiksvriendelijk platform",
+    "text2": "Onze website en app zijn ontworpen om een naadloze boekingservaring te bieden.",
+
+    "titel3": "Toegewijde ondersteuning",
+    "text3": "Ons team staat klaar om u via e-mail te ondersteunen bij reisvragen."
+  },
+  "AboutUssec3": {
+    "heading": "Perfecte vakantie wordt werkelijkheid",
+    "para": "Fly Arzan is gecreëerd met het doel om het plannen van reizen gemakkelijker en betaalbaarder te maken. We hebben hard gewerkt om de beste opties voor vluchten, hotels en autoverhuur samen te brengen, zodat reizigers alles op één plek kunnen vinden. In de loop der tijd hebben we sterke relaties opgebouwd met topaanbieders om geweldige deals en een naadloze ervaring voor onze klanten te bieden.",
+    "text2": "Momenteel bieden wij geen diensten aan. Ons team is hier om u per e-mail te helpen met reisvragen.",
+    "text1": "We werken samen met toonaangevende reisproviders om u toegang te geven tot een breed scala aan diensten.",
+    "titel1": "Vliegtickets",
+    "titel2": "Cruises",
+    "titel3": "Vervoer",
+    "titel4": "Reisroutes",
+    "titel5": "Reisverzekering",
+    "titel6": "Lokale gids"
+  },
+  "ContactUspage": {
+    "heading": "Neem contact met ons op",
+    "titel1": "We zijn altijd blij om contact te maken!",
+    "text1": "Als je geïnteresseerd bent in advertenties, promoties, samenwerkingen, of gewoon feedback wilt delen, gebruik dan het onderstaande contactformulier. Vul je naam, e-mail, onderwerp in en laat je bericht achter in het opmerkingenveld — ons team zal het beoordelen en zo snel mogelijk contact met je opnemen.",
+    "para1": "Locatie",
+    "para2": "Manchester, Verenigd Koninkrijk",
+    "para4": "Onze e-mail",
+    "para6": "info@flyarzan.com",
+    "para7": "Openingstijden",
+    "para8": "We streven ernaar om alle vragen binnen onze werktijden te beantwoorden.",
+    "para9": "Maandag tot vrijdag | 9:00 AM – 5:00 PM (GMT)"
+  },
+  "Faqpage1": {
+    "faq1": {
+      "question": "Hoe zoek ik hotels op uw website?",
+      "answer": "Voer uw bestemming, reisdata en aantal gasten in om direct beschikbare hotels van meerdere aanbieders op één plek te doorzoeken."
+    },
+    "faq2": {
+      "question": "Kan ik een hotel direct boeken op uw platform?",
+      "answer": "Nee, wij zijn een vergelijkingssite. Nadat u een hotel heeft geselecteerd, wordt u doorgestuurd naar de boekingssite van de aanbieder om uw reservering te voltooien."
+    },
+    "faq3": {
+      "question": "Worden de hotelprijzen per persoon of per kamer weergegeven?",
+      "answer": "De prijzen worden meestal per kamer weergegeven, maar details zoals het aantal gasten en inbegrepen services zijn beschikbaar op de pagina van de aanbieder."
+    },
+    "faq4": {
+      "question": "Bevatten uw vermeldingen belastingen en kosten?",
+      "answer": "Sommige aanbieders voegen belastingen en kosten toe aan de totaalprijs, terwijl anderen deze bij het afrekenen weergeven. Wij raden aan dit te controleren op de laatste boekingspagina."
+    },
+    "faq5": {
+      "question": "Hoe kan ik hotels vinden met gratis annulering?",
+      "answer": "Gebruik de filter “Gratis Annulering” in uw zoekresultaten om accommodaties te zien die flexibele annuleringsvoorwaarden bieden."
+    },
+    "faq6": {
+      "question": "Kan ik hotels filteren op voorzieningen zoals Wi-Fi, ontbijt of zwembad?",
+      "answer": "Ja, u kunt uw zoekopdracht verfijnen met filters zoals gratis Wi-Fi, ontbijt inbegrepen, zwembad, huisdiervriendelijk en meer."
+    },
+    "faq7": {
+      "question": "Toont u zowel budget- als luxehotels?",
+      "answer": "Ja, wij bieden accommodaties aan in alle prijsklassen, van hostels en guesthouses tot boetiekhotels en luxe resorts."
+    },
+    "faq8": {
+      "question": "Kan ik hotelfoto’s en beoordelingen bekijken voordat ik boek?",
+      "answer": "Absoluut. U kunt gedetailleerde foto’s, sterbeoordelingen en geverifieerde gastbeoordelingen van elk hotel bekijken voordat u een beslissing neemt."
+    },
+    "faq9": {
+      "question": "Hoe weet ik of een hotel beschikbaar is voor mijn data?",
+      "answer": "De beschikbaarheid wordt in realtime bijgewerkt op basis van uw geselecteerde reisdata. Alleen kamers die openstaan voor boeking worden weergegeven."
+    },
+    "faq10": {
+      "question": "Kan ik zoeken naar accommodaties zoals appartementen of villa's?",
+      "answer": "Ja, we nemen alternatieve accommodaties zoals serviced appartementen, vakantiehuizen en villa's op in uw zoekresultaten."
+    },
+    "faq11": {
+      "question": "Toont de hotelvermelding exacte locaties op een kaart?",
+      "answer": "Ja, u kunt de hotellocaties op een kaart bekijken om de nabijheid van bezienswaardigheden, transportknooppunten of wijken te controleren."
+    },
+    "faq12": {
+      "question": "Hoe boek ik meerdere kamers voor een groep?",
+      "answer": "U kunt het aantal benodigde kamers selecteren tijdens uw zoekopdracht en de prijs op basis van de groepsgrootte bekijken."
+    },
+    "faq13": {
+      "question": "Wat moet ik doen als ik mijn hotelreservering wil wijzigen?",
+      "answer": "Neem contact op met het hotel of de boekingsaanbieder om wijzigingen aan te brengen, aangezien alle boekingen via hun platforms worden afgehandeld."
+    },
+    "faq14": {
+      "question": "Kan ik beloningen of loyaliteitspunten verdienen met hotelboekingen?",
+      "answer": "Dat hangt af van de boekingsaanbieder. Sommige platforms stellen u in staat om loyaliteitspunten te verdienen of kortingen toe te passen als u een lid bent."
+    },
+    "faq15": {
+      "question": "Is ontbijt inbegrepen in de hotelprijs?",
+      "answer": "Sommige vermeldingen bevatten ontbijt, terwijl andere dat niet doen. U zult deze informatie duidelijk zien voordat u naar de website van de aanbieder wordt doorgestuurd."
+    }
+  },
+  "Faqpage2": {
+    "faq1": {
+      "question": "Hoe zoek ik naar autoverhuur?",
+      "answer": "Voer uw ophaallocatie, data en tijden in om direct huur-aanbiedingen van verschillende bedrijven te vergelijken."
+    },
+    "faq2": {
+      "question": "Kan ik direct een huurauto boeken op jullie platform?",
+      "answer": "Nee, we verwijzen u door naar de website van het verhuurbedrijf of de boekingspartner om uw reservering te voltooien."
+    },
+    "faq3": {
+      "question": "Heb ik een creditcard nodig om een auto te huren?",
+      "answer": "De meeste verhuurbedrijven vereisen een creditcard voor de borg en boeking. Controleer de huurvoorwaarden op de website van de aanbieder voor details."
+    },
+    "faq4": {
+      "question": "Kan ik een auto huren zonder rijbewijs?",
+      "answer": "Nee, een geldig rijbewijs is vereist voor alle verhuur. Sommige bedrijven eisen ook dat u het rijbewijs minstens één jaar heeft."
+    },
+    "faq5": {
+      "question": "Zijn verzekering en belastingen inbegrepen in de huurprijs?",
+      "answer": "Sommige aanbieders omvatten basisverzekering en belastingen, anderen bieden dit als extra opties aan. Volledige details vindt u op de afrekenpagina."
+    },
+    "faq6": {
+      "question": "Wat voor soorten auto's kan ik huren?",
+      "answer": "U kunt kiezen uit een breed scala, waaronder economy, compact, SUV's, luxe en bestelwagens, afhankelijk van uw reisbehoeften."
+    },
+    "faq7": {
+      "question": "Kan ik de auto in een andere stad inleveren?",
+      "answer": "Ja, dit heet een enkele reis (one-way rental). Gebruik de juiste optie tijdens uw zoekopdracht. Extra kosten kunnen van toepassing zijn afhankelijk van de route."
+    },
+    "faq8": {
+      "question": "Zijn er leeftijdsbeperkingen voor het huren van een auto?",
+      "answer": "De meeste bedrijven vereisen dat bestuurders minimaal 21 jaar zijn. Extra kosten kunnen van toepassing zijn voor bestuurders onder de 25. Bekijk de voorwaarden van de aanbieder."
+    },
+    "faq9": {
+      "question": "Bieden jullie filters zoals automaat versus handgeschakeld?",
+      "answer": "Ja, u kunt zoeken filteren op transmissietype, brandstofbeleid, passagierscapaciteit en meer."
+    },
+    "faq10": {
+      "question": "Kan ik een tweede bestuurder toevoegen aan mijn huur?",
+      "answer": "Veel aanbieders staan extra bestuurders toe tegen een extra vergoeding. Vergeet niet deze optie te selecteren bij het boeken via de partnerwebsite."
+    },
+    "faq11": {
+      "question": "Is brandstof inbegrepen in de huurprijs?",
+      "answer": "Meestal niet. De meeste verhuurders hanteren een 'vol-vol'-brandstofbeleid: u brengt de auto terug met hetzelfde brandstofniveau als bij ophalen."
+    },
+    "faq12": {
+      "question": "Kan ik mijn autohuur annuleren of wijzigen?",
+      "answer": "Dat hangt af van het beleid van de aanbieder. De meeste bieden gratis annulering binnen een bepaalde periode. Details vindt u op hun website."
+    },
+    "faq13": {
+      "question": "Welke documenten heb ik nodig bij het ophalen van de auto?",
+      "answer": "U heeft doorgaans een rijbewijs, een creditcard en soms een boekingsbevestiging of ID nodig. Controleer dit altijd van tevoren bij het verhuurbedrijf."
+    },
+    "faq14": {
+      "question": "Kan ik een auto huren op de luchthaven?",
+      "answer": "Ja, ons platform toont opties voor ophalen op luchthavens, inclusief op-locatie en shuttle-gebaseerde verhuur voor extra gemak."
+    },
+    "faq15": {
+      "question": "Wat gebeurt er als mijn vlucht vertraagd is en ik de ophaaltijd mis?",
+      "answer": "De meeste verhuurbedrijven hanteren een uitstelperiode. Maar het is het beste om hen rechtstreeks te informeren als u vertraging verwacht, vooral bij afhalen buiten kantooruren."
+    }
+  },
+
+  "Faqpage3": {
+    "faq1": {
+      "question": "Doe ik betalingen op jullie website?",
+      "answer": "Nee, wij verwerken geen transacties. Zodra u een vlucht, hotel of huurauto kiest, wordt u doorgestuurd naar de website van de aanbieder om uw boeking en betaling te voltooien."
+    },
+    "faq2": {
+      "question": "Welke betaalmethoden kan ik gebruiken bij reisaanbieders?",
+      "answer": "De meeste aanbieders accepteren gangbare credit- en debetkaarten (Visa, Mastercard, American Express) en velen ondersteunen ook PayPal, Apple Pay of regionale betaalopties."
+    },
+    "faq3": {
+      "question": "Is het veilig om mijn betaalgegevens in te voeren op de boekingssite?",
+      "answer": "Ja. We werken alleen samen met vertrouwde reisaanbieders die veilige, versleutelde betalingsgateways gebruiken om uw gegevens te beschermen."
+    },
+    "faq4": {
+      "question": "Zijn er verborgen kosten of boekingskosten van jullie kant?",
+      "answer": "Nee, ons platform is volledig gratis te gebruiken. U betaalt geen extra kosten aan ons— uw betaling gaat direct naar de reisaanbieder."
+    },
+    "faq5": {
+      "question": "Word ik in mijn lokale valuta gefactureerd?",
+      "answer": "Dat hangt af van de aanbieder. Veel bieden valutaconversie aan en stellen u in staat om in uw lokale valuta af te rekenen bij het afrekenen."
+    },
+    "faq6": {
+      "question": "Kan ik de betaling verdelen over meerdere kaarten of personen?",
+      "answer": "De meeste aanbieders vereisen volledige betaling via één kaarthouder. Voor groepsboekingen of gedeelde kosten moet u mogelijk aparte regelingen treffen."
+    },
+    "faq7": {
+      "question": "Moet ik het volledige bedrag vooraf betalen?",
+      "answer": "Dat hangt af van de aanbieder en het type dienst. Sommige bieden een 'betaal later'-optie of vragen een aanbetaling, anderen vereisen volledige betaling bij het boeken."
+    },
+    "faq8": {
+      "question": "Wat gebeurt er als mijn betaling mislukt op de site van de aanbieder?",
+      "answer": "Bij een mislukte betaling krijgt u meestal de mogelijkheid om opnieuw te proberen of een andere methode te kiezen. U kunt ook contact opnemen met de klantenservice van de aanbieder."
+    },
+    "faq9": {
+      "question": "Krijg ik een terugbetaling als ik mijn boeking annuleer?",
+      "answer": "Terugbetalingsbeleid verschilt per aanbieder en diensttype. Sommige bieden volledige terugbetaling binnen een bepaalde periode, anderen rekenen annuleringskosten. Controleer altijd de voorwaarden vooraf."
+    },
+    "faq10": {
+      "question": "Ontvang ik een betalingsbevestiging of factuur?",
+      "answer": "Ja. Zodra uw betaling is voltooid op de website van de aanbieder, ontvangt u een bevestigingsmail en factuur rechtstreeks van hen."
+    }
+  },
+  "Faqpage": {
+    "heading": "Heb je vragen over ons? Wij hebben precies de juiste antwoorden voor jou.",
+    "input": "Zoek hier naar je vragen",
+    "tital1": "Veelgestelde vragen",
+    "text1": "Welkom bij onze FAQ-sectie, waar we de meest voorkomende vragen hebben beantwoord om je te helpen met vertrouwen je reis te plannen en te boeken. Of je nu op zoek bent naar vluchten, hotels of autoverhuur, je vindt hier duidelijke en nuttige antwoorden over hoe onze reismeta-zoekmachine werkt. Verken elke categorie hieronder om meer te leren en weloverwogen reisbeslissingen te nemen.",
+    "tab1": "Website werking",
+    "tab2": "Hotelreserveringen",
+    "tab3": "Autoverhuur",
+    "tab4": "Betalingen",
+    "faq1": {
+      "question": "Hoe zoek ik naar vluchten op jullie website?",
+      "answer": "Voer gewoon je vertrekstad, bestemming, reisdata en aantal passagiers in. Ons systeem zoekt direct bij meerdere luchtvaartmaatschappijen en reisaanbieders naar de beste beschikbare opties."
+    },
+    "faq2": {
+      "question": "Kan ik een vlucht rechtstreeks op jullie website boeken?",
+      "answer": "Nee, wij zijn een reiszoekmachine. Zodra je een vlucht vindt die bij je past, leiden we je door naar de website van de luchtvaartmaatschappij of reisaanbieder om je boeking af te ronden."
+    },
+    "faq3": {
+      "question": "Worden de vluchtprijzen in real-time weergegeven?",
+      "answer": "Ja, ons platform haalt real-time gegevens op van aanbieders zodat je de nieuwste prijzen en beschikbaarheid ziet. De uiteindelijke bevestiging gebeurt echter op de website van de aanbieder."
+    },
+    "faq4": {
+      "question": "Zijn de vluchtprijzen inclusief belastingen en toeslagen?",
+      "answer": "De meeste prijzen zijn inclusief basisbelastingen en toeslagen, maar optionele extra’s zoals bagage, maaltijden of stoelkeuze kunnen extra kosten en worden weergegeven op de site van de aanbieder."
+    },
+    "faq5": {
+      "question": "Kan ik zoeken naar enkele reizen, retourtjes of meerdere bestemmingen?",
+      "answer": "Zeker. Je kunt het gewenste type reis selecteren voordat je begint met zoeken, en zelfs meerdere bestemmingen toevoegen voor een aangepaste route."
+    },
+    "faq6": {
+      "question": "Bieden jullie een zoekoptie voor flexibele data?",
+      "answer": "Ja, met onze functie voor flexibele data kun je de goedkoopste vluchten zien binnen een reeks dagen rond je gekozen vertrek- en retourdatum."
+    },
+    "faq7": {
+      "question": "Hoe kan ik vluchten filteren op luchtvaartmaatschappij, prijs of duur?",
+      "answer": "Na het zoeken kun je onze filters gebruiken om resultaten te verfijnen op luchtvaartmaatschappij, prijsklasse, aantal tussenstops, reistijd en meer."
+    },
+    "faq8": {
+      "question": "Kan ik vluchten sorteren op kortste reistijd of laagste prijs?",
+      "answer": "Ja, je kunt eenvoudig sorteren op de snelste route, goedkoopste prijs of meest handige vertrektijden."
+    },
+    "faq9": {
+      "question": "Toont u zowel budgetmaatschappijen als volledige service maatschappijen?",
+      "answer": "Ja, we tonen resultaten van grote luchtvaartmaatschappijen, budgetmaatschappijen en online reisbureaus zodat je een volledig overzicht van je opties krijgt."
+    },
+    "faq10": {
+      "question": "Kan ik zowel internationale als binnenlandse vluchten boeken?",
+      "answer": "Ja, we ondersteunen zoekopdrachten voor zowel binnenlandse als internationale routes met een breed scala aan bestemmingen en luchtvaartmaatschappijen."
+    },
+    "faq11": {
+      "question": "Kan ik prijsalerts instellen voor vluchten?",
+      "answer": "We bieden een prijsalertfunctie waarmee je meldingen ontvangt wanneer tarieven voor een bepaalde route dalen."
+    },
+    "faq12": {
+      "question": "Waarom verandert de prijs soms wanneer ik klik om te boeken?",
+      "answer": "Vluchtprijzen fluctueren voortdurend op basis van vraag en beschikbaarheid. Als de prijs verandert, wordt dit meestal in real-time bijgewerkt door de aanbieder."
+    },
+    "faq13": {
+      "question": "Hoe weet ik of bagage is inbegrepen in de vluchtprijs?",
+      "answer": "Elke vermelding geeft aan of ruimbagage of handbagage is inbegrepen, en volledige details zijn beschikbaar op de site van de boekingspartner."
+    },
+    "faq14": {
+      "question": "Wat moet ik doen als ik problemen heb met mijn vluchtreservering?",
+      "answer": "Aangezien de boeking wordt voltooid op de site van de luchtvaartmaatschappij of agent, moet je hen rechtstreeks contacteren voor hulp met wijzigingen, annuleringen of terugbetalingen."
+    },
+    "faq15": {
+      "question": "Kan ik vluchten boeken voor groepen of grote families?",
+      "answer": "Ja, je kunt zoeken naar vluchten voor maximaal 9 passagiers. Voor grotere groepen raden we aan direct contact op te nemen met de luchtvaartmaatschappij of reisaanbieder."
+    }
+  },
+  "FlightsInner": {
+    "Suggested": "Aanbevolen",
+    "Fastest": "Snelste",
+    "Cheapest": "Goedkoopste",
+    "No_Flights_Found": "Geen vluchten gevonden",
+    "departing": "Selecteer uw vertrekkende vlucht",
+    "Results": "Resultaten",
+    "departingflight": "Selecteer uw vertrekkende vlucht naar Dubai",
+    "Nonstop": "Direct",
+    "Economy": "Economy",
+    "Select": "Selecteer",
+    "Round": "Rondreis prijs",
+    "Show": "Meer resultaten tonen",
+    "More Filters": "Meer filters",
+    "Hide Filters": "Filters verbergen"
+  },
+  "BookYourTicket": {
+    "Book": "Boek uw vlucht",
+    "Back_result": "Terug naar resultaten",
+    "text1": "De getoonde prijzen zijn inclusief geschatte belastingen en verplichte kosten. Bagagebeleid en ticketvoorwaarden kunnen variëren",
+    "text2": "Sommige providers kunnen extra kosten in rekening brengen voor bagage, verzekering of creditcardbetalingen",
+    "text3": "Controleer alle ticketdetails en eindkosten op de website van de provider voordat u uw boeking voltooit",
+    "Extra": "Extra service",
+    "Saver": "Bespaarder",
+    "Premium": "Premium",
+    "Standard": "Standaard",
+    "Flight_Details": "Vluchtgegevens",
+    "Outbound": "Heenreis",
+    "Directing_To": "We gaan naar"
+  },
+  "HotelsInnerlabel": {
+    "label1": "Bekijken op",
+    "label2": "Prijs",
+    "label3": "Gastvrijheidstype",
+    "label4": "Voorzieningen",
+    "label5": "Sterren",
+    "label6": "Locatie",
+    "text": "Selecteer uw hotel voor verblijf in Londen",
+    "para": "Morem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "Suppliers": "Leveranciers",
+    "All_Filters": "Alle filters"
+  },
+  "HotelfilterSections": {
+    "sortOptions": {
+      "select": "Selecteer",
+      "recommended": "Aanbevolen",
+      "priceLowToHigh": "Prijs: Laag naar hoog",
+      "priceHighToLow": "Prijs: Hoog naar laag",
+      "starRatingHighToLow": "Sterren: Hoog naar laag",
+      "distanceClosest": "Afstand: Dichtst bij stadscentrum"
+    },
+    "starRating": {
+      "select": "Selecteer",
+      "options": {
+        "fiveStars": "5 Sterren",
+        "fourStars": "4 Sterren",
+        "threeStars": "3 Sterren",
+        "twoStars": "2 Sterren",
+        "oneStar": "1 Ster",
+        "unrated": "Niet beoordeeld"
+      }
+    },
+    "categories": {
+      "traditional": {
+        "label": "Traditioneel",
+        "options": {
+          "hotels": "Hotels",
+          "motels": "Motels",
+          "guesthouses": "Pensions",
+          "bedAndBreakfasts": "Bed & Breakfast"
+        }
+      },
+      "luxuryStays": {
+        "label": "Luxe verblijven",
+        "options": {
+          "resorts": "Resorts",
+          "villas": "Villa's",
+          "boutiqueHotels": "Boutique hotels"
+        }
+      },
+      "budgetFriendly": {
+        "label": "Budgetvriendelijk",
+        "options": {
+          "hostels": "Hostels",
+          "capsuleHotels": "Capsule hotels"
+        }
+      },
+      "extendedStays": {
+        "label": "Langdurig verblijf",
+        "options": {
+          "apartments": "Appartementen",
+          "servicedApartments": "Service appartementen"
+        }
+      },
+      "uniqueExperiences": {
+        "label": "Unieke ervaringen",
+        "options": {
+          "cottages": "Cottages",
+          "farmStays": "Boerderijverblijven",
+          "holidayHomes": "Vakantiehuizen",
+          "campingAndGlamping": "Camping & Glamping"
+        }
+      }
+    },
+    "amenities": {
+      "roomFeatures": {
+        "label": "Kamerkenmerken",
+        "options": {
+          "airConditioning": "Airconditioning",
+          "heating": "Verwarming",
+          "privateBalcony": "Privébalkon",
+          "kitchenKitchenette": "Keuken/Keukenblok",
+          "coffeeTeaMaker": "Koffie/Thee apparaat",
+          "flatScreenTv": "Plat scherm TV",
+          "inRoomSafe": "Kluisje in kamer",
+          "workDesk": "Werkbureau",
+          "premiumBedding": "Premium beddengoed"
+        }
+      },
+      "hotelServices": {
+        "label": "Hotel diensten",
+        "options": {
+          "twentyFourHourFrontDesk": "24-uurs receptie",
+          "conciergeService": "Conciërge service",
+          "roomService": "Roomservice",
+          "dailyHousekeeping": "Dagelijkse schoonmaak",
+          "laundryService": "Wasservice",
+          "luggageStorage": "Bagageopslag",
+          "wakeUpCallService": "Wekservice"
+        }
+      },
+      "foodAndBeverage": {
+        "label": "Eten & Drinken",
+        "options": {
+          "complimentaryBreakfast": "Gratis ontbijt",
+          "onSiteRestaurant": "Restaurant in het hotel",
+          "barLounge": "Bar/Lounge",
+          "coffeeShop": "Koffiebar",
+          "miniBar": "Minibar"
+        }
+      },
+      "recreationalFacilities": {
+        "label": "Recreatieve voorzieningen",
+        "options": {
+          "swimmingPool": "Zwembad (Binnen/Buiten)",
+          "fitnessCenter": "Fitnesscentrum",
+          "spaWellnessCenter": "Spa/Wellness centrum",
+          "kidsPlayArea": "Speelruimte voor kinderen",
+          "gameRoom": "Speelruimte"
+        }
+      },
+      "businessFacilities": {
+        "label": "Zakelijke voorzieningen",
+        "options": {
+          "conferenceRooms": "Vergaderzalen",
+          "businessCenter": "Zakencentrum",
+          "freeWiFi": "Gratis WiFi",
+          "meetingRooms": "Vergaderruimtes"
+        }
+      },
+      "accessibility": {
+        "label": "Toegankelijkheid",
+        "options": {
+          "wheelchairAccessible": "Rolstoeltoegankelijk",
+          "elevatorLift": "Lift",
+          "accessibleParking": "Toegankelijke parkeerplaats",
+          "hearingVisualAccessibility": "Hoor- en zichttoegankelijkheidsvoorzieningen"
+        }
+      },
+      "parkingAndTransportation": {
+        "label": "Parkeren & Vervoer",
+        "options": {
+          "freeParking": "Gratis parkeren",
+          "valetParking": "Valet parkeren",
+          "shuttleService": "Shuttleservice (Luchthaven/Lokaal)",
+          "evChargingStations": "Oplaadpunten voor elektrische voertuigen"
+        }
+      },
+      "petPolicies": {
+        "label": "Huisdierbeleid",
+        "options": {
+          "petFriendly": "Huisdieren welkom",
+          "petFreeRooms": "Huisdierenvrije kamers beschikbaar"
+        }
+      },
+      "ecoFriendlyFeatures": {
+        "label": "Milieuvriendelijke kenmerken",
+        "options": {
+          "energyEfficientLighting": "Energiezuinige verlichting",
+          "recyclingFacilities": "Recyclingvoorzieningen",
+          "sustainableProducts": "Duurzame producten"
+        }
+      }
+    },
+    "location": {
+      "select": "Selecteer",
+      "options": {
+        "anyDistance": "Willekeurige afstand",
+        "lessThan1Mi": "Minder dan 1,6 km",
+        "lessThan2Mi": "Minder dan 3,2 km",
+        "lessThan3Mi": "Minder dan 4,8 km",
+        "lessThan4Mi": "Minder dan 6,4 km",
+        "lessThan5Mi": "Minder dan 8 km",
+        "lessThan6Mi": "Minder dan 9,6 km",
+        "lessThan7Mi": "Minder dan 11,2 km",
+        "lessThan8Mi": "Minder dan 12,8 km"
+      }
+    },
+    "hotelFilters": {
+      "FoodAndBeverage": {
+        "title": "Eten en Drinken",
+        "options": {
+          "complimentaryBreakfast": "Gratis Ontbijt",
+          "onSiteRestaurant": "Restaurant ter Plaatse",
+          "barLounge": "Bar / Lounge",
+          "coffeeShop": "Koffiebar",
+          "miniBar": "Minibar"
+        }
+      },
+      "payments": {
+        "title": "Betalingen",
+        "options": {
+          "payNow": "Nu Betalen",
+          "payLater": "Later Betalen",
+          "partialPayment": "Deelbetaling",
+          "flexiblePayment": "Flexibele Betaling"
+        }
+      },
+      "accessibility": {
+        "title": "Toegankelijkheid",
+        "options": {
+          "wheelchairAccessible": "Rolstoeltoegankelijk",
+          "elevatorLift": "Lift",
+          "accessibleParking": "Toegankelijke Parkeerplaats",
+          "hearingVisualAccessibility": "Hoor- en Zichttoegankelijkheid"
+        }
+      }
+    }
+  },
+  "CarfilterSections": {
+    "label1": "Sorteren op",
+    "label2": "Autotype",
+    "label3": "Stoelen - Tassen",
+    "label4": "Betaalwijze",
+    "label5": "Transmissie Type",
+    "label6": "Locatie",
+    "sortBy": {
+      "select": "Selecteer",
+      "suggested": "Aanbevolen",
+      "cheapest": "Goedkoopste"
+    },
+    "carType": {
+      "select": "Selecteer",
+      "options": {
+        "small": "Klein",
+        "medium": "Middelgroot",
+        "standard": "Standaard",
+        "fullSize": "Groot",
+        "luxury": "Luxe",
+        "suv": "SUV",
+        "convertible": "Cabriolet",
+        "minivan": "Minivan",
+        "pickupTruck": "Pick-up",
+        "sportsCar": "Sportwagen",
+        "electricVehicle": "Elektrisch voertuig",
+        "fourByFour": "4x4",
+        "crossover": "Crossover",
+        "luxurySuv": "Luxe SUV"
+      }
+    },
+    "seatsAndBags": {
+      "seats": {
+        "label": "Stoelen",
+        "options": {
+          "twoSeats": "2 Stoelen",
+          "fourSeats": "4 Stoelen",
+          "fiveSeats": "5 Stoelen",
+          "sevenPlusSeats": "7+ Stoelen"
+        }
+      },
+      "bags": {
+        "label": "Tassen",
+        "options": {
+          "oneToTwoBags": "1-2 tassen",
+          "threeToFourBags": "3-4 tassen",
+          "fiveToSixBags": "5-6 tassen",
+          "sevenPlusBags": "7+ tassen"
+        }
+      }
+    },
+    "paymentType": {
+      "select": "Selecteer",
+      "options": {
+        "payNow": "Nu betalen",
+        "payLater": "Later betalen",
+        "partialPayment": "Gedeeltelijke betaling",
+        "flexiblePayment": "Flexibele betaling"
+      }
+    },
+    "transmissionType": {
+      "select": "Selecteer",
+      "options": {
+        "manual": "Handgeschakeld",
+        "automatic": "Automatisch",
+        "cvt": "CVT",
+        "dct": "DCT",
+        "tiptronic": "Tiptronic"
+      }
+    },
+    "location": {
+      "select": "Selecteer",
+      "options": {
+        "airport": "Luchthaven",
+        "cityCenter": "Stadscentrum",
+        "hotelPickup": "Hotel ophaalservice",
+        "customLocation": "Andere (Aangepaste locatie)"
+      }
+    }
+  },
+  "HeaderMenu": {
+    "tital1": "Pagina's",
+    "tital2": "Vlucht",
+    "tital3": "Hotel",
+    "tital4": "Auto",
+    "tital5": "Activiteit",
+    "text1": "Home",
+    "text2": "Over ons",
+    "text3": "Veelgestelde Vragen",
+    "text4": "Contact",
+    "text5": "Hoofd Aanbiedingen",
+    "text6": "Artikelen",
+    "text7": "Veelgestelde Vragen",
+    "text8": "Begin je Reis Vandaag",
+    "text9": "Visumvereisten",
+    "text10": "Details van het Dichtstbijzijnde Luchthaven",
+    "text11": "Detail",
+    "text12": "Artikel",
+    "texth8": "Uitgebreide Hotelopties",
+    "textc8": "Begin je Reis op de Weg"
+  },
+  "Logsec": {
+    "heading": "Log in om te beginnen",
+    "para": "Voer uw gegevens in",
+    "label1": "E-mailadres/Gebruikersnaam",
+    "label2": "Wachtwoord",
+    "label3": "Onthoud mij",
+    "label4": "Wachtwoord vergeten?",
+    "btn1": "Inloggen",
+    "label5": "Of ga verder met",
+    "label6": "of",
+    "label7": "Nog geen account?",
+    "heading1": "Maak uw account aan",
+    "para1": "Ontvang prijsmeldingen, plan moeiteloos en geniet van snelle boekingen.",
+    "label8": "E-mail",
+    "label9": "Nieuw wachtwoord",
+    "label10": "Bevestig wachtwoord",
+    "label11": "Ik ga akkoord met de",
+    "label12": "Servicevoorwaarden",
+    "label13": "en het",
+    "label14": "Privacybeleid",
+    "btn2": "Account aanmaken",
+    "btn3": "Bezig met inloggen...",
+    "btn4": "Uitloggen",
+    "btn5": "Bezig met aanmelden...",
+
+    "label15": "Heeft u al een account?"
+  }
+}

@@ -1,0 +1,1247 @@
+{
+  "lg": "한국어",
+  "upperSection": {
+    "Login": "로그인",
+    "menu": "메뉴",
+    "closeMenu": "메뉴 닫기",
+    "Cheap_flights_para": "전 세계 저렴한 가격, 간단한 검색 한 번으로",
+    "Our_search": "저희 검색이 당신의 돈을 절약해줍니다",
+    "flights": "항공편",
+    "hotels": "호텔",
+    "cars_Rentals": "렌터카",
+    "oneWay": "편도",
+    "return": "왕복",
+    "multiCity": "다구간",
+    "flying_from": "출발지",
+    "flying_to": "도착지",
+    "departure_date": "출발 날짜",
+    "return_date": "귀환 날짜",
+    "Cabin_Class_Adults": "객실 등급 및 성인",
+
+    "start_journey": "여행 시작하기",
+    "add_flight": "항공편 추가",
+    "ECONOMY": "이코노미",
+    "PREMIUM_ECONOMY": "프리미엄 이코노미",
+    "BUSINESS": "비즈니스",
+    "FIRST": "퍼스트 클래스",
+    "cabinClass": "객실 등급",
+    "Adults": "성인",
+    "Aged18": "18세 이상",
+    "Children": "어린이",
+    "Aged17": "0세에서 17세",
+    "city": "도시",
+    "CheckIn": "체크인",
+    "CheckOut": "체크아웃",
+    "Rooms": "객실",
+    "Done": "완료",
+    "Search_Hotels": "호텔 검색",
+    "Rent_car": "차량 대여",
+    "rent_a_car": "차량 대여",
+    "airport_shuttle": "공항 셔틀",
+    "within_city": "도시 내",
+    "out_of_city": "도시 외",
+    "pickup_time": "픽업 시간",
+    "dropoff_time": "반납 시간",
+    "pickup_date": "픽업 날짜",
+    "dropoff_date": "반납 날짜",
+    "search": "검색",
+    "input": "여기를 클릭하세요"
+  },
+  "section2": {
+    "Search_simply": "간단히 검색하세요",
+    "Search_simply_para": "손쉬운 검색으로 여행 계획을 단순화하세요. 몇 번의 클릭으로 완벽한 항공편을 찾아보세요.",
+    "Comparison": "자신 있게 비교하세요",
+    "Comparison_para": "옵션을 나란히 비교하여 최고의 거래를 찾아보세요. 올바른 선택을 했다는 확신을 가지고 예약하세요.",
+    "Maximize_Savings": "절약 극대화",
+    "Maximize_Savings_para": "모든 여정을 저렴하게 만드는 절약을 누리세요. 더 스마트하게 여행하며 주머니에 더 많은 돈을 남기세요."
+  },
+  "buttons": {
+    "more": "더 보기",
+    "showLess": "덜 보기",
+    "searchHere": "여기서 검색",
+    "book": "예약",
+    "Search": "검색",
+    "Learn_More": "더 알아보기",
+    "Submit": "제출",
+    "BookNow": "지금 예약",
+    "Save": "저장",
+    "apply": "적용",
+    "reset": "초기화",
+    "clear": "지우기"
+  },
+  "Useful Articles": "유용한 기사",
+  "flightFaqSection": {
+    "heading": "자주 묻는 질문",
+    "faqs": {
+      "hotel_search": {
+        "question": "Flay Arzan에서 호텔을 어떻게 검색하나요?",
+        "answer": "검색창에 목적지, 여행 날짜, 투숙객 수를 입력하기만 하면 됩니다. 저희 플랫폼은 예산 친화적인 옵션부터 중급, 럭셔리 선택까지 당신의 선호에 맞는 다양한 호텔 옵션을 표시해 드립니다."
+      },
+      "filter_amenities": {
+        "question": "호텔 검색 결과를 편의시설로 필터링할 수 있나요?",
+        "answer": "네, 저희 고급 필터링 시스템을 통해 특정 요구에 맞게 검색을 사용자 맞춤으로 설정할 수 있습니다. WiFi, 수영장, 주차장 등 다양한 편의시설로 필터링할 수 있습니다."
+      },
+      "book_hotel": {
+        "question": "Flay Arzan을 통해 호텔을 예약할 수 있나요?",
+        "answer": "네, 저희 플랫폼을 통해 직접 예약할 수 있습니다. 신뢰할 수 있는 호텔들과 파트너십을 맺어 안전하고 투명한 예약 과정을 제공합니다."
+      },
+      "hotel_availability": {
+        "question": "플랫폼의 호텔 예약 가능 정보는 얼마나 정확한가요?",
+        "answer": "호텔 파트너들과의 실시간 동기화를 통해 예약 가능 정보를 업데이트하여 정확한 정보를 제공합니다."
+      },
+      "customer_reviews": {
+        "question": "등록된 호텔에 대한 고객 리뷰를 볼 수 있나요?",
+        "answer": "네, 각 호텔에 대해 다른 여행자들의 진짜 리뷰를 읽을 수 있어 정보에 기반한 결정을 내릴 수 있습니다."
+      },
+      "hidden_fees": {
+        "question": "호텔 예약 시 숨겨진 수수료가 있나요?",
+        "answer": "아니요, 모든 수수료를 투명하게 표시합니다. 최종 가격에는 모든 필수 세금과 요금이 포함됩니다."
+      },
+      "cancel_modify": {
+        "question": "호텔 예약을 취소하거나 수정할 수 있나요?",
+        "answer": "취소 및 수정 정책은 호텔마다 다릅니다. 예약 전에 구체적인 조건이 명확히 표시됩니다."
+      },
+      "hotel_suitability": {
+        "question": "호텔이 제 필요에 맞는지 어떻게 알 수 있나요?",
+        "answer": "상세 설명, 사진, 편의시설, 고객 리뷰를 확인하여 호텔이 당신의 기대에 부합하는지 평가하세요."
+      },
+      "special_deals": {
+        "question": "호텔에 대한 특별 할인이나 혜택을 제공하나요?",
+        "answer": "네, 정기적으로 특별 할인과 독점 혜택을 제공합니다. 뉴스레터에 가입하면 최고의 제안을 알아볼 수 있습니다."
+      },
+      "direct_booking": {
+        "question": "Flay Arzan을 통해 직접 호텔을 예약하나요?",
+        "answer": "네, 모든 예약은 저희 플랫폼을 통해 직접 이루어져 안전한 과정과 전담 고객 서비스를 보장합니다."
+      }
+    },
+    "flightCard": {
+      "PlacesLike": "당신이 좋아할 만한 장소",
+      "PlacesLikePara": "프랑스에서 출발하는 최고의 항공권 특가를 최저가로 만나보세요. 이 혜택은 한정 기간 동안만 제공되니, 편한 시간에 자유롭게 둘러보세요!",
+      "FlightDealsFrom": "{{country}} 출발 항공권 특가",
+      "Discover_flight_deals": "최고의 항공권 특가를 찾아보세요",
+      "at_the_lowest_prices": "최저가로. 이 혜택은 한정 기간 동안만 제공되니, 자유롭게 둘러보세요!",
+      "day": "낮",
+      "night": "밤",
+      "Beaches": "해변",
+      "Snorkeling": "스노클링",
+      "Food": "음식"
+    }
+  },
+  "BeginJourney": "오늘 여행을 시작하세요",
+  "footer": {
+    "quickLinks": {
+      "title": "빠른 링크",
+      "about": "회사 소개",
+      "faqs": "자주 묻는 질문",
+      "privacyPolicy": "개인정보 처리방침",
+      "contact": "연락처"
+    },
+    "travelSupport": {
+      "title": "여행 지원 정보",
+      "covid": "코로나19 업데이트",
+      "visa": "비자 요건",
+      "airport": "가장 가까운 공항 정보"
+    },
+    "newsletter": {
+      "title": "숨겨진 보석 발견: 이메일로 받는 여행 영감",
+      "placeholder": "이메일 주소를 입력하세요"
+    },
+    "copyright": "©2025 FlyArzan 저작권. 모든 권리 보유."
+  },
+  "hotel_section": {
+    "Cheap_hotels_para": "어디서나 저렴한 호텔, 간단한 검색 한 번으로",
+    "Our_search": "저희 검색이 당신의 돈을 절약해줍니다",
+    "Discover_Hotel": "{{country}}에서 최고의 호텔 혜택을 발견하세요",
+    "Explore_hotel_para": "최고의 가격으로 호텔 옵션을 탐색하며, 다음 숙박에 탁월한 가치를 제공합니다",
+    "Articles_utiles": "유용한 기사",
+    "Extended_hotel_options": "확장된 호텔 옵션",
+    "Guests and rooms": "투숙객 및 객실"
+  },
+  "hotelFaqs": {
+    "heading": "자주 묻는 질문",
+    "search": {
+      "question": "Flay Arzan에서 호텔을 어떻게 검색하나요?",
+      "answer": "검색창에 목적지, 여행 날짜, 투숙객 수를 입력하기만 하면 됩니다. 저희 플랫폼은 예산 친화적인 옵션부터 중급, 럭셔리 선택까지 당신의 선호에 맞는 다양한 호텔 옵션을 표시해 드립니다."
+    },
+    "amenities": {
+      "question": "호텔 검색 결과를 편의시설로 필터링할 수 있나요?",
+      "answer": "네, 저희 고급 필터링 시스템을 통해 특정 요구에 맞게 검색을 사용자 맞춤으로 설정할 수 있습니다. WiFi, 수영장, 주차장 등 다양한 편의시설로 필터링할 수 있습니다."
+    },
+    "booking": {
+      "question": "Flay Arzan을 통해 호텔을 예약할 수 있나요?",
+      "answer": "네, 저희 플랫폼을 통해 직접 예약할 수 있습니다. 신뢰할 수 있는 호텔들과 파트너십을 맺어 안전하고 투명한 예약 과정을 제공합니다."
+    },
+    "availability": {
+      "question": "플랫폼의 호텔 예약 가능 정보는 얼마나 정확한가요?",
+      "answer": "호텔 파트너들과의 실시간 동기화를 통해 예약 가능 정보를 업데이트하여 정확한 정보를 제공합니다."
+    },
+    "reviews": {
+      "question": "등록된 호텔에 대한 고객 리뷰를 볼 수 있나요?",
+      "answer": "네, 각 호텔에 대해 다른 여행자들의 진짜 리뷰를 읽을 수 있어 정보에 기반한 결정을 내릴 수 있습니다."
+    },
+    "fees": {
+      "question": "호텔 예약 시 숨겨진 수수료가 있나요?",
+      "answer": "아니요, 모든 수수료를 투명하게 표시합니다. 최종 가격에는 모든 필수 세금과 요금이 포함됩니다."
+    },
+    "cancellation": {
+      "question": "호텔 예약을 취소하거나 수정할 수 있나요?",
+      "answer": "취소 및 수정 정책은 호텔마다 다릅니다. 예약 전에 구체적인 조건이 명확히 표시됩니다."
+    },
+    "suitability": {
+      "question": "호텔이 제 필요에 맞는지 어떻게 알 수 있나요?",
+      "answer": "상세 설명, 사진, 편의시설, 고객 리뷰를 확인하여 호텔이 당신의 기대에 부합하는지 평가하세요."
+    },
+    "deals": {
+      "question": "호텔에 대한 특별 할인이나 혜택을 제공하나요?",
+      "answer": "네, 정기적으로 특별 할인과 독점 혜택을 제공합니다. 뉴스레터에 가입하면 최고의 제안을 알아볼 수 있습니다."
+    },
+    "directBooking": {
+      "question": "Flay Arzan을 통해 직접 호텔을 예약하나요?",
+      "answer": "네, 모든 예약은 저희 플랫폼을 통해 직접 이루어져 안전한 과정과 전담 고객 서비스를 보장합니다."
+    }
+  },
+  "carsection": {
+    "Find_the_best_car": "최고의 차량을 찾으세요, 간단한 검색 한 번으로",
+    "Our_search": "저희 검색, 당신의 절약",
+    "Find_the_Best": "{{country}}에서 최고의 렌터카 혜택을 찾으세요",
+    "Explore_top_car": "최고의 렌터카 제공업체를 탐색하며, 로드 트립에 탁월한 가치를 제공합니다.",
+    "Begin_your": "당신의 로드 트립을 시작하세요"
+  },
+  "carfaq": {
+    "Frequently": "자주 묻는 질문",
+    "search": {
+      "question": "Flay Arzan에서 호텔을 어떻게 검색하나요?",
+      "answer": "검색창에 목적지, 여행 날짜, 투숙객 수를 입력하기만 하면 됩니다. 저희 플랫폼은 예산 친화적인 옵션부터 중급, 럭셔리 선택까지 당신의 선호에 맞는 다양한 호텔 옵션을 표시해 드립니다."
+    },
+    "faq2": {
+      "question": "호텔 검색 결과를 편의시설로 필터링할 수 있나요?",
+      "answer": "최고의 항공편 거래를 찾으려면 유연한 날짜, 항공사, 목적지 필터를 사용하세요. 알림을 신청해 거래 소식을 받아보세요."
+    },
+    "faq3": {
+      "question": "Flay Arzan을 통해 호텔을 예약할 수 있나요?",
+      "answer": "표시된 가격에는 대부분의 세금과 수수료가 포함되어 있지만, 수하물 요금과 같은 추가 요금이 적용될 수 있습니다."
+    },
+    "faq4": {
+      "question": "플랫폼의 호텔 예약 가능 정보는 얼마나 정확한가요?"
+    },
+    "faq5": {
+      "question": "등록된 호텔에 대한 고객 리뷰를 볼 수 있나요?"
+    },
+    "faq6": {
+      "question": "호텔 예약 시 숨겨진 수수료가 있나요?"
+    },
+    "faq7": {
+      "question": "호텔 예약을 취소하거나 수정할 수 있나요?"
+    },
+    "faq8": {
+      "question": "호텔이 제 필요에 맞는지 어떻게 알 수 있나요?"
+    },
+    "faq9": {
+      "question": "호텔에 대한 특별 할인이나 혜택을 제공하나요?"
+    },
+    "faq10": {
+      "question": "Flay Arzan을 통해 직접 호텔을 예약하나요?"
+    },
+    "faq11": {
+      "question": "호텔 예약 시 숨겨진 수수료가 있나요?"
+    },
+    "faq12": {
+      "question": "호텔 예약을 취소하거나 수정할 수 있나요?"
+    },
+    "faq13": {
+      "question": "호텔이 제 필요에 맞는지 어떻게 알 수 있나요?"
+    },
+    "faq14": {
+      "question": "호텔에 대한 특별 할인이나 혜택을 제공하나요?"
+    },
+    "faq15": {
+      "question": "Flay Arzan을 통해 직접 호텔을 예약하나요?"
+    }
+  },
+ "PrivacyPolicypage": {
+  "heading": "정보 수집",
+  "heading1": "Fly Arzan 개인정보 보호정책",
+  "para": "Fly Arzan에 오신 것을 환영합니다! 우리는 항공편, 호텔 및 렌터카 검색 엔진입니다. 귀하의 개인 정보는 저희에게 중요하며, 이를 보호하기 위해 최선을 다하고 있습니다. 이 개인정보 보호정책은 귀하가 당사 웹사이트를 이용할 때 저희가 어떻게 데이터를 수집, 사용 및 보호하는지 설명합니다.",
+  "text1": "Fly Arzan은 귀하의 경험을 향상시키기 위해 최소한의 사용자 정보를 수집합니다. 저희가 수집하는 개인 데이터는 다음과 같습니다:",
+  "text2": "이메일 주소",
+  "text3": "제공하신 경우에만 프로모션, 혜택 및 업데이트에 대한 알림을 받기 위해 사용됩니다.",
+  "text4": "저희는 다음을 수집하지 않습니다:",
+  "text5": "결제 정보(저희는 제3자 예약 플랫폼으로 리디렉션합니다).",
+  "text6": "여권 또는 신분증 세부사항.",
+  "text7": "주소나 전화번호.",
+  "text8": "정보 사용",
+  "text9": "귀하의 이메일 주소(제공된 경우)는 다음과 같은 용도로만 사용됩니다:",
+  "text10": "프로모션 혜택 및 할인 제공.",
+  "text11": "Fly Arzan의 새로운 기능이나 업데이트 알림.",
+  "text12": "고객 문의에 답변(고객이 저희에게 연락한 경우).",
+  "text13": "귀하의 이메일을 제3자에게 마케팅 목적으로 판매, 대여 또는 공유하지 않습니다. 귀하의 명시적인 동의 없이.",
+  "text14": "데이터 보안",
+  "text15": "저희는 다음을 포함한 업계 표준 보안 조치를 통해 귀하의 정보를 보호합니다:",
+  "text16": "데이터 전송을 위한 암호화(SSL).",
+  "text17": "보호된 데이터베이스에 이메일 주소 안전하게 저장.",
+  "text18": "무단 접근을 방지하기 위한 정기적인 보안 감사.",
+  "text19": "저희의 노력에도 불구하고, 모든 온라인 플랫폼은 100% 보안을 보장할 수 없습니다. 온라인에서 개인 정보를 공유할 때 주의하시기 바랍니다.",
+  "text20": "제3자 공유",
+  "text21": "Fly Arzan은 제3자 서비스 제공업체(예: 항공사, 호텔, 렌터카 업체)와 협력하여 검색 결과를 제공합니다. 예약 링크를 클릭하면, 해당 업체의 웹사이트로 리디렉션되며, 그들은 자체 개인정보 보호정책을 가지고 있습니다. 저희는 다음을 제어하거나 저장하지 않습니다:",
+  "text22": "예약 거래.",
+  "text23": "결제 세부사항.",
+  "text24": "제3자 사이트에서 입력한 개인 데이터.",
+  "text25": "쿠키 정책",
+  "text26": "Fly Arzan은 쿠키 및 유사한 추적 기술을 사용하여:",
+  "text27": "웹사이트 기능을 개선합니다.",
+  "text28": "검색 결과를 개인화합니다.",
+  "text29": "사용자 행동을 분석하여(예: Google Analytics) 성능을 향상시킵니다.",
+  "text30": "브라우저 설정에서 쿠키를 비활성화할 수 있지만, 일부 기능이 제대로 작동하지 않을 수 있습니다.",
+  "text31": "사용자 권리",
+  "text32": "다음 권리가 있습니다:",
+  "text33": "접근 – 저희가 보유한 데이터에 대한 세부사항을 요청할 수 있습니다.",
+  "text34": "삭제 – 저희 데이터베이스에서 이메일을 삭제해 달라고 요청할 수 있습니다.",
+  "text35": "구독 취소 – 언제든지 이메일에서 구독 취소 링크를 통해 마케팅 이메일을 취소할 수 있습니다.",
+  "text36": "이 정책의 변경",
+  "text37": "저희는 때때로 이 개인정보 보호정책을 업데이트할 수 있습니다. 변경 사항은 여기 게시되며, 주기적으로 확인해 보시길 권장합니다.",
+  "text38": "문의하기",
+  "text39": "개인정보 보호에 관한 질문, 데이터 요청 또는 우려 사항이 있으시면, 아래로 연락해 주세요:",
+  "text40": "이메일: info@flyarzan.com",
+  "text41": "웹사이트: www.flyarzan.com",
+  "text42": "Fly Arzan을 통해 여행 검색을 해주셔서 감사합니다!"
+}
+,
+  "AboutUs": {
+    "heading": "회사 소개",
+    "Who_We_Are": "우리는 누구인가",
+    "text1": "Fly Arzan에서는 모두에게 여행을 쉽고, 접근 가능하며, 즐겁게 만들기 위한 열정으로 움직입니다. 우리는 여행이 단순히 한 장소에서 다른 장소로 이동하는 것 이상이라고 믿습니다—추억을 만들고, 새로운 문화를 탐험하며, 세계와 연결되는 것입니다.",
+    "text2": "혼자 여행을 계획하든, 가족 휴가를 준비하든, 출장을 가든, 저희는 모든 단계를 단순화하기 위해 여기 있습니다. 항공편을 쉽게 예약하는 것부터 당신의 필요에 맞는 완벽한 호텔을 찾는 것, 또는 여행을 위한 믿을 만한 렌터카를 확보하는 것까지, 당신의 경험이 매끄럽고 스트레스 없이 진행되도록 보장합니다."
+  },
+  "AboutUssec1": {
+    "heading": "저희 여행사와 함께 완벽한 휴가를 실현하세요",
+    "text1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+    "Ticket": "항공권 예약",
+    "text2": "국내외 항공편을 경쟁력 있는 요금으로 이용하세요. 당신의 일정에 맞는 최고의 거래를 쉽게 검색하고 비교할 수 있습니다.",
+    "Hotel": "호텔 예약",
+    "text3": "예산 친화적인 숙소부터 럭셔리 숙소까지 엄선된 호텔 리스트를 제공합니다. 위치, 편의시설, 가격에 따라 선택할 수 있는 필터가 있습니다.",
+    "Rent": "렌터카 서비스",
+    "text4": "자가 운전 또는 운전기사 포함 옵션으로 신뢰할 수 있는 차량을 제공합니다. 비즈니스, 레저, 단체 여행을 위한 유연한 대여 계획이 있습니다."
+  },
+  "AboutUssec2": {
+    "titel1": "글로벌 네트워크",
+    "text1": "우리는 주요 여행 제공업체들과 협력하여 다양한 서비스에 대한 접근을 제공합니다.",
+    "titel2": "사용자 친화적인 플랫폼",
+"text2": "저희 웹사이트와 앱은 원활한 예약 경험을 제공하도록 설계되었습니다."
+
+,    "titel3": "전담 지원",
+    "text3": "저희 여행 전문가들이 24/7 당신을 지원하기 위해 대기 중입니다."
+  },
+  "AboutUssec3": {
+    "heading": "완벽한 휴가를 실현하세요",
+    "para": "[연도]에 설립된 Fly Arzan은 여행자와 그들의 꿈의 목적지를 연결한다는 사명으로 시작되었습니다. 수년에 걸쳐 신뢰할 수 있는 플랫폼으로 성장하며, 최고의 항공사, 호텔, 렌터카 서비스와 파트너십을 맺어 고객에게 최상의 옵션을 제공하고 있습니다.",
+    "text1": "우리는 주요 여행 제공업체들과 협력하여 다양한 서비스에 대한 접근을 제공합니다.",
+    "titel1": "항공권",
+    "text2": "현재 서비스를 제공하지 않습니다. 여행 관련 문의 사항에 대해 이메일로 지원 팀이 도와드립니다.",
+    "titel2": "해양 크루즈",
+    "titel3": "교통",
+    "titel4": "여행 일정",
+    "titel5": "여행 보험",
+    "titel6": "현지 가이드"
+  },
+  "ContactUspage": {
+    "heading": "문의하기",
+    "titel1": "언제든지 연결을 환영합니다!",
+    "text1": "광고, 프로모션, 파트너십에 관심이 있거나 피드백을 공유하고 싶으시면 아래 연락처 양식을 이용해 주세요. 이름, 이메일, 제목을 작성하시고 댓글란에 메시지를 남겨 주세요. 저희 팀이 검토한 후 가능한 빨리 연락드리겠습니다.",
+    "para1": "위치",
+    "para2": "영국, 맨체스터",
+    "para4": "이메일",
+    "para6": "info@flyarzan.com",
+    "para7": "업무 시간",
+    "para8": "저희는 업무 시간 내에 모든 문의에 답변드리기 위해 노력합니다.",
+    "para9": "월요일~금요일 | 오전 9시 – 오후 5시 (GMT)"
+  },
+  "Faqpage1": {
+    "faq1": {
+      "question": "웹사이트에서 호텔을 어떻게 검색하나요?",
+      "answer": "목적지, 여행 날짜, 투숙 인원을 입력하면 여러 제공업체의 이용 가능한 호텔을 한 곳에서 바로 확인할 수 있습니다."
+    },
+    "faq2": {
+      "question": "귀하의 플랫폼에서 호텔을 직접 예약할 수 있나요?",
+      "answer": "아니요, 저희는 비교 사이트입니다. 호텔을 선택하시면 예약 제공업체의 사이트로 리디렉션되어 예약을 완료하실 수 있습니다."
+    },
+    "faq3": {
+      "question": "표시된 호텔 가격은 1인 기준인가요, 객실 기준인가요?",
+      "answer": "가격은 일반적으로 객실 기준으로 표시되며, 투숙 인원과 포함된 서비스와 같은 세부 사항은 제공업체 페이지에서 확인할 수 있습니다."
+    },
+    "faq4": {
+      "question": "리스트에 세금과 수수료가 포함되어 있나요?",
+      "answer": "일부 제공업체는 총 가격에 세금과 수수료를 포함하며, 다른 업체는 결제 시 표시됩니다. 최종 예약 페이지에서 확인하시는 것을 권장합니다."
+    },
+    "faq5": {
+      "question": "무료 취소 가능한 호텔은 어떻게 찾나요?",
+      "answer": "검색 결과에서 '무료 취소' 필터를 사용하면 유연한 취소 정책이 있는 숙소만 볼 수 있습니다."
+    },
+    "faq6": {
+      "question": "Wi-Fi, 조식, 수영장 등 편의시설로 호텔을 필터링할 수 있나요?",
+      "answer": "네, 무료 Wi-Fi, 조식 포함, 수영장, 반려동물 허용 등 다양한 필터로 검색을 세부 조정할 수 있습니다."
+    },
+    "faq7": {
+      "question": "저렴한 호텔과 고급 호텔 모두 표시되나요?",
+      "answer": "네, 호스텔과 게스트하우스부터 부티크 호텔과 럭셔리 리조트까지 모든 가격대의 숙소를 제공합니다."
+    },
+    "faq8": {
+      "question": "예약 전에 호텔 사진과 리뷰를 볼 수 있나요?",
+      "answer": "물론입니다. 각 호텔에 대한 상세 사진, 별점, 실제 고객 리뷰를 확인하실 수 있습니다."
+    },
+    "faq9": {
+      "question": "내 여행 날짜에 호텔이 이용 가능한지 어떻게 알 수 있나요?",
+      "answer": "선택한 여행 날짜를 기준으로 실시간으로 이용 가능 여부가 업데이트되며, 예약 가능한 객실만 표시됩니다."
+    },
+    "faq10": {
+      "question": "아파트나 빌라 같은 숙소도 검색할 수 있나요?",
+      "answer": "네, 서비스 아파트, 휴가용 주택, 빌라와 같은 대체 숙소도 검색 결과에 포함됩니다."
+    },
+    "faq11": {
+      "question": "호텔 위치를 지도에서 확인할 수 있나요?",
+      "answer": "네, 지도에서 호텔 위치를 확인하여 명소, 교통 허브 또는 특정 지역과의 거리를 볼 수 있습니다."
+    },
+    "faq12": {
+      "question": "그룹 예약을 위해 여러 객실을 예약하려면 어떻게 하나요?",
+      "answer": "검색 시 필요한 객실 수를 선택하면 그룹 크기에 따라 가격 정보를 확인하실 수 있습니다."
+    },
+    "faq13": {
+      "question": "호텔 예약을 변경하려면 어떻게 해야 하나요?",
+      "answer": "예약은 각 제공업체를 통해 이루어지므로, 변경을 원하실 경우 호텔 또는 예약 제공업체에 직접 문의해 주세요."
+    },
+    "faq14": {
+      "question": "호텔 예약 시 포인트나 리워드를 적립할 수 있나요?",
+      "answer": "예약 제공업체에 따라 다릅니다. 일부 플랫폼은 회원에게 포인트 적립이나 할인 혜택을 제공합니다."
+    },
+    "faq15": {
+      "question": "호텔 요금에 조식이 포함되어 있나요?",
+      "answer": "일부 호텔은 조식을 포함하며, 다른 호텔은 포함하지 않습니다. 제공업체로 리디렉션되기 전에 해당 정보를 명확히 확인할 수 있습니다."
+    }
+  },
+
+  "Faqpage2": {
+  "faq1": {
+    "question": "렌터카는 어떻게 검색하나요?",
+    "answer": "픽업 위치, 날짜 및 시간을 입력하면 다양한 회사의 렌터카 제안을 한곳에서 비교할 수 있습니다."
+  },
+  "faq2": {
+    "question": "귀하의 플랫폼에서 직접 렌터카를 예약할 수 있나요?",
+    "answer": "아니요. 우리는 렌터카 회사나 예약 파트너의 웹사이트로 리디렉션해 드립니다. 그곳에서 예약을 완료할 수 있습니다."
+  },
+  "faq3": {
+    "question": "렌터카 예약 시 신용카드가 꼭 필요한가요?",
+    "answer": "대부분의 렌터카 회사는 보증금 및 예약을 위해 신용카드를 요구합니다. 자세한 내용은 해당 업체의 조건을 확인하세요."
+  },
+  "faq4": {
+    "question": "운전면허증 없이 렌터카를 빌릴 수 있나요?",
+    "answer": "아니요. 유효한 운전면허증이 반드시 필요합니다. 일부 회사는 1년 이상 소지한 면허만 인정합니다."
+  },
+  "faq5": {
+    "question": "보험 및 세금이 렌터카 요금에 포함되나요?",
+    "answer": "일부 업체는 기본 보험 및 세금을 포함하며, 일부는 별도로 추가할 수 있습니다. 체크아웃 페이지에서 세부 정보를 확인하세요."
+  },
+  "faq6": {
+    "question": "어떤 종류의 차량을 대여할 수 있나요?",
+    "answer": "경제형, 소형, SUV, 고급차, 밴 등 여행 목적에 맞는 다양한 차량을 선택할 수 있습니다."
+  },
+  "faq7": {
+    "question": "한 도시에서 차량을 빌려 다른 도시에 반납할 수 있나요?",
+    "answer": "네, 이를 원웨이 렌탈이라고 하며 검색 시 해당 옵션을 선택할 수 있습니다. 경로에 따라 추가 요금이 발생할 수 있습니다."
+  },
+  "faq8": {
+    "question": "렌터카 이용 시 나이 제한이 있나요?",
+    "answer": "대부분의 회사는 최소 21세 이상을 요구하며, 25세 미만은 추가 요금이 부과될 수 있습니다. 자세한 내용은 업체의 규정을 확인하세요."
+  },
+  "faq9": {
+    "question": "자동변속기와 수동변속기 등 필터를 사용할 수 있나요?",
+    "answer": "네, 변속기 종류, 연료 정책, 승차 인원 등 다양한 필터를 사용할 수 있습니다."
+  },
+  "faq10": {
+    "question": "렌터카에 추가 운전자를 등록할 수 있나요?",
+    "answer": "많은 업체가 추가 운전자를 허용하며 추가 요금이 발생할 수 있습니다. 파트너 사이트에서 예약 시 해당 옵션을 선택하세요."
+  },
+  "faq11": {
+    "question": "연료비는 렌터카 요금에 포함되나요?",
+    "answer": "보통은 포함되지 않습니다. 대부분의 렌터카는 '풀투풀(Full-to-Full)' 연료 정책을 따릅니다."
+  },
+  "faq12": {
+    "question": "렌터카 예약을 취소하거나 수정할 수 있나요?",
+    "answer": "업체의 정책에 따라 다릅니다. 대부분 일정 시간 내에는 무료 취소가 가능합니다. 자세한 내용은 해당 사이트를 확인하세요."
+  },
+  "faq13": {
+    "question": "차량 픽업 시 어떤 서류가 필요한가요?",
+    "answer": "운전면허증, 신용카드, 예약 확인서 또는 신분증이 필요합니다. 렌터카 업체에 미리 확인하는 것이 좋습니다."
+  },
+  "faq14": {
+    "question": "공항에서 렌터카를 대여할 수 있나요?",
+    "answer": "네, 공항 내 위치 및 셔틀을 이용한 픽업 옵션 등 다양한 공항 렌터카 서비스를 제공합니다."
+  },
+  "faq15": {
+    "question": "항공편이 지연되어 픽업 시간을 놓치면 어떻게 되나요?",
+    "answer": "대부분의 렌터카 업체는 일정 유예 시간을 제공합니다. 특히 야간 픽업의 경우, 지연이 예상되면 업체에 미리 연락하세요."
+}
+  },
+
+
+  "Faqpage3": {
+  "faq1": {
+    "question": "귀하의 웹사이트에서 결제를 하나요?",
+    "answer": "아니요. 저희는 결제를 처리하지 않습니다. 항공권, 호텔, 렌터카 선택 후 제공업체의 웹사이트로 이동하여 결제 및 예약을 완료하게 됩니다."
+  },
+  "faq2": {
+    "question": "여행 제공업체에서 어떤 결제 수단을 사용할 수 있나요?",
+    "answer": "대부분의 업체는 Visa, Mastercard, American Express 등 주요 신용카드와 직불카드를 지원하며, 일부는 PayPal, Apple Pay, 지역 결제 수단도 지원합니다."
+  },
+  "faq3": {
+    "question": "예약 사이트에 결제 정보를 입력해도 안전한가요?",
+    "answer": "네. 저희는 보안이 강화된 암호화 결제 게이트웨이를 사용하는 신뢰할 수 있는 파트너와만 협력합니다."
+  },
+  "faq4": {
+    "question": "숨겨진 비용이나 예약 수수료가 있나요?",
+    "answer": "아니요. 저희 플랫폼은 무료로 제공되며, 귀하의 결제는 전적으로 제공업체에게 직접 이루어집니다."
+  },
+  "faq5": {
+    "question": "현지 통화로 결제되나요?",
+    "answer": "업체에 따라 다릅니다. 많은 업체가 통화 변환 옵션을 제공하며, 결제 시 현지 통화로 표시 및 결제가 가능합니다."
+  },
+  "faq6": {
+    "question": "여러 카드나 사람으로 결제를 나눌 수 있나요?",
+    "answer": "대부분의 업체는 단일 카드로 전액 결제를 요구합니다. 단체 예약 시에는 별도로 분할 결제를 조율해야 할 수 있습니다."
+  },
+  "faq7": {
+    "question": "예약 시 전액 결제를 해야 하나요?",
+    "answer": "업체 및 서비스 유형에 따라 다릅니다. 일부는 '나중에 결제'나 보증금 옵션을 제공하며, 다른 일부는 즉시 전액 결제를 요구합니다."
+  },
+  "faq8": {
+    "question": "결제 실패 시 어떻게 하나요?",
+    "answer": "결제 실패 시, 다시 시도하거나 다른 결제 수단을 선택하라는 메시지가 표시됩니다. 문제 발생 시 업체의 고객 지원팀에 문의하세요."
+  },
+  "faq9": {
+    "question": "예약을 취소하면 환불받을 수 있나요?",
+    "answer": "환불 정책은 업체와 서비스 유형에 따라 다릅니다. 일부는 일정 시간 내 전액 환불을 제공하고, 일부는 취소 수수료가 부과될 수 있습니다. 예약 전에 약관을 확인하세요."
+  },
+  "faq10": {
+    "question": "결제 확인서나 영수증을 받을 수 있나요?",
+    "answer": "네. 결제 완료 후 제공업체로부터 확인 이메일 및 영수증을 직접 받게 됩니다."
+}
+  },
+"Faqpage": {
+  "heading": "저희에 대해 궁금하신가요? 정확한 답변을 준비해두었습니다.",
+  "input": "여기에서 질문을 검색하세요",
+  "tital1": "자주 묻는 질문",
+  "text1": "자주 묻는 질문(FAQ) 섹션에 오신 것을 환영합니다. 항공편, 호텔 또는 차량 렌탈을 찾고 계시든, 여행을 자신 있게 계획하고 예약할 수 있도록 가장 일반적인 질문에 대한 명확하고 도움이 되는 답변을 제공합니다. 아래 각 카테고리를 탐색하여 더 많은 정보를 얻고 쉽게 올바른 여행 결정을 내리세요.",
+  "tab1": "웹사이트 작동",
+  "tab2": "호텔 예약",
+  "tab3": "차량 렌탈",
+  "tab4": "결제",
+  "faq1": {
+    "question": "웹사이트에서 항공편을 검색하려면 어떻게 하나요?",
+    "answer": "출발 도시, 목적지, 여행 날짜 및 승객 수를 입력하기만 하면 됩니다. 저희 시스템이 다양한 항공사와 여행 제공업체를 실시간으로 검색하여 최상의 옵션을 보여줍니다."
+  },
+  "faq2": {
+    "question": "웹사이트에서 직접 항공편을 예약할 수 있나요?",
+    "answer": "아니요, 저희는 여행 검색 엔진입니다. 원하는 항공편을 찾으면 해당 항공사 또는 여행사의 웹사이트로 이동하여 예약을 완료하실 수 있습니다."
+  },
+  "faq3": {
+    "question": "표시되는 항공권 가격이 실시간인가요?",
+    "answer": "네, 저희 플랫폼은 제공업체로부터 실시간 데이터를 받아 최신 가격과 이용 가능 여부를 표시합니다. 하지만 최종 확인은 제공업체의 사이트에서 이루어집니다."
+  },
+  "faq4": {
+    "question": "표시된 항공권 가격에 세금과 수수료가 포함되어 있나요?",
+    "answer": "대부분의 가격에는 기본 세금과 수수료가 포함되어 있지만, 수하물, 기내식, 좌석 선택과 같은 선택 사항은 추가 비용이 있을 수 있으며, 이는 예약 사이트에서 확인 가능합니다."
+  },
+  "faq5": {
+    "question": "편도, 왕복 또는 다구간 항공편 검색이 가능한가요?",
+    "answer": "물론입니다. 검색을 시작하기 전에 원하는 여행 유형을 선택할 수 있으며, 여러 목적지를 추가하여 맞춤 여행 일정을 구성할 수도 있습니다."
+  },
+  "faq6": {
+    "question": "유연한 날짜로 항공편을 검색할 수 있나요?",
+    "answer": "네, 유연한 날짜 기능을 사용하면 선택한 출발 및 복귀 날짜 전후로 가장 저렴한 항공편을 확인할 수 있습니다."
+  },
+  "faq7": {
+    "question": "항공사, 가격 또는 소요 시간으로 항공편을 필터링하려면 어떻게 하나요?",
+    "answer": "검색 후 필터 기능을 사용하여 항공사, 가격 범위, 경유 횟수, 여행 시간 등 다양한 기준으로 결과를 좁힐 수 있습니다."
+  },
+  "faq8": {
+    "question": "최단 여행 시간 또는 최저가 순으로 정렬할 수 있나요?",
+    "answer": "네, 가장 빠른 경로, 가장 저렴한 요금 또는 가장 편리한 출발 시간 순으로 결과를 쉽게 정렬할 수 있습니다."
+  },
+  "faq9": {
+    "question": "저가 항공과 일반 항공 모두 표시되나요?",
+    "answer": "네, 주요 항공사, 저가 항공사, 온라인 여행사 결과를 모두 포함하여 다양한 선택지를 제공합니다."
+  },
+  "faq10": {
+    "question": "국내선 및 국제선 모두 예약 가능한가요?",
+    "answer": "네, 국내 및 국제 노선 모두 검색할 수 있으며, 다양한 목적지와 항공사에 대한 지원이 가능합니다."
+  },
+  "faq11": {
+    "question": "항공권 가격 알림 설정이 가능한가요?",
+    "answer": "네, 특정 노선의 요금이 하락할 경우 알림을 받을 수 있는 가격 알림 기능을 제공합니다."
+  },
+  "faq12": {
+    "question": "예약을 클릭할 때 가격이 변경되는 이유는 무엇인가요?",
+    "answer": "항공권 가격은 수요와 공급에 따라 지속적으로 변동합니다. 가격이 변경되었다면, 이는 일반적으로 제공업체가 실시간으로 업데이트한 것입니다."
+  },
+  "faq13": {
+    "question": "항공권 가격에 수하물이 포함되어 있는지 어떻게 알 수 있나요?",
+    "answer": "각 항공편 목록에는 기내 수하물 또는 위탁 수하물 포함 여부가 표시되며, 자세한 정보는 예약 파트너 사이트에서 확인 가능합니다."
+  },
+  "faq14": {
+    "question": "항공편 예약에 문제가 생긴 경우 어떻게 해야 하나요?",
+    "answer": "예약은 항공사 또는 여행사 웹사이트에서 이루어지므로, 변경, 취소 또는 환불에 대한 문의는 해당 업체에 직접 연락하셔야 합니다."
+  },
+  "faq15": {
+    "question": "단체나 대가족 항공편도 예약할 수 있나요?",
+    "answer": "네, 최대 9명까지 항공편 검색이 가능하며, 더 큰 그룹의 경우 항공사나 여행 제공업체에 직접 문의하는 것을 권장드립니다."
+}
+},
+
+  "FlightsInner": {
+    "Suggested": "추천",
+    "Fastest": "최단 시간",
+    "Cheapest": "최저가",
+    "No_Flights_Found": "항공편을 찾을 수 없습니다",
+    "departing": "출발 항공편 선택",
+    "Results": "결과",
+    "departingflight": "두바이로 가는 출발 항공편 선택",
+    "Nonstop": "직항",
+    "Economy": "이코노미",
+    "Select": "선택",
+    "Round": "왕복 가격",
+    "Show": "더 많은 결과 보기",
+    "More Filters": "추가 필터",
+    "Hide Filters": "필터 숨기기"
+  },
+  "BookYourTicket": {
+    "Book": "항공편 예약",
+    "Back_result": "결과로 돌아가기",
+    "text1": "표시된 가격에는 예상 세금과 필수 요금이 포함되어 있습니다. 수하물 정책과 티켓 조건은 다를 수 있습니다.",
+    "text2": "일부 제공업체는 수하물, 보험, 또는 신용카드 결제에 대해 추가 요금을 부과할 수 있습니다.",
+    "text3": "예약을 완료하기 전에 제공업체 웹사이트에서 모든 티켓 세부 정보와 최종 비용을 검토해 주세요.",
+    "Extra": "추가 서비스",
+    "Saver": "세이버",
+    "Premium": "프리미엄",
+    "Standard": "스탠다드",
+    "Flight_Details": "항공편 세부 정보",
+    "Outbound": "출발",
+    "Directing_To": "다음으로 안내 중"
+  },
+  "HotelsInnerlabel": {
+    "label1": "정렬 기준",
+    "label2": "가격",
+    "label3": "숙소 유형",
+    "label4": "편의시설",
+    "label5": "별점",
+    "label6": "위치",
+    "text": "런던 숙박을 위한 호텔 선택",
+    "para": "Morem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "Suppliers": "공급업체",
+    "All_Filters": "모든 필터"
+  },
+  "HotelfilterSections": {
+    "sortOptions": {
+      "select": "선택",
+      "recommended": "추천",
+      "priceLowToHigh": "가격: 낮은 순",
+      "priceHighToLow": "가격: 높은 순",
+      "starRatingHighToLow": "별점: 높은 순",
+      "distanceClosest": "거리: 도심에서 가까운 순"
+    },
+    "starRating": {
+      "select": "선택",
+      "options": {
+        "fiveStars": "5성",
+        "fourStars": "4성",
+        "threeStars": "3성",
+        "twoStars": "2성",
+        "oneStar": "1성",
+        "unrated": "등급 없음"
+      }
+    },
+    "categories": {
+      "traditional": {
+        "label": "전통",
+        "options": {
+          "hotels": "호텔",
+          "motels": "모텔",
+          "guesthouses": "게스트하우스",
+          "bedAndBreakfasts": "베드 앤 브렉퍼스트"
+        }
+      },
+      "luxuryStays": {
+        "label": "럭셔리 숙소",
+        "options": {
+          "resorts": "리조트",
+          "villas": "빌라",
+          "boutiqueHotels": "부티크 호텔"
+        }
+      },
+      "budgetFriendly": {
+        "label": "예산 친화적",
+        "options": {
+          "hostels": "호스텔",
+          "capsuleHotels": "캡슐 호텔"
+        }
+      },
+      "extendedStays": {
+        "label": "장기 숙소",
+        "options": {
+          "apartments": "아파트",
+          "servicedApartments": "서비스드 아파트"
+        }
+      },
+      "uniqueExperiences": {
+        "label": "독특한 경험",
+        "options": {
+          "cottages": "코티지",
+          "farmStays": "팜 스테이",
+          "holidayHomes": "홀리데이 홈",
+          "campingAndGlamping": "캠핑 & 글램핑"
+        }
+      }
+    },
+    "amenities": {
+      "roomFeatures": {
+        "label": "객실 특징",
+        "options": {
+          "airConditioning": "에어컨",
+          "heating": "난방",
+          "privateBalcony": "개인 발코니",
+          "kitchenKitchenette": "주방/간이 주방",
+          "coffeeTeaMaker": "커피/차 메이커",
+          "flatScreenTv": "평면 TV",
+          "inRoomSafe": "객실 내 금고",
+          "workDesk": "업무 책상",
+          "premiumBedding": "프리미엄 침구"
+        }
+      },
+      "hotelServices": {
+        "label": "호텔 서비스",
+        "options": {
+          "twentyFourHourFrontDesk": "24시간 프런트 데스크",
+          "conciergeService": "컨시어지 서비스",
+          "roomService": "룸 서비스",
+          "dailyHousekeeping": "매일 하우스키핑",
+          "laundryService": "세탁 서비스",
+          "luggageStorage": "수하물 보관",
+          "wakeUpCallService": "모닝콜 서비스"
+        }
+      },
+      "foodAndBeverage": {
+        "label": "음식 및 음료",
+        "options": {
+          "complimentaryBreakfast": "무료 조식",
+          "onSiteRestaurant": "현장 레스토랑",
+          "barLounge": "바/라운지",
+          "coffeeShop": "커피숍",
+          "miniBar": "미니바"
+        }
+      },
+      "recreationalFacilities": {
+        "label": "레크리에이션 시설",
+        "options": {
+          "swimmingPool": "수영장 (실내/실외)",
+          "fitnessCenter": "피트니스 센터",
+          "spaWellnessCenter": "스파/웰니스 센터",
+          "kidsPlayArea": "어린이 놀이 공간",
+          "gameRoom": "게임 룸"
+        }
+      },
+      "businessFacilities": {
+        "label": "비즈니스 시설",
+        "options": {
+          "conferenceRooms": "회의실",
+          "businessCenter": "비즈니스 센터",
+          "freeWiFi": "무료 Wi-Fi",
+          "meetingRooms": "미팅 룸"
+        }
+      },
+      "accessibility": {
+        "label": "접근성",
+        "options": {
+          "wheelchairAccessible": "휠체어 접근 가능",
+          "elevatorLift": "엘리베이터/리프트",
+          "accessibleParking": "접근 가능 주차장",
+          "hearingVisualAccessibility": "청각/시각 접근성 기능"
+        }
+      },
+      "parkingAndTransportation": {
+        "label": "주차 및 교통",
+        "options": {
+          "freeParking": "무료 주차",
+          "valetParking": "발렛 파킹",
+          "shuttleService": "셔틀 서비스 (공항/지역)",
+          "evChargingStations": "전기차 충전소"
+        }
+      },
+      "petPolicies": {
+        "label": "애완동물 정책",
+        "options": {
+          "petFriendly": "애완동물 동반 가능",
+          "petFreeRooms": "애완동물 없는 객실 가능"
+        }
+      },
+      "ecoFriendlyFeatures": {
+        "label": "친환경 기능",
+        "options": {
+          "energyEfficientLighting": "에너지 효율적인 조명",
+          "recyclingFacilities": "재활용 시설",
+          "sustainableProducts": "지속 가능한 제품"
+        }
+      }
+    },
+    "location": {
+      "select": "선택",
+      "options": {
+        "anyDistance": "모든 거리",
+        "lessThan1Mi": "1마일 미만",
+        "lessThan2Mi": "2마일 미만",
+        "lessThan3Mi": "3마일 미만",
+        "lessThan4Mi": "4마일 미만",
+        "lessThan5Mi": "5마일 미만",
+        "lessThan6Mi": "6마일 미만",
+        "lessThan7Mi": "7마일 미만",
+        "lessThan8Mi": "8마일 미만"
+      }
+    },
+    "carFilters": {
+      "suppliers": {
+        "title": "공급업체",
+        "options": {
+          "hertz": "허츠",
+          "avis": "에이비스",
+          "enterprise": "엔터프라이즈",
+          "sixt": "식스트",
+          "europcar": "유롭카",
+          "budget": "버짓",
+          "alamo": "알라모",
+          "nationalCarRental": "내셔널 카 렌탈",
+          "thrifty": "스리프티",
+          "dollarRent": "달러 렌트",
+          "greenMotion": "그린 모션",
+          "foxRent": "폭스 렌트",
+          "turo": "투로",
+          "rentcarsCom": "렌트카스닷컴",
+          "rideSharingServices": "라이드셰어링 서비스"
+        }
+      },
+      "policies": {
+        "title": "정책",
+        "categories": {
+          "insurance": {
+            "title": "보험",
+            "options": {
+              "collisionDamageWaiver": "충돌 손해 면책 (CDW)",
+              "theftProtection": "도난 방지",
+              "thirdPartyLiability": "제3자 책임"
+            }
+          },
+          "fuel": {
+            "title": "연료",
+            "options": {
+              "fullToFull": "만땅에서 만땅",
+              "prePaidFuel": "선불 연료"
+            }
+          },
+          "mileageOptions": {
+            "title": "주행 거리 옵션",
+            "options": {
+              "unlimitedMileage": "무제한 주행",
+              "limitedMileage": "제한된 주행 (예: 하루 100마일)"
+            }
+          },
+          "driverRequirements": {
+            "title": "운전자 요구 사항",
+            "options": {
+              "ageRequirement": "연령 요구 (21-75세)",
+              "validDrivingLicense": "유효한 운전면허증"
+            }
+          },
+          "cancellation": {
+            "title": "취소",
+            "options": {
+              "freeCancellation": "무료 취소 (48시간)",
+              "lateCancellationFee": "늦은 취소 수수료"
+            }
+          },
+          "returnPolicies": {
+            "title": "반납 정책",
+            "options": {
+              "lateReturnFee": "늦은 반납 수수료",
+              "cleanCarReturn": "깨끗한 차량 반납"
+            }
+          }
+        }
+      },
+      "carFeatures": {
+        "title": "차량 특징",
+        "options": {
+          "airConditioning": "에어컨",
+          "automaticTransmission": "자동 변속기",
+          "bluetoothConnectivity": "블루투스 연결",
+          "gpsNavigation": "GPS 내비게이션",
+          "leatherSeats": "가죽 시트",
+          "cruiseControl": "크루즈 컨트롤",
+          "rearviewCamera": "후방 카메라",
+          "bluetoothHandsFreeCalling": "블루투스 핸즈프리 통화",
+          "childSafetySeats": "어린이 안전 시트",
+          "sunroof": "선루프",
+          "moonroof": "문루프",
+          "heatedSeats": "열선 시트",
+          "keylessEntry": "키리스 엔트리 및 버튼 시동",
+          "parkingSensors": "주차 센서",
+          "towingCapacity": "견인 용량",
+          "fourWheelDrive": "사륜구동 (4WD)",
+          "allWheelDrive": "전륜구동 (AWD)",
+          "bluetoothAudioStreaming": "블루투스 오디오 스트리밍",
+          "laneDepartureWarning": "차선 이탈 경고 시스템",
+          "collisionAvoidance": "충돌 방지 시스템",
+          "roofRailing": "루프 레일",
+          "foldableRearSeats": "접이식 뒷좌석",
+          "adjustableSteeringWheel": "조정 가능한 스티어링 휠",
+          "climateControl": "클라이밋 컨트롤"
+        }
+      },
+      "brands": {
+        "title": "브랜드",
+        "categories": {
+          "toyota": {
+            "title": "토요타",
+            "options": {
+              "corolla": "토요타 코롤라",
+              "camry": "토요타 캠리",
+              "yaris": "토요타 야리스",
+              "prius": "토요타 프리우스",
+              "highlander": "토요타 하이랜더",
+              "rav4": "토요타 RAV4",
+              "landCruiser": "토요타 랜드 크루저"
+            }
+          },
+          "ford": {
+            "title": "포드",
+            "options": {
+              "fiesta": "포드 피에스타",
+              "focus": "포드 포커스",
+              "mustang": "포드 머스탱",
+              "explorer": "포드 익스플로러",
+              "edge": "포드 엣지"
+            }
+          },
+          "volkswagen": {
+            "title": "폭스바겐",
+            "options": {
+              "golf": "폭스바겐 골프",
+              "passat": "폭스바겐 파사트",
+              "tiguan": "폭스바겐 티구안",
+              "polo": "폭스바겐 폴로",
+              "jetta": "폭스바겐 제타"
+            }
+          },
+          "nissan": {
+            "title": "닛산",
+            "options": {
+              "altima": "닛산 알티마",
+              "sentra": "닛산 센트라",
+              "rogue": "닛산 로그",
+              "pathfinder": "닛산 패스파인더"
+            }
+          },
+          "bmw": {
+            "title": "BMW",
+            "options": {
+              "threeSeries": "BMW 3 시리즈",
+              "fiveSeries": "BMW 5 시리즈",
+              "x1": "BMW X1",
+              "x3": "BMW X3"
+            }
+          },
+          "hyundai": {
+            "title": "현대",
+            "options": {
+              "elantra": "현대 엘란트라",
+              "tucson": "현대 투싼",
+              "santaFe": "현대 싼타페"
+            }
+          },
+          "chevrolet": {
+            "title": "쉐보레",
+            "options": {
+              "spark": "쉐보레 스파크",
+              "malibu": "쉐보레 말리부",
+              "equinox": "쉐보레 에퀴녹스",
+              "traverse": "쉐보레 트래버스"
+            }
+          },
+          "mercedesBenz": {
+            "title": "메르세데스-벤츠",
+            "options": {
+              "aClass": "메르세데스-벤츠 A-클래스",
+              "eClass": "메르세데스-벤츠 E-클래스",
+              "glc": "메르세데스-벤츠 GLC",
+              "gle": "메르세데스-벤츠 GLE"
+            }
+          },
+          "audi": {
+            "title": "아우디",
+            "options": {
+              "a3": "아우디 A3",
+              "a4": "아우디 A4",
+              "q3": "아우디 Q3",
+              "q5": "아우디 Q5"
+            }
+          },
+          "jeep": {
+            "title": "지프",
+            "options": {
+              "wrangler": "지프 랭글러",
+              "grandCherokee": "지프 그랜드 체로키",
+              "cherokee": "지프 체로키"
+            }
+          },
+          "kia": {
+            "title": "기아",
+            "options": {
+              "optima": "기아 옵티마",
+              "sorento": "기아 쏘렌토",
+              "sportage": "기아 스포티지"
+            }
+          },
+          "honda": {
+            "title": "혼다",
+            "options": {
+              "civic": "혼다 시빅",
+              "accord": "혼다 어코드",
+              "crv": "혼다 CR-V",
+              "hrv": "혼다 HR-V"
+            }
+          },
+          "renault": {
+            "title": "르노",
+            "options": {
+              "clio": "르노 클리오",
+              "captur": "르노 캡쳐",
+              "megane": "르노 메간"
+            }
+          },
+          "peugeot": {
+            "title": "푸조",
+            "options": {
+              "208": "푸조 208",
+              "308": "푸조 308",
+              "3008": "푸조 3008"
+            }
+          },
+          "landRover": {
+            "title": "랜드로버",
+            "options": {
+              "discovery": "랜드로버 디스커버리",
+              "defender": "랜드로버 디펜더",
+              "rangeRover": "레인지로버"
+            }
+          },
+          "mazda": {
+            "title": "마즈다",
+            "options": {
+              "mazda3": "마즈다 3",
+              "cx5": "마즈다 CX-5",
+              "mx5": "마즈다 MX-5"
+            }
+          },
+          "porsche": {
+            "title": "포르쉐",
+            "options": {
+              "911": "포르쉐 911",
+              "cayenne": "포르쉐 카이엔",
+              "macan": "포르쉐 마칸"
+            }
+          },
+          "tesla": {
+            "title": "테슬라",
+            "options": {
+              "model3": "테슬라 모델 3",
+              "modelS": "테슬라 모델 S",
+              "modelX": "테슬라 모델 X"
+            }
+          },
+          "volvo": {
+            "title": "볼보",
+            "options": {
+              "xc60": "볼보 XC60",
+              "xc90": "볼보 XC90",
+              "v90": "볼보 V90"
+            }
+          },
+          "fiat": {
+            "title": "피아트",
+            "options": {
+              "500": "피아트 500",
+              "panda": "피아트 판다",
+              "500l": "피아트 500L"
+            }
+          }
+        }
+      },
+      "buttons": {
+        "reset": "초기화",
+        "apply": "적용"
+      }
+    },
+    "hotelFilters": {
+  "FoodAndBeverage": {
+    "title": "음식 및 음료",
+    "options": {
+      "complimentaryBreakfast": "무료 조식",
+      "onSiteRestaurant": "현장 레스토랑",
+      "barLounge": "바 / 라운지",
+      "coffeeShop": "커피숍",
+      "miniBar": "미니바"
+    }
+  },
+  "payments": {
+    "title": "결제",
+    "options": {
+      "payNow": "지금 결제",
+      "payLater": "나중에 결제",
+      "partialPayment": "부분 결제",
+      "flexiblePayment": "유연한 결제"
+    }
+  },
+  "accessibility": {
+    "title": "접근성",
+    "options": {
+      "wheelchairAccessible": "휠체어 접근 가능",
+      "elevatorLift": "엘리베이터",
+      "accessibleParking": "장애인 주차장",
+      "hearingVisualAccessibility": "청각/시각 지원"
+    }
+  }
+}
+
+  },
+  "CarfilterSections": {
+    "label1": "정렬 기준",
+    "label2": "차량 유형",
+    "label3": "좌석 - 수하물",
+    "label4": "결제 유형",
+    "label5": "변속기 유형",
+    "label6": "위치",
+    "sortBy": {
+      "select": "선택",
+      "suggested": "추천",
+      "cheapest": "최저가"
+    },
+    "carType": {
+      "select": "선택",
+      "options": {
+        "small": "소형",
+        "medium": "중형",
+        "standard": "표준",
+        "fullSize": "대형",
+        "luxury": "럭셔리",
+        "suv": "SUV",
+        "convertible": "컨버터블",
+        "minivan": "미니밴",
+        "pickupTruck": "픽업 트럭",
+        "sportsCar": "스포츠카",
+        "electricVehicle": "전기차",
+        "fourByFour": "4x4",
+        "crossover": "크로스오버",
+        "luxurySuv": "럭셔리 SUV"
+      }
+    },
+    "seatsAndBags": {
+      "seats": {
+        "label": "좌석",
+        "options": {
+          "twoSeats": "2인승",
+          "fourSeats": "4인승",
+          "fiveSeats": "5인승",
+          "sevenPlusSeats": "7인승 이상"
+        }
+      },
+      "bags": {
+        "label": "수하물",
+        "options": {
+          "oneToTwoBags": "1-2개",
+          "threeToFourBags": "3-4개",
+          "fiveToSixBags": "5-6개",
+          "sevenPlusBags": "7개 이상"
+        }
+      }
+    },
+    "paymentType": {
+      "select": "선택",
+      "options": {
+        "payNow": "지금 결제",
+        "payLater": "나중에 결제",
+        "partialPayment": "부분 결제",
+        "flexiblePayment": "유연 결제"
+      }
+    },
+    "transmissionType": {
+      "select": "선택",
+      "options": {
+        "manual": "수동",
+        "automatic": "자동",
+        "cvt": "CVT",
+        "dct": "DCT",
+        "tiptronic": "팁트로닉"
+      }
+    },
+    "location": {
+      "select": "선택",
+      "options": {
+        "airport": "공항",
+        "cityCenter": "도심",
+        "hotelPickup": "호텔 픽업",
+        "customLocation": "기타 (사용자 지정 위치)"
+      }
+    }
+  },
+  "HeaderMenu": {
+    "tital1": "페이지",
+    "tital2": "항공편",
+    "tital3": "호텔",
+    "tital4": "차",
+    "tital5": "활동",
+    "text1": "홈",
+    "text2": "회사 소개",
+    "text3": "자주 묻는 질문",
+    "text4": "연락처",
+    "text5": "주요 오퍼",
+    "text6": "기사",
+    "text7": "자주 묻는 질문",
+    "text8": "오늘 여행을 시작하세요",
+    "text9": "비자 요구 사항",
+    "text10": "가장 가까운 공항 세부 사항",
+    "text11": "상세",
+    "text12": "기사",
+    "texth8": "호텔 고급 옵션",
+    "textc8": "도로에서 여행을 시작하세요"
+  },
+  "Logsec": {
+    "heading": "시작하려면 로그인하세요",
+    "para": "정보를 입력해 주세요",
+    "label1": "이메일 주소/사용자 이름",
+    "label2": "비밀번호",
+    "label3": "로그인 상태 유지",
+    "label4": "비밀번호를 잊으셨나요?",
+    "btn1": "로그인",
+    "label5": "또는 다음으로 계속하기",
+    "label6": "또는",
+    "label7": "계정이 없으신가요?",
+    "heading1": "계정 만들기",
+    "para1": "가격 알림을 받고, 쉽게 계획을 세우고, 빠른 예약을 즐기세요.",
+    "label8": "이메일",
+    "label9": "새 비밀번호",
+    "label10": "비밀번호 확인",
+    "label11": "동의합니다",
+    "label12": "서비스 약관",
+    "label13": "및",
+    "label14": "개인정보 처리방침",
+    "btn2": "계정 만들기",
+    "btn3": "로그인 중...",
+    "btn4": "로그아웃",
+    "btn5": "가입 중...",
+    "label15": "이미 계정이 있으신가요?"
+  }
+}

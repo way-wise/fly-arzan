@@ -1,0 +1,1264 @@
+{
+  "lg": "Bahasa Indonesia",
+  "upperSection": {
+    "Login": "Masuk",
+    "menu": "Menu",
+    "closeMenu": "Tutup Menu",
+    "Cheap_flights_para": "Harga murah di seluruh dunia, hanya dengan satu pencarian sederhana",
+    "Our_search": "Pencarian kami menghemat uang Anda",
+    "flights": "Penerbangan",
+    "hotels": "Hotel",
+    "cars_Rentals": "Sewa Mobil",
+    "oneWay": "Sekali Jalan",
+    "return": "Pulang-Pergi",
+    "multiCity": "Multi Kota",
+    "Cabin_Class_Adults": "Kelas Kabin & Dewasa",
+
+    "flying_from": "Terbang Dari",
+    "flying_to": "Terbang Ke",
+    "departure_date": "Tanggal Keberangkatan",
+    "return_date": "Tanggal Kepulangan",
+    "start_journey": "Mulai Perjalanan",
+    "add_flight": "Tambah Penerbangan",
+    "ECONOMY": "Ekonomi",
+    "PREMIUM_ECONOMY": "Ekonomi Premium",
+    "BUSINESS": "Bisnis",
+    "FIRST": "Kelas Utama",
+    "cabinClass": "Kelas Kabin",
+    "Adults": "Dewasa",
+    "Aged18": "Dewasa",
+    "Children": "Anak-anak",
+    "Aged17": "Anak-anak",
+    "city": "Kota",
+    "CheckIn": "Check In",
+    "CheckOut": "Check Out",
+    "Rooms": "Kamar",
+    "Done": "Selesai",
+    "Search_Hotels": "Cari Hotel",
+    "Rent_car": "Sewa Mobil",
+    "rent_a_car": "Sewa Mobil",
+    "airport_shuttle": "Antar-Jemput Bandara",
+    "within_city": "Dalam Kota",
+    "out_of_city": "Luar Kota",
+    "pickup_time": "Waktu Penjemputan",
+    "dropoff_time": "Waktu Pengantaran",
+    "pickup_date": "Tanggal Penjemputan",
+    "dropoff_date": "Tanggal Pengantaran",
+    "search": "Cari",
+    "input": "Klik Di Sini"
+  },
+  "section2": {
+    "Search_simply": "Pencarian Sederhana",
+    "Search_simply_para": "Sederhanakan perencanaan perjalanan Anda dengan pencarian mudah. Temukan penerbangan ideal Anda hanya dengan beberapa klik.",
+    "Comparison": "Bandingkan dengan Percaya Diri",
+    "Comparison_para": "Bandingkan pilihan secara berdampingan untuk menemukan penawaran terbaik. Pesan dengan percaya diri, mengetahui bahwa Anda telah membuat pilihan yang tepat.",
+    "Maximize_Savings": "Maksimalkan Penghematan",
+    "Maximize_Savings_para": "Temukan penghematan yang membuat setiap perjalanan terjangkau. Bepergian dengan cerdas dan simpan lebih banyak uang di kantong Anda."
+  },
+  "buttons": {
+    "more": "Selengkapnya",
+    "showLess": "Tampilkan lebih sedikit",
+    "searchHere": "Cari di sini",
+    "book": "Pesan",
+    "Search": "Cari",
+    "Learn_More": "Pelajari Lebih Lanjut",
+    "Submit": "Kirim",
+    "BookNow": "Pesan Sekarang",
+    "Save": "Simpan",
+    "apply": "Terapkan",
+    "reset": "Atur Ulang",
+    "clear": "Hapus"
+  },
+  "Useful Articles": "Artikel Bermanfaat",
+  "flightFaqSection": {
+    "heading": "Pertanyaan yang Sering Diajukan",
+    "faqs": {
+      "hotel_search": {
+        "question": "Bagaimana cara mencari hotel di Flay Arzan?",
+        "answer": "Cukup masukkan tujuan, tanggal perjalanan, dan jumlah tamu di kolom pencarian kami. Platform kami akan menampilkan berbagai pilihan hotel yang sesuai dengan preferensi Anda, termasuk opsi ekonomis, menengah, dan mewah, memastikan Anda menemukan tempat menginap yang sempurna."
+      },
+      "filter_amenities": {
+        "question": "Bisakah saya memfilter hasil pencarian hotel berdasarkan fasilitas?",
+        "answer": "Ya, sistem penyaringan canggih kami memungkinkan Anda untuk menyesuaikan pencarian sesuai kebutuhan khusus Anda. Anda dapat memfilter berdasarkan fasilitas seperti WiFi, kolam renang, parkir, dan banyak lagi."
+      },
+      "book_hotel": {
+        "question": "Bisakah saya memesan hotel melalui Flay Arzan?",
+        "answer": "Ya, Anda dapat memesan langsung melalui platform kami. Kami bermitra dengan hotel-hotel terpercaya untuk memberikan proses pemesanan yang aman dan transparan."
+      },
+      "hotel_availability": {
+        "question": "Seberapa akurat ketersediaan hotel di platform Anda?",
+        "answer": "Kami memperbarui ketersediaan secara real-time melalui sinkronisasi langsung dengan mitra hotel kami, memastikan informasi yang akurat."
+      },
+      "customer_reviews": {
+        "question": "Bisakah saya melihat ulasan pelanggan untuk hotel yang terdaftar?",
+        "answer": "Ya, Anda dapat membaca ulasan otentik dari pelancong lain untuk setiap hotel, membantu Anda membuat keputusan yang tepat."
+      },
+      "hidden_fees": {
+        "question": "Apakah ada biaya tersembunyi saat memesan hotel?",
+        "answer": "Tidak, kami menampilkan semua biaya secara transparan. Harga akhir sudah termasuk semua pajak dan biaya wajib."
+      },
+      "cancel_modify": {
+        "question": "Bisakah saya membatalkan atau mengubah pemesanan hotel saya?",
+        "answer": "Kebijakan pembatalan dan perubahan bervariasi tergantung hotel. Ketentuan spesifik ditunjukkan dengan jelas sebelum pemesanan."
+      },
+      "hotel_suitability": {
+        "question": "Bagaimana saya tahu apakah sebuah hotel cocok untuk kebutuhan saya?",
+        "answer": "Periksa deskripsi detail, foto, fasilitas, dan ulasan pelanggan untuk menilai apakah hotel tersebut memenuhi harapan Anda."
+      },
+      "special_deals": {
+        "question": "Apakah Anda menawarkan penawaran khusus atau diskon untuk hotel?",
+        "answer": "Ya, kami secara rutin menawarkan penawaran khusus dan diskon eksklusif. Berlangganan newsletter kami untuk mengetahui penawaran terbaik."
+      },
+      "direct_booking": {
+        "question": "Apakah saya memesan hotel langsung melalui Flay Arzan?",
+        "answer": "Ya, semua pemesanan dilakukan langsung melalui platform kami, memastikan proses yang aman dan layanan pelanggan yang terdedikasi."
+      }
+    },
+    "flightCard": {
+      "PlacesLike": "Tempat yang Mungkin Anda Sukai",
+      "PlacesLikePara": "Temukan penawaran penerbangan terbaik dari {{country}} dengan harga terendah. Penawaran ini tersedia untuk waktu terbatas, jadi Anda bisa menjelajahinya dengan santai!",
+      "FlightDealsFrom": "Tawaran Penerbangan Dari {{country}}",
+      "Discover_flight_deals": "Temukan penawaran penerbangan terbaik dari",
+      "at_the_lowest_prices": "dengan harga terendah. Penawaran ini tersedia untuk waktu terbatas, jadi Anda bisa menjelajahinya dengan santai!",
+      "day": "siang",
+      "night": "malam",
+      "Beaches": "Pantai",
+      "Snorkeling": "Snorkeling",
+      "Food": "Kuliner"
+    }
+  },
+  "BeginJourney": "Mulai Perjalanan Anda Hari Ini",
+  "footer": {
+    "quickLinks": {
+      "title": "Tautan Cepat",
+      "about": "Tentang Kami",
+      "faqs": "FAQ",
+      "privacyPolicy": "Kebijakan Privasi",
+      "contact": "Kontak"
+    },
+    "travelSupport": {
+      "title": "Dukungan Perjalanan",
+      "covid": "Pembaruan COVID-19",
+      "visa": "Persyaratan Visa",
+      "airport": "Detail Bandara Terdekat"
+    },
+    "newsletter": {
+      "title": "Temukan Permata Tersembunyi: Inspirasi Perjalanan di Kotak Masuk Anda",
+      "placeholder": "Masukkan alamat email Anda"
+    },
+    "copyright": "©2025 Hak Cipta FlyArzan. Semua hak dilindungi undang-undang."
+  },
+  "hotel_section": {
+    "Cheap_hotels_para": "Hotel murah di mana saja, satu pencarian sederhana",
+    "Our_search": "Pencarian kami menghemat uang Anda",
+    "Discover_Hotel": "Temukan penawaran hotel terbaik dari {{country}}",
+    "Explore_hotel_para": "Jelajahi pilihan hotel dengan harga terbaik, menawarkan harga yang tidak tertandingi dan nilai luar biasa untuk menginap Anda berikutnya",
+    "Articles_utiles": "Artikel bermanfaat",
+    "Extended_hotel_options": "Pilihan hotel yang diperluas",
+    "Guests and rooms": "Tamu dan Kamar"
+  },
+  "hotelFaqs": {
+    "heading": "Pertanyaan yang Sering Diajukan",
+    "search": {
+      "question": "Bagaimana cara mencari hotel di Flay Arzan?",
+      "answer": "Cukup masukkan tujuan, tanggal perjalanan, dan jumlah tamu di kolom pencarian kami. Platform kami akan menampilkan berbagai pilihan hotel yang sesuai dengan preferensi Anda, termasuk opsi ekonomis, menengah, dan mewah, memastikan Anda menemukan tempat menginap yang sempurna."
+    },
+    "amenities": {
+      "question": "Bisakah saya memfilter hasil pencarian hotel berdasarkan fasilitas?",
+      "answer": "Ya, sistem penyaringan canggih kami memungkinkan Anda untuk menyesuaikan pencarian sesuai kebutuhan khusus Anda. Anda dapat memfilter berdasarkan fasilitas seperti WiFi, kolam renang, parkir, dan banyak lagi."
+    },
+    "booking": {
+      "question": "Bisakah saya memesan hotel melalui Flay Arzan?",
+      "answer": "Ya, Anda dapat memesan langsung melalui platform kami. Kami bermitra dengan hotel-hotel terpercaya untuk memberikan proses pemesanan yang aman dan transparan."
+    },
+    "availability": {
+      "question": "Seberapa akurat ketersediaan hotel di platform Anda?",
+      "answer": "Kami memperbarui ketersediaan secara real-time melalui sinkronisasi langsung dengan mitra hotel kami, memastikan informasi yang akurat."
+    },
+    "reviews": {
+      "question": "Bisakah saya melihat ulasan pelanggan untuk hotel yang terdaftar?",
+      "answer": "Ya, Anda dapat membaca ulasan otentik dari pelancong lain untuk setiap hotel, membantu Anda membuat keputusan yang tepat."
+    },
+    "fees": {
+      "question": "Apakah ada biaya tersembunyi saat memesan hotel?",
+      "answer": "Tidak, kami menampilkan semua biaya secara transparan. Harga akhir sudah termasuk semua pajak dan biaya wajib."
+    },
+    "cancellation": {
+      "question": "Bisakah saya membatalkan atau mengubah pemesanan hotel saya?",
+      "answer": "Kebijakan pembatalan dan perubahan bervariasi tergantung hotel. Ketentuan spesifik ditunjukkan dengan jelas sebelum pemesanan."
+    },
+    "suitability": {
+      "question": "Bagaimana saya tahu apakah sebuah hotel cocok untuk kebutuhan saya?",
+      "answer": "Periksa deskripsi detail, foto, fasilitas, dan ulasan pelanggan untuk menilai apakah hotel tersebut memenuhi harapan Anda."
+    },
+    "deals": {
+      "question": "Apakah Anda menawarkan penawaran khusus atau diskon untuk hotel?",
+      "answer": "Ya, kami secara rutin menawarkan penawaran khusus dan diskon eksklusif. Berlangganan newsletter kami untuk mengetahui penawaran terbaik."
+    },
+    "directBooking": {
+      "question": "Apakah saya memesan hotel langsung melalui Flay Arzan?",
+      "answer": "Ya, semua pemesanan dilakukan langsung melalui platform kami, memastikan proses yang aman dan layanan pelanggan yang terdedikasi."
+    }
+  },
+  "carsection": {
+    "Find_the_best_car": "Temukan mobil terbaik, hanya satu pencarian sederhana",
+    "Our_search": "Pencarian kami, tabungan Anda",
+    "Find_the_Best": "Temukan penawaran sewa mobil terbaik dari {{country}}",
+    "Explore_top_car": "Jelajahi penyedia sewa mobil terkemuka yang menawarkan harga tak terkalahkan dan nilai luar biasa untuk perjalanan darat Anda.",
+    "Begin_your": "Mulai perjalanan darat Anda"
+  },
+  "carfaq": {
+    "Frequently": "Pertanyaan yang Sering Diajukan",
+    "search": {
+      "question": "Bagaimana cara mencari hotel di Flay Arzan?",
+      "answer": "Cukup masukkan tujuan, tanggal perjalanan, dan jumlah tamu di bilah pencarian kami. Platform kami akan menampilkan berbagai pilihan hotel yang sesuai dengan preferensi Anda, termasuk pilihan budget, menengah, dan mewah, memastikan Anda menemukan tempat ideal untuk menginap."
+    },
+    "faq2": {
+      "question": "Bisakah saya memfilter hasil pencarian hotel berdasarkan fasilitas?",
+      "answer": "Untuk menemukan penawaran penerbangan terbaik, gunakan filter kami untuk tanggal fleksibel, maskapai penerbangan, dan tujuan. Daftar untuk mendapatkan pemberitahuan tentang penawaran."
+    },
+    "faq3": {
+      "question": "Bisakah saya memesan hotel melalui Flay Arzan?",
+      "answer": "Harga yang ditampilkan sudah termasuk sebagian besar pajak dan biaya, tetapi biaya tambahan seperti biaya bagasi mungkin berlaku."
+    },
+    "faq4": {
+      "question": "Seberapa akurat ketersediaan hotel di platform Anda?"
+    },
+    "faq5": {
+      "question": "Bisakah saya melihat ulasan pelanggan untuk hotel yang tercantum?"
+    },
+    "faq6": {
+      "question": "Apakah ada biaya tersembunyi saat saya memesan hotel?"
+    },
+    "faq7": {
+      "question": "Bisakah saya membatalkan atau mengubah pemesanan hotel saya?"
+    },
+    "faq8": {
+      "question": "Bagaimana saya tahu apakah hotel cocok untuk kebutuhan saya?"
+    },
+    "faq9": {
+      "question": "Apakah Anda menawarkan penawaran khusus atau diskon untuk hotel?"
+    },
+    "faq10": {
+      "question": "Apakah saya memesan hotel langsung melalui Flay Arzan?"
+    },
+    "faq11": {
+      "question": "Apakah ada biaya tersembunyi saat saya memesan hotel?"
+    },
+    "faq12": {
+      "question": "Bisakah saya membatalkan atau mengubah pemesanan hotel saya?"
+    },
+    "faq13": {
+      "question": "Bagaimana saya tahu apakah hotel cocok untuk kebutuhan saya?"
+    },
+    "faq14": {
+      "question": "Apakah Anda menawarkan penawaran khusus atau diskon untuk hotel?"
+    },
+    "faq15": {
+      "question": "Apakah saya memesan hotel langsung melalui Flay Arzan?"
+    }
+  },
+  "PrivacyPolicypage": {
+    "heading": "Pengumpulan Informasi",
+    "heading1": "Kebijakan Privasi Fly Arzan",
+    "para": "Selamat datang di Fly Arzan! Kami adalah mesin pencari untuk penerbangan, hotel, dan penyewaan mobil. Privasi Anda penting bagi kami, dan kami berkomitmen untuk melindungi informasi pribadi Anda. Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan menjaga data Anda saat menggunakan situs web kami.",
+    "text1": "Fly Arzan hanya mengumpulkan informasi pengguna yang minimal untuk meningkatkan pengalaman Anda. Data pribadi yang kami kumpulkan hanya berupa:",
+    "text2": "Alamat Email",
+    "text3": "Hanya jika Anda secara sukarela memberikannya untuk menerima notifikasi tentang penawaran, promosi, dan pembaruan.",
+    "text4": "Kami tidak mengumpulkan:",
+    "text5": "Informasi pembayaran (kami mengarahkan Anda ke platform pemesanan pihak ketiga).",
+    "text6": "Detail paspor atau identitas.",
+    "text7": "Alamat rumah atau nomor telepon.",
+    "text8": "Penggunaan Informasi",
+    "text9": "Alamat email Anda (jika diberikan) hanya akan digunakan untuk:",
+    "text10": "Mengirimkan penawaran promosi dan diskon.",
+    "text11": "Memberi tahu Anda tentang fitur baru atau pembaruan di Fly Arzan.",
+    "text12": "Menanggapi pertanyaan pelanggan (jika Anda menghubungi kami).",
+    "text13": "Kami tidak akan pernah menjual, menyewakan, atau membagikan email Anda dengan pihak ketiga untuk tujuan pemasaran tanpa persetujuan eksplisit Anda.",
+    "text14": "Keamanan Data",
+    "text15": "Kami menerapkan langkah-langkah keamanan standar industri untuk melindungi informasi Anda, termasuk:",
+    "text16": "Enkripsi (SSL) untuk transmisi data.",
+    "text17": "Penyimpanan email yang aman dalam database yang terlindungi.",
+    "text18": "Audit keamanan rutin untuk mencegah akses yang tidak sah.",
+    "text19": "Meskipun kami berusaha keras, tidak ada platform online yang dapat menjamin keamanan 100%. Kami mendorong pengguna untuk berhati-hati saat membagikan informasi pribadi secara online.",
+    "text20": "Berbagi dengan Pihak Ketiga",
+    "text21": "Fly Arzan bekerja sama dengan penyedia layanan pihak ketiga (misalnya, maskapai, hotel, agen penyewaan mobil) untuk menampilkan hasil pencarian. Ketika Anda mengklik tautan pemesanan, Anda akan diarahkan ke situs web mereka, yang memiliki kebijakan privasi sendiri. Kami tidak mengontrol atau menyimpan:",
+    "text22": "Transaksi pemesanan.",
+    "text23": "Detail pembayaran.",
+    "text24": "Data pribadi yang dimasukkan di situs pihak ketiga.",
+    "text25": "Kebijakan Cookie",
+    "text26": "Fly Arzan menggunakan cookie dan teknologi pelacakan serupa untuk:",
+    "text27": "Meningkatkan fungsi situs web.",
+    "text28": "Memersonalisasi hasil pencarian.",
+    "text29": "Menganalisis perilaku pengguna (misalnya, melalui Google Analytics) untuk meningkatkan kinerja.",
+    "text30": "Anda dapat menonaktifkan cookie di pengaturan browser Anda, tetapi beberapa fitur mungkin tidak berfungsi dengan baik.",
+    "text31": "Hak Pengguna",
+    "text32": "Anda memiliki hak untuk:",
+    "text33": "Akses – Meminta detail data yang kami simpan tentang Anda.",
+    "text34": "Hapus – Meminta kami untuk menghapus email Anda dari database kami.",
+    "text35": "Berhenti Berlangganan – Keluar dari email pemasaran kapan saja melalui tautan Berhenti Berlangganan dalam email.",
+    "text36": "Perubahan pada Kebijakan Ini",
+    "text37": "Kami dapat memperbarui Kebijakan Privasi ini dari waktu ke waktu. Perubahan apa pun akan diposting di sini, dan kami mendorong Anda untuk meninjaunya secara berkala.",
+    "text38": "Hubungi Kami",
+    "text39": "Untuk pertanyaan, permintaan data, atau masalah tentang privasi, silakan hubungi kami di:",
+    "text40": "Email: info@flyarzan.com",
+    "text41": "Situs Web: www.flyarzan.com",
+    "text42": "Terima kasih telah mempercayai Fly Arzan untuk pencarian perjalanan Anda!"
+  },
+  "AboutUs": {
+    "heading": "Tentang Kami",
+    "Who_We_Are": "Siapa Kami",
+    "text1": "Di Fly Arzan, kami mempermudah menemukan penawaran terbaik untuk penerbangan, hotel, dan penyewaan mobil — semua dalam satu tempat.",
+    "text2": "Kami bukan situs pemesanan — kami adalah teman pencarian perjalanan Anda. Cukup beri tahu kami ke mana Anda ingin pergi, dan kami akan membantu Anda membandingkan harga dari berbagai maskapai, hotel, dan perusahaan penyewaan mobil agar Anda dapat memilih yang terbaik untuk Anda (dan dompet Anda).",
+    "text3": "Nama “Arzan” berarti terjangkau, dan itulah tujuan kami: membantu Anda bepergian dengan lebih cerdas dan lebih murah tanpa stres.",
+    "text4": "Kami hanya mengumpulkan alamat email Anda (jika Anda ingin menerima pembaruan tentang penawaran dan diskon), dan kami tidak akan pernah mengirim spam atau membagikan informasi Anda.",
+    "text5": "Terima kasih telah bepergian dengan cerdas bersama Fly Arzan. Mari kita rencanakan sesuatu yang luar biasa bersama."
+  },
+  "AboutUssec1": {
+    "heading": "Liburan sempurna menjadi kenyataan dengan Agen Perjalanan kami.",
+    "text1": "Bandingkan dengan mudah penerbangan, hotel, dan penyewaan mobil – semuanya dalam satu tempat, sehingga Anda dapat menemukan penawaran terbaik dan mewujudkan perjalanan impian Anda.",
+    "Ticket": "Pemesanan Tiket",
+    "text2": "Akses ke penerbangan domestik dan internasional dengan tarif kompetitif. Pencarian dan perbandingan mudah untuk menemukan penawaran terbaik untuk jadwal Anda.",
+    "Hotel": "Pemesanan Hotel",
+    "text3": "Daftar hotel yang dipilih, dari budget hingga mewah. Filter untuk membantu Anda memilih berdasarkan lokasi, fasilitas, dan harga.",
+    "Rent": "Layanan Sewa Mobil",
+    "text4": "Kendaraan yang dapat diandalkan untuk opsi mengemudi sendiri atau dengan sopir. Rencana sewa fleksibel untuk bisnis, liburan, atau perjalanan kelompok."
+  },
+  "AboutUssec2": {
+    "titel1": "Jaringan Global",
+    "text1": "Di bawah Layanan Kapal Pesiar Laut, Transportasi, Rencana Perjalanan, Asuransi Perjalanan, dan Pemandu Lokal.",
+    "titel2": "Platform Ramah Pengguna",
+    "text2": "Situs web dan aplikasi kami dirancang untuk memberikan pengalaman pemesanan yang lancar.",
+
+    "titel3": "Dukungan Khusus",
+    "text3": "Tim kami siap membantu Anda melalui email untuk semua pertanyaan perjalanan."
+  },
+  "AboutUssec3": {
+    "heading": "Liburan Sempurna Menjadi Kenyataan",
+    "para": "Fly Arzan dibuat dengan tujuan membuat perencanaan perjalanan lebih mudah dan terjangkau. Kami telah bekerja keras untuk mengumpulkan opsi terbaik untuk penerbangan, hotel, dan penyewaan mobil, sehingga para pelancong dapat menemukan apa yang mereka butuhkan di satu tempat. Seiring waktu, kami telah membangun hubungan yang kuat dengan penyedia teratas untuk menawarkan penawaran hebat dan pengalaman yang lancar kepada pelanggan kami.",
+    "text2": "Saat ini kami tidak menawarkan layanan apa pun. Tim kami di sini untuk membantu Anda melalui email dengan pertanyaan terkait perjalanan.",
+    "text1": "Kami berkolaborasi dengan penyedia perjalanan terkemuka untuk memberikan Anda akses ke berbagai layanan.",
+    "titel1": "Tiket Penerbangan",
+    "titel2": "Pelayaran Laut",
+    "titel3": "Transportasi",
+    "titel4": "Itinerary Perjalanan",
+    "titel5": "Asuransi Perjalanan",
+    "titel6": "Pemandu Lokal"
+  },
+  "ContactUspage": {
+    "heading": "Hubungi Kami",
+    "titel1": "Kami sentiasa gembira untuk berhubung!",
+    "text1": "Jika anda berminat dengan pengiklanan, promosi, kerjasama, atau hanya ingin berkongsi maklum balas, sila gunakan borang hubungan di bawah. Isikan nama anda, emel, subjek, dan tinggalkan mesej anda di bahagian komen — pasukan kami akan menyemak dan menghubungi anda secepat mungkin.",
+    "para1": "Lokasi",
+    "para2": "Manchester, United Kingdom",
+    "para4": "Emel kami",
+    "para6": "info@flyarzan.com",
+    "para7": "Waktu pejabat",
+    "para8": "Kami berusaha untuk membalas semua pertanyaan semasa waktu pejabat",
+    "para9": "Isnin hingga Jumaat | 9:00 AM – 5:00 PM (GMT)"
+  },
+
+  "Faqpage1": {
+    "Suggested": "Cari pertanyaan Anda di sini",
+
+    "faq1": {
+      "question": "How do I search for hotels on your website?",
+      "answer": "Enter your destination, travel dates, and the number of guests to instantly browse available hotels from multiple providers in one place."
+    },
+
+    "faq2": {
+      "question": "Can I book a hotel directly on your platform?",
+      "answer": "No, we are a comparison site. Once you select a hotel, we’ll redirect you to the booking provider’s site to finalize your reservation."
+    },
+
+    "faq3": {
+      "question": "Are the hotel prices shown per person or per room?",
+      "answer": "Prices are typically displayed per room, but details like number of guests and included services are available on the provider's page."
+    },
+
+    "faq4": {
+      "question": "Do your listings include taxes and fees?",
+      "answer": "Some providers include taxes and fees in the total price, while others display them at checkout. We recommend reviewing this on the final booking page."
+    },
+
+    "faq5": {
+      "question": "How can I find hotels with free cancellation?",
+      "answer": "Use the “Free Cancellation” filter in your search results to view properties that offer flexible cancellation policies"
+    },
+
+    "faq6": {
+      "question": "Can I filter hotels by amenities like Wi-Fi, breakfast, or pool?",
+      "answer": "Yes, you can refine your search with filters such as free Wi-Fi, breakfast included, swimming pool, pet-friendly, and more"
+    },
+
+    "faq7": {
+      "question": "Do you show both budget and luxury hotels?",
+      "answer": "Yes, we list accommodations across all price ranges—from hostels and guesthouses to boutique hotels and luxury resorts."
+    },
+
+    "faq8": {
+      "question": "Can I view hotel photos and reviews before booking?",
+      "answer": "Absolutely. You can view detailed photos, star ratings, and verified guest reviews for each hotel before making a decision"
+    },
+
+    "faq9": {
+      "question": "How do I know if a hotel is available for my dates?",
+      "answer": "Availability is updated in real-time based on your selected travel dates. Only rooms that are open for booking will be shown"
+    },
+
+    "faq10": {
+      "question": "Can I search for accommodations like apartments or villas?",
+      "answer": "Yes, we include alternative accommodations such as serviced apartments, vacation homes, and villas in your search results."
+    },
+
+    "faq11": {
+      "question": "Do hotel listings show exact locations on a map?",
+      "answer": "Yes, you can view hotel locations on a map to check proximity to landmarks, transport hubs, or neighborhoods"
+    },
+
+    "faq12": {
+      "question": "How do I book multiple rooms for a group?",
+      "answer": "You can select the number of rooms needed during your search and view pricing based on group size."
+    },
+
+    "faq13": {
+      "question": "What should I do if I want to make changes to my hotel booking?",
+      "answer": "Please contact the hotel or booking provider directly to make any changes, as all bookings are handled through their platforms."
+    },
+
+    "faq14": {
+      "question": "Can I earn rewards or loyalty points with hotel bookings?",
+      "answer": "That depends on the booking provider. Some platforms allow you to earn loyalty points or apply discounts if you’re a member"
+    },
+
+    "faq15": {
+      "question": "Is breakfast included in the hotel price?",
+      "answer": "Some listings include breakfast, while others do not. You’ll see this information clearly displayed before being redirected to the provider’s site"
+    }
+  },
+
+  "Faqpage2": {
+    "faq1": {
+      "question": "Bagaimana cara mencari penyewaan mobil?",
+      "answer": "Masukkan lokasi penjemputan, tanggal, dan waktu untuk langsung membandingkan penawaran sewa dari berbagai perusahaan di satu tempat."
+    },
+    "faq2": {
+      "question": "Bisakah saya memesan mobil sewaan langsung di platform Anda?",
+      "answer": "Tidak, kami mengarahkan Anda ke situs web agen penyewaan atau mitra pemesanan tempat Anda dapat menyelesaikan reservasi."
+    },
+    "faq3": {
+      "question": "Apakah saya perlu kartu kredit untuk menyewa mobil?",
+      "answer": "Sebagian besar perusahaan penyewaan memerlukan kartu kredit untuk deposit dan pemesanan. Periksa syarat sewa di situs penyedia untuk detailnya."
+    },
+    "faq4": {
+      "question": "Bisakah saya menyewa mobil tanpa SIM?",
+      "answer": "Tidak, SIM yang masih berlaku diperlukan untuk semua sewa. Beberapa perusahaan juga mengharuskan Anda memiliki SIM setidaknya selama satu tahun."
+    },
+    "faq5": {
+      "question": "Apakah asuransi dan pajak sudah termasuk dalam harga sewa mobil?",
+      "answer": "Beberapa penyedia menyertakan asuransi dasar dan pajak, sementara yang lain menawarkannya sebagai tambahan. Detail lengkap tersedia di halaman pembayaran."
+    },
+    "faq6": {
+      "question": "Jenis mobil apa saja yang bisa saya sewa?",
+      "answer": "Anda dapat memilih dari berbagai jenis seperti ekonomi, kompak, SUV, mewah, dan van sesuai kebutuhan perjalanan Anda."
+    },
+    "faq7": {
+      "question": "Bisakah saya mengambil mobil di satu kota dan mengembalikannya di kota lain?",
+      "answer": "Ya, ini disebut sewa satu arah. Gunakan opsi ini saat mencari. Biaya tambahan mungkin berlaku tergantung rute."
+    },
+    "faq8": {
+      "question": "Apakah ada batasan usia untuk menyewa mobil?",
+      "answer": "Sebagian besar perusahaan memerlukan pengemudi berusia minimal 21 tahun, dan biaya tambahan mungkin dikenakan untuk usia di bawah 25 tahun. Periksa syarat penyedia untuk aturan lengkapnya."
+    },
+    "faq9": {
+      "question": "Apakah tersedia filter seperti transmisi otomatis vs manual?",
+      "answer": "Ya, Anda dapat memfilter hasil pencarian berdasarkan jenis transmisi, kebijakan bahan bakar, kapasitas penumpang, dan lainnya."
+    },
+    "faq10": {
+      "question": "Bisakah saya menambahkan pengemudi kedua dalam sewaan saya?",
+      "answer": "Banyak penyedia mengizinkan pengemudi tambahan dengan biaya tambahan. Pastikan untuk memilih opsi ini saat menyelesaikan pemesanan di situs mitra."
+    },
+    "faq11": {
+      "question": "Apakah bahan bakar termasuk dalam harga sewa mobil?",
+      "answer": "Biasanya tidak. Sebagian besar sewa mengikuti kebijakan bahan bakar penuh-ke-penuh, artinya Anda harus mengembalikan mobil dengan tingkat bahan bakar yang sama seperti saat diambil."
+    },
+    "faq12": {
+      "question": "Bisakah saya membatalkan atau mengubah pemesanan sewa mobil saya?",
+      "answer": "Itu tergantung pada kebijakan penyedia. Sebagian besar menawarkan pembatalan gratis dalam jangka waktu tertentu. Detail tersedia di situs mereka."
+    },
+    "faq13": {
+      "question": "Dokumen apa yang saya butuhkan saat mengambil mobil?",
+      "answer": "Biasanya Anda memerlukan SIM, kartu kredit, dan terkadang konfirmasi pemesanan atau ID. Selalu periksa terlebih dahulu dengan perusahaan penyewaan."
+    },
+    "faq14": {
+      "question": "Bisakah saya menyewa mobil di bandara?",
+      "answer": "Ya, platform kami menampilkan opsi penjemputan di bandara, termasuk sewa langsung dan menggunakan layanan antar jemput untuk kenyamanan tambahan."
+    },
+    "faq15": {
+      "question": "Apa yang terjadi jika penerbangan saya tertunda dan saya melewatkan waktu penjemputan?",
+      "answer": "Sebagian besar perusahaan penyewaan memberikan masa tenggang. Namun, sebaiknya beri tahu mereka secara langsung jika Anda memperkirakan keterlambatan, terutama untuk penjemputan di luar jam kerja."
+    }
+  },
+  "Faqpage3": {
+    "faq1": {
+      "question": "Apakah saya melakukan pembayaran di situs Anda?",
+      "answer": "Tidak, kami tidak memproses transaksi apa pun. Setelah Anda memilih penerbangan, hotel, atau sewa mobil, Anda akan diarahkan ke situs penyedia untuk menyelesaikan pemesanan dan pembayaran Anda."
+    },
+    "faq2": {
+      "question": "Metode pembayaran apa yang bisa saya gunakan dengan penyedia perjalanan?",
+      "answer": "Sebagian besar penyedia menerima kartu kredit dan debit utama (Visa, Mastercard, American Express), dan banyak juga mendukung PayPal, Apple Pay, atau metode pembayaran regional."
+    },
+    "faq3": {
+      "question": "Apakah aman untuk memasukkan detail pembayaran saya di situs pemesanan?",
+      "answer": "Ya. Kami hanya bermitra dengan penyedia perjalanan terpercaya yang menggunakan gateway pembayaran terenkripsi yang aman untuk melindungi informasi pribadi dan keuangan Anda."
+    },
+    "faq4": {
+      "question": "Apakah ada biaya tersembunyi atau biaya pemesanan dari pihak Anda?",
+      "answer": "Tidak, platform kami sepenuhnya gratis untuk digunakan. Anda tidak akan dikenakan biaya tambahan oleh kami — pembayaran Anda langsung ke penyedia perjalanan."
+    },
+    "faq5": {
+      "question": "Apakah saya akan dikenakan biaya dalam mata uang lokal saya?",
+      "answer": "Itu tergantung pada penyedia. Banyak yang menawarkan konversi mata uang dan memungkinkan Anda melihat serta membayar dalam mata uang lokal saat checkout."
+    },
+    "faq6": {
+      "question": "Bisakah saya membagi pembayaran ke beberapa kartu atau orang?",
+      "answer": "Sebagian besar penyedia memerlukan pembayaran penuh dari satu pemegang kartu. Untuk pemesanan grup atau biaya bersama, Anda mungkin perlu mengatur pembayaran secara terpisah."
+    },
+    "faq7": {
+      "question": "Apakah saya harus membayar penuh di awal?",
+      "answer": "Itu tergantung pada penyedia dan jenis layanan. Beberapa menawarkan opsi 'bayar nanti' atau deposit, sementara yang lain memerlukan pembayaran penuh saat pemesanan."
+    },
+    "faq8": {
+      "question": "Apa yang terjadi jika pembayaran saya gagal di situs penyedia?",
+      "answer": "Jika pembayaran gagal, biasanya Anda akan menerima pemberitahuan untuk mencoba lagi atau menggunakan metode lain. Anda juga dapat menghubungi tim dukungan penyedia untuk bantuan."
+    },
+    "faq9": {
+      "question": "Bisakah saya mendapatkan pengembalian dana jika saya membatalkan pemesanan saya?",
+      "answer": "Kebijakan pengembalian dana bervariasi menurut penyedia dan jenis layanan. Beberapa menawarkan pengembalian penuh dalam jangka waktu tertentu, sementara yang lain mungkin mengenakan biaya pembatalan. Selalu periksa syaratnya sebelum memesan."
+    },
+    "faq10": {
+      "question": "Apakah saya akan menerima konfirmasi pembayaran atau faktur?",
+      "answer": "Ya. Setelah pembayaran Anda selesai di situs penyedia, Anda akan menerima email konfirmasi dan faktur langsung dari mereka."
+    }
+  },
+
+  "Faqpage": {
+    "heading": "Vous avez des questions à notre sujet ? Nous avons les réponses qu'il vous faut.",
+    "input": "Recherchez vos questions ici",
+    "tital1": "Questions fréquemment posées",
+    "text1": "Bienvenue dans notre section FAQ, où nous répondons aux questions les plus courantes pour vous aider à planifier et réserver votre voyage en toute confiance. Que vous recherchiez des vols, des hôtels ou des locations de voiture, vous trouverez des réponses claires et utiles sur le fonctionnement de notre moteur de recherche de voyage. Explorez chaque catégorie ci-dessous pour en savoir plus et prendre des décisions éclairées.",
+    "tab1": "Fonctionnement du site",
+    "tab2": "Réservations d'hôtel",
+    "tab3": "Locations de voiture",
+    "tab4": "Paiements",
+    "faq1": {
+      "question": "Comment rechercher des vols sur votre site ?",
+      "answer": "Il vous suffit d’entrer votre ville de départ, votre destination, vos dates de voyage et le nombre de passagers. Notre système recherchera instantanément plusieurs compagnies aériennes et prestataires de voyages pour vous montrer les meilleures options disponibles."
+    },
+    "faq2": {
+      "question": "Puis-je réserver un vol directement sur votre site ?",
+      "answer": "Non, nous sommes un moteur de recherche de voyages. Une fois que vous trouvez un vol qui vous convient, nous vous redirigeons vers le site de la compagnie aérienne ou de l’agence de voyage pour finaliser votre réservation."
+    },
+    "faq3": {
+      "question": "Les prix des vols sont-ils affichés en temps réel ?",
+      "answer": "Oui, notre plateforme récupère les données en temps réel des fournisseurs pour vous garantir les prix et disponibilités les plus récents. La confirmation finale se fait toutefois sur le site du fournisseur."
+    },
+    "faq4": {
+      "question": "Les prix incluent-ils les taxes et frais ?",
+      "answer": "La plupart des prix incluent les taxes et frais de base, mais les options supplémentaires comme les bagages, les repas ou la sélection de sièges peuvent coûter plus cher et sont affichées sur le site du prestataire."
+    },
+    "faq5": {
+      "question": "Puis-je rechercher des vols aller simple, aller-retour ou multi-destinations ?",
+      "answer": "Absolument. Vous pouvez choisir le type de voyage souhaité avant de lancer la recherche et même ajouter plusieurs destinations pour un itinéraire personnalisé."
+    },
+    "faq6": {
+      "question": "Proposez-vous une recherche avec dates flexibles ?",
+      "answer": "Oui, notre fonctionnalité de dates flexibles vous permet de voir les vols les moins chers dans une plage de dates autour de vos dates de départ et de retour."
+    },
+    "faq7": {
+      "question": "Comment filtrer les vols par compagnie, prix ou durée ?",
+      "answer": "Après la recherche, utilisez nos filtres pour affiner les résultats par compagnie aérienne, fourchette de prix, nombre d’escales, durée du trajet, et plus encore."
+    },
+    "faq8": {
+      "question": "Puis-je trier les vols par durée la plus courte ou prix le plus bas ?",
+      "answer": "Oui, vous pouvez facilement trier les résultats pour trouver l’itinéraire le plus rapide, le tarif le moins cher ou les horaires les plus pratiques."
+    },
+    "faq9": {
+      "question": "Affichez-vous les compagnies low-cost et les compagnies traditionnelles ?",
+      "answer": "Oui, nous incluons les résultats des grandes compagnies, des compagnies low-cost et des agences de voyage en ligne afin de vous donner une vision complète de vos options."
+    },
+    "faq10": {
+      "question": "Puis-je réserver des vols internationaux et domestiques ?",
+      "answer": "Oui, nous permettons les recherches pour des trajets domestiques et internationaux, couvrant une large gamme de destinations et de compagnies."
+    },
+    "faq11": {
+      "question": "Puis-je créer des alertes de prix pour les vols ?",
+      "answer": "Nous proposons une fonctionnalité d’alerte de prix vous permettant de recevoir des notifications lorsque les tarifs d’un itinéraire baissent."
+    },
+    "faq12": {
+      "question": "Pourquoi le prix change-t-il parfois lorsque je clique pour réserver ?",
+      "answer": "Les prix des billets changent constamment en fonction de la demande et de la disponibilité. Si le tarif change, il est généralement mis à jour en temps réel par le fournisseur."
+    },
+    "faq13": {
+      "question": "Comment savoir si les bagages sont inclus dans le prix du vol ?",
+      "answer": "Chaque résultat indique si les bagages enregistrés ou en cabine sont inclus. Les détails complets sont disponibles sur le site du prestataire."
+    },
+    "faq14": {
+      "question": "Que faire si j’ai un problème avec ma réservation de vol ?",
+      "answer": "Étant donné que la réservation est finalisée sur le site de la compagnie ou de l’agence, vous devez les contacter directement pour toute modification, annulation ou remboursement."
+    },
+    "faq15": {
+      "question": "Puis-je réserver des vols pour des groupes ou des familles nombreuses ?",
+      "answer": "Oui, vous pouvez rechercher des vols pour jusqu’à 9 passagers. Pour les groupes plus importants, nous vous recommandons de contacter directement la compagnie ou le prestataire."
+    }
+  },
+  "FlightsInner": {
+    "Suggested": "Disarankan",
+    "Fastest": "Tercepat",
+    "Cheapest": "Termurah",
+    "No_Flights_Found": "Tidak Ada Penerbangan Ditemukan",
+    "departing": "Pilih penerbangan keberangkatan Anda",
+    "Results": "Hasil",
+    "departingflight": "Pilih penerbangan keberangkatan Anda ke Dubai",
+    "Nonstop": "Langsung",
+    "Economy": "Ekonomi",
+    "Select": "Pilih",
+    "Round": "Harga Pulang Pergi",
+    "Show": "Tampilkan Hasil Lainnya",
+    "More Filters": "Filter Lainnya",
+    "Hide Filters": "Sembunyikan Filter"
+  },
+  "BookYourTicket": {
+    "Book": "Pesan Penerbangan Anda",
+    "Back_result": "Kembali ke hasil",
+    "text1": "Harga yang ditampilkan sudah termasuk perkiraan pajak dan biaya wajib. Kebijakan bagasi dan ketentuan tiket mungkin bervariasi",
+    "text2": "Beberapa penyedia mungkin menerapkan biaya tambahan untuk bagasi, asuransi, atau pembayaran kartu kredit",
+    "text3": "Silakan tinjau semua detail tiket dan biaya akhir di website penyedia sebelum menyelesaikan pemesanan Anda",
+    "Extra": "Layanan tambahan",
+    "Saver": "Penghemat",
+    "Premium": "Premium",
+    "Standard": "Standar",
+    "Flight_Details": "Detail Penerbangan",
+    "Outbound": "Keberangkatan",
+    "Directing_To": "Kami Mengarahkan Ke"
+  },
+  "HotelsInnerlabel": {
+    "label1": "Lihat berdasarkan",
+    "label2": "Harga",
+    "label3": "Tipe akomodasi",
+    "label4": "Fasilitas",
+    "label5": "Bintang",
+    "label6": "Lokasi",
+    "text": "Pilih hotel Anda untuk menginap di London",
+    "para": "Morem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "Suppliers": "Penyedia",
+    "All_Filters": "Semua Filter"
+  },
+  "HotelfilterSections": {
+    "sortOptions": {
+      "select": "Pilih",
+      "recommended": "Direkomendasikan",
+      "priceLowToHigh": "Harga: Rendah ke Tinggi",
+      "priceHighToLow": "Harga: Tinggi ke Rendah",
+      "starRatingHighToLow": "Rating Bintang: Tinggi ke Rendah",
+      "distanceClosest": "Jarak: Terdekat ke Pusat Kota"
+    },
+    "starRating": {
+      "select": "Pilih",
+      "options": {
+        "fiveStars": "5 Bintang",
+        "fourStars": "4 Bintang",
+        "threeStars": "3 Bintang",
+        "twoStars": "2 Bintang",
+        "oneStar": "1 Bintang",
+        "unrated": "Belum Dinilai"
+      }
+    },
+    "categories": {
+      "traditional": {
+        "label": "Tradisional",
+        "options": {
+          "hotels": "Hotel",
+          "motels": "Motel",
+          "guesthouses": "Pondok Wisata",
+          "bedAndBreakfasts": "Bed & Breakfast"
+        }
+      },
+      "luxuryStays": {
+        "label": "Akomodasi Mewah",
+        "options": {
+          "resorts": "Resor",
+          "villas": "Villa",
+          "boutiqueHotels": "Hotel Butik"
+        }
+      },
+      "budgetFriendly": {
+        "label": "Ramah Budget",
+        "options": {
+          "hostels": "Hostel",
+          "capsuleHotels": "Hotel Kapsul"
+        }
+      },
+      "extendedStays": {
+        "label": "Menginap Panjang",
+        "options": {
+          "apartments": "Apartemen",
+          "servicedApartments": "Apartemen Servis"
+        }
+      },
+      "uniqueExperiences": {
+        "label": "Pengalaman Unik",
+        "options": {
+          "cottages": "Pondok",
+          "farmStays": "Menginap di Perkebunan",
+          "holidayHomes": "Rumah Liburan",
+          "campingAndGlamping": "Kemping & Glamping"
+        }
+      }
+    },
+    "amenities": {
+      "roomFeatures": {
+        "label": "Fasilitas Kamar",
+        "options": {
+          "airConditioning": "AC",
+          "heating": "Pemanas",
+          "privateBalcony": "Balkon Pribadi",
+          "kitchenKitchenette": "Dapur/Dapur Kecil",
+          "coffeeTeaMaker": "Pembuat Kopi/Teh",
+          "flatScreenTv": "TV Layar Datar",
+          "inRoomSafe": "Brankas Dalam Kamar",
+          "workDesk": "Meja Kerja",
+          "premiumBedding": "Tempat Tidur Premium"
+        }
+      },
+      "hotelServices": {
+        "label": "Layanan Hotel",
+        "options": {
+          "twentyFourHourFrontDesk": "Resepsionis 24 Jam",
+          "conciergeService": "Layanan Concierge",
+          "roomService": "Layanan Kamar",
+          "dailyHousekeeping": "Pembersihan Harian",
+          "laundryService": "Layanan Laundry",
+          "luggageStorage": "Penyimpanan Bagasi",
+          "wakeUpCallService": "Layanan Bangun Pagi"
+        }
+      },
+      "foodAndBeverage": {
+        "label": "Makanan & Minuman",
+        "options": {
+          "complimentaryBreakfast": "Sarapan Gratis",
+          "onSiteRestaurant": "Restoran di Tempat",
+          "barLounge": "Bar/Lounge",
+          "coffeeShop": "Kedai Kopi",
+          "miniBar": "Mini-Bar"
+        }
+      },
+      "recreationalFacilities": {
+        "label": "Fasilitas Rekreasi",
+        "options": {
+          "swimmingPool": "Kolam Renang (Indoor/Outdoor)",
+          "fitnessCenter": "Pusat Kebugaran",
+          "spaWellnessCenter": "Spa/Pusat Kesehatan",
+          "kidsPlayArea": "Area Bermain Anak",
+          "gameRoom": "Ruang Permainan"
+        }
+      },
+      "businessFacilities": {
+        "label": "Fasilitas Bisnis",
+        "options": {
+          "conferenceRooms": "Ruang Konferensi",
+          "businessCenter": "Pusat Bisnis",
+          "freeWiFi": "WiFi Gratis",
+          "meetingRooms": "Ruang Rapat"
+        }
+      },
+      "accessibility": {
+        "label": "Aksesibilitas",
+        "options": {
+          "wheelchairAccessible": "Akses Kursi Roda",
+          "elevatorLift": "Elevator/Lift",
+          "accessibleParking": "Parkir Aksesibel",
+          "hearingVisualAccessibility": "Fasilitas Aksesibilitas Pendengaran/Penglihatan"
+        }
+      },
+      "parkingAndTransportation": {
+        "label": "Parkir & Transportasi",
+        "options": {
+          "freeParking": "Parkir Gratis",
+          "valetParking": "Parkir Valet",
+          "shuttleService": "Layanan Antar Jemput (Bandara/Lokal)",
+          "evChargingStations": "Stasiun Pengisian EV"
+        }
+      },
+      "petPolicies": {
+        "label": "Kebijakan Hewan Peliharaan",
+        "options": {
+          "petFriendly": "Ramah Hewan Peliharaan",
+          "petFreeRooms": "Kamar Bebas Hewan Peliharaan Tersedia"
+        }
+      },
+      "ecoFriendlyFeatures": {
+        "label": "Fitur Ramah Lingkungan",
+        "options": {
+          "energyEfficientLighting": "Penerangan Hemat Energi",
+          "recyclingFacilities": "Fasilitas Daur Ulang",
+          "sustainableProducts": "Produk Berkelanjutan"
+        }
+      }
+    },
+    "location": {
+      "select": "Pilih",
+      "options": {
+        "anyDistance": "Jarak berapapun",
+        "lessThan1Mi": "Kurang dari 1 mil",
+        "lessThan2Mi": "Kurang dari 2 mil",
+        "lessThan3Mi": "Kurang dari 3 mil",
+        "lessThan4Mi": "Kurang dari 4 mil",
+        "lessThan5Mi": "Kurang dari 5 mil",
+        "lessThan6Mi": "Kurang dari 6 mil",
+        "lessThan7Mi": "Kurang dari 7 mil",
+        "lessThan8Mi": "Kurang dari 8 mil"
+      }
+    },
+    "carFilters": {
+      "suppliers": {
+        "title": "Penyedia",
+        "options": {
+          "hertz": "Hertz",
+          "avis": "Avis",
+          "enterprise": "Enterprise",
+          "sixt": "Sixt",
+          "europcar": "Europcar",
+          "budget": "Budget",
+          "alamo": "Alamo",
+          "nationalCarRental": "National Car Rental",
+          "thrifty": "Thrifty",
+          "dollarRent": "Dollar Rent",
+          "greenMotion": "Green Motion",
+          "foxRent": "Fox Rent",
+          "turo": "Turo",
+          "rentcarsCom": "Rentcars.com",
+          "rideSharingServices": "Layanan Berbagi Perjalanan"
+        }
+      },
+      "policies": {
+        "title": "Kebijakan",
+        "categories": {
+          "insurance": {
+            "title": "Asuransi",
+            "options": {
+              "collisionDamageWaiver": "Pembebasan Kerusakan Tabrakan (CDW)",
+              "theftProtection": "Perlindungan Pencurian",
+              "thirdPartyLiability": "Tanggung Jawab Pihak Ketiga"
+            }
+          },
+          "fuel": {
+            "title": "Bahan Bakar",
+            "options": {
+              "fullToFull": "Penuh ke Penuh",
+              "prePaidFuel": "Bahan Bakar Bayar di Muka"
+            }
+          },
+          "mileageOptions": {
+            "title": "Opsi Jarak Tempuh",
+            "options": {
+              "unlimitedMileage": "Jarak Tempuh Tak Terbatas",
+              "limitedMileage": "Jarak Tempuh Terbatas (mis., 100 mil/hari)"
+            }
+          },
+          "driverRequirements": {
+            "title": "Persyaratan Pengemudi",
+            "options": {
+              "ageRequirement": "Persyaratan Usia (21-75 tahun)",
+              "validDrivingLicense": "SIM yang Valid"
+            }
+          },
+          "cancellation": {
+            "title": "Pembatalan",
+            "options": {
+              "freeCancellation": "Pembatalan Gratis (48 jam)",
+              "lateCancellationFee": "Biaya Pembatalan Terlambat"
+            }
+          },
+          "returnPolicies": {
+            "title": "Kebijakan Pengembalian",
+            "options": {
+              "lateReturnFee": "Biaya Pengembalian Terlambat",
+              "cleanCarReturn": "Pengembalian Mobil Bersih"
+            }
+          }
+        }
+      },
+      "carFeatures": {
+        "title": "Fitur Mobil",
+        "options": {
+          "airConditioning": "AC",
+          "automaticTransmission": "Transmisi Otomatis",
+          "bluetoothConnectivity": "Konektivitas Bluetooth",
+          "gpsNavigation": "Navigasi GPS",
+          "leatherSeats": "Jok Kulit",
+          "cruiseControl": "Kontrol Kecepatan",
+          "rearviewCamera": "Kamera Belakang",
+          "bluetoothHandsFreeCalling": "Panggilan Bluetooth Hands-Free",
+          "childSafetySeats": "Kursi Keselamatan Anak",
+          "sunroof": "Sunroof",
+          "moonroof": "Moonroof",
+          "heatedSeats": "Jok Pemanas",
+          "keylessEntry": "Akses Tanpa Kunci & Tombol Start",
+          "parkingSensors": "Sensor Parkir",
+          "towingCapacity": "Kapasitas Tarik",
+          "fourWheelDrive": "Penggerak Empat Roda (4WD)",
+          "allWheelDrive": "Penggerak Semua Roda (AWD)",
+          "bluetoothAudioStreaming": "Streaming Audio Bluetooth",
+          "laneDepartureWarning": "Sistem Peringatan Keluar Jalur",
+          "collisionAvoidance": "Sistem Penghindaran Tabrakan",
+          "roofRailing": "Rel Atap",
+          "foldableRearSeats": "Jok Belakang Lipat",
+          "adjustableSteeringWheel": "Kemudi yang Dapat Disesuaikan",
+          "climateControl": "Kontrol Iklim"
+        }
+      },
+      "brands": {
+        "title": "Merek",
+        "categories": {
+          "toyota": {
+            "title": "Toyota",
+            "options": {
+              "corolla": "Toyota Corolla",
+              "camry": "Toyota Camry",
+              "yaris": "Toyota Yaris",
+              "prius": "Toyota Prius",
+              "highlander": "Toyota Highlander",
+              "rav4": "Toyota RAV4",
+              "landCruiser": "Toyota Land Cruiser"
+            }
+          },
+          "ford": {
+            "title": "Ford",
+            "options": {
+              "fiesta": "Ford Fiesta",
+              "focus": "Ford Focus",
+              "mustang": "Ford Mustang",
+              "explorer": "Ford Explorer",
+              "edge": "Ford Edge"
+            }
+          },
+          "volkswagen": {
+            "title": "Volkswagen",
+            "options": {
+              "golf": "Volkswagen Golf",
+              "passat": "Volkswagen Passat",
+              "tiguan": "Volkswagen Tiguan",
+              "polo": "Volkswagen Polo",
+              "jetta": "Volkswagen Jetta"
+            }
+          },
+          "nissan": {
+            "title": "Nissan",
+            "options": {
+              "altima": "Nissan Altima",
+              "sentra": "Nissan Sentra",
+              "rogue": "Nissan Rogue",
+              "pathfinder": "Nissan Pathfinder"
+            }
+          },
+          "bmw": {
+            "title": "BMW",
+            "options": {
+              "threeSeries": "BMW Seri 3",
+              "fiveSeries": "BMW Seri 5",
+              "x1": "BMW X1",
+              "x3": "BMW X3"
+            }
+          },
+          "hyundai": {
+            "title": "Hyundai",
+            "options": {
+              "elantra": "Hyundai Elantra",
+              "tucson": "Hyundai Tucson",
+              "santaFe": "Hyundai Santa Fe"
+            }
+          },
+          "chevrolet": {
+            "title": "Chevrolet",
+            "options": {
+              "spark": "Chevrolet Spark",
+              "malibu": "Chevrolet Malibu",
+              "equinox": "Chevrolet Equinox",
+              "traverse": "Chevrolet Traverse"
+            }
+          },
+          "mercedesBenz": {
+            "title": "Mercedes-Benz",
+            "options": {
+              "aClass": "Mercedes-Benz Kelas A",
+              "eClass": "Mercedes-Benz Kelas E",
+              "glc": "Mercedes-Benz GLC",
+              "gle": "Mercedes-Benz GLE"
+            }
+          },
+          "audi": {
+            "title": "Audi",
+            "options": {
+              "a3": "Audi A3",
+              "a4": "Audi A4",
+              "q3": "Audi Q3",
+              "q5": "Audi Q5"
+            }
+          },
+          "jeep": {
+            "title": "Jeep",
+            "options": {
+              "wrangler": "Jeep Wrangler",
+              "grandCherokee": "Jeep Grand Cherokee",
+              "cherokee": "Jeep Cherokee"
+            }
+          },
+          "kia": {
+            "title": "Kia",
+            "options": {
+              "optima": "Kia Optima",
+              "sorento": "Kia Sorento",
+              "sportage": "Kia Sportage"
+            }
+          },
+          "honda": {
+            "title": "Honda",
+            "options": {
+              "civic": "Honda Civic",
+              "accord": "Honda Accord",
+              "crv": "Honda CR-V",
+              "hrv": "Honda HR-V"
+            }
+          },
+          "renault": {
+            "title": "Renault",
+            "options": {
+              "clio": "Renault Clio",
+              "captur": "Renault Captur",
+              "megane": "Renault Megane"
+            }
+          },
+          "peugeot": {
+            "title": "Peugeot",
+            "options": {
+              "208": "Peugeot 208",
+              "308": "Peugeot 308",
+              "3008": "Peugeot 3008"
+            }
+          },
+          "landRover": {
+            "title": "Land Rover",
+            "options": {
+              "discovery": "Land Rover Discovery",
+              "defender": "Land Rover Defender",
+              "rangeRover": "Range Rover"
+            }
+          },
+          "mazda": {
+            "title": "Mazda",
+            "options": {
+              "mazda3": "Mazda 3",
+              "cx5": "Mazda CX-5",
+              "mx5": "Mazda MX-5"
+            }
+          },
+          "porsche": {
+            "title": "Porsche",
+            "options": {
+              "911": "Porsche 911",
+              "cayenne": "Porsche Cayenne",
+              "macan": "Porsche Macan"
+            }
+          },
+          "tesla": {
+            "title": "Tesla",
+            "options": {
+              "model3": "Tesla Model 3",
+              "modelS": "Tesla Model S",
+              "modelX": "Tesla Model X"
+            }
+          },
+          "volvo": {
+            "title": "Volvo",
+            "options": {
+              "xc60": "Volvo XC60",
+              "xc90": "Volvo XC90",
+              "v90": "Volvo V90"
+            }
+          },
+          "fiat": {
+            "title": "Fiat",
+            "options": {
+              "500": "Fiat 500",
+              "panda": "Fiat Panda",
+              "500l": "Fiat 500L"
+            }
+          }
+        }
+      },
+      "buttons": {
+        "reset": "Atur Ulang",
+        "apply": "Terapkan"
+      }
+    },
+    "hotelFilters": {
+      "FoodAndBeverage": {
+        "title": "Makanan dan Minuman",
+        "options": {
+          "complimentaryBreakfast": "Sarapan Gratis",
+          "onSiteRestaurant": "Restoran di Tempat",
+          "barLounge": "Bar / Lounge",
+          "coffeeShop": "Kedai Kopi",
+          "miniBar": "Mini Bar"
+        }
+      },
+      "payments": {
+        "title": "Pembayaran",
+        "options": {
+          "payNow": "Bayar Sekarang",
+          "payLater": "Bayar Nanti",
+          "partialPayment": "Pembayaran Sebagian",
+          "flexiblePayment": "Pembayaran Fleksibel"
+        }
+      },
+      "accessibility": {
+        "title": "Aksesibilitas",
+        "options": {
+          "wheelchairAccessible": "Akses Kursi Roda",
+          "elevatorLift": "Lift",
+          "accessibleParking": "Parkir Aksesibel",
+          "hearingVisualAccessibility": "Fasilitas Aksesibilitas Pendengaran & Visual"
+        }
+      }
+    }
+  },
+  "CarfilterSections": {
+    "label1": "Urutkan Berdasarkan",
+    "label2": "Tipe mobil",
+    "label3": "Kursi - Tas",
+    "label4": "Tipe pembayaran",
+    "label5": "Tipe transmisi",
+    "label6": "Lokasi",
+    "sortBy": {
+      "select": "Pilih",
+      "suggested": "Disarankan",
+      "cheapest": "Termurah"
+    },
+    "carType": {
+      "select": "Pilih",
+      "options": {
+        "small": "Kecil",
+        "medium": "Menengah",
+        "standard": "Standar",
+        "fullSize": "Ukuran Penuh",
+        "luxury": "Mewah",
+        "suv": "SUV",
+        "convertible": "Konvertibel",
+        "minivan": "Minivan",
+        "pickupTruck": "Truk Pickup",
+        "sportsCar": "Mobil Sport",
+        "electricVehicle": "Kendaraan Listrik",
+        "fourByFour": "4x4",
+        "crossover": "Crossover",
+        "luxurySuv": "SUV Mewah"
+      }
+    },
+    "seatsAndBags": {
+      "seats": {
+        "label": "Kursi",
+        "options": {
+          "twoSeats": "2 Kursi",
+          "fourSeats": "4 Kursi",
+          "fiveSeats": "5 Kursi",
+          "sevenPlusSeats": "7+ Kursi"
+        }
+      },
+      "bags": {
+        "label": "Tas",
+        "options": {
+          "oneToTwoBags": "1-2 tas",
+          "threeToFourBags": "3-4 tas",
+          "fiveToSixBags": "5-6 tas",
+          "sevenPlusBags": "7+ tas"
+        }
+      }
+    },
+    "paymentType": {
+      "select": "Pilih",
+      "options": {
+        "payNow": "Bayar sekarang",
+        "payLater": "Bayar nanti",
+        "partialPayment": "Pembayaran sebagian",
+        "flexiblePayment": "Pembayaran fleksibel"
+      }
+    },
+    "transmissionType": {
+      "select": "Pilih",
+      "options": {
+        "manual": "Manual",
+        "automatic": "Otomatis",
+        "cvt": "CVT",
+        "dct": "DCT",
+        "tiptronic": "Tiptronic"
+      }
+    },
+    "location": {
+      "select": "Pilih",
+      "options": {
+        "airport": "Bandara",
+        "cityCenter": "Pusat Kota",
+        "hotelPickup": "Penjemputan Hotel",
+        "customLocation": "Lainnya (Lokasi Kustom)"
+      }
+    }
+  },
+  "HeaderMenu": {
+    "tital1": "Halaman",
+    "tital2": "Penerbangan",
+    "tital3": "Hotel",
+    "tital4": "Mobil",
+    "tital5": "Aktivitas",
+    "text1": "Beranda",
+    "text2": "Tentang",
+    "text3": "Tanya Jawab",
+    "text4": "Kontak",
+    "text5": "Penawaran Utama",
+    "text6": "Artikel",
+    "text7": "Tanya Jawab",
+    "text8": "Mulai Perjalanan Anda Hari Ini",
+    "text9": "Persyaratan Visa",
+    "text10": "Rincian Bandara Terdekat",
+    "text11": "Detail",
+    "text12": "Artikel",
+    "texth8": "Opsi Hotel Lanjutan",
+    "textc8": "Mulai Perjalanan Anda di Jalan"
+  },
+  "Logsec": {
+    "heading": "Masuk untuk memulai",
+    "para": "Silakan masukkan data Anda",
+    "label1": "Alamat Email/Nama Pengguna",
+    "label2": "Kata Sandi",
+    "label3": "Ingat saya",
+    "label4": "Lupa kata sandi?",
+    "btn1": "Masuk",
+    "label5": "Atau lanjutkan dengan",
+    "label6": "atau",
+    "label7": "Belum punya akun?",
+    "heading1": "Buat akun Anda",
+    "para1": "Dapatkan peringatan harga, rencanakan dengan mudah, dan nikmati pemesanan cepat.",
+    "label8": "Email",
+    "label9": "Kata Sandi Baru",
+    "label10": "Konfirmasi Kata Sandi",
+    "label11": "Saya setuju dengan",
+    "label12": "Ketentuan Layanan",
+    "label13": "dan",
+    "label14": "Kebijakan Privasi",
+    "btn2": "Buat Akun",
+    "btn3": "Accesso in corso...",
+    "btn4": "Disconnettersi",
+    "btn5": "Registrazione in corso...",
+
+    "label15": "Sudah punya akun?"
+  }
+}

@@ -1,0 +1,203 @@
+{
+    "lg": "Tiếng Việt",
+    "upperSection": {
+      "Login": "Đăng nhập",
+      "menu": "Menu",
+      "closeMenu": "Đóng menu",
+      "Cheap_flights_para": "Giá rẻ toàn cầu, chỉ với một tìm kiếm đơn giản",
+      "Our_search": "Tìm kiếm của chúng tôi giúp bạn tiết kiệm",
+      "flights": "Chuyến bay",
+      "hotels": "Khách sạn",
+      "cars_Rentals": "Thuê xe",
+      "oneWay": "Một chiều",
+      "return": "Khứ hồi",
+      "multiCity": "Nhiều thành phố",
+      "flying_from": "Bay từ",
+      "flying_to": "Bay đến",
+      "departure_date": "Ngày đi",
+      "return_date": "Ngày về",
+      "start_journey": "Bắt đầu hành trình",
+      "add_flight": "Thêm chuyến bay",
+      "ECONOMY": "Phổ thông",
+      "PREMIUM_ECONOMY": "Phổ thông cao cấp",
+      "BUSINESS": "Thương gia",
+      "FIRST": "Hạng nhất",
+      "cabinClass": "Hạng ghế",
+      "Adults": "Người lớn",
+      "Aged18": "Từ 18 tuổi trở lên",
+      "Children": "Trẻ em",
+      "Aged17": "Từ 0-17 tuổi",
+      "city": "Thành phố",
+      "CheckIn": "Nhận phòng",
+      "CheckOut": "Trả phòng",
+      "Rooms": "Phòng",
+      "Done": "Hoàn tất",
+      "Search_Hotels": "Tìm khách sạn",
+      "Rent_car": "Thuê xe",
+      "rent_a_car": "Thuê xe",
+      "airport_shuttle": "Đưa đón sân bay",
+      "within_city": "Trong thành phố",
+      "out_of_city": "Ngoài thành phố",
+      "pickup_time": "Thời gian nhận xe",
+      "dropoff_time": "Thời gian trả xe",
+      "pickup_date": "Ngày nhận xe",
+      "dropoff_date": "Ngày trả xe",
+      "search": "Tìm kiếm"
+    },
+    "section2": {
+      "Search_simply": "Tìm kiếm đơn giản",
+      "Search_simply_para": "Lên kế hoạch chuyến đi của bạn dễ dàng hơn với tìm kiếm đơn giản. Tìm chuyến bay lý tưởng chỉ với vài cú nhấp chuột.",
+      "Comparison": "So sánh tự tin",
+      "Comparison_para": "So sánh trực tiếp các lựa chọn để tìm ưu đãi tốt nhất. Đặt chỗ với sự tự tin, biết rằng bạn đã chọn đúng.",
+      "Maximize_Savings": "Tối đa hóa tiết kiệm",
+      "Maximize_Savings_para": "Khám phá những khoản tiết kiệm giúp mọi chuyến đi trở nên hợp túi tiền. Du lịch thông minh và giữ nhiều tiền trong ví hơn."
+    },
+    "buttons": {
+      "more": "Xem thêm",
+      "showLess": "Thu gọn",
+      "searchHere": "Tìm kiếm tại đây",
+      "book": "Đặt ngay"
+    },
+    "Useful Articles": "Bài viết hữu ích",
+    "flightFaqSection": {
+      "heading": "Câu hỏi thường gặp",
+      "faqs": {
+        "hotel_search": {
+          "question": "Làm thế nào để tìm khách sạn trên Flay Arzan?",
+          "answer": "Nhập điểm đến, ngày đi và số lượng khách trong thanh tìm kiếm của chúng tôi. Nền tảng của chúng tôi sẽ hiển thị nhiều lựa chọn khách sạn phù hợp với sở thích của bạn, bao gồm các lựa chọn giá rẻ, trung cấp và cao cấp, để bạn có thể tìm được nơi ở lý tưởng."
+        },
+        "filter_amenities": {
+          "question": "Tôi có thể lọc kết quả tìm kiếm khách sạn theo tiện nghi không?",
+          "answer": "Có, hệ thống lọc nâng cao của chúng tôi cho phép bạn tùy chỉnh tìm kiếm theo nhu cầu cụ thể của mình. Bạn có thể lọc theo Wi-Fi, hồ bơi, bãi đậu xe và nhiều tiện nghi khác."
+        },
+        "book_hotel": {
+          "question": "Tôi có thể đặt phòng khách sạn qua Flay Arzan không?",
+          "answer": "Có, bạn có thể đặt phòng trực tiếp qua nền tảng của chúng tôi. Chúng tôi hợp tác với các khách sạn uy tín để đảm bảo quy trình đặt phòng an toàn và minh bạch."
+        },
+        "hotel_availability": {
+          "question": "Thông tin phòng trống trên nền tảng của bạn chính xác đến mức nào?",
+          "answer": "Chúng tôi cập nhật tình trạng phòng theo thời gian thực thông qua đồng bộ hóa trực tiếp với các đối tác khách sạn, đảm bảo thông tin chính xác."
+        },
+        "customer_reviews": {
+          "question": "Tôi có thể xem đánh giá của khách hàng cho các khách sạn được liệt kê không?",
+          "answer": "Có, bạn có thể đọc đánh giá thực từ các du khách khác cho mỗi khách sạn, giúp bạn đưa ra quyết định sáng suốt."
+        },
+        "hidden_fees": {
+          "question": "Có phí ẩn khi đặt phòng khách sạn không?",
+          "answer": "Không, chúng tôi hiển thị tất cả các khoản phí một cách minh bạch. Giá cuối cùng đã bao gồm tất cả thuế và phí bắt buộc."
+        },
+        "cancel_modify": {
+          "question": "Tôi có thể hủy hoặc thay đổi đặt phòng khách sạn của mình không?",
+          "answer": "Chính sách hủy và thay đổi khác nhau tùy theo khách sạn. Các điều kiện cụ thể được nêu rõ trước khi đặt phòng."
+        },
+        "hotel_suitability": {
+          "question": "Làm sao tôi biết một khách sạn phù hợp với nhu cầu của mình?",
+          "answer": "Kiểm tra chi tiết, hình ảnh, tiện nghi và đánh giá của khách hàng để xem khách sạn có đáp ứng mong đợi của bạn không."
+        },
+        "special_deals": {
+          "question": "Bạn có cung cấp ưu đãi đặc biệt hoặc giảm giá cho khách sạn không?",
+          "answer": "Có, chúng tôi thường xuyên có ưu đãi đặc biệt và giảm giá. Đăng ký nhận bản tin của chúng tôi để biết về những ưu đãi tốt nhất."
+        },
+        "direct_booking": {
+          "question": "Tôi có đặt phòng khách sạn trực tiếp qua Flay Arzan không?",
+          "answer": "Có, tất cả các đặt phòng được thực hiện qua nền tảng của chúng tôi, đảm bảo quy trình an toàn và dịch vụ khách hàng chuyên biệt."
+        }
+      }
+    },
+    "BeginJourney": "Bắt đầu hành trình của bạn hôm nay",
+    "footer": {
+      "quickLinks": {
+        "title": "Liên kết nhanh",
+        "about": "Về chúng tôi",
+        "faqs": "Câu hỏi thường gặp",
+        "privacyPolicy": "Chính sách bảo mật",
+        "contact": "Liên hệ"
+      },
+      "travelSupport": {
+        "title": "Thông tin hỗ trợ du lịch",
+        "covid": "Cập nhật COVID-19",
+        "visa": "Yêu cầu visa",
+        "airport": "Chi tiết sân bay gần đây"
+      },
+      "newsletter": {
+        "title": "Khám phá kho báu ẩn: Cảm hứng du lịch trong hộp thư của bạn",
+        "placeholder": "Nhập địa chỉ email của bạn"
+      },
+      "copyright": "©2025 Bản quyền thuộc về FlyArzan. Đã đăng ký bản quyền."
+    },
+    "hotel_section": {
+      "Cheap_hotels_para": "Khách sạn giá rẻ mọi nơi, chỉ với một tìm kiếm đơn giản",
+      "Our_search": "Tìm kiếm của chúng tôi giúp bạn tiết kiệm",
+      "Discover_Hotel": "Khám phá ưu đãi khách sạn tốt nhất",
+      "Explore_hotel_para": "Tìm kiếm các lựa chọn khách sạn giá tốt nhất với giá đặc biệt và giá trị tuyệt vời cho kỳ nghỉ tiếp theo của bạn",
+      "Articles_utiles": "Bài viết hữu ích",
+      "Extended_hotel_options": "Tùy chọn khách sạn mở rộng",
+      "Guests and rooms": "Khách và phòng"
+    },
+    "hotelFaqs": {
+      "heading": "Câu hỏi thường gặp",
+      "search": {
+        "question": "Làm thế nào để tìm khách sạn trên Flay Arzan?",
+        "answer": "Nhập điểm đến, ngày đi và số lượng khách trong thanh tìm kiếm của chúng tôi. Nền tảng của chúng tôi sẽ hiển thị nhiều lựa chọn khách sạn phù hợp với sở thích của bạn, bao gồm các lựa chọn giá rẻ, trung cấp và cao cấp, để bạn có thể tìm được nơi ở lý tưởng."
+      },
+      "amenities": {
+        "question": "Tôi có thể lọc kết quả tìm kiếm khách sạn theo tiện nghi không?",
+        "answer": "Có, hệ thống lọc nâng cao của chúng tôi cho phép bạn tùy chỉnh tìm kiếm theo nhu cầu cụ thể của mình. Bạn có thể lọc theo Wi-Fi, hồ bơi, bãi đậu xe và nhiều tiện nghi khác."
+      },
+      "booking": {
+        "question": "Tôi có thể đặt phòng khách sạn qua Flay Arzan không?",
+        "answer": "Có, bạn có thể đặt phòng trực tiếp qua nền tảng của chúng tôi. Chúng tôi hợp tác với các khách sạn uy tín để đảm bảo quy trình đặt phòng an toàn và minh bạch."
+      },
+      "availability": {
+        "question": "Thông tin phòng trống trên nền tảng của bạn chính xác đến mức nào?",
+        "answer": "Chúng tôi cập nhật tình trạng phòng theo thời gian thực thông qua đồng bộ hóa trực tiếp với các đối tác khách sạn, đảm bảo thông tin chính xác."
+      },
+      "reviews": {
+        "question": "Tôi có thể xem đánh giá của khách hàng cho các khách sạn được liệt kê không?",
+        "answer": "Có, bạn có thể đọc đánh giá thực từ các du khách khác cho mỗi khách sạn, giúp bạn đưa ra quyết định sáng suốt."
+      },
+      "fees": {
+        "question": "Có phí ẩn khi đặt phòng khách sạn không?",
+        "answer": "Không, chúng tôi hiển thị tất cả các khoản phí một cách minh bạch. Giá cuối cùng đã bao gồm tất cả thuế và phí bắt buộc."
+      },
+      "cancellation": {
+        "question": "Tôi có thể hủy hoặc thay đổi đặt phòng khách sạn của mình không?",
+        "answer": "Chính sách hủy và thay đổi khác nhau tùy theo khách sạn. Các điều kiện cụ thể được nêu rõ trước khi đặt phòng."
+      },
+      "suitability": {
+        "question": "Làm sao tôi biết một khách sạn phù hợp với nhu cầu của mình?",
+        "answer": "Kiểm tra chi tiết, hình ảnh, tiện nghi và đánh giá của khách hàng để xem khách sạn có đáp ứng mong đợi của bạn không."
+      },
+      "deals": {
+        "question": "Bạn có cung cấp ưu đãi đặc biệt hoặc giảm giá cho khách sạn không?",
+        "answer": "Có, chúng tôi thường xuyên có ưu đãi đặc biệt và giảm giá. Đăng ký nhận bản tin của chúng tôi để biết về những ưu đãi tốt nhất."
+      },
+      "directBooking": {
+        "question": "Tôi có đặt phòng khách sạn trực tiếp qua Flay Arzan không?",
+        "answer": "Có, tất cả các đặt phòng được thực hiện qua nền tảng của chúng tôi, đảm bảo quy trình an toàn và dịch vụ khách hàng chuyên biệt."
+      }
+    },
+    "Logsec": {
+      "heading": "Đăng nhập để bắt đầu",
+      "para": "Vui lòng nhập thông tin của bạn",
+      "label1": "Địa chỉ email/Tên đăng nhập",
+      "label2": "Mật khẩu",
+      "label3": "Ghi nhớ đăng nhập",
+      "label4": "Quên mật khẩu?",
+      "btn1": "Đăng nhập",
+      "label5": "Hoặc tiếp tục với",
+      "label6": "hoặc",
+      "label7": "Chưa có tài khoản?",
+      "heading1": "Tạo tài khoản của bạn",
+      "para1": "Nhận thông báo giá, lên kế hoạch dễ dàng và tận hưởng đặt chỗ nhanh chóng.",
+      "label8": "Email",
+      "label9": "Mật khẩu mới",
+      "label10": "Xác nhận mật khẩu",
+      "label11": "Tôi đồng ý với",
+      "label12": "Điều khoản dịch vụ",
+      "label13": "và",
+      "label14": "Chính sách bảo mật",
+      "btn2": "Tạo tài khoản",
+      "label15": "Đã có tài khoản?"
+    }
+} 

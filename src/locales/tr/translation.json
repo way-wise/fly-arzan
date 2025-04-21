@@ -1,0 +1,952 @@
+{
+  "lg": "Türkçe",
+  "upperSection": {
+    "Login": "Giriş Yap",
+    "menu": "Menü",
+    "closeMenu": "Menüyü Kapat",
+    "Cheap_flights_para": "Dünya çapında uygun fiyatlar, sadece basit bir arama",
+    "Our_search": "Arama sistemimiz size para kazandırır",
+    "flights": "Uçuşlar",
+    "hotels": "Oteller",
+    "cars_Rentals": "Araç Kiralama",
+    "oneWay": "Tek Yön",
+    "return": "Gidiş-Dönüş",
+    "multiCity": "Çoklu Şehir",
+    "flying_from": "Nereden",
+    "Cabin_Class_Adults": "Kabin Sınıfı ve Yetişkinler",
+
+    "flying_to": "Nereye",
+    "departure_date": "Gidiş Tarihi",
+    "return_date": "Dönüş Tarihi",
+    "start_journey": "Yolculuğa Başla",
+    "add_flight": "Uçuş Ekle",
+    "ECONOMY": "Ekonomi",
+    "PREMIUM_ECONOMY": "Premium Ekonomi",
+    "BUSINESS": "Business",
+    "FIRST": "First Class",
+    "cabinClass": "Kabin Sınıfı",
+    "Adults": "Yetişkinler",
+    "Aged18": "18 yaş ve üzeri",
+    "Children": "Çocuklar",
+    "Aged17": "0-17 yaş arası",
+    "city": "Şehir",
+    "CheckIn": "Giriş",
+    "CheckOut": "Çıkış",
+    "Rooms": "Odalar",
+    "Done": "Tamam",
+    "Search_Hotels": "Otel Ara",
+    "Rent_car": "Araç Kirala",
+    "rent_a_car": "Araç Kirala",
+    "airport_shuttle": "Havaalanı Servisi",
+    "within_city": "Şehir İçi",
+    "out_of_city": "Şehir Dışı",
+    "pickup_time": "Alış Saati",
+    "dropoff_time": "Teslim Saati",
+    "pickup_date": "Alış Tarihi",
+    "dropoff_date": "Teslim Tarihi",
+    "search": "Ara"
+  },
+  "section2": {
+    "Search_simply": "Basitçe Ara",
+    "Search_simply_para": "Seyahat planlamanızı kolay aramalarla basitleştirin. Sadece birkaç tıklamayla ideal uçuşlarınızı bulun.",
+    "Comparison": "Güvenle Karşılaştırın",
+    "Comparison_para": "Seçenekleri yan yana karşılaştırarak en iyi fırsatları keşfedin. Doğru seçimi yaptığınızı bilerek güvenle rezervasyon yapın.",
+    "Maximize_Savings": "Tasarrufunuzu Maksimize Edin",
+    "Maximize_Savings_para": "Her seyahati uygun fiyatlı hale getiren tasarrufları keşfedin. Daha akıllıca seyahat edin ve cebinizde daha fazla para kalsın."
+  },
+  "buttons": {
+    "more": "Daha Fazla",
+    "showLess": "Daha Az Göster",
+    "searchHere": "Burada Ara",
+    "book": "Rezervasyon Yap",
+    "Search": "Ara",
+    "Learn_More": "Daha Fazla Bilgi",
+    "Submit": "Gönder",
+    "BookNow": "Şimdi Rezervasyon Yap",
+    "Save": "Kaydet",
+    "apply": "Uygula",
+    "reset": "Sıfırla",
+    "clear": "Temizle"
+  },
+  "Useful Articles": "Faydalı Makaleler",
+  "flightFaqSection": {
+    "heading": "Sıkça Sorulan Sorular",
+    "faqs": {
+      "hotel_search": {
+        "question": "Flay Arzan'da otelleri nasıl arayabilirim?",
+        "answer": "Arama çubuğumuza sadece gideceğiniz yeri, seyahat tarihlerinizi ve misafir sayısını girin. Platformumuz, ekonomik, orta sınıf ve lüks seçenekler dahil olmak üzere tercihlerinize uygun geniş bir otel yelpazesi sunarak ideal konaklama yerinizi bulmanızı sağlar."
+      },
+      "filter_amenities": {
+        "question": "Otel arama sonuçlarını olanaklara göre filtreleyebilir miyim?",
+        "answer": "Evet, gelişmiş filtreleme sistemimiz aramanızı özel ihtiyaçlarınıza göre özelleştirmenizi sağlar. Wi-Fi, havuz, otopark ve daha birçok olanağa göre filtreleme yapabilirsiniz."
+      },
+      "book_hotel": {
+        "question": "Flay Arzan üzerinden otel rezervasyonu yapabilir miyim?",
+        "answer": "Evet, platformumuz üzerinden doğrudan rezervasyon yapabilirsiniz. Güvenli ve şeffaf bir rezervasyon süreci sağlamak için güvenilir otellerle çalışıyoruz."
+      },
+      "hotel_availability": {
+        "question": "Platformunuzdaki otel müsaitlik bilgileri ne kadar doğru?",
+        "answer": "Otel partnerlerimizle doğrudan senkronizasyon sayesinde müsaitlik bilgilerini gerçek zamanlı olarak güncelliyoruz, böylece doğru bilgileri sağlıyoruz."
+      },
+      "customer_reviews": {
+        "question": "Listelenen oteller için müşteri yorumlarını görebilir miyim?",
+        "answer": "Evet, her otel için diğer gezginlerin gerçek yorumlarını okuyabilir, böylece bilinçli bir karar verebilirsiniz."
+      },
+      "hidden_fees": {
+        "question": "Otel rezervasyonunda gizli ücretler var mı?",
+        "answer": "Hayır, tüm ücretleri şeffaf bir şekilde gösteriyoruz. Son fiyata tüm zorunlu vergiler ve ücretler dahildir."
+      },
+      "cancel_modify": {
+        "question": "Otel rezervasyonumu iptal edebilir veya değiştirebilir miyim?",
+        "answer": "İptal ve değişiklik politikaları otele göre değişiklik gösterir. Özel koşullar rezervasyon öncesinde açıkça belirtilir."
+      },
+      "hotel_suitability": {
+        "question": "Bir otelin ihtiyaçlarıma uygun olup olmadığını nasıl anlarım?",
+        "answer": "Otelin beklentilerinizi karşılayıp karşılamadığını değerlendirmek için detaylı açıklamaları, fotoğrafları, olanakları ve müşteri yorumlarını inceleyin."
+      },
+      "special_deals": {
+        "question": "Oteller için özel fırsatlar veya indirimler sunuyor musunuz?",
+        "answer": "Evet, düzenli olarak özel fırsatlar ve özel indirimler sunuyoruz. En iyi tekliflerden haberdar olmak için bültenimize abone olun."
+      },
+      "direct_booking": {
+        "question": "Otel rezervasyonumu doğrudan Flay Arzan üzerinden mi yapıyorum?",
+        "answer": "Evet, tüm rezervasyonlar güvenli bir süreç ve özel müşteri hizmeti sağlayan platformumuz üzerinden yapılır."
+      }
+    },
+    "flightCard": {
+      "PlacesLike": "Beğenebileceğiniz Yerler",
+      "PlacesLikePara": "Fransa'dan en düşük fiyatlarla en iyi uçuş fırsatlarını keşfedin. Bu teklifler sınırlı süre için geçerlidir, kendi hızınızda keşfedebilirsiniz!",
+      "FlightDealsFrom": "{{country}}'dan Uçuş Teklifleri",
+      "Discover_flight_deals": "En iyi uçuş fırsatlarını keşfedin",
+      "at_the_lowest_prices": "en düşük fiyatlarla. Bu teklifler sınırlı süre için geçerlidir, kendi hızınızda keşfedebilirsiniz!",
+      "day": "gün",
+      "night": "gece",
+      "Beaches": "Plajlar",
+      "Snorkeling": "Şnorkel",
+      "Food": "Yemek"
+    }
+  },
+  "BeginJourney": "Yolculuğunuza Bugün Başlayın",
+  "footer": {
+    "quickLinks": {
+      "title": "Hızlı Bağlantılar",
+      "about": "Hakkımızda",
+      "faqs": "SSS",
+      "privacyPolicy": "Gizlilik Politikası",
+      "contact": "İletişim"
+    },
+    "travelSupport": {
+      "title": "Seyahat Destek Bilgileri",
+      "covid": "COVID-19 güncellemeleri",
+      "visa": "Vize gereklilikleri",
+      "airport": "En yakın havaalanı detayları"
+    },
+    "newsletter": {
+      "title": "Gizli Hazineleri Keşfedin: E-postanızda Seyahat İlhamı",
+      "placeholder": "E-posta adresinizi girin"
+    },
+    "copyright": "©2025 Copyright by FlyArzan. Tüm hakları saklıdır."
+  },
+  "hotel_section": {
+    "Cheap_hotels_para": "Her yerde uygun fiyatlı oteller, sadece basit bir arama",
+    "Our_search": "Arama sistemimiz size para kazandırır",
+    "Discover_Hotel": "{{country}}'den en iyi otel fırsatlarını keşfedin",
+    "Explore_hotel_para": "Bir sonraki konaklamanız için rakipsiz fiyatlar ve olağanüstü değer sunan en uygun fiyatlı otel seçeneklerini keşfedin",
+    "Articles_utiles": "Faydalı Makaleler",
+    "Extended_hotel_options": "Genişletilmiş Otel Seçenekleri",
+    "Guests and rooms": "Misafirler ve Odalar"
+  },
+  "hotelFaqs": {
+    "heading": "Sıkça Sorulan Sorular",
+    "search": {
+      "question": "Flay Arzan'da otelleri nasıl arayabilirim?",
+      "answer": "Arama çubuğumuza sadece gideceğiniz yeri, seyahat tarihlerinizi ve misafir sayısını girin. Platformumuz, ekonomik, orta sınıf ve lüks seçenekler dahil olmak üzere tercihlerinize uygun geniş bir otel yelpazesi sunarak ideal konaklama yerinizi bulmanızı sağlar."
+    },
+    "amenities": {
+      "question": "Otel arama sonuçlarını olanaklara göre filtreleyebilir miyim?",
+      "answer": "Evet, gelişmiş filtreleme sistemimiz aramanızı özel ihtiyaçlarınıza göre özelleştirmenizi sağlar. Wi-Fi, havuz, otopark ve daha birçok olanağa göre filtreleme yapabilirsiniz."
+    },
+    "booking": {
+      "question": "Flay Arzan üzerinden otel rezervasyonu yapabilir miyim?",
+      "answer": "Evet, platformumuz üzerinden doğrudan rezervasyon yapabilirsiniz. Güvenli ve şeffaf bir rezervasyon süreci sağlamak için güvenilir otellerle çalışıyoruz."
+    },
+    "availability": {
+      "question": "Platformunuzdaki otel müsaitlik bilgileri ne kadar doğru?",
+      "answer": "Otel partnerlerimizle doğrudan senkronizasyon sayesinde müsaitlik bilgilerini gerçek zamanlı olarak güncelliyoruz, böylece doğru bilgileri sağlıyoruz."
+    },
+    "reviews": {
+      "question": "Listelenen oteller için müşteri yorumlarını görebilir miyim?",
+      "answer": "Evet, her otel için diğer gezginlerin gerçek yorumlarını okuyabilir, böylece bilinçli bir karar verebilirsiniz."
+    },
+    "fees": {
+      "question": "Otel rezervasyonunda gizli ücretler var mı?",
+      "answer": "Hayır, tüm ücretleri şeffaf bir şekilde gösteriyoruz. Son fiyata tüm zorunlu vergiler ve ücretler dahildir."
+    },
+    "cancellation": {
+      "question": "Otel rezervasyonumu iptal edebilir veya değiştirebilir miyim?",
+      "answer": "İptal ve değişiklik politikaları otele göre değişiklik gösterir. Özel koşullar rezervasyon öncesinde açıkça belirtilir."
+    },
+    "suitability": {
+      "question": "Bir otelin ihtiyaçlarıma uygun olup olmadığını nasıl anlarım?",
+      "answer": "Otelin beklentilerinizi karşılayıp karşılamadığını değerlendirmek için detaylı açıklamaları, fotoğrafları, olanakları ve müşteri yorumlarını inceleyin."
+    },
+    "deals": {
+      "question": "Oteller için özel fırsatlar veya indirimler sunuyor musunuz?",
+      "answer": "Evet, düzenli olarak özel fırsatlar ve özel indirimler sunuyoruz. En iyi tekliflerden haberdar olmak için bültenimize abone olun."
+    },
+    "directBooking": {
+      "question": "Otel rezervasyonumu doğrudan Flay Arzan üzerinden mi yapıyorum?",
+      "answer": "Evet, tüm rezervasyonlar güvenli bir süreç ve özel müşteri hizmeti sağlayan platformumuz üzerinden yapılır."
+    }
+  },
+  "carsection": {
+    "Find_the_best_car": "En iyi aracı bulun, sadece basit bir arama ile",
+    "Our_search": "Arama sistemimiz, sizin tasarrufunuz",
+    "Find_the_Best": "{{country}}'den en iyi araç kiralama fırsatlarını bulun",
+    "Explore_top_car": "Yolculuğunuz için rekabetçi fiyatlar ve olağanüstü değer sunan en iyi araç kiralama sağlayıcılarını keşfedin.",
+    "Begin_your": "Araç yolculuğunuza başlayın"
+  },
+  "carfaq": {
+    "Frequently": "Sıkça Sorulan Sorular",
+    "search": {
+      "question": "Flay Arzan'da otelleri nasıl arayabilirim?",
+      "answer": "Arama çubuğumuza sadece gideceğiniz yeri, seyahat tarihlerinizi ve misafir sayısını girin. Platformumuz, ekonomik, orta sınıf ve lüks seçenekler dahil olmak üzere tercihlerinize uygun geniş bir otel yelpazesi sunarak ideal konaklama yerinizi bulmanızı sağlar."
+    },
+    "faq2": {
+      "question": "Otel arama sonuçlarını olanaklara göre filtreleyebilir miyim?",
+      "answer": "En iyi uçuş fırsatlarını bulmak için esnek tarihler, havayolları ve destinasyonlar için filtrelerimizi kullanın. Teklifleri almak için kayıt olun."
+    },
+    "faq3": {
+      "question": "Flay Arzan üzerinden otel rezervasyonu yapabilir miyim?",
+      "answer": "Gösterilen fiyatlar tahmini vergiler ve zorunlu ücretleri içerir. Bagaj politikaları ve bilet koşulları değişebilir"
+    },
+    "faq4": {
+      "question": "Fly Arzan'daki otel müsaitlik bilgileri ne kadar doğru?"
+    },
+    "faq5": {
+      "question": "Çoklu şehir veya dünya turu seyahatleri arayabilir miyim?"
+    },
+    "faq6": {
+      "question": "Platformunuz esnek tarihli aramaları destekliyor mu?"
+    },
+    "faq7": {
+      "question": "Uçuş veya oteller için fiyat uyarıları ayarlayabilir miyim?"
+    },
+    "faq8": {
+      "question": "Rezervasyonumla ilgili bir sorunla karşılaşırsam ne yapmalıyım?"
+    },
+    "faq9": {
+      "question": "Arama sonuçlarınıza düşük maliyetli havayollarını dahil ediyor musunuz?"
+    }
+  },
+"PrivacyPolicypage": {
+  "heading": "Bilgi Toplama",
+  "heading1": "Fly Arzan Gizlilik Politikası",
+  "para": "Fly Arzan'a hoş geldiniz! Biz bir uçuş, otel ve araç kiralama arama motoruyuz. Gizliliğiniz bizim için önemlidir ve kişisel bilgilerinizi korumaya kararlıyız. Bu Gizlilik Politikası, web sitemizi kullandığınızda verilerinizi nasıl topladığımızı, kullandığımızı ve koruduğumuzu açıklar.",
+  "text1": "Fly Arzan, deneyiminizi iyileştirmek için minimum kullanıcı bilgisi toplar. Topladığımız tek kişisel veri:",
+  "text2": "E-posta Adresi",
+  "text3": "Sadece, teklifler, promosyonlar ve güncellemeler hakkında bildirim almak için gönüllü olarak sağlarsanız.",
+  "text4": "Toplamıyoruz:",
+  "text5": "Ödeme bilgileri (sizi üçüncü taraf rezervasyon platformlarına yönlendiriyoruz).",
+  "text6": "Pasaport veya kimlik bilgileri.",
+  "text7": "Ev adresleri veya telefon numaraları.",
+  "text8": "Bilgilerin Kullanımı",
+  "text9": "E-posta adresiniz (sağladığınız takdirde) yalnızca şu amaçlarla kullanılacaktır:",
+  "text10": "Promosyon teklifleri ve indirimler göndermek.",
+  "text11": "Fly Arzan'da yeni özellikler veya güncellemeler hakkında sizi bilgilendirmek.",
+  "text12": "Müşteri taleplerine yanıt vermek (bize ulaşırsanız).",
+  "text13": "E-postanızı, sizin açık onayınız olmadan üçüncü şahıslara pazarlama amaçları için asla satmayacak, kiralamayacak veya paylaşmayacağız.",
+  "text14": "Veri Güvenliği",
+  "text15": "Bilgilerinizi korumak için endüstri standardı güvenlik önlemleri uygularız, bunlar arasında şunlar bulunmaktadır:",
+  "text16": "Veri iletimi için şifreleme (SSL).",
+  "text17": "E-posta adreslerinin güvenli veritabanlarında saklanması.",
+  "text18": "Yetkisiz erişimi önlemek için düzenli güvenlik denetimleri.",
+  "text19": "Çabalarımıza rağmen, hiçbir çevrimiçi platform %100 güvenlik garantisi veremez. Kullanıcıları, çevrimiçi kişisel bilgilerini paylaşırken dikkatli olmaya teşvik ediyoruz.",
+  "text20": "Üçüncü Taraflarla Paylaşım",
+  "text21": "Fly Arzan, üçüncü taraf hizmet sağlayıcılarıyla (örneğin, havayolları, oteller, araç kiralama ajansları) arama sonuçlarını sağlamak için çalışmaktadır. Bir rezervasyon bağlantısına tıkladığınızda, sizi kendi gizlilik politikalarına sahip olan web sitelerine yönlendireceğiz. Biz kontrol etmiyor veya saklamıyoruz:",
+  "text22": "Rezervasyon işlemleri.",
+  "text23": "Ödeme detayları.",
+  "text24": "Üçüncü taraf sitelerinde girilen kişisel veriler.",
+  "text25": "Çerez Politikası",
+  "text26": "Fly Arzan, çerezler ve benzer izleme teknolojileri kullanır:",
+  "text27": "Web sitesi işlevselliğini iyileştirmek.",
+  "text28": "Arama sonuçlarını kişiselleştirmek.",
+  "text29": "Kullanıcı davranışlarını analiz etmek (örneğin, Google Analytics aracılığıyla) performansı iyileştirmek.",
+  "text30": "Çerezleri tarayıcı ayarlarınızda devre dışı bırakabilirsiniz, ancak bazı özellikler düzgün çalışmayabilir.",
+  "text31": "Kullanıcı Hakları",
+  "text32": "Hakkınızda şunları talep etme hakkınız vardır:",
+  "text33": "Erişim – Bizdeki verilerinizin detaylarını talep etme.",
+  "text34": "Silme – E-posta adresinizi veritabanımızdan kaldırmamızı isteme.",
+  "text35": "Abonelikten çıkma – Pazarlama e-postalarından istediğiniz zaman abonelikten çıkmak için e-posta içindeki Abonelikten Çık linkini kullanabilirsiniz.",
+  "text36": "Bu Politikada Değişiklikler",
+  "text37": "Bu Gizlilik Politikasını zaman zaman güncelleyebiliriz. Yapılacak tüm değişiklikler burada yayımlanacaktır ve periyodik olarak gözden geçirmenizi öneririz.",
+  "text38": "Bize Ulaşın",
+  "text39": "Sorular, veri talepleri veya gizlilikle ilgili endişeler için lütfen bizimle iletişime geçin:",
+  "text40": "E-posta: info@flyarzan.com",
+  "text41": "Web sitesi: www.flyarzan.com",
+  "text42": "Fly Arzan'ı seyahat aramalarınız için tercih ettiğiniz için teşekkür ederiz!"
+}
+,
+  "AboutUs": {
+    "heading": "Hakkımızda",
+    "Who_We_Are": "Biz Kimiz",
+    "text1": "Fly Arzan'da en iyi uçuş, otel ve araç kiralama fırsatlarını tek bir yerde bulmayı kolaylaştırıyoruz.",
+    "text2": "Biz bir rezervasyon sitesi değiliz — biz seyahat arama yardımcı arkadaşınızız. Sadece gitmek istediğiniz yeri söyleyin ve farklı havayolları, oteller ve araç kiralama şirketlerinden fiyatları karşılaştırmanıza yardımcı olacağız, böylece size (ve cebinize) en uygun olanı seçebilirsiniz.",
+    "text3": "“Arzan” adı, uygun fiyatlı anlamına gelir ve bu bizim hedefimizdir: stres yaşamadan daha akıllı ve daha ucuz seyahat etmenize yardımcı olmak.",
+    "text4": "Sadece e-posta adresinizi toplarız (eğer teklifler ve fırsatlar hakkında güncellemeler almak isterseniz) ve asla spam göndermeyiz veya bilgilerinizi paylaşmayız.",
+    "text5": "Fly Arzan ile akıllıca seyahat ettiğiniz için teşekkür ederiz. Hadi birlikte harika bir şey planlayalım."
+  },
+  "AboutUssec1": {
+    "heading": "Seyahat acentemizle mükemmel tatil gerçekleşir.",
+    "text1": "Uçuşları, otelleri ve araba kiralamayı kolayca karşılaştırın – hepsi tek bir yerde, böylece en iyi fırsatları bulabilir ve hayalinizdeki tatili gerçeğe dönüştürebilirsiniz.",
+    "Ticket": "Bilet Rezervasyonu",
+    "text2": "Rekabetçi fiyatlarla yurtiçi ve yurtdışı uçuşlara erişim. Programınız için en iyi fırsatları bulmak için kolay arama ve karşılaştırma.",
+    "Hotel": "Otel Rezervasyonu",
+    "text3": "Ekonomikten lüks konaklamalara kadar seçilmiş oteller. Konum, olanaklar ve fiyata göre seçim yapmanıza yardımcı olacak filtreler.",
+    "Rent": "Araç Kiralama Hizmetleri",
+    "text4": "Şoförlü veya şoförsüz güvenilir araçlar. İş, tatil veya grup seyahatleri için esnek kiralama planları."
+  },
+  "AboutUssec2": {
+    "titel1": "Küresel Ağ",
+    "text1": "Okyanus Turları, Ulaşım, Seyahat Planları, Seyahat Sigortası ve Yerel Rehberin altındaki her şey.",
+    "titel2": "Kullanıcı Dostu Platform",
+"text2": "Web sitemiz ve uygulamamız, sorunsuz bir rezervasyon deneyimi sunacak şekilde tasarlandı.",    "titel3": "Özel Destek",
+    "text3": "Ekibimiz, seyahatle ilgili tüm sorularınız için size e-posta yoluyla yardımcı olmak için burada."
+  },
+  "AboutUssec3": {
+    "heading": "Mükemmel Tatil Gerçekleşir",
+    "text2": "Şu anda herhangi bir hizmet sunmuyoruz. Ekibimiz, seyahatle ilgili her türlü sorunuz için size e-posta yoluyla yardımcı olmak için burada."
+,
+    "para": "Fly Arzan, seyahat planlamayı daha kolay ve daha uygun fiyatlı hale getirme hedefiyle oluşturulmuştur. Seyahatçilerin ihtiyacı olan her şeyi tek bir yerde bulabilmesi için uçuşlar, oteller ve araç kiralamalar için en iyi seçenekleri bir araya getirmek için çok çalıştık. Zamanla, müşterilerimize harika fırsatlar ve sorunsuz bir deneyim sunmak için en iyi sağlayıcılarla güçlü ilişkiler kurduk.",
+    "text1": "Size geniş bir hizmet yelpazesi sunmak için önde gelen seyahat sağlayıcılarıyla işbirliği yapıyoruz.",
+    "titel1": "Uçak Biletleri",
+    "titel2": "Okyanus Turları",
+    "titel3": "Ulaşım",
+    "titel4": "Seyahat Rotaları",
+    "titel5": "Seyahat Sigortası",
+    "titel6": "Yerel Rehber"
+  },
+  "ContactUspage": {
+    "heading": "İletişime Geçelim",
+    "titel1": "Her zaman bağlantıya geçmekten mutluluk duyarız!",
+    "text1": "Eğer reklam, promosyon, ortaklık konularında ilgileniyorsanız ya da sadece geri bildirimde bulunmak istiyorsanız, lütfen aşağıdaki iletişim formunu kullanın. Adınızı, e-posta adresinizi, konuyu doldurun ve mesajınızı yorumlar bölümüne bırakın — ekibimiz inceleyecek ve en kısa sürede sizinle iletişime geçecektir.",
+    "para1": "Konum",
+    "para2": "Manchester, Birleşik Krallık",
+    "para4": "E-posta adresimiz",
+    "para6": "info@flyarzan.com",
+    "para7": "Çalışma saatleri",
+    "para8": "Çalışma saatleri içinde tüm taleplere yanıt vermeyi amaçlıyoruz",
+    "para9": "Pazartesi - Cuma | 9:00 AM – 5:00 PM (GMT)"
+  },
+
+
+  "Faqpage1": {
+  "faq1": {
+    "question": "Web sitenizde nasıl otel araması yapabilirim?",
+    "answer": "Destinasyonunuzu, seyahat tarihlerinizi ve misafir sayınızı girerek birden fazla sağlayıcıdan mevcut otelleri tek bir yerde anında görüntüleyebilirsiniz."
+  },
+  "faq2": {
+    "question": "Otelimi doğrudan platformunuzda rezerve edebilir miyim?",
+    "answer": "Hayır, biz bir karşılaştırma sitesiyiz. Bir otel seçtiğinizde, sizi rezervasyon sağlayıcısının sitesine yönlendireceğiz ve rezervasyonunuzu tamamlayacaksınız."
+  },
+  "faq3": {
+    "question": "Otel fiyatları kişi başı mı yoksa oda başı mı gösteriliyor?",
+    "answer": "Fiyatlar genellikle oda başına gösterilir, ancak misafir sayısı ve dahil edilen hizmetler gibi detaylar sağlayıcının sayfasında mevcuttur."
+  },
+  "faq4": {
+    "question": "Listelenen fiyatlar vergiler ve ücretler içeriyor mu?",
+    "answer": "Bazı sağlayıcılar vergiler ve ücretleri toplam fiyata dahil ederken, diğerleri bunları ödeme sırasında gösterir. Son rezervasyon sayfasında bunu incelemenizi öneririz."
+  },
+  "faq5": {
+    "question": "Ücretsiz iptal seçeneği olan otelleri nasıl bulabilirim?",
+    "answer": "Arama sonuçlarınızda 'Ücretsiz İptal' filtresini kullanarak esnek iptal politikaları sunan otelleri görüntüleyebilirsiniz."
+  },
+  "faq6": {
+    "question": "Wi-Fi, kahvaltı veya havuz gibi olanaklarla filtreleme yapabilir miyim?",
+    "answer": "Evet, ücretsiz Wi-Fi, kahvaltı dahil, yüzme havuzu, evcil hayvan dostu gibi filtrelerle aramanızı daraltabilirsiniz."
+  },
+  "faq7": {
+    "question": "Hem bütçe dostu hem de lüks otelleri gösteriyor musunuz?",
+    "answer": "Evet, tüm fiyat aralıklarında konaklama seçenekleri sunuyoruz – hostellerden butik otellere ve lüks tatil köylerine kadar."
+  },
+  "faq8": {
+    "question": "Otelin fotoğraflarını ve yorumlarını rezervasyon yapmadan önce görebilir miyim?",
+    "answer": "Kesinlikle. Her otel için detaylı fotoğrafları, yıldız değerlendirmelerini ve doğrulanmış misafir yorumlarını inceleyebilirsiniz."
+  },
+  "faq9": {
+    "question": "Otelin, seçtiğim tarihlerde müsait olup olmadığını nasıl öğrenebilirim?",
+    "answer": "Müsaitlik, seçtiğiniz seyahat tarihleri üzerinden gerçek zamanlı olarak güncellenir. Sadece rezerve edilebilen odalar gösterilecektir."
+  },
+  "faq10": {
+    "question": "Apartmanlar veya villalar gibi alternatif konaklamaları arayabilir miyim?",
+    "answer": "Evet, servisli daireler, tatil evleri ve villalar gibi alternatif konaklama seçeneklerini arama sonuçlarınızda dahil ediyoruz."
+  },
+  "faq11": {
+    "question": "Otel listeleri, harita üzerinde otelin tam konumunu gösteriyor mu?",
+    "answer": "Evet, otel konumlarını harita üzerinde görüntüleyebilir, önemli yerler, ulaşım noktaları veya mahallelere olan yakınlığı kontrol edebilirsiniz."
+  },
+  "faq12": {
+    "question": "Bir grup için birden fazla oda nasıl rezerve edilir?",
+    "answer": "Aramanız sırasında ihtiyacınız olan oda sayısını seçebilir ve grup büyüklüğüne göre fiyatları görebilirsiniz."
+  },
+  "faq13": {
+    "question": "Otel rezervasyonumda değişiklik yapmak istersem ne yapmalıyım?",
+    "answer": "Değişiklik yapmak için lütfen otel veya rezervasyon sağlayıcısıyla doğrudan iletişime geçin, çünkü tüm rezervasyonlar onların platformları aracılığıyla yapılmaktadır."
+  },
+  "faq14": {
+    "question": "Otel rezervasyonlarından ödül veya sadakat puanı kazanabilir miyim?",
+    "answer": "Bu, rezervasyon sağlayıcısına bağlıdır. Bazı platformlar, üye iseniz sadakat puanı kazanmanıza veya indirim uygulamanıza olanak tanır."
+  },
+  "faq15": {
+    "question": "Otel fiyatına kahvaltı dahil mi?",
+    "answer": "Bazı listeler kahvaltıyı dahil ederken, diğerleri etmez. Bu bilgi, sağlayıcı sitesine yönlendirilmeden önce açıkça gösterilecektir."
+  }
+}
+,
+
+"Faqpage2": {
+  "faq1": {
+    "question": "Araba kiralamalarını nasıl arayabilirim?",
+    "answer": "Pickup konumunuzu, tarihlerinizi ve saatlerinizi girerek, bir arada çeşitli şirketlerden gelen kiralama tekliflerini anında karşılaştırabilirsiniz."
+  },
+  "faq2": {
+    "question": "Kiralamayı doğrudan platformumuzda yapabilir miyim?",
+    "answer": "Hayır, sizi kiralama ajansına veya rezervasyon ortağının web sitesine yönlendiriyoruz, burada rezervasyonunuzu tamamlayabilirsiniz."
+  },
+  "faq3": {
+    "question": "Bir araba kiralamak için kredi kartına ihtiyacım var mı?",
+    "answer": "Çoğu kiralama şirketi, güvenlik teminatı ve rezervasyon için kredi kartı gerektirir. Sağlayıcının sitesindeki kiralama koşullarını kontrol edin."
+  },
+  "faq4": {
+    "question": "Sürücü belgesiz araba kiralayabilir miyim?",
+    "answer": "Hayır, geçerli bir sürücü belgesi tüm kiralamalar için gereklidir. Bazı şirketler, en az bir yıl süreyle sahip olmanızı da isteyebilir."
+  },
+  "faq5": {
+    "question": "Sigorta ve vergiler araba kiralama fiyatına dahil mi?",
+    "answer": "Bazı sağlayıcılar temel sigorta ve vergileri dahil ederken, diğerleri bunları ek hizmet olarak sunar. Tam detaylar ödeme sayfasında mevcuttur."
+  },
+  "faq6": {
+    "question": "Hangi tip arabaları kiralayabilirim?",
+    "answer": "İhtiyacınıza göre ekonomi, kompakt, SUV, lüks ve van gibi geniş bir yelpazeden seçim yapabilirsiniz."
+  },
+  "faq7": {
+    "question": "Bir arabayı bir şehirde alıp başka bir şehirde geri verebilir miyim?",
+    "answer": "Evet, buna tek yönlü kiralama denir. Aramanızda uygun seçeneği kullanın. Rota bağlı olarak ek ücretler uygulanabilir."
+  },
+  "faq8": {
+    "question": "Araba kiralamada yaş sınırlamaları var mı?",
+    "answer": "Çoğu şirket sürücülerin en az 21 yaşında olmasını gerektirir ve 25 yaş altı sürücüler için ek ücretler uygulanabilir. Sağlayıcının kurallarını kontrol edin."
+  },
+  "faq9": {
+    "question": "Otomatik ve manuel vites gibi filtreler sunuyor musunuz?",
+    "answer": "Evet, arama sonuçlarını şanzıman tipi, yakıt politikası, yolcu kapasitesi gibi seçeneklerle filtreleyebilirsiniz."
+  },
+  "faq10": {
+    "question": "Kiralamama ikinci bir sürücü ekleyebilir miyim?",
+    "answer": "Birçok sağlayıcı ek sürücüler için ekstra ücret alır. Rezervasyonunuzu partner site üzerinden tamamlarken bu seçeneği eklemeyi unutmayın."
+  },
+  "faq11": {
+    "question": "Araba kiralama fiyatına yakıt dahil mi?",
+    "answer": "Genellikle hayır. Çoğu kiralama, aracı aldığınız yakıt seviyesiyle geri getirmenizi gerektiren bir tam-tam yakıt politikası uygular."
+  },
+  "faq12": {
+    "question": "Araba kiralama rezervasyonumu iptal edebilir veya değiştirebilir miyim?",
+    "answer": "Bu, sağlayıcının politikasına bağlıdır. Çoğu, belirli bir pencere içinde ücretsiz iptal imkanı sunar. Detaylar onların sitesinde mevcuttur."
+  },
+  "faq13": {
+    "question": "Arabayı alırken hangi belgeler gerekir?",
+    "answer": "Genellikle bir sürücü belgesi, kredi kartı ve bazen bir rezervasyon onayı veya kimlik gereklidir. Her zaman önceden kiralama şirketi ile kontrol edin."
+  },
+  "faq14": {
+    "question": "Havalimanından araba kiralayabilir miyim?",
+    "answer": "Evet, platformumuzda havalimanı alımları için seçenekler sunulur, yerinde ve servisli araç kiralama seçenekleri dahil."
+  },
+  "faq15": {
+    "question": "Uçuşum gecikirse ve pickup zamanını kaçırırsam ne olur?",
+    "answer": "Çoğu kiralama şirketi bir hoş görme süresi tanır. Ancak, özellikle saat dışı alımlar için gecikme bekliyorsanız doğrudan onlara haber vermek en iyisidir."
+  }
+},
+
+"Faqpage3": {
+  "faq1": {
+    "question": "Web siteniz üzerinden herhangi bir ödeme yapar mıyım?",
+    "answer": "Hayır, biz herhangi bir işlem yapmıyoruz. Bir uçuş, otel veya araba kiralama seçtikten sonra, rezervasyonunuzu ve ödemenizi tamamlamak için sizi sağlayıcının sitesine yönlendiriyoruz."
+  },
+  "faq2": {
+    "question": "Seyahat sağlayıcılarıyla hangi ödeme yöntemlerini kullanabilirim?",
+    "answer": "Çoğu sağlayıcı, büyük kredi ve banka kartlarını (Visa, Mastercard, American Express) kabul eder, ayrıca birçokları PayPal, Apple Pay veya bölgesel ödeme seçeneklerini de destekler."
+  },
+  "faq3": {
+    "question": "Ödeme bilgilerini rezervasyon sitesine girerken güvenli mi?",
+    "answer": "Evet. Sadece güvenli, şifreli ödeme geçitleri kullanan güvenilir seyahat sağlayıcılarıyla çalışıyoruz, böylece kişisel ve finansal bilgilerinizi korur."
+  },
+  "faq4": {
+    "question": "Sizin tarafınızdan gizli ücretler veya rezervasyon ücretleri var mı?",
+    "answer": "Hayır, platformumuz tamamen ücretsizdir. Bizden hiçbir ekstra ücret alınmaz – ödemeniz doğrudan seyahat sağlayıcısına gider."
+  },
+  "faq5": {
+    "question": "Yerel para birimimde ücretlendirilecek miyim?",
+    "answer": "Bu, sağlayıcıya bağlıdır. Birçok teklif, döviz dönüşümü sunar ve ödeme sırasında yerel para biriminizde görüntüleme ve ödeme yapmanıza izin verir."
+  },
+  "faq6": {
+    "question": "Ödemeyi birden fazla kart veya kişi arasında bölebilir miyim?",
+    "answer": "Çoğu sağlayıcı, tam ödeme almayı tek bir kart sahibinden gerektirir. Grup rezervasyonları veya paylaşılan maliyetler için ödemeyi ayrı olarak düzenlemeniz gerekebilir."
+  },
+  "faq7": {
+    "question": "Tam miktarı peşin ödemek zorunda mıyım?",
+    "answer": "Bu, sağlayıcıya ve hizmet türüne bağlıdır. Bazıları 'sonra öde' veya depozito seçenekleri sunarken, diğerleri rezervasyon anında tam ödeme gerektirir."
+  },
+  "faq8": {
+    "question": "Sağlayıcının sitesinde ödeme başarısız olursa ne olur?",
+    "answer": "Bir ödeme başarısız olursa, genellikle tekrar denemeniz veya farklı bir yöntem kullanmanız için bir uyarı alırsınız. Ayrıca sağlayıcının destek ekibiyle iletişime geçebilirsiniz."
+  },
+  "faq9": {
+    "question": "Rezervasyonumu iptal edersem para iadesi alabilir miyim?",
+    "answer": "İade politikaları sağlayıcıya ve hizmet türüne bağlı olarak değişir. Bazıları belirli bir süre içinde tam iade sunarken, diğerleri iptal ücreti alabilir. Rezervasyon yapmadan önce her zaman koşulları kontrol edin."
+  },
+  "faq10": {
+    "question": "Ödeme onayı veya fatura alacak mıyım?",
+    "answer": "Evet. Ödemeniz sağlayıcının sitesinde tamamlandığında, sağlayıcıdan doğrudan bir onay e-postası ve fatura alırsınız."
+  }
+}
+,
+"Faqpage": {
+  "heading": "Bizimle İlgili Sorularınız mı Var? Tam Da Doğru Cevaplar Burada.",
+  "input": "Sorularınızı burada arayın",
+  "tital1": "Sıkça Sorulan Sorular",
+  "text1": "Sıkça Sorulan Sorular bölümümüze hoş geldiniz. Burada, seyahatinizi güvenle planlamanıza ve rezervasyon yapmanıza yardımcı olacak en yaygın soruları yanıtladık. İster uçuş, otel, ister araba kiralama arıyor olun, seyahat arama motorumuzun nasıl çalıştığıyla ilgili açık ve yardımcı yanıtlar bulacaksınız. Aşağıdaki her kategoriyi keşfederek, daha fazla bilgi edinin ve kolayca bilinçli seyahat kararları alın.",
+  "tab1": "Web Sitesi Çalışması",
+  "tab2": "Otel Rezervasyonları",
+  "tab3": "Araba Kiralama",
+  "tab4": "Ödemeler",
+  "faq1": {
+    "question": "Web sitemizde uçuş nasıl ararım?",
+    "answer": "Gidiş şehri, varış noktası, seyahat tarihleri ve yolcu sayısını girin. Sistemimiz, birden fazla havayolu ve seyahat sağlayıcısını anında arayarak en iyi mevcut seçenekleri gösterir."
+  },
+  "faq2": {
+    "question": "Web sitemizden doğrudan uçuş rezervasyonu yapabilir miyim?",
+    "answer": "Hayır, biz bir seyahat arama motoruyuz. Uygun bir uçuş bulduğunuzda, rezervasyonunuzu tamamlamak için sizi havayolu veya seyahat acentesinin sitesine yönlendireceğiz."
+  },
+  "faq3": {
+    "question": "Uçuş fiyatları gerçek zamanlı olarak mı gösteriliyor?",
+    "answer": "Evet, platformumuz, sağlayıcılardan gerçek zamanlı veri alarak en güncel fiyatları ve müsaitliği görmenizi sağlar. Ancak, nihai onay sağlayıcının sitesinde gerçekleşir."
+  },
+  "faq4": {
+    "question": "Uçuş fiyatları vergiler ve ücretleri içeriyor mu?",
+    "answer": "Çoğu fiyat, temel vergiler ve ücretleri içerir, ancak bagaj, yemek veya koltuk seçimi gibi opsiyonel ekstralar daha fazla maliyet getirebilir ve bunlar rezervasyon sağlayıcısının sitesinde gösterilir."
+  },
+  "faq5": {
+    "question": "Tek yönlü, gidiş-dönüş veya çoklu şehir uçuşları arayabilir miyim?",
+    "answer": "Kesinlikle. Aramaya başlamadan önce tercih ettiğiniz seyahat türünü seçebilir ve hatta özelleştirilmiş bir güzergah için birden fazla varış noktası ekleyebilirsiniz."
+  },
+  "faq6": {
+    "question": "Esnek tarihli arama seçenekleriniz var mı?",
+    "answer": "Evet, esnek tarih özelliğimiz, seçtiğiniz gidiş ve dönüş tarihlerinin etrafındaki birkaç gün içinde en ucuz uçuşları görmenize olanak tanır."
+  },
+  "faq7": {
+    "question": "Uçuşları havayolu, fiyat veya süreye göre nasıl filtrelerim?",
+    "answer": "Arama yaptıktan sonra, sonuçları havayolu, fiyat aralığı, durak sayısı, seyahat süresi ve daha fazlasına göre daraltmak için filtreleri kullanabilirsiniz."
+  },
+  "faq8": {
+    "question": "Uçuşları en kısa seyahat süresi veya en düşük fiyatla sıralayabilir miyim?",
+    "answer": "Evet, sonuçları sıralayarak en hızlı rotayı, en ucuz tarifeyi veya en uygun kalkış saatlerini kolayca bulabilirsiniz."
+  },
+  "faq9": {
+    "question": "Hem bütçe dostu hem de tam hizmet havayollarını gösteriyor musunuz?",
+    "answer": "Evet, ana taşıyıcılar, bütçe havayolları ve çevrimiçi seyahat acentelerinden sonuçlar dahil ederek seçeneklerinizin tam bir resmini sunuyoruz."
+  },
+  "faq10": {
+    "question": "Hem uluslararası hem de yurt içi uçuşlar rezervasyonu yapabilir miyim?",
+    "answer": "Evet, çok sayıda varış noktası ve havayolu arasında yurt içi ve uluslararası rotalar için arama yapabilirsiniz."
+  },
+  "faq11": {
+    "question": "Uçuş fiyat alarmı kurabilir miyim?",
+    "answer": "Fiyat alarmı özelliğimizde, seçilen bir güzergah için fiyatlar düştüğünde bildirim almak için abone olabilirsiniz."
+  },
+  "faq12": {
+    "question": "Uçuşu rezerve etmeye tıkladığımda neden fiyat değişiyor?",
+    "answer": "Havayolu fiyatları, talep ve müsaitlik durumuna göre sürekli değişir. Fiyat değişirse, bu genellikle sağlayıcı tarafından gerçek zamanlı olarak güncellenir."
+  },
+  "faq13": {
+    "question": "Baggajın uçuş fiyatına dahil olup olmadığını nasıl öğrenebilirim?",
+    "answer": "Her liste, kayıtlı veya kabin bagajının dahil olup olmadığını belirtir ve tüm ayrıntılar, rezervasyon ortağınızın sitesinde mevcuttur."
+  },
+  "faq14": {
+    "question": "Uçuş rezervasyonumda sorun yaşarsam ne yapmalıyım?",
+    "answer": "Rezervasyon, havayolu veya acente sitesinde tamamlandığı için değişiklikler, iptaller veya iade talepleri için doğrudan onlarla iletişime geçmeniz gerekir."
+  },
+  "faq15": {
+    "question": "Grup veya büyük aileler için uçuş rezervasyonu yapabilir miyim?",
+    "answer": "Evet, 9 yolcuya kadar uçuş araması yapabilirsiniz. Daha büyük gruplar için, havayolu veya seyahat sağlayıcısıyla doğrudan iletişime geçmenizi öneririz."
+  }
+}
+,
+  "FlightsInner": {
+    "Suggested": "Önerilen",
+    "Fastest": "En Hızlı",
+    "Cheapest": "En Ucuz",
+    "No_Flights_Found": "Uçuş Bulunamadı",
+    "departing": "Gidiş uçuşunuzu seçin",
+    "Results": "Sonuçlar",
+    "departingflight": "Dubai'ye gidiş uçuşunuzu seçin",
+    "Nonstop": "Direkt",
+    "Economy": "Ekonomi",
+    "Select": "Seç",
+    "Round": "Gidiş-Dönüş Fiyatı",
+    "Show": "Daha Fazla Sonuç Göster",
+    "More Filters": "Daha Fazla Filtre",
+    "Hide Filters": "Filtreleri Gizle"
+  },
+  "BookYourTicket": {
+    "Book": "Uçuşunuzu Rezerve Edin",
+    "Back_result": "Sonuçlara Dön",
+    "text1": "Gösterilen fiyatlar tahmini vergiler ve zorunlu ücretleri içerir. Bagaj politikaları ve bilet koşulları değişebilir",
+    "text2": "Bazı sağlayıcılar bagaj, sigorta veya kredi kartı ödemeleri için ek ücretler uygulayabilir",
+    "text3": "Lütfen rezervasyonunuzu tamamlamadan önce tüm bilet detaylarını ve son ücretleri sağlayıcının web sitesinde kontrol edin",
+    "Extra": "Ekstra hizmetler",
+    "Saver": "Ekonomi",
+    "Premium": "Premium",
+    "Standard": "Standart",
+    "Flight_Details": "Uçuş Detayları",
+    "Outbound": "Gidiş",
+    "Directing_To": "Yönlendirme"
+  },
+  "HotelsInnerlabel": {
+    "label1": "Sırala",
+    "label2": "Fiyat",
+    "label3": "Konaklama Tipi",
+    "label4": "Olanaklar",
+    "label5": "Yıldız",
+    "label6": "Konum",
+    "text": "Londra'da konaklamanız için otelinizi seçin",
+    "para": "Morem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "Suppliers": "Tedarikçiler",
+    "All_Filters": "Tüm Filtreler"
+  },
+  "HotelfilterSections": {
+    "sortOptions": {
+      "select": "Seç",
+      "recommended": "Önerilen",
+      "priceLowToHigh": "Fiyat: Düşükten Yükseğe",
+      "priceHighToLow": "Fiyat: Yüksekten Düşüğe",
+      "starRatingHighToLow": "Yıldız Değerlendirmesi: Yüksekten Düşüğe",
+      "distanceClosest": "Mesafe: Şehir Merkezine En Yakın"
+    },
+    "starRating": {
+      "select": "Seç",
+      "options": {
+        "fiveStars": "5 yıldız",
+        "fourStars": "4 yıldız",
+        "threeStars": "3 yıldız",
+        "twoStars": "2 yıldız",
+        "oneStar": "1 yıldız",
+        "unrated": "Değerlendirilmemiş"
+      }
+    },
+    "categories": {
+      "traditional": {
+        "label": "Geleneksel",
+        "options": {
+          "hotels": "Oteller",
+          "motels": "Moteller",
+          "guesthouses": "Pansiyonlar",
+          "bedAndBreakfasts": "Oda Kahvaltı"
+        }
+      },
+      "luxuryStays": {
+        "label": "Lüks Konaklamalar",
+        "options": {
+          "resorts": "Tatil Köyleri",
+          "villas": "Villalar",
+          "boutiqueHotels": "Butik Oteller"
+        }
+      },
+      "budgetFriendly": {
+        "label": "Ekonomik",
+        "options": {
+          "hostels": "Hosteller",
+          "capsuleHotels": "Kapsül Oteller"
+        }
+      },
+      "extendedStays": {
+        "label": "Uzun Süreli Konaklamalar",
+        "options": {
+          "apartments": "Daireler",
+          "servicedApartments": "Servisli Daireler"
+        }
+      },
+      "uniqueExperiences": {
+        "label": "Benzersiz Deneyimler",
+        "options": {
+          "cottages": "Küçük Evler",
+          "farmStays": "Çiftlik Konaklamaları",
+          "holidayHomes": "Tatil Evleri",
+          "campingAndGlamping": "Kamp ve Lüks Kamp"
+        }
+      }
+    },
+    "amenities": {
+      "roomFeatures": {
+        "label": "Oda Özellikleri",
+        "options": {
+          "airConditioning": "Klima",
+          "heating": "Isıtma",
+          "privateBalcony": "Özel Balkon",
+          "kitchenKitchenette": "Mutfak/Mini Mutfak",
+          "coffeeTeaMaker": "Kahve/Çay Makinesi",
+          "flatScreenTv": "Düz Ekran TV",
+          "inRoomSafe": "Oda Kasası",
+          "workDesk": "Çalışma Masası",
+          "premiumBedding": "Premium Yatak Takımı"
+        }
+      },
+      "hotelServices": {
+        "label": "Otel Hizmetleri",
+        "options": {
+          "twentyFourHourFrontDesk": "24 Saat Resepsiyon",
+          "conciergeService": "Concierge Hizmeti",
+          "roomService": "Oda Servisi",
+          "dailyHousekeeping": "Günlük Temizlik",
+          "laundryService": "Çamaşırhane Hizmeti",
+          "luggageStorage": "Bagaj Depolama",
+          "wakeUpCallService": "Uyandırma Servisi"
+        }
+      },
+      "foodAndBeverage": {
+        "label": "Yiyecek ve İçecek",
+        "options": {
+          "complimentaryBreakfast": "Ücretsiz Kahvaltı",
+          "onSiteRestaurant": "Yerinde Restoran",
+          "barLounge": "Bar/Lounge",
+          "coffeeShop": "Kahve Dükkanı",
+          "miniBar": "Minibar"
+        }
+      },
+      "recreationalFacilities": {
+        "label": "Rekreasyon Tesisleri",
+        "options": {
+          "swimmingPool": "Havuz (İç Mekan/Dış Mekan)",
+          "fitnessCenter": "Fitness Merkezi",
+          "spaWellnessCenter": "Spa/Sağlık Merkezi",
+          "kidsPlayArea": "Çocuk Oyun Alanı",
+          "gameRoom": "Oyun Odası"
+        }
+      },
+      "businessFacilities": {
+        "label": "İş Tesisleri",
+        "options": {
+          "conferenceRooms": "Toplantı Odaları",
+          "businessCenter": "İş Merkezi",
+          "freeWiFi": "Ücretsiz Wi-Fi",
+          "meetingRooms": "Toplantı Odaları"
+        }
+      },
+      "accessibility": {
+        "label": "Erişilebilirlik",
+        "options": {
+          "wheelchairAccessible": "Tekerlekli Sandalye Erişimli",
+          "elevatorLift": "Asansör",
+          "accessibleParking": "Erişilebilir Otopark",
+          "hearingVisualAccessibility": "İşitme/Görme Erişilebilirliği"
+        }
+      },
+      "parkingAndTransportation": {
+        "label": "Otopark ve Ulaşım",
+        "options": {
+          "freeParking": "Ücretsiz Otopark",
+          "valetParking": "Vale Otopark",
+          "shuttleService": "Servis Hizmeti (Havaalanı/Yerel)",
+          "evChargingStations": "Elektrikli Araç Şarj İstasyonları"
+        }
+      },
+      "petPolicies": {
+        "label": "Evcil Hayvan Politikaları",
+        "options": {
+          "petFriendly": "Evcil Hayvan Dostu",
+          "petFreeRooms": "Evcil Hayvansız Odalar Mevcut"
+        }
+      },
+      "ecoFriendlyFeatures": {
+        "label": "Çevre Dostu Özellikler",
+        "options": {
+          "energyEfficientLighting": "Enerji Tasarruflu Aydınlatma",
+          "recyclingFacilities": "Geri Dönüşüm Tesisleri",
+          "sustainableProducts": "Sürdürülebilir Ürünler"
+        }
+      }
+    },
+    "location": {
+      "select": "Seç",
+      "options": {
+        "anyDistance": "Herhangi bir mesafe",
+        "lessThan1Mi": "1 milden az",
+        "lessThan2Mi": "2 milden az",
+        "lessThan3Mi": "3 milden az",
+        "lessThan4Mi": "4 milden az",
+        "lessThan5Mi": "5 milden az",
+        "lessThan6Mi": "6 milden az",
+        "lessThan7Mi": "7 milden az",
+        "lessThan8Mi": "8 milden az"
+      }
+    },
+    "hotelFilters": {
+  "FoodAndBeverage": {
+    "title": "Yiyecek ve İçecek",
+    "options": {
+      "complimentaryBreakfast": "Ücretsiz Kahvaltı",
+      "onSiteRestaurant": "Yerinde Restoran",
+      "barLounge": "Bar / Lounge",
+      "coffeeShop": "Kafesini",
+      "miniBar": "Minibar"
+    }
+  },
+  "payments": {
+    "title": "Ödemeler",
+    "options": {
+      "payNow": "Şimdi Öde",
+      "payLater": "Sonra Öde",
+      "partialPayment": "Kısmi Ödeme",
+      "flexiblePayment": "Esnek Ödeme"
+    }
+  },
+  "accessibility": {
+    "title": "Erişilebilirlik",
+    "options": {
+      "wheelchairAccessible": "Tekerlekli Sandalye Erişilebilir",
+      "elevatorLift": "Asansör",
+      "accessibleParking": "Engelli Park Yeri",
+      "hearingVisualAccessibility": "İşitme/Görme Erişilebilirlik Özellikleri"
+    }
+  }
+}
+
+  },
+  "CarfilterSections": {
+    "label1": "Sırala",
+    "label2": "Araç tipi",
+    "label3": "Koltuklar - Bagaj",
+    "label4": "Ödeme türü",
+    "label5": "Vites türü",
+    "label6": "Konum",
+    "sortBy": {
+      "select": "Seçiniz",
+      "suggested": "Önerilen",
+      "cheapest": "En Ucuz"
+    },
+    "carType": {
+      "select": "Seçiniz",
+      "options": {
+        "small": "Küçük",
+        "medium": "Orta",
+        "standard": "Standart",
+        "fullSize": "Tam Boy",
+        "luxury": "Lüks",
+        "suv": "SUV",
+        "convertible": "Üstü Açılabilir",
+        "minivan": "Minivan",
+        "pickupTruck": "Pikap Kamyonet",
+        "sportsCar": "Spor Araba",
+        "electricVehicle": "Elektrikli Araç",
+        "fourByFour": "4x4",
+        "crossover": "Crossover",
+        "luxurySuv": "Lüks SUV"
+      }
+    },
+    "seatsAndBags": {
+      "seats": {
+        "label": "Koltuklar",
+        "options": {
+          "twoSeats": "2 Koltuk",
+          "fourSeats": "4 Koltuk",
+          "fiveSeats": "5 Koltuk",
+          "sevenPlusSeats": "7+ Koltuk"
+        }
+      },
+      "bags": {
+        "label": "Bagaj",
+        "options": {
+          "oneToTwoBags": "1-2 Bagaj",
+          "threeToFourBags": "3-4 Bagaj",
+          "fiveToSixBags": "5-6 Bagaj",
+          "sevenPlusBags": "7+ Bagaj"
+        }
+      }
+    },
+    "paymentType": {
+      "select": "Seçiniz",
+      "options": {
+        "payNow": "Şimdi Öde",
+        "payLater": "Sonra Öde",
+        "partialPayment": "Kısmi Ödeme",
+        "flexiblePayment": "Esnek Ödeme"
+      }
+    },
+    "transmissionType": {
+      "select": "Seçiniz",
+      "options": {
+        "manual": "Manuel",
+        "automatic": "Otomatik",
+        "cvt": "CVT",
+        "dct": "DCT",
+        "tiptronic": "Tiptronic"
+      }
+    },
+    "location": {
+      "select": "Seçiniz",
+      "options": {
+        "airport": "Havalimanı",
+        "cityCenter": "Şehir Merkezi",
+        "hotelPickup": "Otelden Alma",
+        "customLocation": "Diğer (Özel Konum)"
+      }
+    }
+  },
+  "HeaderMenu": {
+    "tital1": "Sayfalar",
+    "tital2": "Uçuşlar",
+    "tital3": "Otel",
+    "tital4": "Araba",
+    "tital5": "Aktivite",
+    "text1": "Ana Sayfa",
+    "text2": "Hakkımızda",
+    "text3": "Sıkça Sorulan Sorular",
+    "text4": "İletişim",
+    "text5": "Ana Teklifler",
+    "text6": "Makaleler",
+    "text7": "Sıkça Sorulan Sorular",
+    "text8": "Bugün Yolculuğunuza Başlayın",
+    "text9": "Vize Gereksinimleri",
+    "text10": "En Yakın Havaalanı Detayları",
+    "text11": "Detay",
+    "text12": "Makale",
+    "texth8": "Gelişmiş Otel Seçenekleri",
+    "textc8": "Yolculuğunuza Yolda Başlayın"
+  },
+  "Logsec": {
+    "heading": "Başlamak için giriş yapın",
+    "para": "Lütfen bilgilerinizi girin",
+    "label1": "E-posta Adresi/Kullanıcı Adı",
+    "label2": "Şifre",
+    "label3": "Beni hatırla",
+    "label4": "Şifremi unuttum?",
+    "btn1": "Giriş Yap",
+    "label5": "Veya şununla devam et",
+    "label6": "veya",
+    "label7": "Hesabınız yok mu?",
+    "heading1": "Hesabınızı oluşturun",
+    "para1": "Fiyat uyarıları alın, kolayca planlayın ve hızlı rezervasyonların keyfini çıkarın.",
+    "label8": "E-posta",
+    "label9": "Yeni Şifre",
+    "label10": "Şifreyi Onayla",
+    "label11": "Kabul ediyorum",
+    "label12": "Hizmet Şartları",
+    "label13": "ve",
+    "label14": "Gizlilik Politikası",
+    "btn2": "Hesap Oluştur",
+    "btn3": "Giriş yapılıyor...",
+    "btn4": "Çıkış yap",
+    "btn5": "Kayıt olunuyor...",
+
+    "label15": "Zaten hesabınız var mı?"
+  }
+}
