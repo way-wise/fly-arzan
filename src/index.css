@@ -779,8 +779,9 @@ section.Sec3-sec {
 
 .Sec3-card-box {
   width: 100%;
-  display: flex;
-  align-items: center;
+  display: flex
+;
+  align-items: flex-start;
   justify-content: space-between;
 }
 
@@ -5973,6 +5974,7 @@ input.form__field.more-short-withd {
   padding-top: 114px;
   top: 0px;
   z-index: 999;
+  
 }
 
 .popup-main-box {

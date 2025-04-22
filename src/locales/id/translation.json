@@ -541,7 +541,15 @@
       "answer": "Ya. Setelah pembayaran Anda selesai di situs penyedia, Anda akan menerima email konfirmasi dan faktur langsung dari mereka."
     }
   },
-
+"Articlestitale": {
+  "heading1": "Mont du Pain de Sucre",
+  "heading2": "La Sagrada Família",
+  "heading3": "Grande Mosquée Sainte-Sophie",
+  "para1": "Vue depuis le sommet du mont du Pain de Sucre, Rio est sans aucun doute une ville merveilleuse. Il y a de nombreux bons moments pour monter, mais le coucher du soleil par temps clair est le plus gratifiant. Deux téléphériques mènent au sommet, à 395 mètres au-dessus de Rio. Au sommet, la ville s'étend sous vos yeux, avec le mont Corcovado et le Christ Rédempteur à l'ouest, et la plage de Copacabana au sud.",
+  "para2": "Le Temple expiatoire de la Sainte Famille (Sagrada Família) est considéré par de nombreux habitants comme le symbole de Barcelone, et le lieu incontournable lors de votre visite dans la capitale catalane.",
+  "para3": "La Sainte-Sophie (officiellement la Grande Mosquée Sainte-Sophie) est l’une des merveilles architecturales survivantes de l’Empire byzantin. Situé au cœur du centre historique d'Istanbul, ce bâtiment sacré reste, encore aujourd'hui, un symbole important du pouvoir."
+}
+,
   "Faqpage": {
     "heading": "Vous avez des questions à notre sujet ? Nous avons les réponses qu'il vous faut.",
     "input": "Recherchez vos questions ici",

@@ -537,7 +537,15 @@
     }
   }
 ,
-
+"Articlestitale": {
+  "heading1": "Góra Sugarloaf",
+  "heading2": "Sagrada Família",
+  "heading3": "Wielka Meczet Hagia Sophia",
+  "para1": "Z wierzchołka Góry Sugarloaf Rio niewątpliwie jest Cudownym Miastem. Istnieje wiele dobrych momentów, aby wspiąć się na szczyt, ale zachód słońca w słoneczny dzień jest najbardziej satysfakcjonujący. Dwa wyciągi linowe prowadzą na szczyt, 395 metrów nad Rio. Na górze miasto rozwija się pod tobą, z Górą Corcovado i Chrystusem Odkupicielem na zachodzie oraz plażą Copacabana na południu.",
+  "para2": "Świątynia Ekspiacjonistyczna Świętej Rodziny (Sagrada Família) jest uznawana za symbol Barcelony przez wielu mieszkańców, i jest to miejsce, którego nie można przegapić podczas wizyty w stolicy Katalonii.",
+  "para3": "Hagia Sophia (oficjalnie Wielki Meczet Hagia Sophia) jest jednym z przetrwałych cudów architektury Cesarstwa Bizantyjskiego. Znajduje się w sercu historycznego centrum Stambułu, a ten święty budynek pozostaje – nawet dzisiaj – ważnym symbolem władzy."
+}
+,
 "Faqpage": {
   "heading": "Masz pytania dotyczące nas? Mamy na nie odpowiedzi!",
   "input": "Wyszukaj swoje pytania tutaj",
