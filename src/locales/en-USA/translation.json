@@ -357,186 +357,252 @@
   },
 
   
+  "Faqpage1": {
+    "faq1": {
+      "question": "How do I search for hotels on your website?",
+      "answer": "Enter your destination, travel dates, and the number of guests to instantly browse available hotels from multiple providers in one place."
+    },
+    "faq2": {
+      "question": "Can I book a hotel directly on your platform?",
+      "answer": "No, we are a comparison site. Once you select a hotel, we’ll redirect you to the booking provider’s site to finalize your reservation."
+    },
+    "faq3": {
+      "question": "Are the hotel prices shown per person or per room?",
+      "answer": "Prices are typically displayed per room, but details like number of guests and included services are available on the provider's page."
+    },
+    "faq4": {
+      "question": "Do your listings include taxes and fees?",
+      "answer": "Some providers include taxes and fees in the total price, while others display them atcheckout. We recommend reviewing this on the final booking page."
+    },
+    "faq5": {
+      "question": "How can I find hotels with free cancellation?",
+      "answer": "Use the “Free Cancellation” filter in your search results to view properties that offer flexible cancellation policies"
+    },
+    "faq6": {
+      "question": "Can I filter hotels by amenities like Wi-Fi, breakfast, or pool?",
+      "answer": "Yes, you can refine your search with filters such as free Wi-Fi, breakfast included, swimming pool, pet-friendly, and more"
+    },
+    "faq7": {
+      "question": "Do you show both budget and luxury hotels?",
+      "answer": "Yes, we list accommodations across all price ranges—from hostels and guesthouses to boutique hotels and luxury resorts."
+    },
+    "faq8": {
+      "question": "Can I view hotel photos and reviews before booking?",
+      "answer": "Absolutely. You can view detailed photos, star ratings, and verified guest reviews for each hotel before making a decision"
+    },
+    "faq9": {
+      "question": "How do I know if a hotel is available for my dates?",
+      "answer": "Availability is updated in real-time based on your selected travel dates. Only rooms that are open for booking will be shown"
+    },
+    "faq10": {
+      "question": "Can I search for accommodations like apartments or villas?",
+      "answer": "Yes, we include alternative accommodations such as serviced apartments, vacation homes, and villas in your search results."
+    },
+    "faq11": {
+      "question": "Do hotel listings show exact locations on a map?",
+      "answer": "Yes, you can view hotel locations on a map to check proximity to landmarks, transport hubs, or neighborhoods"
+    },
+    "faq12": {
+      "question": "How do I book multiple rooms for a group?",
+      "answer": "You can select the number of rooms needed during your search and view pricing based on group size."
+    },
+    "faq13": {
+      "question": "What should I do if I want to make changes to my hotel booking?",
+      "answer": "Please contact the hotel or booking provider directly to make any changes, as all bookings are handled through their platforms."
+    },
+    "faq14": {
+      "question": "Can I earn rewards or loyalty points with hotel bookings?",
+      "answer": "That depends on the booking provider. Some platforms allow you to earn loyalty points or apply discounts if you’re a member"
+    },
+    "faq15": {
+      "question": "Is breakfast included in the hotel price?",
+      "answer": "Some listings include breakfast, while others do not. You’ll see this information clearly displayed before being redirected to the provider’s site"
+    }
+  },
+  "Faqpage2": {
+    "faq1": {
+      "question": "How do I search for car rentals?",
+      "answer": "Enter your pickup location, dates, and times to instantly compare rental offers from various companies in one place"
+    },
+    "faq2": {
+      "question": "Can I book a rental car directly on your platform?",
+      "answer": "No, we redirect you to the rental agency or booking partner’s website where you can complete your reservation."
+    },
+    "faq3": {
+      "question": "Do I need a credit card to rent a car?",
+      "answer": "Most rental companies require a credit card for the security deposit and booking. Check the rental conditions on the provider's site for specifics"
+    },
+    "faq4": {
+      "question": "Can I rent a car without a driver's license?",
+      "answer": "No, a valid driver’s license is required for all rentals. Some companies also require you to have held it for at least one year"
+    },
+    "faq5": {
+      "question": "Are insurance and taxes included in the car rental price?",
+      "answer": "Some providers include basic insurance and taxes, while others offer them as add-ons. Full details are available on the checkout page"
+    },
+    "faq6": {
+      "question": "What types of cars can I rent?",
+      "answer": "You can choose from a wide range including economy, compact, SUVs, luxury, and vans based on your travel needs"
+    },
+    "faq7": {
+      "question": "Can I pick up the car in one city and return it in another?",
+      "answer": "Yes, this is called a one-way rental. Use the appropriate option during your search. Extra fees may apply depending on the route."
+    },
+    "faq8": {
+      "question": "Are there any age restrictions for renting a car?",
+      "answer": "Most companies require drivers to be at least 21, and surcharges may apply for those under 25. Check the provider’s terms for exact rules"
+    },
+    "faq9": {
+      "question": "Do you offer filters like automatic vs manual transmission?",
+      "answer": "Yes, you can filter search results by transmission type, fuel policy, passenger capacity, and more."
+    },
+    "faq10": {
+      "question": "Can I add a second driver to my rental?",
+      "answer": "Many providers allow additional drivers for an extra fee. Be sure to include this option when completing your booking on the partner site"
+    },
+    "faq11": {
+      "question": "Is fuel included in the car rental price?",
+      "answer": "Usually not. Most rentals follow a full-to-full fuel policy, meaning you return the car with the same fuel level it had at pickup."
+    },
+    "faq12": {
+      "question": "Can I cancel or modify my car rental booking? ",
+      "answer": "That depends on the provider’s policy. Most offer free cancellation within a specific window. Details are provided on their site."
+    },
+    "faq13": {
+      "question": "What documents do I need when picking up the car?",
+      "answer": "You typically need a driver’s license, a credit card, and sometimes a booking confirmation or ID. Always check in advance with the rental company."
+    },
+    "faq14": {
+      "question": "Can I rent a car at the airport?",
+      "answer": "Yes, our platform shows options for airport pickups, including on-site and shuttle-based rentals for added convenience."
+    },
+    "faq15": {
+      "question": "What happens if my flight is delayed, and I miss the pickup time?",
+      "answer": "Most rental companies allow a grace period. However, it’s best to inform them directly if you anticipate delays, especially for after-hours pickups."
+    }
+  },
+  "Faqpage3": {
+    "faq1": {
+      "question": "Do I make any payments on your website?",
+      "answer": "No, we do not process any transactions. Once you select a flight, hotel, or car rental, you’ll be redirected to the provider’s website to complete your booking and payment."
+    },
+    "faq2": {
+      "question": "What payment methods can I use with travel providers? ",
+      "answer": "Most providers accept major credit and debit cards (Visa, Mastercard, American Express), and many also support PayPal, Apple Pay, or regional payment options."
+    },
+    "faq3": {
+      "question": "Is it safe to enter my payment details on the booking site?",
+      "answer": "Yes. We only partner with trusted travel providers who use secure, encrypted paymentgateways to protect your personal and financial information."
+    },
+    "faq4": {
+      "question": "Are there any hidden charges or booking fees from your side?",
+      "answer": "No, our platform is completely free to use. You are never charged any extra fees by us— your payment goes directly to the travel provider"
+    },
+    "faq5": {
+      "question": "Will I be charged in my local currency?",
+      "answer": "That depends on the provider. Many offers currency conversion and allow you to view andpay in your local currency at checkout. "
+    },
+    "faq6": {
+      "question": "Can I split the payment across multiple cards or people? ",
+      "answer": "Most providers require full payment from a single cardholder. For group bookings or shared costs, you may need to arrange payment separately."
+    },
+    "faq7": {
+      "question": "Do I need to pay the full amount upfront?",
+      "answer": "It depends on the provider and the type of service. Some offer 'pay later' or deposit options, while others require full payment at the time of booking. "
+    },
+    "faq8": {
+      "question": "What happens if my payment fails on the provider’s site?",
+      "answer": "If a payment fails, you’ll typically receive a prompt to try again or use a different method. You can also contact the provider’s support team for assistance."
+    },
+    "faq9": {
+      "question": "Can I get a refund if I cancel my booking? ",
+      "answer": "Refund policies vary by provider and service type. Some offer full refunds within a time window, while others may charge a cancellation fee. Always check the terms before booking."
+    },
+    "faq10": {
+      "question": "Will I receive a payment confirmation or invoice? ",
+      "answer": "Yes. Once your payment is completed on the provider’s site, you will receive a confirmation email and invoice directly from them"
+    }
+  },
+  "Faqpage": {
+    "heading": "Having Question About Us? We Have  Just The Right Answers For You.",
+    "input": "Search your queries here",
+    "tital1": "Frequently Asked Quessstions",
+    "text1": "Welcome to our FAQ section, where we’ve answered the most common questions to help you plan and book your journey with confidence. Whether you're searching for flights, hotels, or car rentals, you’ll find clear and helpful answers about how our travel search engine works. Explore each category below to learn more and make informed travel decisions with ease.",
+    "tab1": "Website Working",
+    "tab2": "Hotel Reservations",
+    "tab3": "Car Rentals",
+    "tab4": "Payments",
+    "faq1": {
+      "question": "How do I search for flights on your website?",
+      "answer": "Simply enter your departure city, destination, travel dates, and number of passengers. Our system will instantly search multiple airlines and travel providers to show you the best available options."
+    },
+    "faq2": {
+      "question": "Can I book a flight directly on your website? ",
+      "answer": "No, we are a travel search engine. Once you find a flight that suits your needs, we’ll redirect you to the airline or travel agency’s website to complete your booking."
+    },
+    "faq3": {
+      "question": "Are the flight prices shown in real-time?",
+      "answer": "Yes, our platform pulls real-time data from providers to ensure you see the latest prices and availability. However, final confirmation happens on the provider's site. "
+    },
+    "faq4": {
+      "question": "Do your flight prices include taxes and fees? ",
+      "answer": "Most prices include basic taxes and fees, but optional extras like baggage, meals, or seat selection may cost more and are shown on the booking provider’s site."
+    },
+    "faq5": {
+      "question": "Can I search for one-way, round-trip, or multi-city flights? ",
+      "answer": "Absolutely. You can choose your preferred trip type before starting your search and even add multiple destinations for a customized itinerary"
+    },
+    "faq6": {
+      "question": "Do you offer flexible date search options? ",
+      "answer": "Yes, our flexible date feature allows you to see the cheapest flights within a range of days around your chosen departure and return dates"
+    },
+    "faq7": {
+      "question": "How can I filter flights by airline, price, or duration? ",
+      "answer": "After searching, use our filters to narrow down results by airline, price range, number of stops, travel time, and more"
+    },
+    "faq8": {
+      "question": "Can I sort flights by shortest travel time or lowest price? ",
+      "answer": "Yes, you can easily sort results to find the fastest route, cheapest fare, or most convenientdeparture times. "
+    },
+    "faq9": {
+      "question": "Do you show both budget and full-service airlines? ",
+      "answer": "Yes, we include results from major carriers, budget airlines, and online travel agencies to give you a complete picture of your options."
+    },
+    "faq10": {
+      "question": "Can I book international and domestic flights? ",
+      "answer": "Yes, we support searches for both domestic and international routes across a wide rangeof destinations and airlines. "
+    },
+    "faq11": {
+      "question": "Can I set flight price alerts?",
+      "answer": "We offer a price alert feature where you can subscribe to receive notifications when fares for a selected route drop."
+    },
+    "faq12": {
+      "question": "Why does the price sometimes change when I click to book? ",
+      "answer": "Airline prices fluctuate constantly based on demand and availability. If the fare changes, it’s usually updated in real time by the provider."
+    },
+    "faq13": {
+      "question": "How do I know if baggage is included in the flight price? ",
+      "answer": "Each listing indicates whether checked or cabin baggage is included, and full details are available on the booking partner’s site."
+    },
+    "faq14": {
+      "question": "What should I do if I have issues with my flight booking? ",
+      "answer": "Since the booking is completed on the airline or agent's site, you’ll need to contact them directly for help with changes, cancellations, or refunds."
+    },
+    "faq15": {
+      "question": "Can I book flights for groups or large families? ",
+      "answer": "Yes, you can search for flights for up to 9 passengers. For larger groups, we recommend contacting the airline or travel provider directly. "
+    }
+  },
   
-    "Faqpage1": {
-      "faq1": {
-        "question": "How do I search for hotels on your website?",
-        "answer": "Enter your destination, travel dates, and the number of guests to instantly browse available hotels from multiple providers in one place."
-      },
-      "faq2": {
-        "question": "Can I book a hotel directly on your platform?",
-        "answer": "No, we are a comparison site. Once you select a hotel, we’ll redirect you to the booking provider’s site to finalize your reservation."
-      },
-      "faq3": {
-        "question": "Are the hotel prices shown per person or per room?",
-        "answer": "Prices are typically displayed per room, but details like number of guests and included services are available on the provider's page."
-      },
-      "faq4": {
-        "question": "Do your listings include taxes and fees?",
-        "answer": "Some providers include taxes and fees in the total price, while others display them at checkout. We recommend reviewing this on the final booking page."
-      },
-      "faq5": {
-        "question": "How can I find hotels with free cancellation?",
-        "answer": "Use the “Free Cancellation” filter in your search results to view properties that offer flexible cancellation policies."
-      },
-      "faq6": {
-        "question": "Can I filter hotels by amenities like Wi-Fi, breakfast, or pool?",
-        "answer": "Yes, you can refine your search with filters such as free Wi-Fi, breakfast included, swimming pool, pet-friendly, and more."
-      },
-      "faq7": {
-        "question": "Do you show both budget and luxury hotels?",
-        "answer": "Yes, we list accommodations across all price ranges—from hostels and guesthouses to boutique hotels and luxury resorts."
-      },
-      "faq8": {
-        "question": "Can I view hotel photos and reviews before booking?",
-        "answer": "Absolutely. You can view detailed photos, star ratings, and verified guest reviews for each hotel before making a decision."
-      },
-      "faq9": {
-        "question": "How do I know if a hotel is available for my dates?",
-        "answer": "Availability is updated in real-time based on your selected travel dates. Only rooms that are open for booking will be shown."
-      },
-      "faq10": {
-        "question": "Can I search for accommodations like apartments or villas?",
-        "answer": "Yes, we include alternative accommodations such as serviced apartments, vacation homes, and villas in your search results."
-      },
-      "faq11": {
-        "question": "Do hotel listings show exact locations on a map?",
-        "answer": "Yes, you can view hotel locations on a map to check proximity to landmarks, transport hubs, or neighborhoods."
-      },
-      "faq12": {
-        "question": "How do I book multiple rooms for a group?",
-        "answer": "You can select the number of rooms needed during your search and view pricing based on group size."
-      },
-      "faq13": {
-        "question": "What should I do if I want to make changes to my hotel booking?",
-        "answer": "Please contact the hotel or booking provider directly to make any changes, as all bookings are handled through their platforms."
-      },
-      "faq14": {
-        "question": "Can I earn rewards or loyalty points with hotel bookings?",
-        "answer": "That depends on the booking provider. Some platforms allow you to earn loyalty points or apply discounts if you’re a member."
-      },
-      "faq15": {
-        "question": "Is breakfast included in the hotel price?",
-        "answer": "Some listings include breakfast, while others do not. You’ll see this information clearly displayed before being redirected to the provider’s site."
-      }
-    },
-    "Faqpage2": {
-      "faq1": {
-        "question": "How do I search for car rentals?",
-        "answer": "Enter your pickup location, dates, and times to instantly compare rental offers from various companies in one place."
-      },
-      "faq2": {
-        "question": "Can I book a rental car directly on your platform?",
-        "answer": "No, we redirect you to the rental agency or booking partner’s website where you can complete your reservation."
-      },
-      "faq3": {
-        "question": "Do I need a credit card to rent a car?",
-        "answer": "Most rental companies require a credit card for the security deposit and booking. Check the rental conditions on the provider's site for specifics."
-      },
-      "faq4": {
-        "question": "Can I rent a car without a driver's license?",
-        "answer": "No, a valid driver’s license is required for all rentals. Some companies also require you to have held it for at least one year."
-      },
-      "faq5": {
-        "question": "Are insurance and taxes included in the car rental price?",
-        "answer": "Some providers include basic insurance and taxes, while others offer them as add-ons. Full details are available on the checkout page."
-      },
-      "faq6": {
-        "question": "What types of cars can I rent?",
-        "answer": "You can choose from a wide range including economy, compact, SUVs, luxury, and vans based on your travel needs."
-      },
-      "faq7": {
-        "question": "Can I pick up the car in one city and return it in another?",
-        "answer": "Yes, this is called a one-way rental. Use the appropriate option during your search. Extra fees may apply depending on the route."
-      },
-      "faq8": {
-        "question": "Are there any age restrictions for renting a car?",
-        "answer": "Most companies require drivers to be at least 21, and surcharges may apply for those under 25. Check the provider’s terms for exact rules."
-      },
-      "faq9": {
-        "question": "Do you offer filters like automatic vs manual transmission?",
-        "answer": "Yes, you can filter search results by transmission type, fuel policy, passenger capacity, and more."
-      },
-      "faq10": {
-        "question": "Can I add a second driver to my rental?",
-        "answer": "Many providers allow additional drivers for an extra fee. Be sure to include this option when completing your booking on the partner site."
-      },
-      "faq11": {
-        "question": "Is fuel included in the car rental price?",
-        "answer": "Usually not. Most rentals follow a full-to-full fuel policy, meaning you return the car with the same fuel level it had at pickup."
-      },
-      "faq12": {
-        "question": "Can I cancel or modify my car rental booking?",
-        "answer": "That depends on the provider’s policy. Most offer free cancellation within a specific window. Details are provided on their site."
-      },
-      "faq13": {
-        "question": "What documents do I need when picking up the car?",
-        "answer": "You typically need a driver’s license, a credit card, and sometimes a booking confirmation or ID. Always check in advance with the rental company."
-      },
-      "faq14": {
-        "question": "Can I rent a car at the airport?",
-        "answer": "Yes, our platform shows options for airport pickups, including on-site and shuttle-based rentals for added convenience."
-      },
-      "faq15": {
-        "question": "What happens if my flight is delayed, and I miss the pickup time?",
-        "answer": "Most rental companies allow a grace period. However, it’s best to inform them directly if you anticipate delays, especially for after-hours pickups."
-      }
-    },
-    "Faqpage3": {
-      "faq1": {
-        "question": "Do I make any payments on your website?",
-        "answer": "No, we do not process any transactions. Once you select a flight, hotel, or car rental, you’ll be redirected to the provider’s website to complete your booking and payment."
-      },
-      "faq2": {
-        "question": "What payment methods can I use with travel providers?",
-        "answer": "Most providers accept major credit and debit cards (Visa, Mastercard, American Express), and many also support PayPal, Apple Pay, or regional payment options."
-      },
-      "faq3": {
-        "question": "Is it safe to enter my payment details on the booking site?",
-        "answer": "Yes. We only partner with trusted travel providers who use secure, encrypted payment gateways to protect your personal and financial information."
-      },
-      "faq4": {
-        "question": "Are there any hidden charges or booking fees from your side?",
-        "answer": "No, our platform is completely free to use. You are never charged any extra fees by us—your payment goes directly to the travel provider."
-      },
-      "faq5": {
-        "question": "Will I be charged in my local currency?",
-        "answer": "That depends on the provider. Many offer currency conversion and allow you to view and pay in your local currency at checkout."
-      },
-      "faq6": {
-        "question": "Can I split the payment across multiple cards or people?",
-        "answer": "Most providers require full payment from a single cardholder. For group bookings or shared costs, you may need to arrange payment separately."
-      },
-      "faq7": {
-        "question": "Do I need to pay the full amount upfront?",
-        "answer": "It depends on the provider and the type of service. Some offer 'pay later' or deposit options, while others require full payment at the time of booking."
-      },
-      "faq8": {
-        "question": "What happens if my payment fails on the provider’s site?",
-        "answer": "If a payment fails, you’ll typically receive a prompt to try again or use a different method. You can also contact the provider’s support team for assistance."
-      },
-      "faq9": {
-        "question": "Can I get a refund if I cancel my booking?",
-        "answer": "Refund policies vary by provider and service type. Some offer full refunds within a time window, while others may charge a cancellation fee. Always check the terms before booking."
-      },
-      "faq10": {
-        "question": "Will I receive a payment confirmation or invoice?",
-        "answer": "Yes. Once your payment is completed on the provider’s site, you will receive a confirmation email and invoice directly from them."
-      }
-    },
-    "Faqpage": {
-      "heading": "Have Questions About Us? We Have the Right Answers for You.",
-      "input": "Search your queries here",
-      "tital1": "Frequently Asked Questions",
-      "text1": "Welcome to our FAQ section, where we’ve answered the most common questions to help you plan and book your journey with confidence. Whether you're searching for flights, hotels, or car rentals, you’ll find clear and helpful answers about how our travel search engine works. Explore each category below to learn more and make informed travel decisions with ease.",
-      "tab1": "Website Working",
-      "tab2": "Hotel Reservations",
-      "tab3": "Car Rentals",
-      "tab4": "Payments"
-    },
-  
-  
-
+"Articlestitale": {
+  "heading1": "Sugarloaf Mountain",
+  "heading2": "The Sagrada Família",
+  "heading3": "Hagia Sophia Grand Mosque",
+  "para1": "Seen from the peak of Sugarloaf Mountain, Rio is undoubtedly a Marvelous City. There are many good times to make the ascent, but sunset on a clear day is the most rewarding. Two cable cars connect to the summit, 395 meters above Rio. At the top, the city unfolds beneath you, with Corcovado Mountain and Christ the Redeemer off to the west, and Copacabana Beach to the south.",
+  "para2": "The Expiatory Temple of the Holy Family (Sagrada Família) is considered to be the symbol of Barcelona by many residents, and the one place you shouldn’t miss when you visit the Catalan capital.",
+  "para3": "The Hagia Sophia (officially the Hagia Sophia Grand Mosque) is one of the Byzantine Empire’s surviving architectural marvels. Located in the heart of Istanbul’s historic center, this sacred building remains – even today – an important symbol of power."
+}
+,
 
   "FlightsInner": {
     "Suggested": "Suggested",
@@ -554,6 +620,7 @@
     "More Filters": "More Filters",
     "Hide Filters": "Hide Filters"
   },
+
   "BookYourTicket": {
     "Book": "Book Your Flight",
     "Back_result": "Back to Results",
@@ -568,6 +635,7 @@
     "Outbound": "Outbound",
     "Directing_To": "We are Directing To"
   },
+
   "HotelsInnerlabel": {
     "label1": "View by",
     "label2": "Price",
@@ -732,6 +800,7 @@
         }
       }
     },
+    
     "location": {
       "select": "Select",
       "options": {
