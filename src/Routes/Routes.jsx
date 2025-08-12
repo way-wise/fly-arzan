@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useRoutes } from "react-router-dom";
 
 import Dashboard from "../pages/Dashboard";
 import Login from "../components/login/Login";
-import Singup from "../components/login/singup";
+import Singup from "../components/login/Singup";
 import LandingFlights from "../pages/LandingFlights";
 import LandingHotels from "../pages/LandingHotels";
 import LandingCar from "../pages/LandingCar";
