@@ -133,7 +133,7 @@ nav.nav-1 {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 60px;
+  gap: 24px;
 }
 
 .nav-btn-box {
@@ -683,6 +683,7 @@ section.Sec2-sec {
   background: #fff;
   box-shadow: 12.022px 16.831px 76.942px -12.022px rgba(0, 0, 0, 0.05);
   width: 30%;
+  overflow: hidden;
 }
 
 .Sec2-card-img {
@@ -693,7 +694,7 @@ section.Sec2-sec {
 .Sec2-card-img img {
   width: 100%;
   height: 100%;
-  border-radius: 20px 20px 0px 0px;
+  /* border-radius: 20px 20px 0px 0px; */
   object-fit: cover;
 }
 
@@ -830,7 +831,7 @@ section.Sec3-sec {
 
 .Sec3-tital {
   width: 100%;
-  padding-bottom: 70px;
+  padding-bottom: 40px;
 }
 
 .Sec3-tital h2 {
@@ -847,15 +848,23 @@ section.Sec3-sec {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  margin-bottom: 40px;
 }
 
 .Sec3-card {
-  width: 30%;
+  transition: all 0.2s ease-in-out;
+}
+
+.Sec3-card:hover {
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 109, 0.1);
 }
 
 .Sec3-card-img {
   width: 100%;
-  height: 32vh;
+  height: 230px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  overflow: hidden;
 }
 
 .Sec3-card-img img {
@@ -866,7 +875,13 @@ section.Sec3-sec {
 
 .Sec3-card-tital {
   width: 100%;
-  padding-top: 20px;
+  padding: 24px;
+  background-color: white;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  border-bottom: 1px solid #d9d9d9;
+  border-left: 1px solid #d9d9d9;
+  border-right: 1px solid #d9d9d9;
 }
 
 .Sec3-card-tital span {
@@ -884,7 +899,11 @@ section.Sec3-sec {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  width: 90%;
+  line-clamp: 4;
+  -webkit-line-clamp: 4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .Sec3-card-tital span h3 {
@@ -899,6 +918,58 @@ section.Sec3-sec {
 .Sec3-card-tital span svg {
   width: 25px;
   cursor: pointer;
+}
+
+.Sec3-card-splide .splide__arrow {
+  top: 98%;
+}
+
+.splide:not(.is-overflow) .splide__pagination {
+  display: flex !important;
+}
+
+.Sec3-card-splide .splide__arrow--next,
+.Sec3-card-splide .splide__arrow--prev {
+  width: 48px;
+  height: 48px;
+  background-color: white;
+  border: 1px solid #dbdade;
+}
+.Sec3-card-splide .splide__arrow--next svg,
+.Sec3-card-splide .splide__arrow--prev svg {
+  fill: #a5a2ad;
+}
+
+/* .Sec3-card-splide {
+  padding-bottom: 40px;
+} */
+
+.Sec3-card-splide .splide__pagination {
+  position: initial !important;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.Sec3-card-splide .splide__list {
+  padding-bottom: 20px !important;
+}
+
+.Sec3-card-splide .splide__pagination__page {
+  width: 12px;
+  height: 12px;
+  background-color: rgba(53, 58, 120, 0.25);
+}
+
+.Sec3-card-splide .splide__pagination__page.is-active {
+  transform: scale(1) !important;
+  background-color: #353978;
+}
+
+.Sec3-card-splide .splide__arrow--next {
+  right: 0;
 }
 
 /* Sec________Styling________Css */
@@ -2842,7 +2913,7 @@ section.Aboutsec3-sec {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  padding: 55px 0px;
+  padding: 80px 0px;
 }
 
 .Aboutsec3-main {
@@ -7351,7 +7422,7 @@ h2.react-datepicker__current-month {
   }
 
   .Sec3-tital {
-    padding-bottom: 70px;
+    padding-bottom: 40px;
   }
 
   .Sec3-card-tital span h3 {
@@ -7367,7 +7438,7 @@ h2.react-datepicker__current-month {
   }
 
   section.Sec3-sec {
-    padding: 48px 0px;
+    padding: 80px 0px;
   }
 
   section.faq--flight--sec {
@@ -10104,10 +10175,6 @@ h2.react-datepicker__current-month {
   .Sec2-btn-box button {
     font-size: 14px;
     padding: 10px 30px;
-  }
-
-  .Sec3-card {
-    width: 48%;
   }
 
   .Sec3-card-box {
