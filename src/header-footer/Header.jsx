@@ -74,6 +74,25 @@ const Header = ({ onNavigate }) => {
   return (
     <>
       <header className={`header ${isFixed ? "fixed-header" : ""}`}>
+        <div className="top-bar">
+          <div className="container top-bar-container">
+            <div className="top-bar-social-links">
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <img src="/icons/dribbble.svg" alt="Dribbble" />
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <img src="/icons/youtube.svg" alt="Youtube" />
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <img src="/icons/facebook.svg" alt="Facebook" />
+              </a>
+            </div>
+            <a href="mailto:flyarzan@mail.com" className="top-bar-mail">
+              <img src="/icons/sms.svg" alt="Mail" />
+              <p>flyarzan@mail.com</p>
+            </a>
+          </div>
+        </div>
         <div className="container">
           <nav className="nav-1">
             <div onClick={() => hanldeNavigate()} className="nav-logo">
@@ -114,30 +133,16 @@ const Header = ({ onNavigate }) => {
               </div>
               {!userToken ? (
                 <Link>
-                  <div
-                    className="nav-btn-box"
-                    onClick={() => setShowPopup(true)} // Click par popup open karega
-                    style={{ cursor: "pointer" }} // Cursor pointer show karega
+                  <button
+                    className="nav-btn-box nav-login-btn"
+                    onClick={() => setShowPopup(true)}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      id="Layer_1"
-                      data-name="Layer 1"
-                      viewBox="0 0 32 32"
-                    >
-                      <path d="M10.0835,17.03467H2.189a1,1,0,1,1,0-2h7.96L7.56934,12.68115A.99991.99991,0,1,1,8.917,11.20361l4.4541,4.06348a.99978.99978,0,0,1-.00048,1.478L8.92432,20.79688a.99995.99995,0,0,1-1.34668-1.47852ZM22.73779,1H9.26221A3.26585,3.26585,0,0,0,6,4.26221V5.85156a1,1,0,0,0,2,0V4.26221A1.26388,1.26388,0,0,1,9.26221,3H22.73779A1.26388,1.26388,0,0,1,24,4.26221V27.73779A1.26388,1.26388,0,0,1,22.73779,29H9.26221A1.26388,1.26388,0,0,1,8,27.73779V26.0791a1,1,0,1,0-2,0v1.65869A3.26585,3.26585,0,0,0,9.26221,31H22.73779A3.26585,3.26585,0,0,0,26,27.73779V4.26221A3.26585,3.26585,0,0,0,22.73779,1ZM11,23.5a1,1,0,0,0,0,2H21a1,1,0,0,0,1-1V7.5a1,1,0,0,0-1-1H11a1,1,0,0,0,0,2h9v15Z" />
-                    </svg>
-
-                    <p>{t("upperSection.Login")}</p>
-                  </div>
+                    Register / Login
+                  </button>
                 </Link>
               ) : (
                 <Link>
-                  <div
-                    className="nav-btn-box"
-                    onClick={handleLogout} // Click par popup open karega
-                    style={{ cursor: "pointer" }} // Cursor pointer show karega
-                  >
+                  <button className="nav-btn-box" onClick={handleLogout}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       id="Layer_1"
@@ -148,7 +153,7 @@ const Header = ({ onNavigate }) => {
                     </svg>
 
                     <p>{t(`Logsec.btn4`)}</p>
-                  </div>
+                  </button>
                 </Link>
               )}
 
@@ -413,15 +418,15 @@ const Header = ({ onNavigate }) => {
                   <div className="toogle-box">
                     <h2>{t(`HeaderMenu.tital5`)}</h2>
                     <ul>
-                    <Link to="/VisaRequirements">
-                      <li>{t(`HeaderMenu.text9`)}</li>
+                      <Link to="/VisaRequirements">
+                        <li>{t(`HeaderMenu.text9`)}</li>
                       </Link>
                       <Link to="/Airport">
-                      <li>{t(`HeaderMenu.text10`)}</li>
+                        <li>{t(`HeaderMenu.text10`)}</li>
                       </Link>
                       {/* <li>{t(`HeaderMenu.text11`)}</li> */}
                       <Link to="/">
-                      <li>{t(`HeaderMenu.text12`)}</li>
+                        <li>{t(`HeaderMenu.text12`)}</li>
                       </Link>
                     </ul>
                   </div>

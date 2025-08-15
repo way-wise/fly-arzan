@@ -49,6 +49,55 @@ p {
 /* Header________Styling________Css */
 /* Header________Styling________Css */
 
+/* Top Bar */
+.top-bar {
+  width: 100%;
+  height: 48px;
+  background: #353978;
+  color: black;
+  display: flex;
+  align-items: center;
+}
+
+.top-bar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top-bar-social-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.top-bar-mail {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+.top-bar-mail:hover {
+  text-decoration: none;
+}
+
+.top-bar-mail img {
+  width: 16px;
+  height: 16px;
+}
+
+.top-bar-mail p {
+  color: #fff;
+}
+
+.top-bar-social-links a {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 header {
   width: 100%;
   position: relative;
@@ -66,6 +115,8 @@ nav.nav-1 {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 92px;
+  padding: 16px 0;
 }
 
 .nav-logo {
@@ -106,6 +157,23 @@ nav.nav-1 {
   line-height: normal;
 }
 
+.nav-login-btn {
+  background: #50add8;
+  border-radius: 6px;
+  height: 38px;
+  padding: 20px;
+  border: none;
+  font-weight: 500;
+  color: white;
+  text-align: center;
+  border: 1px solid #ccc inset;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-login-btn:hover {
+  opacity: 0.95;
+}
+
 /* Header________Styling________Css */
 /* Header________Styling________Css */
 /* Header________Styling________Css */
@@ -113,8 +181,6 @@ nav.nav-1 {
 /* Hero________Styling________Css */
 /* Hero________Styling________Css */
 /* Hero________Styling________Css */
-section.hero-sec.HeroHotels-sec {
-}
 
 button.swich {
   position: absolute;
@@ -604,8 +670,7 @@ section.Sec2-sec {
 
 .Sec2-card-box {
   width: 100%;
-  display: flex
-;
+  display: flex;
   align-items: center;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -779,8 +844,7 @@ section.Sec3-sec {
 
 .Sec3-card-box {
   width: 100%;
-  display: flex
-;
+  display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
@@ -4021,14 +4085,14 @@ span.padding-top-span {
 
 .side-bar-container-thiviyo {
   width: 300px;
-    height: 100%;
-    background: #fff;
-    padding: 40px;
-    display: flex !important
+  height: 100%;
+  background: #fff;
+  padding: 40px;
+  display: flex !important
 ;
-    justify-content: space-between;
-    flex-direction: column;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  justify-content: space-between;
+  flex-direction: column;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .my-mainbox-DashboardRoutes {
@@ -5059,12 +5123,10 @@ span.status.cancel {
   width: 100%;
   margin: 0px;
   border-bottom: 1px solid #adadad;
-  display: flex
-;
+  display: flex;
   align-items: center;
   gap: 40px;
   padding-bottom: 2%;
-
 }
 
 .Dashboard-Tab-head .react-tabs__tab {
@@ -5247,8 +5309,7 @@ header.Dashbordheader {
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  display: flex
-;
+  display: flex;
   align-items: center;
   gap: 10px;
 }
@@ -5264,8 +5325,7 @@ header.Dashbordheader {
   padding: 12px;
   border-radius: 10px;
   box-shadow: 0px 10px 60px 0px rgba(0, 0, 0, 0.07);
-  display: flex
-;
+  display: flex;
   justify-content: flex-end;
   align-items: flex-end;
 }
@@ -5551,13 +5611,11 @@ input.form__field.more-short-withd {
 .form__field:required,
 .form__field:invalid {
   box-shadow: none;
-}.suggestions li svg {
+}
+.suggestions li svg {
   width: 15px;
   margin-right: 10px;
 }
-
-
-
 
 .options-box {
   position: absolute;
@@ -5576,7 +5634,12 @@ input.form__field.more-short-withd {
   gap: 20px;
 }
 
-.dropdown-section {display: flex;flex-direction: column;align-items: flex-start;width: 100%;}
+.dropdown-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
 
 .counter {
   display: flex;
@@ -5598,26 +5661,25 @@ input.form__field.more-short-withd {
   cursor: not-allowed;
 }
 
-
 .dropdown-section label {
-    color: #000;
-    text-align: center;
-    font-family: "Rubik";
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    padding-bottom: 10px;
+  color: #000;
+  text-align: center;
+  font-family: "Rubik";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-bottom: 10px;
 }
 
 .dropdown-section select {
-    width: 100%;
-    padding: 10px;
-    border-radius: 60px;
-    border: 1px solid #dbdbdb;
-    font-size: 14px;
-    color: #a5a5a5;
-    outline: none;
+  width: 100%;
+  padding: 10px;
+  border-radius: 60px;
+  border: 1px solid #dbdbdb;
+  font-size: 14px;
+  color: #a5a5a5;
+  outline: none;
 }
 .suggestions {
   background: white;
@@ -5808,22 +5870,21 @@ input.form__field.more-short-withd {
 }
 
 .select-Sort-by-drop ul {
-  display: flex
-  ;
-      flex-direction: column;
-      gap: 10px !important;
-      right: 0px;
-      padding: 10px !important;
-      background-color: #fff;
-      position: absolute;
-      z-index: 10;
-      border-radius: 10px;
-      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-      align-items: flex-start;
-      width: 115%;
-      left: -7px;
-      overflow-y: auto;
-      width: max-content;
+  display: flex;
+  flex-direction: column;
+  gap: 10px !important;
+  right: 0px;
+  padding: 10px !important;
+  background-color: #fff;
+  position: absolute;
+  z-index: 10;
+  border-radius: 10px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  align-items: flex-start;
+  width: 115%;
+  left: -7px;
+  overflow-y: auto;
+  width: max-content;
 }
 .carFeautures ul {
   height: 30vh !important;
@@ -5944,12 +6005,13 @@ input.form__field.more-short-withd {
 } */
 
 .header {
-  position: fixed;
+  position: sticky;
   background: #fff;
   top: 0px;
   left: 0px;
   z-index: 999;
   transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+  padding: 0px !important;
 }
 
 .fixed-header {
@@ -5974,12 +6036,11 @@ input.form__field.more-short-withd {
   padding-top: 114px;
   top: 0px;
   z-index: 999;
-  
 }
 
 .popup-main-box {
   width: 550px;
-  background-color: #FFF;
+  background-color: #fff;
   height: auto;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 10px;
@@ -6027,7 +6088,6 @@ button.close-btn {
   border-radius: 5px;
   transition: background-color 0.3s ease;
   width: 100%;
-  
 }
 
 .flight-button:hover {
@@ -6476,8 +6536,7 @@ input {
 
 .Flights-Tab-form-main {
   width: 100%;
-  display: flex
-;
+  display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 2px;
@@ -6644,8 +6703,7 @@ section.FlightHeroinner1 {
   justify-content: space-between;
   list-style: none;
   width: 100%;
-  display: flex
-;
+  display: flex;
   align-items: center;
   gap: 10px;
   color: #939393;
@@ -6723,13 +6781,10 @@ section.FlightHeroinner1 {
   width: 25%;
 }
 
-.error{
+.error {
   line-height: 1;
   color: red;
 }
-
-
-
 
 .counter {
   display: flex;
@@ -6761,9 +6816,6 @@ section.FlightHeroinner1 {
   padding-top: 10% !important;
 }
 
-
-
-
 /* Overlay background */
 .modal-overlay {
   position: fixed;
@@ -6790,61 +6842,56 @@ section.FlightHeroinner1 {
   z-index: 1001;
 }
 
-
-
-
-.region-heading{
+.region-heading {
   display: flex;
   justify-content: space-between;
 }
-.region-heading p{
-
+.region-heading p {
   font-weight: 600;
   font-family: "Rubik";
   font-size: 20px;
 }
 
-.region-heading button{
+.region-heading button {
   background-color: transparent !important;
   border: none;
-  }
-  .goog-te-gadget .goog-te-combo {
-    margin: 4px 0 !important;
-    padding: 12px !important;
-    border-radius: 5px !important;
-    width: 65% !important;
+}
+.goog-te-gadget .goog-te-combo {
+  margin: 4px 0 !important;
+  padding: 12px !important;
+  border-radius: 5px !important;
+  width: 65% !important;
 }
 
-  .language-icon{
-    display: flex;
-    gap: 5px;
-    padding-top:15px;
-    padding-bottom: 5px !important;
-  }
+.language-icon {
+  display: flex;
+  gap: 5px;
+  padding-top: 15px;
+  padding-bottom: 5px !important;
+}
 
-  .language-icon p{
-    font-weight: 600;
-    padding-top:2px;
-    font-family: "Rubik";
-  }
+.language-icon p {
+  font-weight: 600;
+  padding-top: 2px;
+  font-family: "Rubik";
+}
 
-  .dropdown-toggle {
- 
-    white-space: nowrap;
-    width: 100% !important;
-    text-align: left !important;
-    background: transparent !important;
-    color: black !important;
+.dropdown-toggle {
+  white-space: nowrap;
+  width: 100% !important;
+  text-align: left !important;
+  background: transparent !important;
+  color: black !important;
 }
 
 .dropdown-toggle::after {
   display: inline-block;
-  vertical-align: .255em;
+  vertical-align: 0.255em;
   content: "";
-  border-top: .3em solid;
-  border-right: .3em solid transparent;
+  border-top: 0.3em solid;
+  border-right: 0.3em solid transparent;
   border-bottom: 0;
-  border-left: .3em solid transparent;
+  border-left: 0.3em solid transparent;
 }
 .language-button {
   display: flex;
@@ -6860,174 +6907,141 @@ section.FlightHeroinner1 {
   position: relative;
 }
 
-
 .dropdown-menu.show {
   display: block;
 }
 
-.drop-down-height{
+.drop-down-height {
   position: absolute !important;
   transform: translate3d(0px, -px, 0px) !important;
-height: 40vh !important;
-overflow: auto;
-width: 100%;
+  height: 40vh !important;
+  overflow: auto;
+  width: 100%;
 }
 
-
-
-.region-btns{
+.region-btns {
   width: 100%;
   font-family: "Rubik";
   margin-top: 20px;
 }
-.region-btns .save-btn{
+.region-btns .save-btn {
   width: 100%;
-    padding: 7px;
-    font-size: 17px;
-    background: #50add8;
-    color: white;
-    border: none;
-    border-radius: 5px;
+  padding: 7px;
+  font-size: 17px;
+  background: #50add8;
+  color: white;
+  border: none;
+  border-radius: 5px;
 }
-.region-btns .cancel-btn{
+.region-btns .cancel-btn {
   width: 100%;
-    padding: 7px;
-    font-size: 17px;
+  padding: 7px;
+  font-size: 17px;
   margin-top: 10px;
 
-    background: #C1C7CF ;
-    color: white;
-    border: none;
-    border-radius: 5px;
-
+  background: #c1c7cf;
+  color: white;
+  border: none;
+  border-radius: 5px;
 }
-
-
 
 .add-flight-section {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   border-radius: 30px;
   padding: 49px 75px 83px 53px;
 }
-.add-flight-section p:first-child{
+.add-flight-section p:first-child {
   font-size: 35px;
-  font-weight:700;
+  font-weight: 700;
 }
- 
-.input-section div{
-  font-family: "Rubik";
 
+.input-section div {
+  font-family: "Rubik";
 }
-.input-section .col-12{
+.input-section .col-12 {
   padding-bottom: 32px;
 }
 .add-flight-section .input-section {
   margin-top: 41px;
 }
- 
 
 .input-main-class {
   padding: 15px 0 14.5px 24px;
   outline: none;
   border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.20);
-  background: #F5F5F5;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: #f5f5f5;
   font-size: 18px;
   width: 100%;
   margin-top: 11px;
-
 }
 .ant-select-selector {
   background: transparent !important;
-
 }
-:where(.css-dev-only-do-not-override-tjsggz).ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
+:where(.css-dev-only-do-not-override-tjsggz).ant-select-outlined:not(
+    .ant-select-customize-input
+  )
+  .ant-select-selector {
   border: none !important;
   background: transparent !important;
 }
 .image-div {
   width: 100%;
-  background: #F5F5F5;
+  background: #f5f5f5;
   margin-top: 11px;
-cursor: pointer;
+  cursor: pointer;
   text-align: center;
   padding-top: 23px;
   padding-bottom: 16px;
   border-radius: 10px;
 }
 .mark-sec {
-  color:red
+  color: red;
 }
-.btn-section{
+.btn-section {
   display: flex !important;
   justify-content: end;
 }
-.btn-section2{
+.btn-section2 {
   display: flex;
   gap: 20px;
   align-items: center;
 }
 .btn-section2 .goBack {
-  border: 2px solid #50ADD8;
+  border: 2px solid #50add8;
   padding: 15px 56px;
-  color: #50ADD8;
+  color: #50add8;
   font-weight: 700;
   background: transparent;
   font-size: 14px;
   border-radius: 10px;
-
 }
 .btn-section2 .save {
-  background:#50ADD8 !important;
-border: none;
+  background: #50add8 !important;
+  border: none;
   padding: 15px 56px;
   color: white;
   font-weight: 700;
   background: transparent;
   font-size: 14px;
   border-radius: 10px;
-
 }
 .css-6qpcc8-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
   /* background-color: rgba(0, 0, 0, 0.08); */
   background: #50acd7 !important;
-color: white;
+  color: white;
 }
-.pagination-div{
- width: 100%;
- display: flex;
- justify-content: center;
- margin-top: 30px;
+.pagination-div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* new-drop-date-paker-box *//* new-drop-date-paker-box *//* new-drop-date-paker-box *//* new-drop-date-paker-box */
-/* new-drop-date-paker-box *//* new-drop-date-paker-box *//* new-drop-date-paker-box *//* new-drop-date-paker-box */
-/* new-drop-date-paker-box *//* new-drop-date-paker-box *//* new-drop-date-paker-box *//* new-drop-date-paker-box */
-/* new-drop-date-paker-box *//* new-drop-date-paker-box *//* new-drop-date-paker-box *//* new-drop-date-paker-box */
-
-
-
-
-
-
-
+/* new-drop-date-paker-box */ /* new-drop-date-paker-box */ /* new-drop-date-paker-box */ /* new-drop-date-paker-box */
+/* new-drop-date-paker-box */ /* new-drop-date-paker-box */ /* new-drop-date-paker-box */ /* new-drop-date-paker-box */
+/* new-drop-date-paker-box */ /* new-drop-date-paker-box */ /* new-drop-date-paker-box */ /* new-drop-date-paker-box */
+/* new-drop-date-paker-box */ /* new-drop-date-paker-box */ /* new-drop-date-paker-box */ /* new-drop-date-paker-box */
 
 .react-datepicker__week {
   display: flex;
@@ -7063,7 +7077,10 @@ h2.react-datepicker__current-month {
   font-size: 20px;
 }
 
-.react-datepicker__day--disabled, .react-datepicker__month-text--disabled, .react-datepicker__quarter-text--disabled, .react-datepicker__year-text--disabled {
+.react-datepicker__day--disabled,
+.react-datepicker__month-text--disabled,
+.react-datepicker__quarter-text--disabled,
+.react-datepicker__year-text--disabled {
   color: #938e8e;
 }
 
@@ -7072,7 +7089,8 @@ h2.react-datepicker__current-month {
   width: 410px;
 }
 
-.react-datepicker__day, .react-datepicker__time-name {
+.react-datepicker__day,
+.react-datepicker__time-name {
   font-size: 14px;
 }
 
@@ -7089,25 +7107,15 @@ h2.react-datepicker__current-month {
   transform: rotate(180deg);
 }
 
-
-
-
-/* new-drop-date-paker-box *//* new-drop-date-paker-box *//* new-drop-date-paker-box *//* new-drop-date-paker-box */
-/* new-drop-date-paker-box *//* new-drop-date-paker-box *//* new-drop-date-paker-box *//* new-drop-date-paker-box */
-/* new-drop-date-paker-box *//* new-drop-date-paker-box *//* new-drop-date-paker-box *//* new-drop-date-paker-box */
-/* new-drop-date-paker-box *//* new-drop-date-paker-box *//* new-drop-date-paker-box *//* new-drop-date-paker-box */
+/* new-drop-date-paker-box */ /* new-drop-date-paker-box */ /* new-drop-date-paker-box */ /* new-drop-date-paker-box */
+/* new-drop-date-paker-box */ /* new-drop-date-paker-box */ /* new-drop-date-paker-box */ /* new-drop-date-paker-box */
+/* new-drop-date-paker-box */ /* new-drop-date-paker-box */ /* new-drop-date-paker-box */ /* new-drop-date-paker-box */
+/* new-drop-date-paker-box */ /* new-drop-date-paker-box */ /* new-drop-date-paker-box */ /* new-drop-date-paker-box */
 @media screen and (max-width: 1800px) {
-
   .Suggested-Tab-head.add-more-class {
     width: 75%;
+  }
 }
-}
-
-
-
-
-
-
 
 @media screen and (max-width: 1600px) {
   header {
@@ -7124,7 +7132,7 @@ h2.react-datepicker__current-month {
   }
 
   .nav-box {
-    gap: 40px;
+    gap: 24px;
   }
 
   .Flights-Tab-head ul {
@@ -8399,23 +8407,22 @@ h2.react-datepicker__current-month {
   .side-bar-container-thiviyo {
     width: 260px;
     padding: 30px 25px;
-}
+  }
 
-.fix-side-box {
+  .fix-side-box {
     gap: 20px;
-}
+  }
 
-.my-mainbox-DashboardRoutes {
+  .my-mainbox-DashboardRoutes {
     width: calc(100% - 260px);
     padding: 25px;
-}
+  }
 
-.add-button button {
+  .add-button button {
     font-size: 16px;
     padding: 8px 31px;
     border-radius: 5px;
-}
-
+  }
 
   .Sec2-card-box {
     gap: 50px;
@@ -8818,7 +8825,7 @@ h2.react-datepicker__current-month {
   }
   section.hero-sec {
     padding: 110px 0px 50px 0px;
-}
+  }
 }
 
 @media screen and (max-width: 1366px) {
@@ -8853,17 +8860,17 @@ h2.react-datepicker__current-month {
 
   .Suggested-Tab-head.add-more-class {
     width: 86%;
-}
+  }
 }
 @media screen and (max-width: 1300px) {
   .Suggested-Tab-head.add-more-class {
-      width: 91%;
+    width: 91%;
   }
 }
 
 @media screen and (max-width: 1200px) {
   .Suggested-Tab-head.add-more-class {
-      width: 98%;
+    width: 98%;
   }
 }
 @media screen and (max-width: 1024px) {
@@ -9767,10 +9774,10 @@ h2.react-datepicker__current-month {
     font-size: 10px;
   }
   .form__field:placeholder-shown ~ .form__label {
-        top: 12px;
-        font-size: 10px;
-        left: 35px;
-        padding: 0px !important;
+    top: 12px;
+    font-size: 10px;
+    left: 35px;
+    padding: 0px !important;
   }
   .Flights-Tab-input-group-icon {
     height: 18px;
@@ -9778,20 +9785,21 @@ h2.react-datepicker__current-month {
     display: flex;
     align-items: center;
     justify-content: center;
-}
+  }
 
-.Flights-Tab-input-group svg {
+  .Flights-Tab-input-group svg {
     width: 100%;
     height: 100%;
-}
+  }
 
-.Flights-Tab-input-group input {
+  .Flights-Tab-input-group input {
     top: 10px;
     position: absolute;
     width: 70%;
-}
+  }
 
-.main-Sec1 {}
+  .main-Sec1 {
+  }
   .Flights-Tab-btn-group button {
     font-size: 10px;
     padding: 8px;
@@ -9808,27 +9816,27 @@ h2.react-datepicker__current-month {
     width: 100%;
     height: 100%;
     height: 12px;
-}
+  }
   .Flights-Tab-input-group-icon {
     height: 18px;
     width: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
+  }
 
-.Flights-Tab-input-group svg {
+  .Flights-Tab-input-group svg {
     width: 100%;
     height: 100%;
-}
+  }
 
-.side-bar-container-thiviyo.open {
-  padding-top: 90px !important;
-}
+  .side-bar-container-thiviyo.open {
+    padding-top: 90px !important;
+  }
 
-.ahti {
-  z-index: 999;
-}
+  .ahti {
+    z-index: 999;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -9846,19 +9854,21 @@ h2.react-datepicker__current-month {
   .add-flight-btn-box {
     width: 40%;
   }
-  .Sec1-card {}
+  .Sec1-card {
+  }
 
   section.hero-sec.add-more-height {
-      height: 100%;
+    height: 100%;
   }
-  
+
   .Flights-Tab-form-main {
-      gap: 20px;
+    gap: 20px;
   }
   .form__group.field.one-box-add {
     height: 100%;
-}
-  .main-Sec1 {}
+  }
+  .main-Sec1 {
+  }
   .Flights-Tab-form-main {
   }
 
@@ -10125,7 +10135,6 @@ h2.react-datepicker__current-month {
 
   .tab-content li {
     width: 30%;
-
   }
 
   .tab-content {
@@ -10781,26 +10790,25 @@ h2.react-datepicker__current-month {
 
   .add-flight-section {
     padding: 30px;
-}
+  }
 
-.add-flight-section p:first-child {
+  .add-flight-section p:first-child {
     font-size: 25px;
-}
+  }
 
-.add-flight-section .input-section {
+  .add-flight-section .input-section {
     margin-top: 30px;
-}
+  }
 
-.input-main-class {
+  .input-main-class {
     padding: 9px;
     font-size: 12px;
     border-radius: 4px;
-}
+  }
 
-.btn-section2 .goBack {
+  .btn-section2 .goBack {
     padding: 10px 40px;
-}
-
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -10812,43 +10820,39 @@ h2.react-datepicker__current-month {
     width: 100% !important;
   }
 
+  .Dashboard-Tab-head.ManageCotent-class {
+    flex-direction: column;
+    gap: 12px;
+  }
 
-.Dashboard-Tab-head.ManageCotent-class {
-  flex-direction: column;
-  gap: 12px;
-}
+  .add-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
+  .Dashboard-Tab-head.ManageCotent-class ul {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
+  .Sec2-card.add-with {
+    width: 100% !important;
+  }
 
-.add-button {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  .Dashboard-top-box {
+  }
 
-.Dashboard-Tab-head.ManageCotent-class ul {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  .Dashboard-top-card {
+    width: 100%;
+  }
 
-
-
-.Sec2-card.add-with {
-  width: 100% !important;
-}
-
-.Dashboard-top-box {}
-
-.Dashboard-top-card {
-  width: 100%;
-}
-
-.Calendar-Booking .react-calendar__navigation {
-  width: 100%;
-}
+  .Calendar-Booking .react-calendar__navigation {
+    width: 100%;
+  }
   .Sort-by-box {
     width: 30%;
   }
@@ -10860,7 +10864,7 @@ h2.react-datepicker__current-month {
   }
   .Flights-Tab-btn-box {
     flex-wrap: wrap;
-}
+  }
   .Flights-Tab-form-main {
     gap: 18px;
   }
@@ -11124,7 +11128,7 @@ h2.react-datepicker__current-month {
     font-size: 14px;
     gap: 8px;
   }
-  .Flights-Tab-btn-box ul.react-tabs__tab-list{
+  .Flights-Tab-btn-box ul.react-tabs__tab-list {
     justify-content: center;
   }
   .Flights-Tab-head ul li svg {
@@ -11162,7 +11166,7 @@ h2.react-datepicker__current-month {
 
   .Sec2-tital p {
     width: 100%;
-    text-align: center  ;
+    text-align: center;
   }
 
   .Sec2-tital {
@@ -11193,8 +11197,8 @@ h2.react-datepicker__current-month {
   .Sec3-tital {
     padding-bottom: 30px;
   }
-  .faqs--description{
-    padding-top: 20px ;
+  .faqs--description {
+    padding-top: 20px;
   }
   .Sec3-card {
     width: 100%;
@@ -11685,8 +11689,6 @@ h2.react-datepicker__current-month {
     font-size: 14px;
   }
 
- 
-
   .Login-img {
     height: 40vh;
   }
@@ -11759,21 +11761,20 @@ h2.react-datepicker__current-month {
     gap: 30px;
     padding-top: 40px;
   }
-  .Select-departing-tital p{
+  .Select-departing-tital p {
     text-align: center;
   }
   .Extra-service-btn-box {
-    display: flex
-;
+    display: flex;
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
     justify-content: center;
-}
+  }
   .BookTicket-box .select-station-drop {
     padding: 12px 14px;
   }
-  .Select-departing-tital h2{
+  .Select-departing-tital h2 {
     text-align: center;
   }
   .main-page-box-toogle {
@@ -11928,5 +11929,5 @@ h2.react-datepicker__current-month {
     display: flex !important
 ;
     justify-content: left !important;
-}
+  }
 }
