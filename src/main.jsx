@@ -2,12 +2,11 @@ import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import "antd/dist/reset.css"; // ya 'antd/dist/antd.css'
 
-import "./index.css";
-import "./App.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-toastify/dist/ReactToastify.css";
+import "./index.css";
 
 import { Provider } from "react-redux";
 import { store } from "./Redux/store.js";

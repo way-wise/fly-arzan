@@ -3,7 +3,6 @@ import Scroll from "./ScrollToTop/Scroll";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./App.css";
 import { FlightProvider } from "./context/FlightContext";
 import { HotelProvider } from "./context/HotelContext";
 import { CarProvider } from "./context/CarContext";
@@ -25,7 +24,7 @@ function App() {
           `https://api.ipapi.com/api/check?access_key=${LOCATION_API_KEY}`
         );
         const data = await response.json();
-         
+
         setUserLocation({
           country_name: selectedLocalCoun?.country
             ? selectedLocalCoun?.country
@@ -33,10 +32,9 @@ function App() {
           city: selectedLocalCoun?.city ? selectedLocalCoun?.city : data?.city,
           userCountry: data?.country_name,
           userCity: data?.city,
-          curr:data?.currency?.code,
-          symbol:getSymbolFromCurrency(data?.currency?.code),
+          curr: data?.currency?.code,
+          symbol: getSymbolFromCurrency(data?.currency?.code),
         });
-        
       } catch (error) {
         console.error("Error fetching location:", error);
       }

@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import RegionModal from "../components/RegionModal/RegionModal";
 import { useCurrency } from "../context/CurrencyContext";
 import { useLocationContext } from "../context/userLocationContext";
+import { HiMenuAlt3 } from "react-icons/hi";
 
 const Header = ({ onNavigate }) => {
   const { t, i18n } = useTranslation();
@@ -172,62 +173,17 @@ const Header = ({ onNavigate }) => {
        
             </div>
             </Link> */}
-              <div className="nav-btn-box z-index-box" onClick={toggleMenu}>
-                <p className="opene">
-                  <span style={{ marginRight: "10px" }}>
-                    {menuOpen ? (
-                      // Close Icon
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="26"
-                        height="26"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="black"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                      </svg>
-                    ) : (
-                      // Menu Icon
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="26"
-                        height="26"
-                        viewBox="0 0 26 26"
-                        fill="none"
-                      >
-                        <g clipPath="url(#clip0_2173_1091)">
-                          <path
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                            d="M10.8681 20.8355C10.8681 19.9231 11.6077 19.1835 12.5201 19.1835H22.4317C23.3441 19.1835 24.0837 19.9231 24.0837 20.8355C24.0837 21.7479 23.3441 22.4874 22.4317 22.4874H12.5201C11.6077 22.4874 10.8681 21.7479 10.8681 20.8355ZM0.956421 4.31601C0.956421 3.40366 1.69601 2.66406 2.60837 2.66406H22.4317C23.3441 2.66406 24.0837 3.40366 24.0837 4.31601C24.0837 5.22835 23.3441 5.96796 22.4317 5.96796H2.60837C1.69601 5.96796 0.956421 5.22835 0.956421 4.31601ZM0.956421 12.5757C0.956421 11.6634 1.69601 10.9238 2.60837 10.9238H22.4317C23.3441 10.9238 24.0837 11.6634 24.0837 12.5757C24.0837 13.4881 23.3441 14.2277 22.4317 14.2277H2.60837C1.69601 14.2277 0.956421 13.4881 0.956421 12.5757Z"
-                            fill="#272727"
-                          />
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_2173_1091">
-                            <rect
-                              width="25"
-                              height="25"
-                              fill="white"
-                              transform="translate(0.0200195 0.0761719)"
-                            />
-                          </clipPath>
-                        </defs>
-                      </svg>
-                    )}
-                  </span>
-                  <span className="opne-close">
-                    {menuOpen
-                      ? t("upperSection.closeMenu")
-                      : t("upperSection.menu")}
-                  </span>
-                </p>
-              </div>
+              <button
+                className="flex items-center gap-2 text-[#272727]"
+                onClick={toggleMenu}
+              >
+                <HiMenuAlt3 size={25} />
+                <span className="text-xl">
+                  {menuOpen
+                    ? t("upperSection.closeMenu")
+                    : t("upperSection.menu")}
+                </span>
+              </button>
 
               <div
                 className={`menu-dropdown ${
