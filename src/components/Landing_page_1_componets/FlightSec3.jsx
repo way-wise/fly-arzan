@@ -1,12 +1,40 @@
-import React, { forwardRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { forwardRef, useRef } from "react";
 import Useful1 from "../../assets/Images/Useful1.png";
 import Useful2 from "../../assets/Images/Useful2.png";
 import Useful3 from "../../assets/Images/Useful3.png";
-import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { useTranslation } from "react-i18next";
+import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
+
+import Slider from "react-slick";
+
 const FlightSec3 = forwardRef((props, ref) => {
   const { t } = useTranslation();
+  let sliderRef = useRef(null);
+  const next = () => {
+    sliderRef.slickNext();
+  };
+  const previous = () => {
+    sliderRef.slickPrev();
+  };
+  const settings = {
+    dots: false,
+    arrows: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    appendDots: (dots) => (
+      <div
+        style={{
+          backgroundColor: "#ddd",
+          borderRadius: "10px",
+          padding: "10px",
+        }}
+      >
+        <ul style={{ margin: "0px" }}> {dots} </ul>
+      </div>
+    ),
+  };
 
   return (
     <>
@@ -16,23 +44,14 @@ const FlightSec3 = forwardRef((props, ref) => {
             <div className="Sec3-tital">
               <h2>{t("Useful Articles")}</h2>
             </div>
-            <div className="Sec3-card-splide">
-              <Splide
-                options={{
-                  type: "loop",
-                  perPage: 3,
-                  gap: "30px",
-                  breakpoints: {
-                    1200: {
-                      perPage: 2,
-                    },
-                    768: {
-                      perPage: 1,
-                    },
-                  },
+            <div className="Sec3-card-slider">
+              <Slider
+                ref={(slider) => {
+                  sliderRef = slider;
                 }}
+                {...settings}
               >
-                <SplideSlide>
+                <div key={1}>
                   <div className="Sec3-card">
                     <div className="Sec3-card-img">
                       <img src={Useful1} alt="" />
@@ -68,8 +87,8 @@ const FlightSec3 = forwardRef((props, ref) => {
                       <p> {t("Articlestitale.para1")}</p>
                     </div>
                   </div>
-                </SplideSlide>
-                <SplideSlide>
+                </div>
+                <div key={2}>
                   <div className="Sec3-card">
                     <div className="Sec3-card-img">
                       <img src={Useful2} alt="" />
@@ -105,8 +124,8 @@ const FlightSec3 = forwardRef((props, ref) => {
                       <p> {t("Articlestitale.para2")}</p>
                     </div>
                   </div>
-                </SplideSlide>
-                <SplideSlide>
+                </div>
+                <div key={3}>
                   <div className="Sec3-card">
                     <div className="Sec3-card-img">
                       <img src={Useful3} alt="" />
@@ -142,8 +161,84 @@ const FlightSec3 = forwardRef((props, ref) => {
                       <p> {t("Articlestitale.para3")}</p>
                     </div>
                   </div>
-                </SplideSlide>
-              </Splide>
+                </div>
+              </Slider>
+
+              <div className="Sec3-card-slider-arrows">
+                <button
+                  className="Sec3-card-slider-arrow-left"
+                  onClick={previous}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="48"
+                    height="49"
+                    viewBox="0 0 48 49"
+                    fill="none"
+                  >
+                    <rect
+                      x="1"
+                      y="1.78345"
+                      width="46"
+                      height="46"
+                      rx="23"
+                      fill="white"
+                    />
+                    <rect
+                      x="1"
+                      y="1.78345"
+                      width="46"
+                      height="46"
+                      rx="23"
+                      stroke="#DBDADE"
+                      strokeWidth="2"
+                    />
+                    <path
+                      d="M28 16.7834L20 24.7834L28 32.7834"
+                      stroke="#A5A2AD"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+                <button className="Sec3-card-slider-arrow-right" onClick={next}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="48"
+                    height="49"
+                    viewBox="0 0 48 49"
+                    fill="none"
+                  >
+                    <rect
+                      x="47"
+                      y="47.7834"
+                      width="46"
+                      height="46"
+                      rx="23"
+                      transform="rotate(-180 47 47.7834)"
+                      fill="white"
+                    />
+                    <rect
+                      x="47"
+                      y="47.7834"
+                      width="46"
+                      height="46"
+                      rx="23"
+                      transform="rotate(-180 47 47.7834)"
+                      stroke="#DBDADE"
+                      strokeWidth="2"
+                    />
+                    <path
+                      d="M20 32.7834L28 24.7834L20 16.7834"
+                      stroke="#A5A2AD"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
