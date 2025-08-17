@@ -921,14 +921,19 @@ section.Sec3-sec {
 }
 
 .Sec3-card-slider .slick-slider {
-  padding-bottom: 40px;
+  padding-bottom: 25px;
 }
 
-.Sec3-card-slider .slick-list .slick-slide > div {
-  padding: 0 15px;
+.Sec3-card-slider .slick-list {
+  margin: 0 -15px;
+  padding-bottom: 15px;
 }
 
-.Sec3-card-slider-arrows {
+.Sec3-card-slider .slick-slide {
+  padding: 0px 15px;
+}
+
+.Sec3-card-slider-navigation {
   width: 100%;
   display: flex;
   align-items: center;
@@ -940,6 +945,26 @@ section.Sec3-sec {
   border: 0;
   outline: none;
   background-color: transparent;
+}
+
+.Sec3-card-slider-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.Sec3-card-slider-dots button {
+  border: 0;
+  outline: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #35397840;
+}
+
+.Sec3-card-slider-dots button.active {
+  background-color: #353978;
 }
 
 /* Sec________Styling________Css */
