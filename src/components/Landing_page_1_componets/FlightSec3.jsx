@@ -5,6 +5,7 @@ import Useful3 from "../../assets/Images/Useful3.png";
 import { useTranslation } from "react-i18next";
 
 import Slider from "react-slick";
+import { Link } from "react-router-dom";
 
 const FlightSec3 = forwardRef((props, ref) => {
   const { t } = useTranslation();
@@ -252,6 +253,12 @@ const FlightSec3 = forwardRef((props, ref) => {
                   </svg>
                 </button>
               </div>
+            </div>
+
+            <div className="Sec3-explore-btn-container">
+              <Link to="/blog" className="Sec3-explore-btn">
+                Explore More
+              </Link>
             </div>
           </div>
         </div>
