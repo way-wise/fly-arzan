@@ -260,7 +260,7 @@ button.swich svg {
 section.hero-sec {
   width: 100%;
   background-image: url(../src/assets/Images/hero_bg.png);
-  padding: 130px 0px 60px 0px;
+  padding: 60px 0;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1527,15 +1527,8 @@ section.Flight-Departing {
   z-index: 333;
 }
 
-section.hero-sec.add-more-height {
-  height: 65vh;
-}
-
 .Select-departing-card.height-auto {
   height: auto !important;
-}
-
-.Toastify {
 }
 
 .Nonstop-btn-box .dropdwon-1-list {
@@ -7267,10 +7260,6 @@ h2.react-datepicker__current-month {
     padding-top: 15px;
   }
 
-  section.hero-sec {
-    padding: 150px 0px 50px 0px;
-  }
-
   .Sec1-card-icon {
     width: 90px;
     height: 90px;
@@ -8328,10 +8317,6 @@ h2.react-datepicker__current-month {
   .Flights-Tab-input-group input {
     font-size: 12px;
   }
-
-  section.hero-sec.add-more-height {
-    height: 58vh;
-  }
   .Suggested-Tab-head.add-more-class {
     width: 85%;
   }
@@ -8927,9 +8912,6 @@ h2.react-datepicker__current-month {
   .car-section-progess .main-class-ProgressBar {
     padding-top: 6.75% !important;
   }
-  section.hero-sec {
-    padding: 110px 0px 50px 0px;
-  }
 }
 
 @media screen and (max-width: 1366px) {
@@ -9141,10 +9123,6 @@ h2.react-datepicker__current-month {
     padding: 12px 15px;
   }
 
-  section.hero-sec {
-    padding: 110px 0px 40px 0px;
-  }
-
   .Sec1-card-icon {
     width: 60px;
     height: 60px;
@@ -9153,9 +9131,6 @@ h2.react-datepicker__current-month {
   .Sec1-card-icon img {
     width: 25px;
     height: 25px;
-  }
-
-  ::before {
   }
 
   .main-Sec1:before {
@@ -9958,12 +9933,6 @@ h2.react-datepicker__current-month {
   .add-flight-btn-box {
     width: 40%;
   }
-  .Sec1-card {
-  }
-
-  section.hero-sec.add-more-height {
-    height: 100%;
-  }
 
   .Flights-Tab-form-main {
     gap: 20px;
@@ -9971,16 +9940,9 @@ h2.react-datepicker__current-month {
   .form__group.field.one-box-add {
     height: 100%;
   }
-  .main-Sec1 {
-  }
-  .Flights-Tab-form-main {
-  }
 
   .Flights-Tab-form-main .Flights-Tab-input-group {
     width: 47%;
-  }
-
-  .Flights-Tab-form-main {
   }
 
   .Flights-Tab-form-main {
@@ -10093,10 +10055,6 @@ h2.react-datepicker__current-month {
 
   .Flights_Booking_buttons1 button {
     width: 250px;
-  }
-
-  section.hero-sec {
-    padding: 100px 0px 30px 0px;
   }
 
   .form__field:placeholder-shown ~ .form__label {
@@ -10974,10 +10932,6 @@ h2.react-datepicker__current-month {
   .Contact--details {
     min-width: 100%;
     max-width: 100%;
-  }
-
-  section.hero-sec.add-more-height {
-    height: 100%;
   }
 
   .Flights-box {
