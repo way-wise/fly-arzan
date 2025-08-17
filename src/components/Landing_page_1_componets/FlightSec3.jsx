@@ -3,6 +3,7 @@ import Useful1 from "../../assets/Images/Useful1.png";
 import Useful2 from "../../assets/Images/Useful2.png";
 import Useful3 from "../../assets/Images/Useful3.png";
 import { useTranslation } from "react-i18next";
+import { IoArrowForwardOutline } from "react-icons/io5";
 
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
@@ -257,7 +258,8 @@ const FlightSec3 = forwardRef((props, ref) => {
 
             <div className="Sec3-explore-btn-container">
               <Link to="/blog" className="Sec3-explore-btn">
-                Explore More
+                <span>Explore More</span>
+                <IoArrowForwardOutline />
               </Link>
             </div>
           </div>
