@@ -24,64 +24,55 @@ import FilterFlights from "../components/Filter_Flights_componets/FilterFlights"
 import COVID from "../header-footer/COVID";
 import VisaRequirements from "../header-footer/VisaRequirements";
 import Airport from "../header-footer/Airport";
-
-
+import Test from "../pages/Test/Test";
 
 const Routes = () => {
-
-
-
-
   return useRoutes([
+    { path: "", element: <LandingFlights /> },
+    { path: "/test", element: <Test /> },
 
-    { path: "", element: <LandingFlights />, },
+    { path: "/Hotels", element: <LandingHotels /> },
 
-    { path: "/Hotels", element: <LandingHotels />, },
+    { path: "/Car", element: <LandingCar /> },
 
-    { path: "/Car", element: <LandingCar />, },
+    { path: "/FlightsInner", element: <FlightsInner /> },
 
-    { path: "/FlightsInner", element: <FlightsInner />, },
+    { path: "/FlightsInner2", element: <FlightsInner2 /> },
 
-    { path: "/FlightsInner2", element: <FlightsInner2 />, },
+    { path: "/Recentactivities", element: <Recentactivities /> },
 
-    { path: "/Recentactivities", element: <Recentactivities />, },
+    { path: "/HotelsInner", element: <HotelsInner /> },
 
-    { path: "/HotelsInner", element: <HotelsInner />, },
+    { path: "/CarInner", element: <CarInner /> },
 
-    { path: "/CarInner", element: <CarInner />, },
+    { path: "/Faq", element: <FaqInner /> },
 
-    { path: "/Faq", element: <FaqInner />, },
+    { path: "/BookYourTicket", element: <BookYourTicket /> },
 
-    { path: "/BookYourTicket", element: <BookYourTicket />, },
+    { path: "/ReviewInner", element: <ReviewInner /> },
 
-    { path: "/ReviewInner", element: <ReviewInner />, },
+    { path: "/About", element: <About /> },
 
-    { path: "/About", element: <About />, },
+    { path: "/Contact", element: <Contact /> },
 
-    { path: "/Contact", element: <Contact />, },
+    { path: "/PrivacyPolicy", element: <PrivacyPolicy /> },
 
-    { path: "/PrivacyPolicy", element: <PrivacyPolicy />, },
+    { path: "/Login", element: <Login /> },
 
+    { path: "/Singup", element: <Singup /> },
 
+    { path: "/loader", element: <WeDirecting /> },
 
-    { path: "/Login", element: <Login />, },
+    { path: "/Dashboard/*", element: <Dashboard /> },
 
-    { path: "/Singup", element: <Singup />, },
+    { path: "/FlightsBooking", element: <Booking_StepFormmain /> },
+    { path: "/flight-search", element: <FilterFlights /> },
 
-    { path: "/loader", element: <WeDirecting />, },
+    { path: "/COVID", element: <COVID /> },
 
-    { path: "/Dashboard/*", element: <Dashboard />, },
+    { path: "/Airport", element: <Airport /> },
 
-    { path: "/FlightsBooking", element: <Booking_StepFormmain />, },
-    { path: "/flight-search", element: <FilterFlights />, },
-
-
-    { path: "/COVID", element: <COVID />, },
-
-
-    { path: "/Airport", element: <Airport />, },
-
-    { path: "/VisaRequirements", element: <VisaRequirements/>, },
+    { path: "/VisaRequirements", element: <VisaRequirements /> },
   ]);
 };
 

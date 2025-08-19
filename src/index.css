@@ -1,9 +1,23 @@
-@import "tailwindcss";
+@import "tailwindcss" prefix(tw);
+@plugin "@tailwindcss/forms";
 
-* {
-  padding: 0px;
-  margin: 0px;
-  box-sizing: border-box;
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+}
+
+:root {
+  --primary-color: #50add8;
+  --dark-purple-color: #000057;
+  --secondary-color: #a5a2ad;
+  --muted-color: #dbdade;
+}
+
+@theme inline {
+  --color-primary: var(--primary-color);
+  --color-dark-purple: var(--dark-purple-color);
+  --color-secondary: var(--secondary-color);
+  --color-muted: var(--muted-color);
 }
 
 @font-face {
