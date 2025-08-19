@@ -34,6 +34,7 @@ const HeroSearchFilter = () => {
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="flights">
+                {/* Flight Type Radio Selectors */}
                 <div className="tw:flex tw:gap-5 tw:items-center tw:mb-5">
                   <div className="tw:flex tw:items-center tw:gap-2">
                     <input
@@ -88,6 +89,7 @@ const HeroSearchFilter = () => {
                   </div>
                 </div>
 
+                {/* Flight Type Forms */}
                 {flightType === "oneWay" && <OneWayFlightForm />}
               </TabsContent>
               <TabsContent value="hotels">
