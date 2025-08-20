@@ -21,6 +21,9 @@ import {
 } from "@/components/ui/select";
 import { Minus, Plus } from "lucide-react";
 import Calendar from "../../calendar";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { string, number, object, date } from "yup";
 
 const city = [
   { id: 1, name: "New York", code: "NYC", state: "NY" },
@@ -36,17 +39,58 @@ const city = [
 ];
 
 const OneWayForm = () => {
-  const [selectedFlyingFrom, setSelectedFlyingFrom] = useState(null);
-  const [selectedFlyingTo, setSelectedFlyingTo] = useState(null);
   const [queryFrom, setQueryFrom] = useState("");
   const [queryTo, setQueryTo] = useState("");
 
-  // Travellers & Cabin Class state
-  const [travellers, setTravellers] = useState({
-    cabin: "economy",
-    adults: 1,
-    children: 0,
+  const OneWayFormSchema = object({
+    flyingFrom: object()
+      .shape({
+        id: number().required(),
+        name: string().required(),
+        code: string().required(),
+        state: string().required(),
+      })
+      .required("Flying From is required"),
+    flyingTo: object()
+      .shape({
+        id: number().required(),
+        name: string().required(),
+        code: string().required(),
+        state: string().required(),
+      })
+      .required("Flying To is required"),
+    travellers: object({
+      cabin: string().required("Cabin is required"),
+      adults: number().required("Adults is required"),
+      children: number().required("Children is required"),
+    }),
+    depart: date().required("Depart date is required"),
   });
+
+  const {
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(OneWayFormSchema),
+    defaultValues: {
+      flyingFrom: null,
+      flyingTo: null,
+      travellers: {
+        cabin: "economy",
+        adults: 1,
+        children: 0,
+      },
+      depart: "",
+    },
+  });
+
+  // Watch form values
+  const formValues = watch();
+  const { flyingFrom, flyingTo, travellers, depart } = formValues;
+
+  // Travellers & Cabin Class state
   const [travellersOpen, setTravellersOpen] = useState(false);
   const [travellersApplied, setTravellersApplied] = useState(false);
 
@@ -63,7 +107,6 @@ const OneWayForm = () => {
 
   // Date state
   const [dateOpen, setDateOpen] = useState(false);
-  const [date, setDate] = useState(new Date());
 
   // Mock Data
   const filteredCityFrom =
@@ -82,19 +125,19 @@ const OneWayForm = () => {
         });
 
   return (
-    <form>
+    <form onSubmit={handleSubmit((data) => console.log(data))}>
       <fieldset className="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:xl:grid-cols-4 tw:2xl:flex tw:items-center tw:gap-4">
         {/* Flying From */}
         <Combobox
-          value={selectedFlyingFrom}
+          value={flyingFrom}
           virtual={{ options: filteredCityFrom }}
-          onChange={setSelectedFlyingFrom}
+          onChange={(value) => setValue("flyingFrom", value)}
           onClose={() => setQueryFrom("")}
         >
           <div className="tw:relative">
             <ComboboxInput
               id="flyingFrom"
-              displayValue={(city) => city?.name}
+              displayValue={(city) => city?.name || ""}
               onChange={(event) => setQueryFrom(event.target.value)}
               className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0"
               placeholder="From"
@@ -117,15 +160,15 @@ const OneWayForm = () => {
         </Combobox>
         {/* Flying To */}
         <Combobox
-          value={selectedFlyingTo}
+          value={flyingTo}
           virtual={{ options: filteredCityTo }}
-          onChange={setSelectedFlyingTo}
+          onChange={(value) => setValue("flyingTo", value)}
           onClose={() => setQueryTo("")}
         >
           <div className="tw:relative">
             <ComboboxInput
               id="flyingTo"
-              displayValue={(city) => city?.name}
+              displayValue={(city) => city?.name || ""}
               onChange={(event) => setQueryTo(event.target.value)}
               className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0"
               placeholder="To"
@@ -174,9 +217,7 @@ const OneWayForm = () => {
               </label>
               <Select
                 value={travellers.cabin}
-                onValueChange={(value) =>
-                  setTravellers((prev) => ({ ...prev, cabin: value }))
-                }
+                onValueChange={(value) => setValue("travellers.cabin", value)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select Cabin" />
@@ -201,10 +242,10 @@ const OneWayForm = () => {
                 <button
                   type="button"
                   onClick={() =>
-                    setTravellers((prev) => ({
-                      ...prev,
-                      adults: Math.max(1, prev.adults - 1),
-                    }))
+                    setValue(
+                      "travellers.adults",
+                      Math.max(1, travellers.adults - 1)
+                    )
                   }
                   className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100"
                 >
@@ -214,10 +255,10 @@ const OneWayForm = () => {
                 <button
                   type="button"
                   onClick={() =>
-                    setTravellers((prev) => ({
-                      ...prev,
-                      adults: Math.min(9, prev.adults + 1),
-                    }))
+                    setValue(
+                      "travellers.adults",
+                      Math.min(9, travellers.adults + 1)
+                    )
                   }
                   className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100"
                 >
@@ -235,10 +276,10 @@ const OneWayForm = () => {
                 <button
                   type="button"
                   onClick={() =>
-                    setTravellers((prev) => ({
-                      ...prev,
-                      children: Math.max(0, prev.children - 1),
-                    }))
+                    setValue(
+                      "travellers.children",
+                      Math.max(0, travellers.children - 1)
+                    )
                   }
                   className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100"
                 >
@@ -248,10 +289,10 @@ const OneWayForm = () => {
                 <button
                   type="button"
                   onClick={() =>
-                    setTravellers((prev) => ({
-                      ...prev,
-                      children: Math.min(9, prev.children + 1),
-                    }))
+                    setValue(
+                      "travellers.children",
+                      Math.min(9, travellers.children + 1)
+                    )
                   }
                   className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100"
                 >
@@ -265,7 +306,11 @@ const OneWayForm = () => {
               <button
                 type="button"
                 onClick={() => {
-                  setTravellers({ cabin: "economy", adults: 1, children: 0 });
+                  setValue("travellers", {
+                    cabin: "economy",
+                    adults: 1,
+                    children: 0,
+                  });
                   setTravellersApplied(false);
                   setTravellersOpen(false);
                 }}
@@ -296,7 +341,9 @@ const OneWayForm = () => {
                 id="depart"
                 className="tw:peer tw:py-[10px] tw:ps-5 tw:pe-16 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default"
                 placeholder="Depart"
-                value={date.toLocaleDateString()}
+                value={
+                  depart instanceof Date ? depart.toLocaleDateString() : ""
+                }
                 readOnly
               />
               <label
@@ -309,9 +356,9 @@ const OneWayForm = () => {
           </PopoverTrigger>
           <PopoverContent>
             <Calendar
-              selected={date}
+              selected={depart}
               onSelect={(d) => {
-                setDate(d);
+                setValue("depart", d);
                 setDateOpen(false);
               }}
             />

@@ -25,11 +25,15 @@ import COVID from "../header-footer/COVID";
 import VisaRequirements from "../header-footer/VisaRequirements";
 import Airport from "../header-footer/Airport";
 import Test from "../pages/Test/Test";
+import FlightSearchPage from "../pages/search/flight-search-page";
 
 const Routes = () => {
   return useRoutes([
     { path: "", element: <LandingFlights /> },
+
     { path: "/test", element: <Test /> },
+
+    { path: "/search/flight", element: <FlightSearchPage /> },
 
     { path: "/Hotels", element: <LandingHotels /> },
 
