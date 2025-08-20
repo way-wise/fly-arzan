@@ -1,4 +1,5 @@
 @import "tailwindcss" prefix(tw);
+@import "tw-animate-css";
 @plugin "@tailwindcss/forms";
 
 @utility container {
