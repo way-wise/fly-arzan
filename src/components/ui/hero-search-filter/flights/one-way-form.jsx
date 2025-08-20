@@ -24,6 +24,7 @@ import Calendar from "../../calendar";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { string, number, object, date } from "yup";
+import { useNavigate } from "react-router-dom";
 
 const city = [
   { id: 1, name: "New York", code: "NYC", state: "NY" },
@@ -39,6 +40,7 @@ const city = [
 ];
 
 const OneWayForm = () => {
+  const navigate = useNavigate();
   const [queryFrom, setQueryFrom] = useState("");
   const [queryTo, setQueryTo] = useState("");
 
@@ -71,7 +73,7 @@ const OneWayForm = () => {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors },
+    formState: { isSubmitting },
   } = useForm({
     resolver: yupResolver(OneWayFormSchema),
     defaultValues: {
@@ -124,8 +126,13 @@ const OneWayForm = () => {
           return city.name.toLowerCase().includes(queryTo.toLowerCase());
         });
 
+  const onSubmit = (data) => {
+    console.log(data);
+    navigate("/search/flight");
+  };
+
   return (
-    <form onSubmit={handleSubmit((data) => console.log(data))}>
+    <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
       <fieldset className="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:xl:grid-cols-4 tw:2xl:flex tw:items-center tw:gap-4">
         {/* Flying From */}
         <Combobox
@@ -365,7 +372,10 @@ const OneWayForm = () => {
           </PopoverContent>
         </Popover>
         {/* Search Button */}
-        <button className="tw:w-full tw:md:!w-fit tw:px-5 tw:h-[62px] tw:2xl:px-0 tw:2xl:!w-[62px] tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2">
+        <button
+          className="tw:w-full tw:md:!w-fit tw:px-5 tw:h-[62px] tw:2xl:px-0 tw:2xl:!w-[62px] tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
+          disabled={isSubmitting}
+        >
           <IoSearchOutline size={28} />
           <span className="tw:2xl:hidden tw:text-xl tw:font-medium">
             Search
