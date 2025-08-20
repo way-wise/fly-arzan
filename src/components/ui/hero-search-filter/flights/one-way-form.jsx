@@ -18,7 +18,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../select";
+} from "@/components/ui/select";
 import { Minus, Plus } from "lucide-react";
 
 const city = [
