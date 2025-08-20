@@ -40,6 +40,26 @@ const OneWayForm = () => {
   const [queryFrom, setQueryFrom] = useState("");
   const [queryTo, setQueryTo] = useState("");
 
+  // Travellers & Cabin Class state
+  const [travellers, setTravellers] = useState({
+    cabin: "economy",
+    adults: 1,
+    children: 0,
+  });
+  const [travellersOpen, setTravellersOpen] = useState(false);
+  const [travellersApplied, setTravellersApplied] = useState(false);
+
+  const totalTravellers = travellers.adults + travellers.children;
+  const cabinLabelMap = {
+    economy: "Economy",
+    premium_economy: "Premium Economy",
+    business: "Business",
+    first_class: "First Class",
+  };
+  const travellersSummary = `${totalTravellers} Traveller${
+    totalTravellers !== 1 ? "s" : ""
+  }, ${cabinLabelMap[travellers.cabin]}`;
+
   // Mock Data
   const filteredCityFrom =
     queryFrom === ""
@@ -122,7 +142,7 @@ const OneWayForm = () => {
           </div>
         </Combobox>
         {/* Travellers & Cabin Class */}
-        <Popover>
+        <Popover open={travellersOpen} onOpenChange={setTravellersOpen}>
           <PopoverTrigger asChild>
             <div className="tw:relative tw:grow">
               <input
@@ -130,6 +150,7 @@ const OneWayForm = () => {
                 id="travellers"
                 className="tw:peer tw:py-[10px] tw:ps-5 tw:pe-16 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default"
                 placeholder="Travellers"
+                value={travellersApplied ? travellersSummary : ""}
                 readOnly
               />
               <label
@@ -146,12 +167,17 @@ const OneWayForm = () => {
               <label htmlFor="cabin" className="tw:font-medium">
                 Cabin Class
               </label>
-              <Select>
+              <Select
+                value={travellers.cabin}
+                onValueChange={(value) =>
+                  setTravellers((prev) => ({ ...prev, cabin: value }))
+                }
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Select Cabin" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="economy">Economoy</SelectItem>
+                  <SelectItem value="economy">Economy</SelectItem>
                   <SelectItem value="premium_economy">
                     Premium Economy
                   </SelectItem>
@@ -167,30 +193,91 @@ const OneWayForm = () => {
                 Adults (Age 18+)
               </label>
               <div className="tw:flex tw:items-center tw:justify-between tw:gap-2 tw:border tw:border-muted tw:!rounded-md tw:p-2">
-                <button className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setTravellers((prev) => ({
+                      ...prev,
+                      adults: Math.max(1, prev.adults - 1),
+                    }))
+                  }
+                  className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100"
+                >
                   <Minus />
                 </button>
-                <span className="tw:text-lg">1</span>
-                <button className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100">
+                <span className="tw:text-lg">{travellers.adults}</span>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setTravellers((prev) => ({
+                      ...prev,
+                      adults: Math.min(9, prev.adults + 1),
+                    }))
+                  }
+                  className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100"
+                >
                   <Plus />
                 </button>
               </div>
             </div>
 
             {/* Children Travellers */}
-            <div className="tw:flex tw:flex-col">
+            <div className="tw:flex tw:flex-col tw:mb-3">
               <label htmlFor="children" className="tw:font-medium">
                 Children (Age 0-17)
               </label>
               <div className="tw:flex tw:items-center tw:justify-between tw:gap-2 tw:border tw:border-muted tw:!rounded-md tw:p-2">
-                <button className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setTravellers((prev) => ({
+                      ...prev,
+                      children: Math.max(0, prev.children - 1),
+                    }))
+                  }
+                  className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100"
+                >
                   <Minus />
                 </button>
-                <span className="tw:text-lg">0</span>
-                <button className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100">
+                <span className="tw:text-lg">{travellers.children}</span>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setTravellers((prev) => ({
+                      ...prev,
+                      children: Math.min(9, prev.children + 1),
+                    }))
+                  }
+                  className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100"
+                >
                   <Plus />
                 </button>
               </div>
+            </div>
+
+            {/* Apply & Reset Button */}
+            <div className="tw:flex tw:items-center tw:flex-wrap tw:lg:flex-nowrap tw:gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setTravellers({ cabin: "economy", adults: 1, children: 0 });
+                  setTravellersApplied(false);
+                  setTravellersOpen(false);
+                }}
+                className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100 tw:font-medium"
+              >
+                Reset
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setTravellersApplied(true);
+                  setTravellersOpen(false);
+                }}
+                className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:transition tw:!rounded tw:duration-100 tw:font-medium"
+              >
+                Apply
+              </button>
             </div>
           </PopoverContent>
         </Popover>
