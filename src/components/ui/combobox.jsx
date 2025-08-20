@@ -43,7 +43,7 @@ const ComboboxOptions = ({ children, ...props }) => {
 };
 
 ComboboxOptions.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   className: PropTypes.string,
 };
 
