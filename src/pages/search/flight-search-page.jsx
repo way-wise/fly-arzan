@@ -1,4 +1,5 @@
 import OneWayForm from "@/components/ui/hero-search-filter/flights/one-way-form";
+import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { CalendarDays } from "lucide-react";
 import { useState } from "react";
@@ -101,9 +102,7 @@ const FlightSearchPage = () => {
 
         {/* Progress Bar */}
         <div className="tw:container tw:py-[30px]">
-          <div className="tw:flex tw:items-center tw:gap-2">
-            <div className="tw:w-full tw:h-1.5 tw:bg-primary tw:rounded-full"></div>
-          </div>
+          <Progress isLoading={true} />
         </div>
       </div>
     </div>
