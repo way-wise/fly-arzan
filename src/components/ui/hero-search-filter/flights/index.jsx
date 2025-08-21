@@ -2,6 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { GiCommercialAirplane } from "react-icons/gi";
 import { FaHotel, FaCar } from "react-icons/fa6";
 import OneWayFlightForm from "./one-way-form";
+import RoundWayFlightForm from "./round-way-form";
 import { useState } from "react";
 
 const HeroSearchFilter = () => {
@@ -91,12 +92,17 @@ const HeroSearchFilter = () => {
 
                 {/* Flight Type Forms */}
                 {flightType === "oneWay" && <OneWayFlightForm />}
+                {flightType === "roundWay" && <RoundWayFlightForm />}
               </TabsContent>
               <TabsContent value="hotels">
-                <p>Hotels</p>
+                <p className="tw:text-center tw:text-xl tw:text-secondary">
+                  Coming Soon
+                </p>
               </TabsContent>
               <TabsContent value="cars">
-                <p>Cars</p>
+                <p className="tw:text-center tw:text-xl tw:text-secondary">
+                  Coming Soon
+                </p>
               </TabsContent>
             </Tabs>
           </div>

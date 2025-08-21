@@ -9,10 +9,11 @@ import FlightFaq from "../components/Landing_page_1_componets/FlightFaq";
 import FlightSec1 from "../components/Landing_page_1_componets/FlightSec1";
 import { FlightContext } from "../context/FlightContext";
 import { useLocation } from "react-router-dom";
+import HeroSearchFilter from "@/components/ui/hero-search-filter/flights";
 
 const LandingFlights = () => {
-    const location = useLocation();
-  
+  const location = useLocation();
+
   const { setContextData } = useContext(FlightContext);
   useEffect(() => {
     setContextData(null);
@@ -25,26 +26,29 @@ const LandingFlights = () => {
     faq: useRef(null),
   };
 
-  const scrollToSection = (key) => {
-    console.log(key);
+  // const scrollToSection = (key) => {
+  //   console.log(key);
 
-    sectionRefs[key]?.current?.scrollIntoView({ behavior: "smooth" });
-  };
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const target = params.get("scrollTo");
+  //   sectionRefs[key]?.current?.scrollIntoView({ behavior: "smooth" });
+  // };
+  // useEffect(() => {
+  //   const params = new URLSearchParams(location.search);
+  //   const target = params.get("scrollTo");
 
-    if (target && sectionRefs[target]) {
-      // Add small delay to wait for render
-      setTimeout(() => {
-        scrollToSection(target);
-      }, 300);
-    }
-  }, [location]);
+  //   if (target && sectionRefs[target]) {
+  //     // Add small delay to wait for render
+  //     setTimeout(() => {
+  //       scrollToSection(target);
+  //     }, 300);
+  //   }
+  // }, [location]);
+
   return (
     <>
-      <Header onNavigate={scrollToSection} />
-      <FlightHero />
+      {/* <Header onNavigate={scrollToSection} /> */}
+      <Header />
+      {/* <FlightHero /> */}
+      <HeroSearchFilter />
       <FlightSec1 />
       <FlightSec2 ref={sectionRefs.sec2} />
       <FlightSec3 ref={sectionRefs.sec3} />
