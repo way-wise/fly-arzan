@@ -86,6 +86,34 @@ const FlightSearchResults = () => {
           </label>
         ))}
       </div>
+
+      {/* Available Flight List */}
+      <div className="tw:rounded-xl tw:bg-white tw:shadow tw:p-4 tw:flex tw:items-center tw:justify-between">
+        {/* Airline Logo, Code */}
+        <div className="tw:flex tw:flex-col tw:justify-center tw:items-center tw:gap-0.5">
+          <img src="/images/airlines/flyDubai.png" className="tw:h-[50px]" />
+          <span className="tw:text-sm tw:text-secondary">dlydubai</span>
+          <span className="tw:text-sm tw:text-secondary">FDB - 1984</span>
+        </div>
+
+        {/* Time, Stop, Airline */}
+        <div className="tw:flex tw:items-center tw:gap-6">
+          {/* Depart */}
+          <div className="tw:flex tw:flex-col tw:gap-1 tw:text-right">
+            <span className="tw:font-semibold">02:10</span>
+            <span className="tw:text-sm tw:text-[#5D586C]">IST</span>
+          </div>
+        </div>
+
+        {/* Price Select Button */}
+        <div className="tw:py-4 tw:px-6 tw:bg-[#F2FAFF] tw:rounded-xl tw:flex tw:flex-col tw:items-center tw:gap-3">
+          <button className="tw:bg-primary tw:py-2 tw:px-[30px] tw:flex tw:flex-col tw:!text-white tw:!rounded-full">
+            <span className="tw:text-sm">Select</span>
+            <span className="tw:text-xl tw:font-medium">$241</span>
+          </button>
+          <span className="tw:text-sm tw:text-[#939393]">$482 Total</span>
+        </div>
+      </div>
     </div>
   );
 };

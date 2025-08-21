@@ -105,14 +105,14 @@ const FlightSearchPage = () => {
           </div>
 
           {/* Progress Bar */}
-          <div className="container tw:py-[30px]">
+          <div className="container tw:!py-[30px]">
             <Progress isLoading={true} />
           </div>
 
           {/* Flight Search Results */}
           <div className="container">
             <div className="tw:flex tw:gap-[30px]">
-              <div className="tw:w-[270px] tw:shrink-0">
+              <div className="tw:w-[270px] tw:shrink-0 tw:hidden tw:lg:block">
                 <SearchFilterSidebar />
               </div>
               <div className="tw:grow">
