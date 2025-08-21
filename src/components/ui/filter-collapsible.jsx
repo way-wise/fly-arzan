@@ -20,7 +20,7 @@ export const FilterCollapsible = ({ title, children }) => {
       <CollapsibleTrigger asChild>
         <button
           className={cn(
-            "tw:flex tw:w-full tw:cursor-pointer tw:items-center tw:justify-between tw:gap-2 tw:rounded-md tw:transition-colors tw:focus-visible:outline-hidden tw:p-5"
+            "tw:flex tw:w-full tw:cursor-pointer tw:items-center tw:justify-between tw:gap-2 tw:rounded-md tw:transition-colors tw:focus-visible:!outline-hidden tw:p-5 tw:focus-visible:bg-light-purple/10"
           )}
         >
           <div className="tw:flex tw:items-center tw:gap-2">
@@ -34,7 +34,7 @@ export const FilterCollapsible = ({ title, children }) => {
         </button>
       </CollapsibleTrigger>
       <CollapsibleContent>
-        <div className="tw:px-5 tw:flex tw:flex-col tw:gap-3 tw:pb-5">
+        <div className="tw:px-5 tw:flex tw:flex-col tw:gap-4 tw:pb-5 tw:pt-2.5">
           {children}
         </div>
       </CollapsibleContent>

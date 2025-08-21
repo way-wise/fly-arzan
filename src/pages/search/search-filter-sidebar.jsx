@@ -1,5 +1,6 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { FilterCollapsible } from "@/components/ui/filter-collapsible";
+import { RangeSelector } from "@/components/ui/range-selector";
 
 const SearchFilterSidebar = () => {
   return (
@@ -50,10 +51,22 @@ const SearchFilterSidebar = () => {
       </FilterCollapsible>
 
       {/* Filter Departure Times */}
-      <FilterCollapsible title="Departure Times"></FilterCollapsible>
+      <FilterCollapsible title="Departure Times">
+        <div className="tw:flex tw:flex-col tw:gap-1">
+          <span className="tw:text-[13px] tw:text-secondary">Outbound</span>
+          <span className="tw:text-sm">00:00 - 23:59</span>
+        </div>
+        <RangeSelector />
+      </FilterCollapsible>
 
       {/* Journey Duration */}
-      <FilterCollapsible title="Journey Duration"></FilterCollapsible>
+      <FilterCollapsible title="Journey Duration">
+        <div className="tw:flex tw:flex-col tw:gap-1">
+          <span className="tw:text-[13px] tw:text-secondary">Outbound</span>
+          <span className="tw:text-sm">5.0 hours - 32.00 hours</span>
+        </div>
+        <RangeSelector />
+      </FilterCollapsible>
 
       {/* Airports */}
       <FilterCollapsible title="Airports">
