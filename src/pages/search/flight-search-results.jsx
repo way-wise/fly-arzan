@@ -8,6 +8,7 @@ import {
 import { cn } from "@/lib/utils";
 import { BadgeCheck, Percent, Zap } from "lucide-react";
 import { useState } from "react";
+import { RiPlaneLine } from "react-icons/ri";
 
 const FlightSearchResults = () => {
   const [selectedTimeCost, setSelectedTimeCost] = useState(1);
@@ -100,8 +101,22 @@ const FlightSearchResults = () => {
         <div className="tw:flex tw:items-center tw:gap-6">
           {/* Depart */}
           <div className="tw:flex tw:flex-col tw:gap-1 tw:text-right">
-            <span className="tw:font-semibold">02:10</span>
+            <span className="tw:font-semibold tw:text-[20px]">02:10</span>
             <span className="tw:text-sm tw:text-[#5D586C]">IST</span>
+          </div>
+          {/* Duration & Stop */}
+          <div className="tw:flex tw:items-center tw:gap-2">
+            <div className="tw:flex tw:flex-col tw:text-center tw:gap-1">
+              <span className="tw:text-sm tw:font-semibold">4h 55</span>
+              <span className="tw:h-px tw:w-[82px] tw:bg-secondary" />
+              <span className="tw:text-sm tw:text-primary">Direct</span>
+            </div>
+            <RiPlaneLine size={24} className="tw:text-secondary tw:rotate-90" />
+          </div>
+          {/* Arrival */}
+          <div className="tw:flex tw:flex-col tw:gap-1 tw:text-left">
+            <span className="tw:font-semibold tw:text-[20px]">07:40</span>
+            <span className="tw:text-sm tw:text-[#5D586C]">DBX</span>
           </div>
         </div>
 
