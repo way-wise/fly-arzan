@@ -1,4 +1,4 @@
-import * as SelectPrimitive from "@radix-ui/react-select";
+import * as SelectPrimitive from "@goto-bus-stop/radix-select-nonmodal";
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import PropTypes from "prop-types";
 
@@ -28,7 +28,7 @@ function SelectTrigger({ className, size = "default", children, ...props }) {
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "tw:flex tw:w-full tw:items-center tw:justify-between tw:gap-2 tw:py-2 tw:px-3 tw:!rounded-md tw:border tw:border-muted tw:bg-transparent tw:text-[15px] tw:font-semibold tw:shadow-xs tw:transition tw:outline-none focus-visible:tw:border-primary focus-visible:tw:ring-0 disabled:tw:cursor-not-allowed disabled:tw:opacity-50",
+        "tw:flex tw:w-full tw:items-center tw:justify-between tw:gap-2 tw:py-2 tw:px-3 tw:!rounded-md tw:border tw:border-muted tw:bg-white tw:text-[15px] tw:font-semibold tw:shadow-xs tw:transition tw:outline-none focus-visible:tw:border-primary focus-visible:tw:ring-0 disabled:tw:cursor-not-allowed disabled:tw:opacity-50 tw:focus-visible:!outline-hidden",
         className
       )}
       {...props}
