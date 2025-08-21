@@ -34,7 +34,7 @@ export const FilterCollapsible = ({ title, children }) => {
         </button>
       </CollapsibleTrigger>
       <CollapsibleContent>
-        <div className="tw:px-5 tw:flex tw:flex-col tw:gap-2 tw:pb-5">
+        <div className="tw:px-5 tw:flex tw:flex-col tw:gap-3 tw:pb-5">
           {children}
         </div>
       </CollapsibleContent>
