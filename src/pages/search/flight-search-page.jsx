@@ -53,7 +53,7 @@ const FlightSearchPage = () => {
       <Header />
       <div className="tw:flex tw:flex-col tw:min-h-screen">
         <div className="tw:py-6 tw:bg-[#F2FAFF]">
-          <div className="tw:container">
+          <div className="container">
             <h1 className="tw:!text-[18px] tw:font-semibold tw:text-[#00000B] tw:!mb-5">
               Istanbul (IST) - Dubai (DXB) - 2 Travelers, Economy
             </h1>
@@ -65,7 +65,7 @@ const FlightSearchPage = () => {
 
         <div className="tw:bg-[#EFF3F8] tw:py-10 tw:grow">
           {/* Flexible Dates */}
-          <div className="tw:container tw:flex tw:items-center tw:gap-[10px]">
+          <div className="container tw:flex tw:items-center tw:gap-[10px]">
             <div className="tw:flex tw:items-center tw:snap-x tw:overflow-x-auto tw:scrollbar-hide tw:shadow tw:grow tw:divide-x tw:divide-muted tw:bg-white tw:rounded-xl">
               {flexibleDates.map((date) => (
                 <label
@@ -105,12 +105,12 @@ const FlightSearchPage = () => {
           </div>
 
           {/* Progress Bar */}
-          <div className="tw:container tw:py-[30px]">
+          <div className="container tw:py-[30px]">
             <Progress isLoading={true} />
           </div>
 
           {/* Flight Search Results */}
-          <div className="tw:container">
+          <div className="container">
             <div className="tw:flex tw:gap-[30px]">
               <div className="tw:w-[270px] tw:shrink-0">
                 <SearchFilterSidebar />

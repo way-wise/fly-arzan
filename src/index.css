@@ -24,7 +24,7 @@
   --color-secondary: var(--secondary-color);
   --color-muted: var(--muted-color);
 
-  --animate-progress: progress 1s linear infinite;
+  --animate-progress: progress 4s linear infinite;
   --animate-collapsible-expand: collapsible-expand 0.2s ease-out;
   --animate-collapsible-collapse: collapsible-collapse 0.2s ease-out;
 
