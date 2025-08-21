@@ -12,6 +12,7 @@
 :root {
   --primary-color: #50add8;
   --dark-purple-color: #000057;
+  --light-purple-color: #9999c5;
   --secondary-color: #a5a2ad;
   --muted-color: #dbdade;
 }
@@ -19,6 +20,7 @@
 @theme inline {
   --color-primary: var(--primary-color);
   --color-dark-purple: var(--dark-purple-color);
+  --color-light-purple: var(--light-purple-color);
   --color-secondary: var(--secondary-color);
   --color-muted: var(--muted-color);
 

@@ -1,3 +1,4 @@
+import { Checkbox } from "@/components/ui/checkbox";
 import { FilterCollapsible } from "@/components/ui/filter-collapsible";
 
 const SearchFilterSidebar = () => {
@@ -12,7 +13,29 @@ const SearchFilterSidebar = () => {
       </div>
 
       {/* Filter Stops */}
-      <FilterCollapsible title="Stops"></FilterCollapsible>
+      <FilterCollapsible title="Stops">
+        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
+          <Checkbox />
+          <div className="tw:flex tw:flex-col">
+            <span className="tw:text-sm tw:font-medium">Direct Flights</span>
+            <span className="tw:text-[13px] tw:text-secondary">from $241</span>
+          </div>
+        </label>
+        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
+          <Checkbox />
+          <div className="tw:flex tw:flex-col">
+            <span className="tw:text-sm tw:font-medium">1 Stops Flights</span>
+            <span className="tw:text-[13px] tw:text-secondary">from $129</span>
+          </div>
+        </label>
+        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
+          <Checkbox />
+          <div className="tw:flex tw:flex-col">
+            <span className="tw:text-sm tw:font-medium">2 Stops Flights</span>
+            <span className="tw:text-[13px] tw:text-secondary">from $538</span>
+          </div>
+        </label>
+      </FilterCollapsible>
 
       {/* Filter Baggage */}
       <FilterCollapsible title="Baggage"></FilterCollapsible>

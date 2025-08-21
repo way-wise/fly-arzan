@@ -27,14 +27,16 @@ export const FilterCollapsible = ({ title, children }) => {
             <span className="tw:text-[15px] tw:font-semibold">{title}</span>
           </div>
           <ChevronDown
-            className={`tw:transition ${
+            className={`tw:transition tw:text-secondary tw:stroke-[1.5] ${
               open ? "tw:rotate-180" : "tw:rotate-0"
             }`}
           />
         </button>
       </CollapsibleTrigger>
       <CollapsibleContent>
-        <div className="tw:my-1.5 tw:space-y-1.5 tw:!mt-[22px]">{children}</div>
+        <div className="tw:px-5 tw:flex tw:flex-col tw:gap-2 tw:pb-5">
+          {children}
+        </div>
       </CollapsibleContent>
     </Collapsible>
   );
