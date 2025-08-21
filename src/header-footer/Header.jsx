@@ -126,7 +126,7 @@ const Header = ({ onNavigate }) => {
                   </defs>
                 </svg>
                 {/* <p>{selectCount?.countryCode?.toUpperCase()} - £</p> */}
-                <p>
+                <p className="tw:whitespace-nowrap">
                   {selectLocalLang?.code?.toUpperCase()?.replace(/-.*$/, "") ||
                     "EN"}{" "}
                   - {selectedLocalCurr?.symbol || userLocation?.symbol}
@@ -135,7 +135,7 @@ const Header = ({ onNavigate }) => {
               {!userToken ? (
                 <Link>
                   <button
-                    className="nav-btn-box nav-login-btn"
+                    className="nav-btn-box nav-login-btn tw:whitespace-nowrap"
                     onClick={() => setShowPopup(true)}
                   >
                     Register / Login
