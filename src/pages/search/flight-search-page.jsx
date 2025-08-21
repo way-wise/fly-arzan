@@ -56,41 +56,53 @@ const FlightSearchPage = () => {
         </div>
       </div>
 
-      {/* Flexible Dates */}
-      <div className="tw:py-10 tw:bg-[#EFF3F8] tw:grow">
-        <div className="tw:container tw:flex tw:items-center tw:gap-[10px]">
-          <div className="tw:flex tw:items-center tw:snap-x tw:overflow-x-auto tw:scrollbar-hide tw:shadow tw:grow tw:divide-x tw:divide-muted tw:bg-white tw:rounded-xl">
-            {flexibleDates.map((date) => (
-              <label
-                key={date.id}
-                className={cn(
-                  "tw:snap-center tw:basis-[100px] tw:shrink-0 tw:!flex tw:flex-col tw:justify-center tw:gap-1 tw:!py-[24px] tw:!px-[20px] tw:!mb-0 tw:cursor-pointer tw:grow tw:text-center tw:h-[93px] tw:first:rounded-l-xl tw:last:rounded-r-xl",
-                  selectedFlexibleDate === date.id && "tw:bg-primary"
-                )}
-                onClick={() => setSelectedFlexibleDate(date.id)}
-              >
-                <span
+      <div className="tw:bg-[#EFF3F8] tw:grow">
+        {/* Flexible Dates */}
+        <div className="tw:pt-10">
+          <div className="tw:container tw:flex tw:items-center tw:gap-[10px]">
+            <div className="tw:flex tw:items-center tw:snap-x tw:overflow-x-auto tw:scrollbar-hide tw:shadow tw:grow tw:divide-x tw:divide-muted tw:bg-white tw:rounded-xl">
+              {flexibleDates.map((date) => (
+                <label
+                  key={date.id}
                   className={cn(
-                    "tw:text-[14px] tw:font-medium tw:text-secondary",
-                    selectedFlexibleDate === date.id && "tw:text-white"
+                    "tw:snap-center tw:basis-[100px] tw:shrink-0 tw:!flex tw:flex-col tw:justify-center tw:gap-1 tw:!py-[24px] tw:!px-[20px] tw:!mb-0 tw:cursor-pointer tw:grow tw:text-center tw:h-[93px] tw:first:rounded-l-xl tw:last:rounded-r-xl",
+                    selectedFlexibleDate === date.id && "tw:bg-primary"
                   )}
+                  onClick={() => setSelectedFlexibleDate(date.id)}
                 >
-                  {date.date}
-                </span>
-                <span
-                  className={cn(
-                    "tw:text-[20px] tw:font-semibold tw:text-primary",
-                    selectedFlexibleDate === date.id && "tw:text-white"
-                  )}
-                >
-                  {date.price}
-                </span>
-              </label>
-            ))}
+                  <span
+                    className={cn(
+                      "tw:text-[14px] tw:font-medium tw:text-secondary",
+                      selectedFlexibleDate === date.id && "tw:text-white"
+                    )}
+                  >
+                    {date.date}
+                  </span>
+                  <span
+                    className={cn(
+                      "tw:text-[20px] tw:font-semibold tw:text-primary",
+                      selectedFlexibleDate === date.id && "tw:text-white"
+                    )}
+                  >
+                    {date.price}
+                  </span>
+                </label>
+              ))}
+            </div>
+            <div className="tw:rounded-xl tw:hidden tw:bg-white tw:shadow tw:md:flex tw:flex-col tw:items-center tw:gap-2 tw:!py-[24px] tw:!px-[20px] tw:h-[93px] tw:shrink-0">
+              <CalendarDays
+                size={20}
+                className="tw:text-secondary tw:shrink-0"
+              />
+              <p className="tw:text-[14px] tw:font-medium">Flexible Dates</p>
+            </div>
           </div>
-          <div className="tw:rounded-xl tw:hidden tw:bg-white tw:shadow tw:md:flex tw:flex-col tw:items-center tw:gap-2 tw:!py-[24px] tw:!px-[20px] tw:h-[93px] tw:shrink-0">
-            <CalendarDays size={20} className="tw:text-secondary tw:shrink-0" />
-            <p className="tw:text-[14px] tw:font-medium">Flexible Dates</p>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="tw:container tw:py-[30px]">
+          <div className="tw:flex tw:items-center tw:gap-2">
+            <div className="tw:w-full tw:h-1.5 tw:bg-primary tw:rounded-full"></div>
           </div>
         </div>
       </div>
