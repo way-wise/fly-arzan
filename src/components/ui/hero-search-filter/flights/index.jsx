@@ -23,7 +23,7 @@ const HeroSearchFilter = () => {
               <TabsList>
                 <TabsTrigger value="flights">
                   <GiCommercialAirplane />
-                  <span>Flights</span>
+                  <span className="tw:font-semibold">Flights</span>
                 </TabsTrigger>
                 <TabsTrigger value="hotels">
                   <FaHotel />
