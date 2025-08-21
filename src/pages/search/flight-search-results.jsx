@@ -433,18 +433,17 @@ const FlightSearchResults = () => {
         {flightResults.map((itinerary) => (
           <div
             key={itinerary.id}
-            className="tw:rounded-xl tw:bg-white tw:shadow tw:p-4 tw:flex tw:items-center tw:justify-between"
+            className="tw:rounded-xl tw:bg-white tw:shadow tw:p-4 tw:flex tw:flex-col tw:md:flex-row tw:items-center tw:justify-between"
           >
             {/* Flight Details Section */}
-            <div className="tw:flex-grow tw:flex tw:flex-col tw:gap-4">
+            <div className="tw:flex tw:flex-col tw:justify-between tw:grow tw:gap-4 tw:px-[30px] tw:mb-8 tw:md:mb-0">
               {itinerary.flights.map((flight, index) => (
-                // This div contains one leg of the journey (departure, arrival, etc.)
                 <div
                   key={index}
-                  className="tw:flex tw:items-center tw:justify-between"
+                  className="tw:flex tw:items-center tw:justify-between tw:flex-col tw:gap-4 tw:md:gap-0 tw:md:flex-row"
                 >
                   {/* Airline Logo, Code */}
-                  <div className="tw:flex tw:flex-col tw:justify-center tw:items-center tw:gap-0.5 tw:w-1/4">
+                  <div className="tw:flex tw:flex-col tw:justify-center tw:items-center tw:gap-0.5 tw:text-center">
                     <img
                       src={itinerary.logo}
                       alt={flight.airline}
@@ -457,7 +456,7 @@ const FlightSearchResults = () => {
                   </div>
 
                   {/* Time, Stop, Airline */}
-                  <div className="tw:flex tw:items-center tw:gap-6 tw:w-1/2">
+                  <div className="tw:flex tw:items-center tw:gap-6 tw:grow tw:justify-center">
                     {/* Depart */}
                     <div className="tw:flex tw:flex-col tw:gap-1 tw:text-right">
                       <span className="tw:font-semibold tw:text-[20px]">
