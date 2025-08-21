@@ -174,7 +174,7 @@ const Header = ({ onNavigate }) => {
             </div>
             </Link> */}
               <button
-                className="flex items-center gap-2 text-[#272727]"
+                className="tw:flex tw:items-center tw:gap-2 tw:text-[#272727]"
                 onClick={toggleMenu}
               >
                 <HiMenuAlt3 size={25} />
