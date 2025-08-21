@@ -3,6 +3,8 @@ import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { CalendarDays } from "lucide-react";
 import { useState } from "react";
+import SearchFilterSidebar from "./search-filter-sidebar";
+import FlightSearchResults from "./flight-search-results";
 
 const FlightSearchPage = () => {
   const [selectedFlexibleDate, setSelectedFlexibleDate] = useState(1);
@@ -103,6 +105,18 @@ const FlightSearchPage = () => {
         {/* Progress Bar */}
         <div className="tw:container tw:py-[30px]">
           <Progress isLoading={true} />
+        </div>
+
+        {/* Flight Search Results */}
+        <div className="tw:container">
+          <div className="tw:flex tw:gap-[30px]">
+            <div className="tw:w-[270px] tw:shrink-0">
+              <SearchFilterSidebar />
+            </div>
+            <div className="tw:grow">
+              <FlightSearchResults />
+            </div>
+          </div>
         </div>
       </div>
     </div>
