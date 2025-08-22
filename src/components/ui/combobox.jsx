@@ -33,7 +33,7 @@ const ComboboxOptions = ({ children, ...props }) => {
       anchor="bottom start"
       transition
       className={cn(
-        "tw:origin-top tw:mt-2 tw:border tw:border-muted tw:transition tw:duration-200 tw:ease-out tw:empty:invisible tw:data-closed:scale-95 tw:data-closed:opacity-0 tw:bg-white tw:shadow-lg tw:rounded-lg tw:z-20 tw:p-3",
+        "tw:origin-top tw:mt-2 tw:border tw:border-muted tw:transition tw:duration-200 tw:ease-out tw:empty:invisible tw:data-closed:scale-95 tw:data-closed:opacity-0 tw:bg-white tw:shadow-lg tw:rounded-lg tw:z-50 tw:p-3",
         props.className
       )}
     >
