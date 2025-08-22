@@ -1,213 +1,45 @@
-import { Checkbox } from "@/components/ui/checkbox";
-import { FilterCollapsible } from "@/components/ui/filter-collapsible";
-import { RangeSelector } from "@/components/ui/range-selector";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerTitle,
+  DrawerDescription,
+  DrawerClose,
+  DrawerHeader,
+} from "@/components/ui/drawer";
+import { X } from "lucide-react";
+import FilterComponent from "@/components/ui/filter-component";
+import { useSidebarFilter } from "@/providers/filter-sidebar-provider";
 
 const SearchFilterSidebar = () => {
-  return (
-    <div className="tw:flex tw:flex-col tw:gap-5">
-      {/* Filter Header */}
-      <div className="tw:flex tw:items-center tw:justify-between tw:gap-2 tw:h-7">
-        <h4 className="tw:text-[15px] tw:font-medium">Filter</h4>
-        <button className="tw:bg-dark-purple tw:!text-white tw:!rounded tw:text-[13px] tw:font-medium tw:py-1.5 tw:!px-[14px]">
-          Reset Now
-        </button>
-      </div>
+  const { isMobile, openMobile, setOpenMobile } = useSidebarFilter();
 
-      {/* Filter Stops */}
-      <FilterCollapsible title="Stops">
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <div className="tw:flex tw:flex-col">
-            <span className="tw:text-sm">Direct Flights</span>
-            <span className="tw:text-[13px] tw:text-secondary">from $241</span>
+  if (isMobile) {
+    return (
+      <Drawer open={openMobile} onOpenChange={setOpenMobile}>
+        <DrawerContent>
+          <DrawerHeader>
+            <div className="flex flex-col">
+              <DrawerTitle className="text-xl font-medium sr-only">
+                Brand Logo
+              </DrawerTitle>
+              <img src="/logo.png" />
+              <DrawerDescription className="sr-only">
+                Mobile sidebar navigation
+              </DrawerDescription>
+            </div>
+            <DrawerClose>
+              <X />
+            </DrawerClose>
+          </DrawerHeader>
+          <div className="tw:p-4 tw:overflow-y-auto">
+            <FilterComponent />
           </div>
-        </label>
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <div className="tw:flex tw:flex-col">
-            <span className="tw:text-sm">1 Stops Flights</span>
-            <span className="tw:text-[13px] tw:text-secondary">from $129</span>
-          </div>
-        </label>
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <div className="tw:flex tw:flex-col">
-            <span className="tw:text-sm">2 Stops Flights</span>
-            <span className="tw:text-[13px] tw:text-secondary">from $538</span>
-          </div>
-        </label>
-      </FilterCollapsible>
+        </DrawerContent>
+      </Drawer>
+    );
+  }
 
-      {/* Filter Baggage */}
-      <FilterCollapsible title="Baggage">
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <span className="tw:text-sm">Cabin Bag</span>
-        </label>
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <span className="tw:text-sm">Checked Bag</span>
-        </label>
-      </FilterCollapsible>
-
-      {/* Filter Departure Times */}
-      <FilterCollapsible title="Departure Times">
-        <div className="tw:flex tw:flex-col tw:gap-1">
-          <span className="tw:text-[13px] tw:text-secondary">Outbound</span>
-          <span className="tw:text-sm">00:00 - 23:59</span>
-        </div>
-        <RangeSelector />
-      </FilterCollapsible>
-
-      {/* Journey Duration */}
-      <FilterCollapsible title="Journey Duration">
-        <div className="tw:flex tw:flex-col tw:gap-1">
-          <span className="tw:text-[13px] tw:text-secondary">Outbound</span>
-          <span className="tw:text-sm">5.0 hours - 32.00 hours</span>
-        </div>
-        <RangeSelector />
-      </FilterCollapsible>
-
-      {/* Airports */}
-      <FilterCollapsible title="Airports">
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <div className="tw:flex tw:flex-col">
-            <span className="tw:text-sm">Dubai</span>
-            <span className="tw:text-[13px] tw:text-secondary">DXB</span>
-          </div>
-        </label>
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <div className="tw:flex tw:flex-col">
-            <span className="tw:text-sm">Dubai Bus Station</span>
-            <span className="tw:text-[13px] tw:text-secondary">XNB</span>
-          </div>
-        </label>
-      </FilterCollapsible>
-
-      {/* Airlines */}
-      <FilterCollapsible title="Airlines">
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <div className="tw:flex tw:flex-col">
-            <span className="tw:text-sm">Aegean Airlines</span>
-            <span className="tw:text-[13px] tw:text-secondary">from $554</span>
-          </div>
-        </label>
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <div className="tw:flex tw:flex-col">
-            <span className="tw:text-sm">Air Algerie</span>
-            <span className="tw:text-[13px] tw:text-secondary">from $917</span>
-          </div>
-        </label>
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <div className="tw:flex tw:flex-col">
-            <span className="tw:text-sm">Air Astana</span>
-            <span className="tw:text-[13px] tw:text-secondary">from $419</span>
-          </div>
-        </label>
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <div className="tw:flex tw:flex-col">
-            <span className="tw:text-sm">Air China</span>
-            <span className="tw:text-[13px] tw:text-secondary">
-              from $1,288
-            </span>
-          </div>
-        </label>
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <div className="tw:flex tw:flex-col">
-            <span className="tw:text-sm">Air France</span>
-            <span className="tw:text-[13px] tw:text-secondary">from $519</span>
-          </div>
-        </label>
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <div className="tw:flex tw:flex-col">
-            <span className="tw:text-sm">airBaltic</span>
-            <span className="tw:text-[13px] tw:text-secondary">from $453</span>
-          </div>
-        </label>
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <div className="tw:flex tw:flex-col">
-            <span className="tw:text-sm">Azerbaijan Airlines</span>
-            <span className="tw:text-[13px] tw:text-secondary">from $129</span>
-          </div>
-        </label>
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <div className="tw:flex tw:flex-col">
-            <span className="tw:text-sm">British Airways</span>
-            <span className="tw:text-[13px] tw:text-secondary">from $999</span>
-          </div>
-        </label>
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <div className="tw:flex tw:flex-col">
-            <span className="tw:text-sm">Centrum Air</span>
-            <span className="tw:text-[13px] tw:text-secondary">from $370</span>
-          </div>
-        </label>
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <div className="tw:flex tw:flex-col">
-            <span className="tw:text-sm">EgyptAir</span>
-            <span className="tw:text-[13px] tw:text-secondary">from $327</span>
-          </div>
-        </label>
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <div className="tw:flex tw:flex-col">
-            <span className="tw:text-sm">Emirates</span>
-            <span className="tw:text-[13px] tw:text-secondary">from $622</span>
-          </div>
-        </label>
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <div className="tw:flex tw:flex-col">
-            <span className="tw:text-sm">Ethiopian Airlines</span>
-            <span className="tw:text-[13px] tw:text-secondary">from $538</span>
-          </div>
-        </label>
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <div className="tw:flex tw:flex-col">
-            <span className="tw:text-sm">flyadeal</span>
-            <span className="tw:text-[13px] tw:text-secondary">from $203</span>
-          </div>
-        </label>
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <div className="tw:flex tw:flex-col">
-            <span className="tw:text-sm">flydubai</span>
-            <span className="tw:text-[13px] tw:text-secondary">from $241</span>
-          </div>
-        </label>
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <div className="tw:flex tw:flex-col">
-            <span className="tw:text-sm">FLYONE</span>
-            <span className="tw:text-[13px] tw:text-secondary">from $303</span>
-          </div>
-        </label>
-      </FilterCollapsible>
-
-      {/* Flight Emissions */}
-      <FilterCollapsible title="Flight Emissions">
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox />
-          <span className="tw:text-sm">
-            Only show flights with verified emissions
-          </span>
-        </label>
-      </FilterCollapsible>
-    </div>
-  );
+  return <FilterComponent />;
 };
 
 export default SearchFilterSidebar;

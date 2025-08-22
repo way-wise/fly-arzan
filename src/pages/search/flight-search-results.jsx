@@ -6,6 +6,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import { useSidebarFilter } from "@/providers/filter-sidebar-provider";
 import { useState } from "react";
 import {
   RiPlaneLine,
@@ -16,6 +17,7 @@ import {
 } from "react-icons/ri";
 
 const FlightSearchResults = () => {
+  const { openMobile, setOpenMobile } = useSidebarFilter();
   const [selectedTimeCost, setSelectedTimeCost] = useState(1);
   const timeCostFilters = [
     {
@@ -385,13 +387,16 @@ const FlightSearchResults = () => {
     <div className="tw:flex tw:flex-col tw:gap-6">
       {/* List Header */}
       <h4 className="tw:lg:hidden tw:text-[15px] tw:font-medium tw:!mb-2 tw:text-center">
-        113 results sorted by Cheapest
+        113 results sorted by Best
       </h4>
       <div className="tw:flex tw:items-center tw:justify-between tw:gap-2 tw:h-7">
         <h4 className="tw:hidden tw:lg:block tw:text-[15px] tw:font-medium">
-          113 results sorted by Cheapest
+          113 results sorted by Best
         </h4>
-        <button className="tw:flex tw:lg:hidden tw:items-center tw:justify-between tw:gap-2 tw:py-2 tw:px-3 tw:!rounded-md tw:border tw:border-muted tw:bg-white tw:text-[15px] tw:font-semibold tw:shadow-xs tw:transition tw:outline-none focus-visible:tw:border-primary focus-visible:tw:ring-0 disabled:tw:cursor-not-allowed disabled:tw:opacity-50 tw:focus-visible:!outline-hidden">
+        <button
+          onClick={() => setOpenMobile(!openMobile)}
+          className="tw:flex tw:lg:hidden tw:items-center tw:justify-between tw:gap-2 tw:py-2 tw:px-3 tw:!rounded-md tw:border tw:border-muted tw:bg-white tw:text-[15px] tw:font-semibold tw:shadow-xs tw:transition tw:outline-none focus-visible:tw:border-primary focus-visible:tw:ring-0 disabled:tw:cursor-not-allowed disabled:tw:opacity-50 tw:focus-visible:!outline-hidden"
+        >
           <RiFilterFill size={24} />
           <span>Filter</span>
         </button>
