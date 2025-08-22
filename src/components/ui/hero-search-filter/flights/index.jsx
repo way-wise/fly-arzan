@@ -4,6 +4,7 @@ import { FaHotel, FaCar } from "react-icons/fa6";
 import OneWayFlightForm from "./one-way-form";
 import RoundWayFlightForm from "./round-way-form";
 import { useState } from "react";
+import MultiCityForm from "./multi-city-form";
 
 const HeroSearchFilter = () => {
   const [flightType, setFlightType] = useState("oneWay");
@@ -93,6 +94,7 @@ const HeroSearchFilter = () => {
                 {/* Flight Type Forms */}
                 {flightType === "oneWay" && <OneWayFlightForm />}
                 {flightType === "roundWay" && <RoundWayFlightForm />}
+                {flightType === "multiCity" && <MultiCityForm />}
               </TabsContent>
               <TabsContent value="hotels">
                 <p className="tw:text-center tw:text-xl tw:text-secondary">
