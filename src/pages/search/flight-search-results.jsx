@@ -6,9 +6,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { BadgeCheck, Percent, Zap } from "lucide-react";
 import { useState } from "react";
-import { RiPlaneLine } from "react-icons/ri";
+import {
+  RiPlaneLine,
+  RiVerifiedBadgeFill,
+  RiFlashlightFill,
+  RiPercentFill,
+  RiFilterFill,
+} from "react-icons/ri";
 
 const FlightSearchResults = () => {
   const [selectedTimeCost, setSelectedTimeCost] = useState(1);
@@ -18,21 +23,21 @@ const FlightSearchResults = () => {
       title: "Best",
       duration: "4h 30m",
       price: "$241",
-      icon: <BadgeCheck size={24} />,
+      icon: <RiVerifiedBadgeFill size={24} />,
     },
     {
       id: 2,
       title: "Cheapest",
       duration: "12h 05m",
       price: "$129",
-      icon: <Percent />,
+      icon: <RiPercentFill size={24} />,
     },
     {
       id: 3,
       title: "Fastest",
       duration: "4h 25m",
       price: "$622",
-      icon: <Zap />,
+      icon: <RiFlashlightFill size={24} />,
     },
   ];
 
@@ -379,10 +384,17 @@ const FlightSearchResults = () => {
   return (
     <div className="tw:flex tw:flex-col tw:gap-6">
       {/* List Header */}
+      <h4 className="tw:lg:hidden tw:text-[15px] tw:font-medium tw:!mb-2 tw:text-center">
+        113 results sorted by Cheapest
+      </h4>
       <div className="tw:flex tw:items-center tw:justify-between tw:gap-2 tw:h-7">
-        <h4 className="tw:text-[15px] tw:font-medium">
-          113 results sorted by Best
+        <h4 className="tw:hidden tw:lg:block tw:text-[15px] tw:font-medium">
+          113 results sorted by Cheapest
         </h4>
+        <button className="tw:flex tw:lg:hidden tw:items-center tw:justify-between tw:gap-2 tw:py-2 tw:px-3 tw:!rounded-md tw:border tw:border-muted tw:bg-white tw:text-[15px] tw:font-semibold tw:shadow-xs tw:transition tw:outline-none focus-visible:tw:border-primary focus-visible:tw:ring-0 disabled:tw:cursor-not-allowed disabled:tw:opacity-50 tw:focus-visible:!outline-hidden">
+          <RiFilterFill size={24} />
+          <span>Filter</span>
+        </button>
         <div className="tw:flex tw:items-center tw:gap-2 tw:relative">
           <span className="tw:whitespace-nowrap tw:font-medium">Sort By</span>
           <Select>
@@ -399,17 +411,23 @@ const FlightSearchResults = () => {
       </div>
 
       {/* Time Cost Filter */}
-      <div className="tw:flex tw:items-center tw:snap-x tw:overflow-x-auto tw:scrollbar-hide tw:shadow tw:grow tw:divide-x tw:divide-muted tw:bg-white tw:rounded-md">
+      <div className="tw:flex tw:flex-col tw:md:flex-row tw:items-center tw:shadow tw:grow tw:md:divide-x tw:md:divide-y-0 tw:divide-y tw:divide-muted tw:bg-white tw:rounded-md">
         {timeCostFilters.map((data) => (
           <label
             key={data.id}
             className={cn(
-              "tw:snap-center tw:basis-[100px] tw:shrink-0 tw:!flex tw:items-center tw:justify-between tw:gap-1 tw:!py-3 tw:!px-[20px] tw:!mb-0 tw:cursor-pointer tw:grow tw:text-center tw:h-[57px] tw:first:rounded-l-md tw:last:rounded-r-md",
-              selectedTimeCost === data.id && "tw:bg-primary tw:text-white"
+              "tw:snap-center tw:w-full tw:md:basis-[100px] tw:shrink-0 tw:!flex tw:items-center tw:justify-between tw:gap-1 tw:!py-3 tw:!px-[20px] tw:!mb-0 tw:cursor-pointer tw:grow tw:text-center tw:text-white tw:md:h-[57px] tw:first:rounded-t-md tw:md:first:rounded-t-none tw:last:rounded-b-md tw:md:last:rounded-b-none tw:md:first:rounded-l-md tw:md:last:rounded-r-md",
+              selectedTimeCost === data.id && "tw:bg-primary"
             )}
             onClick={() => setSelectedTimeCost(data.id)}
           >
-            <div className="tw:flex tw:items-center tw:gap-2">
+            <div
+              className={cn(
+                "tw:flex tw:items-center tw:gap-2 tw:[&_svg]:fill-white",
+                selectedTimeCost !== data.id &&
+                  "tw:text-secondary tw:[&_svg]:fill-secondary"
+              )}
+            >
               {data.icon}
               <div className="tw:text-left tw:text-sm">
                 <p>{data.title}</p>
@@ -419,7 +437,7 @@ const FlightSearchResults = () => {
             <span
               className={cn(
                 "tw:text-[20px] tw:font-semibold",
-                selectedTimeCost === data.id && "tw:text-white"
+                selectedTimeCost !== data.id && "tw:text-primary"
               )}
             >
               {data.price}
@@ -497,8 +515,8 @@ const FlightSearchResults = () => {
             </div>
 
             {/* Price Select Button */}
-            <div className="tw:py-4 tw:px-6 tw:bg-[#F2FAFF] tw:rounded-xl tw:flex tw:flex-col tw:items-center tw:gap-3 tw:ml-4">
-              <button className="tw:bg-primary tw:py-2 tw:px-[30px] tw:flex tw:flex-col tw:!text-white tw:!rounded-full">
+            <div className="tw:w-full tw:md:w-fit tw:py-4 tw:px-6 tw:bg-[#F2FAFF] tw:rounded-xl tw:flex tw:flex-col tw:items-center tw:gap-3 tw:md:ml-4">
+              <button className="tw:w-full tw:md:w-fit tw:bg-primary tw:py-2 tw:px-[30px] tw:flex tw:flex-col tw:!text-white tw:!rounded-full">
                 <span className="tw:text-sm">Select</span>
                 <span className="tw:text-xl tw:font-medium">
                   ${itinerary.price}
