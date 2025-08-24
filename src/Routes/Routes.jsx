@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useLocation, useNavigate, useRoutes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 
 import Dashboard from "../pages/Dashboard";
 import Login from "../components/login/Login";
@@ -26,6 +25,7 @@ import VisaRequirements from "../header-footer/VisaRequirements";
 import Airport from "../header-footer/Airport";
 import Test from "../pages/Test/Test";
 import FlightSearchPage from "../pages/search/flight-search-page";
+import FlightDetailsPage from "@/pages/details/flight-details-page";
 
 const Routes = () => {
   return useRoutes([
@@ -34,6 +34,8 @@ const Routes = () => {
     { path: "/test", element: <Test /> },
 
     { path: "/search/flight", element: <FlightSearchPage /> },
+
+    { path: "/flight/details", element: <FlightDetailsPage /> },
 
     { path: "/Hotels", element: <LandingHotels /> },
 
