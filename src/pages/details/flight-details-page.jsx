@@ -2,7 +2,7 @@ import Footer from "@/header-footer/Footer";
 import Header from "@/header-footer/Header";
 import { ChevronLeft, Dot } from "lucide-react";
 import { Link } from "react-router-dom";
-import { RiStarFill, RiStarLine } from "react-icons/ri";
+import { RiPlaneLine, RiStarFill, RiStarLine } from "react-icons/ri";
 
 const FlightDetailsPage = () => {
   const ticketList = [
@@ -131,15 +131,14 @@ const FlightDetailsPage = () => {
 
         <div className="tw:bg-[#EFF3F8] tw:py-10 tw:grow">
           <div className="container">
-            <h2 className="tw:!text-2xl tw:font-semibold tw:!mb-5">
-              Book your tickets
-            </h2>
-
-            <div className="tw:flex tw:items-center tw:gap-[30px]">
+            <div className="tw:flex tw:flex-col tw:lg:flex-row tw:gap-[30px]">
               {/* List */}
-              <div className="tw:flex tw:flex-col tw:gap-6 tw:grow">
+              <div className="tw:flex tw:flex-col tw:gap-6 tw:grow tw:order-2 tw:lg:order-1">
+                <h2 className="tw:!text-2xl tw:font-semibold tw:text-center tw:sm:text-left">
+                  Book your tickets
+                </h2>
                 {/* Tags */}
-                <div className="tw:flex tw:items-center tw:gap-2">
+                <div className="tw:flex tw:items-center tw:flex-wrap tw:justify-center tw:sm:justify-start tw:gap-2">
                   <button className="tw:bg-white tw:!text-sm tw:!rounded-md tw:border tw:border-muted tw:py-[10px] tw:px-4">
                     Extra Services
                   </button>
@@ -159,7 +158,7 @@ const FlightDetailsPage = () => {
                   {ticketList.map((data) => (
                     <div
                       key={data.id}
-                      className="tw:flex tw:items-center tw:justify-between tw:px-[30px] tw:py-4 tw:bg-white tw:shadow tw:rounded-md"
+                      className="tw:flex tw:flex-col tw:gap-4 tw:sm:gap-0 tw:sm:flex-row tw:items-center tw:justify-between tw:px-[30px] tw:py-4 tw:bg-white tw:shadow tw:rounded-md"
                     >
                       <div className="tw:w-full tw:flex tw:flex-col tw:gap-[11px] ">
                         <h4 className="tw:text-xl">{data.airline}</h4>
@@ -169,9 +168,12 @@ const FlightDetailsPage = () => {
                             {data.totalRating}
                           </span>
                         </div>
+                        <p className="tw:text-[#939393] tw:text-[12px]">
+                          24/7 live chat & telephone support
+                        </p>
                       </div>
 
-                      <div className="tw:px-6 tw:py-5 tw:bg-[#F2FAFF] tw:flex tw:items-center tw:rounded-xl tw:gap-3">
+                      <div className="tw:w-full tw:justify-between tw:sm:w-fit tw:px-6 tw:py-5 tw:bg-[#F2FAFF] tw:flex tw:items-center tw:rounded-xl tw:gap-3">
                         <div className="tw:flex tw:flex-col tw:items-center tw:gap-1">
                           <span className="tw:font-medium tw:text-xl tw:text-primary">
                             {data.price}
@@ -190,7 +192,123 @@ const FlightDetailsPage = () => {
               </div>
 
               {/* Details */}
-              <div className="tw:w-[468px]"></div>
+              <div className="tw:w-full tw:lg:w-[468px] tw:order-1 tw:lg:order-2">
+                <div className="tw:flex tw:items-end tw:justify-between tw:gap-2 tw:mb-6 tw:~text-[#5D586C]">
+                  <div className="tw:flex tw:flex-col tw:gap-2">
+                    <h4 className="tw:text-xl tw:font-medium">
+                      Flight Details
+                    </h4>
+                    <p>
+                      <span className=" tw:font-medium mr-1">Outbound</span>
+                      <span>Wed, 3 Sep 2025</span>
+                    </p>
+                  </div>
+                  <span className="tw:text-sm tw:text-secondary">
+                    All times are local
+                  </span>
+                </div>
+                <div className="tw:bg-white tw:p-6 tw:rounded-xl tw:shadow">
+                  {/* Format 1 */}
+                  <div className="tw:flex tw:items-center tw:justify-between tw:flex-col tw:gap-4 tw:md:gap-0 tw:md:flex-row">
+                    {/* Airline Logo, Code */}
+                    <div className="tw:flex tw:flex-col tw:justify-center tw:items-center tw:gap-0.5 tw:text-center">
+                      <img
+                        src="/images/airlines/flyDubai.png"
+                        alt="fdlydubai"
+                        className="tw:w-[120px] tw:object-contain"
+                      />
+                      <span className="tw:text-sm tw:text-secondary">
+                        fdlydubai
+                      </span>
+                      <span className="tw:text-sm tw:text-secondary">
+                        FDB - 1982
+                      </span>
+                    </div>
+
+                    {/* Time, Stop, Airline */}
+                    <div className="tw:flex tw:items-center tw:gap-6 tw:grow tw:justify-center">
+                      {/* Depart */}
+                      <div className="tw:flex tw:flex-col tw:gap-1 tw:text-right">
+                        <span className="tw:font-semibold tw:text-[20px]">
+                          18:35
+                        </span>
+                        <span className="tw:text-sm tw:text-[#5D586C]">
+                          IST
+                        </span>
+                      </div>
+                      {/* Duration & Stop */}
+                      <div className="tw:flex tw:items-center tw:gap-2">
+                        <div className="tw:flex tw:flex-col tw:text-center tw:gap-1">
+                          <span className="tw:text-sm tw:font-semibold">
+                            4h 30
+                          </span>
+                          <span className="tw:h-px tw:w-[82px] tw:bg-secondary" />
+                          <span className="tw:text-sm tw:text-primary">
+                            Direct
+                          </span>
+                        </div>
+                        <RiPlaneLine
+                          size={24}
+                          className="tw:text-secondary tw:rotate-90"
+                        />
+                      </div>
+                      {/* Arrival */}
+                      <div className="tw:flex tw:flex-col tw:gap-1 tw:text-left">
+                        <span className="tw:font-semibold tw:text-[20px]">
+                          00:05
+                        </span>
+                        <span className="tw:text-sm tw:text-[#5D586C]">
+                          DBX
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Format 2 */}
+                  <hr className="tw:h-px tw:w-full tw:my-6 tw:bg-[#B3B3B3]" />
+                  <div className="tw:flex tw:flex-col">
+                    <div className="tw:flex tw:items-center tw:gap-4 tw:text-center">
+                      <img
+                        src="/images/airlines/flyDubai.png"
+                        alt="fdlydubai"
+                        className="tw:w-[82px] tw:object-contain"
+                      />
+                      <div className="tw:space-x-2">
+                        <span className="tw:text-sm tw:text-secondary">
+                          fdlydubai
+                        </span>
+                        <span className="tw:text-sm tw:text-secondary">
+                          FDB - 1982
+                        </span>
+                      </div>
+                    </div>
+                    <div className="tw:px-4 tw:border-l tw:flex tw:flex-col tw:gap-3 tw:justify-between tw:border-[#B3B3B3]">
+                      <h6 className="tw:text-sm tw:space-x-[19px] tw:!mb-0">
+                        <span>18:35</span>
+                        <span>IST Istanbul</span>
+                      </h6>
+                      <div className="tw:px-[10px] tw:py-2 tw:rounded-md tw:flex tw:flex-col tw:items-center tw:bg-[#F2F2F2] tw:w-fit">
+                        <span className="tw:font-semibold tw:font-sm">
+                          4h 30
+                        </span>
+                        <span className="tw:text-[12px] tw:text-primary">
+                          Direct
+                        </span>
+                      </div>
+                      <h6 className="tw:text-sm tw:space-x-[19px] tw:!mb-0">
+                        <span>00:05</span>
+                        <span>DXB Dubai</span>
+                      </h6>
+                    </div>
+                  </div>
+
+                  {/* Read friendly Time, Duration description */}
+                  <p className="tw:text-sm tw:text-[#A5A2AD] tw:!mt-4">
+                    <span>Arrives: Thu, 4 Sep 2025 |</span>
+                    <span> Journey duration: 4 hours 30 minutes</span>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
