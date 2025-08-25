@@ -170,7 +170,7 @@ const RoundWayForm = () => {
             </ComboboxOptions>
             <button
               type="button"
-              className="tw:absolute tw:z-50 tw:top-1/2 tw:bg-white tw:-translate-y-1/2 tw:-right-8 tw:h-[50px] tw:w-[50px] tw:inline-flex tw:items-center tw:justify-center tw:border tw:!border-muted tw:!rounded-full"
+              className="tw:absolute tw:z-50 tw:top-[calc(100%-16px)] tw:md:top-[50%] tw:right-1/2 tw:translate-x-1/2 tw:md:translate-x-0 tw:md:-right-8 tw:bg-white tw:md:-translate-y-1/2 tw:h-[50px] tw:w-[50px] tw:inline-flex tw:items-center tw:justify-center tw:border tw:!border-muted tw:!rounded-full"
             >
               <svg
                 width="20"
