@@ -37,8 +37,8 @@ const HeroSearchFilter = () => {
               </TabsList>
               <TabsContent value="flights">
                 {/* Flight Type Radio Selectors */}
-                <div className="tw:flex tw:gap-5 tw:items-center tw:mb-5">
-                  <div className="tw:flex tw:items-center tw:gap-2">
+                <div className="tw:flex tw:flex-col md:tw:flex-row tw:gap-2 md:tw:gap-5 md:tw:items-center tw:mb-5">
+                  <div className="tw:flex tw:items-center tw:gap-1.5 md:tw:gap-2">
                     <input
                       type="radio"
                       name="flightType"
@@ -55,7 +55,7 @@ const HeroSearchFilter = () => {
                       One Way
                     </label>
                   </div>
-                  <div className="tw:flex tw:items-center tw:gap-2">
+                  <div className="tw:flex tw:items-center tw:gap-1.5 md:tw:gap-2">
                     <input
                       type="radio"
                       name="flightType"
@@ -72,7 +72,7 @@ const HeroSearchFilter = () => {
                       Round Way
                     </label>
                   </div>
-                  <div className="tw:flex tw:items-center tw:gap-2">
+                  <div className="tw:flex tw:items-center tw:gap-1.5 md:tw:gap-2">
                     <input
                       type="radio"
                       name="flightType"

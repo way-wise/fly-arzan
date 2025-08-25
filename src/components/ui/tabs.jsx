@@ -18,7 +18,7 @@ function TabsList({ className, ...props }) {
     <TabsPrimitive.List
       data-slot="tabs-list"
       className={cn(
-        "tw:flex tw:items-center tw:border-b tw:border-muted",
+        "tw:flex tw:items-center tw:border-b tw:border-muted tw:overflow-x-auto",
         className
       )}
       {...props}
@@ -31,7 +31,7 @@ function TabsTrigger({ className, ...props }) {
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
       className={cn(
-        "tw:data-[state=active]:!text-primary tw:border-b tw:border-transparent tw:data-[state=active]:border-primary tw:flex tw:items-center tw:gap-2 tw:!text-secondary tw:!text-xl tw:capitalize tw:!p-5",
+        "tw:data-[state=active]:!text-primary tw:border-b tw:border-transparent tw:data-[state=active]:border-primary tw:flex tw:items-center tw:gap-2 tw:!text-secondary tw:text-base tw:md:!text-xl tw:capitalize tw:p-3 tw:md:!p-5",
         className
       )}
       {...props}
@@ -43,7 +43,7 @@ function TabsContent({ className, ...props }) {
   return (
     <TabsPrimitive.Content
       data-slot="tabs-content"
-      className={cn("flex-1 outline-none tw:!p-5", className)}
+      className={cn("flex-1 outline-none tw:p-3 tw:md:!p-5", className)}
       {...props}
     />
   );

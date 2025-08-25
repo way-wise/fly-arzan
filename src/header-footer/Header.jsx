@@ -119,13 +119,13 @@ const Header = () => {
               <Link to="/">
                 <img src="/logo.png" className="tw:w-[120px] tw:md:w-[195px]" />
               </Link>
-              <div className="tw:flex tw:justify-between tw:items-center tw:gap-4 tw:md:gap-6">
-                <button className="tw:flex tw:gap-2 tw:text-xl tw:font-medium">
-                  <TfiWorld size={25} />
+              <div className="tw:flex tw:justify-between tw:items-center tw:gap-3 tw:md:gap-6">
+                <button className="tw:md:flex tw:md:gap-2 tw:text-xl tw:font-medium">
+                  <TfiWorld className="tw:size-5 md:tw:size-6" />
                   <span className="tw:hidden tw:md:block">EN - £</span>
                 </button>
-                <button className="tw:bg-primary tw:hover:bg-primary/90 tw:shadow-[0_2px_4px_0_rgba(165,163,174,0.30)] tw:py-2.5 tw:md:py-[10px] tw:md:px-5 tw:px-3 tw:!text-sm tw:!text-white tw:!rounded-md">
-                  Register / Login
+                <button className="tw:bg-primary tw:inline-flex tw:items-center tw:gap-1 tw:hover:bg-primary/90 tw:shadow-[0_2px_4px_0_rgba(165,163,174,0.30)] tw:py-2.5 tw:md:py-[10px] tw:md:px-5 tw:px-3 tw:!text-sm tw:!text-white tw:!rounded-md">
+                  <span className="tw:hidden tw:md:block">Register /</span> Login
                 </button>
                 <button
                   className="tw:flex tw:gap-2 tw:text-xl tw:font-medium"
