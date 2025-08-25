@@ -132,9 +132,10 @@ const Header = () => {
                 </button>
                 <button
                   onClick={() => setAuthModal(true)}
-                  className="tw:bg-primary tw:hover:bg-primary/90 tw:shadow-[0_2px_4px_0_rgba(165,163,174,0.30)] tw:py-2.5 tw:md:py-[10px] tw:md:px-5 tw:px-3 tw:!text-sm tw:!text-white tw:!rounded-md"
+                  className="tw:inline-flex tw:items-center tw:gap-1 tw:bg-primary tw:hover:bg-primary/90 tw:shadow-[0_2px_4px_0_rgba(165,163,174,0.30)] tw:py-2.5 tw:md:py-[10px] tw:md:px-5 tw:px-3 tw:!text-sm tw:!text-white tw:!rounded-md"
                 >
-                  Register / Login
+                  <span className="tw:hidden tw:md:block">Register /</span>
+                  Login
                 </button>
                 <button
                   className="tw:flex tw:gap-2 tw:text-xl tw:font-medium"
