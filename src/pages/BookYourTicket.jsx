@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import Header from "../header-footer/Header";
+import Header from "../header-footer/HeaderOld2";
 import Footer from "../header-footer/Footer";
 import BookYourTicket1 from "../components/BookYourTicket_page_componets/BookYourTicket1";
 import { FlightContext } from "../context/FlightContext";
@@ -11,7 +11,6 @@ const BookYourTicket = () => {
 
   // useEffect(() => {
 
-  
   //   if (!FlightBookingData || !FlightBookingData.itineraries || FlightBookingData.itineraries.length === 0) {
   //     navigate("/");
   //   }

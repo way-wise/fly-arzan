@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef } from "react";
-import Header from "../header-footer/Header";
+// import HeaderOld2 from "../header-footer/HeaderOld2";
 import Footer from "../header-footer/Footer";
 import FlightSec2 from "../components/Landing_page_1_componets/FlightSec2";
 import FlightSec3 from "../components/Landing_page_1_componets/FlightSec3";
@@ -10,6 +10,7 @@ import FlightSec1 from "../components/Landing_page_1_componets/FlightSec1";
 import { FlightContext } from "../context/FlightContext";
 import { useLocation } from "react-router-dom";
 import HeroSearchFilter from "@/components/ui/hero-search-filter/flights";
+import Header from "@/header-footer/Header";
 
 const LandingFlights = () => {
   const location = useLocation();
@@ -46,8 +47,9 @@ const LandingFlights = () => {
   return (
     <>
       {/* <Header onNavigate={scrollToSection} /> */}
-      <Header />
+      {/* <HeaderOld2 /> */}
       {/* <FlightHero /> */}
+      <Header />
       <HeroSearchFilter />
       <FlightSec1 />
       <FlightSec2 ref={sectionRefs.sec2} />

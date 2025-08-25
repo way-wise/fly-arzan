@@ -6,7 +6,7 @@ import { useState } from "react";
 import SearchFilterSidebar from "./search-filter-sidebar";
 import FlightSearchResults from "./flight-search-results";
 import Footer from "@/header-footer/Footer";
-import Header from "@/header-footer/Header";
+import Header from "@/header-footer/HeaderOld2";
 import { SidebarFilterProvider } from "@/providers/filter-sidebar-provider";
 
 const FlightSearchPage = () => {

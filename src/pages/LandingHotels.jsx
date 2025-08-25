@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import Header from "../header-footer/Header";
+import Header from "../header-footer/HeaderOld2";
 import Footer from "../header-footer/Footer";
 import HeroHotels from "../components/Landing_page_2_componets/HeroHotels";
 import HotelsSec2 from "../components/Landing_page_2_componets/HotelsSec2";
@@ -50,5 +50,4 @@ const LandingHotels = () => {
   );
 };
 
-
-export default LandingHotels;  
+export default LandingHotels;

@@ -1,10 +1,9 @@
 import React, { useContext, useEffect } from "react";
-import Header from "../header-footer/Header";
+import Header from "../header-footer/HeaderOld2";
 import Footer from "../header-footer/Footer";
 import Directing from "../components/We-are-Directing/Directing";
 
 const WeDirecting = () => {
-  
   return (
     <>
       <Header />
@@ -14,4 +13,4 @@ const WeDirecting = () => {
   );
 };
 
-export default WeDirecting;  
+export default WeDirecting;
