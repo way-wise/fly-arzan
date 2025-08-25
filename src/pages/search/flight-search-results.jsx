@@ -15,8 +15,10 @@ import {
   RiPercentFill,
   RiFilterFill,
 } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 const FlightSearchResults = () => {
+  const navigate = useNavigate();
   const { openMobile, setOpenMobile } = useSidebarFilter();
   const [selectedTimeCost, setSelectedTimeCost] = useState(1);
   const timeCostFilters = [
@@ -521,7 +523,10 @@ const FlightSearchResults = () => {
 
             {/* Price Select Button */}
             <div className="tw:w-full tw:md:w-fit tw:py-4 tw:px-6 tw:bg-[#F2FAFF] tw:rounded-xl tw:flex tw:flex-col tw:items-center tw:gap-3 tw:md:ml-4">
-              <button className="tw:w-full tw:md:w-fit tw:bg-primary tw:py-2 tw:px-[30px] tw:flex tw:flex-col tw:!text-white tw:!rounded-full">
+              <button
+                onClick={() => navigate("/flight/details")}
+                className="tw:w-full tw:md:w-fit tw:bg-primary tw:py-2 tw:px-[30px] tw:flex tw:flex-col tw:!text-white tw:!rounded-full"
+              >
                 <span className="tw:text-sm">Select</span>
                 <span className="tw:text-xl tw:font-medium">
                   ${itinerary.price}
