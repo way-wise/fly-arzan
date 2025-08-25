@@ -47,7 +47,9 @@ const Header = () => {
       <div className="tw:h-[92px] tw:bg-white tw:flex tw:items-center tw:shadow">
         <div className="container">
           <div className="tw:flex tw:items-center tw:justify-between">
-            <img src="/logo.png" className="tw:w-[195px]" />
+            <Link to="/">
+              <img src="/logo.png" className="tw:w-[195px]" />
+            </Link>
             <div className="tw:flex tw:justify-between tw:items-center tw:gap-6">
               <button className="tw:flex tw:gap-2 tw:text-xl tw:font-medium">
                 <TfiWorld size={25} />
