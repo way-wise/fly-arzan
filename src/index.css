@@ -103,6 +103,11 @@ p {
 /* Header________Styling________Css */
 /* Header________Styling________Css */
 
+/* Input */
+.input {
+  @apply tw:border-muted tw:transition-all tw:focus:ring-2 tw:focus:ring-dark-purple tw:focus:border-transparent tw:!rounded;
+}
+
 /* Top Bar */
 .top-bar {
   width: 100%;

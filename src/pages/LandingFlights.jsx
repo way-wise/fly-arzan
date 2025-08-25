@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef } from "react";
-import HeaderOld2 from "../header-footer/HeaderOld2";
+// import HeaderOld2 from "../header-footer/HeaderOld2";
 import Footer from "../header-footer/Footer";
 import FlightSec2 from "../components/Landing_page_1_componets/FlightSec2";
 import FlightSec3 from "../components/Landing_page_1_componets/FlightSec3";

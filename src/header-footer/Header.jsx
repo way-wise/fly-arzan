@@ -1,3 +1,4 @@
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Drawer,
   DrawerClose,
@@ -6,14 +7,19 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
-import { X } from "lucide-react";
+import { Modal } from "@/components/ui/modal";
+import { DialogTitle } from "@headlessui/react";
+import { LucideX, X } from "lucide-react";
 import { useState } from "react";
+import { FaApple } from "react-icons/fa6";
+import { FcGoogle } from "react-icons/fc";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { TfiWorld } from "react-icons/tfi";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "usehooks-ts";
 
 const Header = () => {
+  const [openAuthModal, setAuthModal] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const isMobile = useMediaQuery("(max-width: 1023px)", {
     initializeWithValue: false,
@@ -124,7 +130,10 @@ const Header = () => {
                   <TfiWorld size={25} />
                   <span className="tw:hidden tw:md:block">EN - £</span>
                 </button>
-                <button className="tw:bg-primary tw:hover:bg-primary/90 tw:shadow-[0_2px_4px_0_rgba(165,163,174,0.30)] tw:py-2.5 tw:md:py-[10px] tw:md:px-5 tw:px-3 tw:!text-sm tw:!text-white tw:!rounded-md">
+                <button
+                  onClick={() => setAuthModal(true)}
+                  className="tw:bg-primary tw:hover:bg-primary/90 tw:shadow-[0_2px_4px_0_rgba(165,163,174,0.30)] tw:py-2.5 tw:md:py-[10px] tw:md:px-5 tw:px-3 tw:!text-sm tw:!text-white tw:!rounded-md"
+                >
                   Register / Login
                 </button>
                 <button
@@ -185,6 +194,86 @@ const Header = () => {
           </div>
         </DrawerContent>
       </Drawer>
+
+      {/* Auth Modal */}
+      <Modal isOpen={openAuthModal} onClose={setAuthModal}>
+        <div className="tw:flex tw:justify-between tw:items-start tw:text-secondary tw:mb-4">
+          <img src="/logo.png" className="tw:w-[150px]" />
+          <button onClick={() => setAuthModal(false)}>
+            <LucideX />
+          </button>
+        </div>
+        <div className="tw:mb-4">
+          <DialogTitle className="tw:text-lg tw:!text-dark-purple tw:font-medium tw:!mb-2">
+            Sign in
+          </DialogTitle>
+          <p className="tw:text-secondary">Enter your information</p>
+        </div>
+        <form>
+          <fieldset className="tw:flex tw:flex-col tw:gap-2">
+            <div className="tw:flex tw:flex-col">
+              <label className="tw:font-medium">Email</label>
+              <input
+                name="email"
+                placeholder="Enter your email"
+                className="input"
+              />
+            </div>
+            <div className="tw:flex tw:flex-col tw:mb-3">
+              <label className="tw:font-medium">Password</label>
+              <input
+                name="password"
+                type="password"
+                placeholder="Enter your password"
+                className="input"
+              />
+            </div>
+
+            <div className="tw:flex tw:items-center tw:gap-2 tw:justify-between">
+              <div className="tw:flex tw:gap-2 tw:items-center">
+                <Checkbox className="tw:!mb-0.5" id="rememberMe" />
+                <label className="tw:text-sm tw:!mb-0" htmlFor="rememberMe">
+                  Remember Me
+                </label>
+              </div>
+              <Link className="tw:text-sm tw:!text-inherit tw:!no-underline tw:hover:!underline">
+                Forgot Password
+              </Link>
+            </div>
+
+            <button className="tw:!mt-3 tw:px-3 tw:py-2 tw:bg-dark-purple tw:hover:bg-dark-purple/80 tw:!text-white tw:!rounded">
+              Submit
+            </button>
+
+            <div className="tw:relative tw:py-3 tw:text-center tw:text-sm tw:after:absolute tw:after:inset-0 tw:after:top-1/2 tw:after:z-0 tw:after:flex tw:after:items-center tw:after:border-t tw:after:border-muted">
+              <span className="tw:relative tw:z-10 tw:bg-white tw:px-2 tw:font-medium tw:text-muted-foreground tw:select-none">
+                OR
+              </span>
+            </div>
+
+            <div className="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:gap-4">
+              <button className="tw:justify-center tw:flex tw:items-center tw:gap-2 tw:px-3 tw:py-2 tw:!rounded tw:shadow tw:border tw:border-muted">
+                <FcGoogle size={20} />
+                <span>Login with Google</span>
+              </button>
+              <button className="tw:justify-center tw:flex tw:items-center tw:gap-2 tw:px-3 tw:py-2 tw:!rounded tw:shadow tw:border tw:border-muted">
+                <FaApple size={20} />
+                <span>Login with Apple</span>
+              </button>
+            </div>
+          </fieldset>
+        </form>
+
+        <div className="tw:mt-4 tw:flex tw:flex-wrap tw:items-center tw:justify-center tw:gap-1 tw:text-center">
+          <span className="tw:text-secondary">Don&apos;t have an account?</span>
+          <Link
+            href="#"
+            className="tw:!no-underline tw:!text-dark-purple tw:hover:!underline tw:focus-visible:underline tw:focus-visible:outline-hidden"
+          >
+            Sign Up
+          </Link>
+        </div>
+      </Modal>
     </>
   );
 };
