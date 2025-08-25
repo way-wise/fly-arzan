@@ -113,18 +113,18 @@ const Header = () => {
         </div>
 
         {/* Navigation */}
-        <div className="tw:h-[92px] tw:bg-white tw:flex tw:items-center tw:shadow">
+        <div className="tw:h-16 tw:md:h-[92px] tw:bg-white tw:flex tw:items-center tw:shadow">
           <div className="container">
             <div className="tw:flex tw:items-center tw:justify-between">
               <Link to="/">
-                <img src="/logo.png" className="tw:w-[195px]" />
+                <img src="/logo.png" className="tw:w-[120px] tw:md:w-[195px]" />
               </Link>
-              <div className="tw:flex tw:justify-between tw:items-center tw:gap-6">
+              <div className="tw:flex tw:justify-between tw:items-center tw:gap-4 tw:md:gap-6">
                 <button className="tw:flex tw:gap-2 tw:text-xl tw:font-medium">
                   <TfiWorld size={25} />
-                  <span>EN - £</span>
+                  <span className="tw:hidden tw:md:block">EN - £</span>
                 </button>
-                <button className="tw:bg-primary tw:hover:bg-primary/90 tw:shadow-[0_2px_4px_0_rgba(165,163,174,0.30)] tw:py-[10px] tw:px-5 tw:!text-white tw:!rounded-md">
+                <button className="tw:bg-primary tw:hover:bg-primary/90 tw:shadow-[0_2px_4px_0_rgba(165,163,174,0.30)] tw:py-2.5 tw:md:py-[10px] tw:md:px-5 tw:px-3 tw:!text-sm tw:!text-white tw:!rounded-md">
                   Register / Login
                 </button>
                 <button
@@ -132,7 +132,7 @@ const Header = () => {
                   onClick={() => setOpenMenu(!openMenu)}
                 >
                   <HiMenuAlt3 size={25} />
-                  <span>Menu</span>
+                  <span className="tw:hidden tw:md:block">Menu</span>
                 </button>
               </div>
             </div>
@@ -165,7 +165,7 @@ const Header = () => {
             <div className="tw:flex tw:justify-around tw:flex-col tw:lg:flex-row tw:gap-6 tw:lg:gap-10">
               {siteNavigation.map(({ id, heading, list }) => (
                 <div className="tw:flex tw:flex-col" key={id}>
-                  <h5 className="tw:!text-3xl tw:font-semibold tw:mb-4">
+                  <h5 className="tw:!text-2xl tw:lg:!text-3xl tw:font-semibold tw:mb-4">
                     {heading}
                   </h5>
                   <div className="tw:flex tw:flex-col tw:gap-3">
