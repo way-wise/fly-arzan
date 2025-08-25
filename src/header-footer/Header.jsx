@@ -125,9 +125,9 @@ const Header = () => {
               <Link to="/">
                 <img src="/logo.png" className="tw:w-[120px] tw:md:w-[195px]" />
               </Link>
-              <div className="tw:flex tw:justify-between tw:items-center tw:gap-4 tw:md:gap-6">
-                <button className="tw:flex tw:gap-2 tw:text-xl tw:font-medium">
-                  <TfiWorld size={25} />
+              <div className="tw:flex tw:justify-between tw:items-center tw:gap-3 tw:md:gap-6">
+                <button className="tw:md:flex tw:md:gap-2 tw:text-xl tw:font-medium">
+                  <TfiWorld className="tw:size-5 md:tw:size-6" />
                   <span className="tw:hidden tw:md:block">EN - £</span>
                 </button>
                 <button

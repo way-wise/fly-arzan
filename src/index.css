@@ -729,11 +729,19 @@ section.Sec2-sec {
 
 .Sec2-card-box {
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  gap: 38px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 1024px) {
+  .Sec2-card-box {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 540px) {
+  .Sec2-card-box {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 .Sec2-card {
@@ -741,7 +749,6 @@ section.Sec2-sec {
   border: 1.202px solid rgba(39, 39, 39, 0.1);
   background: #fff;
   box-shadow: 12.022px 16.831px 76.942px -12.022px rgba(0, 0, 0, 0.05);
-  width: 30%;
   overflow: hidden;
 }
 
@@ -8570,10 +8577,6 @@ h2.react-datepicker__current-month {
     border-radius: 5px;
   }
 
-  .Sec2-card-box {
-    gap: 50px;
-  }
-
   .Sec2-btn-box {
     padding-top: 40px;
   }
@@ -10184,10 +10187,6 @@ h2.react-datepicker__current-month {
 
   section.Sec2-sec {
     padding: 40px 0px 40px 0px;
-  }
-
-  .Sec2-card {
-    width: 48%;
   }
 
   .Suggested-Hotels h2 {
