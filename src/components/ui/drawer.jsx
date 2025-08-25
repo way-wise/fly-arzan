@@ -35,7 +35,7 @@ const DrawerClose = DrawerPrimitive.Close;
 function DrawerContent({ className, children, side, ...props }) {
   return (
     <DrawerPrimitive.Portal>
-      <DrawerPrimitive.Overlay className="tw:fixed tw:inset-0 tw:z-20 tw:bg-black/70" />
+      <DrawerPrimitive.Overlay className="tw:fixed tw:inset-0 tw:z-50 tw:bg-black/70" />
       <DrawerPrimitive.Content
         className={cn(sheetVariants({ side }), "tw:!z-[999]", className)}
         {...props}
