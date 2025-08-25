@@ -22,7 +22,12 @@ const sheetVariants = cva(
 
 function Drawer({ direction = "left", ...props }) {
   return (
-    <DrawerPrimitive.Root autoFocus={true} direction={direction} {...props} />
+    <DrawerPrimitive.Root
+      autoFocus={true}
+      modal={false}
+      direction={direction}
+      {...props}
+    />
   );
 }
 
@@ -35,7 +40,7 @@ const DrawerClose = DrawerPrimitive.Close;
 function DrawerContent({ className, children, side, ...props }) {
   return (
     <DrawerPrimitive.Portal>
-      <DrawerPrimitive.Overlay className="tw:fixed tw:inset-0 tw:z-50 tw:bg-black/70" />
+      <DrawerPrimitive.Overlay className="tw:fixed tw:inset-0 tw:z-50 tw:bg-white/10" />
       <DrawerPrimitive.Content
         className={cn(sheetVariants({ side }), "tw:!z-[999]", className)}
         {...props}

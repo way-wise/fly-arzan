@@ -17,7 +17,7 @@ const Modal = ({ children, isOpen = false, isPending = false, onClose }) => {
     >
       <DialogBackdrop
         transition
-        className="tw:fixed tw:inset-0 tw:bg-black/75 tw:duration-300 tw:ease-out tw:data-[closed]:opacity-0"
+        className="tw:fixed tw:inset-0 tw:bg-white/10 tw:duration-300 tw:ease-out tw:data-[closed]:opacity-0"
       />
       <div className="tw:fixed tw:inset-0 tw:flex tw:size-full tw:items-center tw:justify-center tw:p-4">
         <DialogPanel

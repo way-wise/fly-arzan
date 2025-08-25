@@ -156,7 +156,10 @@ const Header = () => {
         onOpenChange={setOpenMenu}
         direction={isMobile ? "right" : "top"}
       >
-        <DrawerContent side={isMobile ? "right" : "top"}>
+        <DrawerContent
+          side={isMobile ? "right" : "top"}
+          className="tw:bg-[#f2faffe0] tw:backdrop-blur-xs"
+        >
           <DrawerHeader>
             <div className="flex flex-col">
               <DrawerTitle className="text-xl font-medium sr-only">
@@ -175,7 +178,7 @@ const Header = () => {
             <div className="tw:flex tw:justify-around tw:flex-col tw:lg:flex-row tw:gap-6 tw:lg:gap-10">
               {siteNavigation.map(({ id, heading, list }) => (
                 <div className="tw:flex tw:flex-col" key={id}>
-                  <h5 className="tw:!text-2xl tw:lg:!text-3xl tw:font-semibold tw:mb-4">
+                  <h5 className="tw:!text-2xl tw:lg:!text-3xl tw:font-semibold tw:!text-dark-purple tw:mb-4">
                     {heading}
                   </h5>
                   <div className="tw:flex tw:flex-col tw:gap-3">
@@ -183,7 +186,7 @@ const Header = () => {
                       <Link
                         to={link}
                         key={id}
-                        className="tw:text-xl tw:!no-underline tw:!text-gray-700"
+                        className="tw:text-xl tw:!no-underline tw:!text-dark-purple"
                       >
                         {title}
                       </Link>

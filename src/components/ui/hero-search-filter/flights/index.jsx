@@ -5,8 +5,10 @@ import OneWayFlightForm from "./one-way-form";
 import RoundWayFlightForm from "./round-way-form";
 import { useState } from "react";
 import MultiCityForm from "./multi-city-form";
+import { useTranslation } from "react-i18next";
 
 const HeroSearchFilter = () => {
+  const { t } = useTranslation();
   const [flightType, setFlightType] = useState("oneWay");
 
   const handleFlightTypeChange = (type) => {
@@ -19,6 +21,10 @@ const HeroSearchFilter = () => {
         className={`tw:bg-cover tw:bg-center tw:bg-no-repeat tw:bg-[url(/images/hero_bg.png)] tw:!py-[60px]`}
       >
         <div className="container">
+          <div className="hero-tital">
+            <h2> {t("upperSection.Cheap_flights_para")}</h2>
+            <p> {t("upperSection.Our_search")}</p>
+          </div>
           <div className="tw:rounded-xl tw:bg-white tw:shadow-lg">
             <Tabs defaultValue="flights">
               <TabsList>
