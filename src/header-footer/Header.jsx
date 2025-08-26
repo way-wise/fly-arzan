@@ -17,6 +17,11 @@ import { HiMenuAlt3 } from "react-icons/hi";
 import { TfiWorld } from "react-icons/tfi";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "usehooks-ts";
+import RegionModal from "@/components/RegionModal/RegionModal";
+import { useCurrency } from "@/context/CurrencyContext";
+import { useLocationContext } from "@/context/userLocationContext";
+import { useTranslation } from "react-i18next";
+import getSymbolFromCurrency from "currency-symbol-map";
 
 const Header = () => {
   const [openAuthModal, setAuthModal] = useState(false);
@@ -24,6 +29,16 @@ const Header = () => {
   const isMobile = useMediaQuery("(max-width: 1023px)", {
     initializeWithValue: false,
   });
+  const [openRegionModal, setOpenRegionModal] = useState(false);
+
+  const { selectedLocalCurr, currency } = useCurrency();
+  const { userLocation } = useLocationContext();
+  const { i18n } = useTranslation();
+
+  const selectLocalLang =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("selectLang"))
+      : null;
 
   const siteNavigation = [
     {
@@ -126,9 +141,21 @@ const Header = () => {
                 <img src="/logo.png" className="tw:w-[120px] tw:md:w-[195px]" />
               </Link>
               <div className="tw:flex tw:justify-between tw:items-center tw:gap-3 tw:md:gap-6">
-                <button className="tw:md:flex tw:md:gap-2 tw:text-xl tw:font-medium">
+                <button
+                  className="tw:md:flex tw:items-center tw:md:gap-2 tw:text-xl tw:font-medium"
+                  onClick={() => setOpenRegionModal(true)}
+                >
                   <TfiWorld className="tw:size-5 md:tw:size-6" />
-                  <span className="tw:hidden tw:md:block">EN - £</span>
+                  <span className="tw:hidden tw:md:block tw:whitespace-nowrap">
+                    {(i18n?.language || selectLocalLang?.code || "en")
+                      .toUpperCase()
+                      .replace(/-.*/, "")}{" "}
+                    -{" "}
+                    {getSymbolFromCurrency(currency) ||
+                      selectedLocalCurr?.symbol ||
+                      userLocation?.symbol ||
+                      "£"}
+                  </span>
                 </button>
                 <button
                   onClick={() => setAuthModal(true)}
@@ -277,6 +304,11 @@ const Header = () => {
             Sign Up
           </Link>
         </div>
+      </Modal>
+
+      {/* Region Settings Modal (Language/Currency/Country) */}
+      <Modal isOpen={openRegionModal} onClose={setOpenRegionModal}>
+        <RegionModal setModal={setOpenRegionModal} />
       </Modal>
     </>
   );

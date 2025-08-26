@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { HiLanguage } from "react-icons/hi2";
 import { BiWorld } from "react-icons/bi";
 import { useLocationContext } from "../../context/userLocationContext";
@@ -7,13 +7,13 @@ import { useGet } from "../../utils/ApiMethod";
 import { CURR_API_KEY } from "../../baseUrl";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import Translate from "../Translate/Translate";
 import getSymbolFromCurrency from "currency-symbol-map";
 import { useCurrency } from "../../context/CurrencyContext";
+import PropTypes from "prop-types";
 
 function RegionModal({ setModal }) {
   const { userLocation, setUserLocation } = useLocationContext();
-  const { setCurrency, selectedLocalCurr } = useCurrency();
+  const { setCurrency, selectedLocalCurr, currency } = useCurrency();
   const selectLocalLang = JSON.parse(localStorage.getItem("selectLang"));
 
   const selectedLocalCountry = JSON.parse(
@@ -24,8 +24,11 @@ function RegionModal({ setModal }) {
   const [currencies, setCurrencies] = useState([]);
   const [countriesData, setCountriesData] = useState([]);
   const [selectCurr, setSelectCurr] = useState({
-    curr: selectedLocalCurr?.curr || userLocation?.curr,
-    symbol: selectedLocalCurr?.symbol || userLocation?.symbol,
+    curr: selectedLocalCurr?.curr || userLocation?.curr || currency || "",
+    symbol:
+      selectedLocalCurr?.symbol ||
+      userLocation?.symbol ||
+      (currency ? getSymbolFromCurrency(currency) : ""),
   });
   const [selectCountry, setSelectCountry] = useState({
     country: selectedLocalCountry?.country || "",
@@ -36,6 +39,11 @@ function RegionModal({ setModal }) {
     label: selectLocalLang?.label || "",
     code: selectLocalLang?.code || "",
   });
+
+  // Local dropdown open states so we don't rely on external bootstrap JS
+  const [openLang, setOpenLang] = useState(false);
+  const [openCountry, setOpenCountry] = useState(false);
+  const [openCurr, setOpenCurr] = useState(false);
 
   const allLanguages = [
     { label: "English (UK)", code: "en-GB" },
@@ -113,10 +121,12 @@ function RegionModal({ setModal }) {
 
   const handleLanguageChange = (lng) => {
     setSelectLang({ label: lng?.label, code: lng?.code });
+    setOpenLang(false);
   };
 
   const handleCurr = (curr, symbol) => {
     setSelectCurr({ curr, symbol });
+    setOpenCurr(false);
   };
 
   const handleSubmit = () => {
@@ -163,36 +173,46 @@ function RegionModal({ setModal }) {
         <div className="language-icon">
           <HiLanguage size={25} /> <p>Language</p>
         </div>
-        <div className="dropdown">
+        <div className="dropdown" style={{ position: "relative" }}>
           <button
             className="btn btn-secondary dropdown-toggle language-button"
             type="button"
-            id="dropdownMenuButton"
-            data-toggle="dropdown"
             aria-haspopup="true"
-            aria-expanded="false"
+            aria-expanded={openLang}
+            onClick={() => setOpenLang((v) => !v)}
           >
             {selectLang?.label || "English (USA)"}
           </button>
 
-          <div
-            className="dropdown-menu drop-down-height"
-            aria-labelledby="dropdownMenuButton"
-          >
-            {allLanguages?.length > 0 ? (
-              allLanguages.map((lang) => (
-                <button
-                  key={lang?.code} // if lang is unique, otherwise use index
-                  className="dropdown-item"
-                  onClick={() => handleLanguageChange(lang)}
-                >
-                  {lang?.label}
-                </button>
-              ))
-            ) : (
-              <p className="dropdown-item">Loading...</p>
-            )}
-          </div>
+          {openLang && (
+            <div
+              className="dropdown-menu show drop-down-height"
+              role="menu"
+              style={{
+                position: "absolute",
+                top: "100%",
+                left: 0,
+                right: 0,
+                zIndex: 9999,
+                maxHeight: "240px",
+                overflowY: "auto",
+              }}
+            >
+              {allLanguages?.length > 0 ? (
+                allLanguages.map((lang) => (
+                  <button
+                    key={lang?.code}
+                    className="dropdown-item"
+                    onClick={() => handleLanguageChange(lang)}
+                  >
+                    {lang?.label}
+                  </button>
+                ))
+              ) : (
+                <p className="dropdown-item">Loading...</p>
+              )}
+            </div>
+          )}
         </div>
         {/* <Translate /> */}
       </div>
@@ -207,95 +227,132 @@ function RegionModal({ setModal }) {
           information.
         </p>
 
-        <div className="dropdown">
+        <div className="dropdown" style={{ position: "relative" }}>
           <button
             className="btn btn-secondary dropdown-toggle language-button"
             type="button"
-            id="dropdownMenuButton"
-            data-toggle="dropdown"
             aria-haspopup="true"
-            aria-expanded="false"
+            aria-expanded={openCountry}
+            onClick={() => setOpenCountry((v) => !v)}
           >
             {selectCountry?.country
               ? selectCountry?.country
               : userLocation?.country_name}
           </button>
 
-          <div
-            className="dropdown-menu drop-down-height"
-            aria-labelledby="dropdownMenuButton"
-          >
-            {countriesData?.length > 0 ? (
-              countriesData.map((country, index) => (
-                <p
-                  key={index}
-                  className="dropdown-item"
-                  onClick={() =>
-                    handleCountrySelect(
-                      country.name.common,
-                      country.capital[0],
-                      country.cca2,
-                      country.currencies
-                    )
-                  }
-                >
-                  {country.name.common}
-                </p>
-              ))
-            ) : (
-              <p className="dropdown-item">Loading...</p>
-            )}
-          </div>
+          {openCountry && (
+            <div
+              className="dropdown-menu show drop-down-height"
+              role="menu"
+              style={{
+                position: "absolute",
+                top: "100%",
+                left: 0,
+                right: 0,
+                zIndex: 9999,
+                maxHeight: "240px",
+                overflowY: "auto",
+              }}
+            >
+              {countriesData?.length > 0 ? (
+                countriesData.map((country, index) => (
+                  <button
+                    key={index}
+                    className="dropdown-item"
+                    onClick={() => {
+                      handleCountrySelect(
+                        country.name.common,
+                        country.capital?.[0],
+                        country.cca2,
+                        country.currencies
+                      );
+                      setOpenCountry(false);
+                    }}
+                  >
+                    {country.name.common}
+                  </button>
+                ))
+              ) : (
+                <p className="dropdown-item">Loading...</p>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
-      <div className="currency-region">
+      <div className="currency-region" style={{ overflow: "visible" }}>
         <div className="language-icon">
           <HiCurrencyDollar size={25} />
           <p>Currency</p>
         </div>
-        <div className="dropdown">
+        <div className="dropdown" style={{ position: "relative" }}>
           <button
             className="btn btn-secondary dropdown-toggle language-button"
             type="button"
-            id="dropdownMenuButton"
-            data-toggle="dropdown"
             aria-haspopup="true"
-            aria-expanded="false"
+            aria-expanded={openCurr}
+            onClick={() => setOpenCurr((v) => !v)}
           >
-            {selectCurr?.curr} - {selectCurr?.symbol}
+            {(() => {
+              const code = selectCurr?.curr || selectedLocalCurr?.curr || userLocation?.curr || currency || "";
+              const name = (code && currencies && currencies[code]) ? currencies[code] : "";
+              const sym = selectCurr?.symbol || selectedLocalCurr?.symbol || getSymbolFromCurrency(code) || userLocation?.symbol || "";
+              if (!code && !sym) return "Select currency";
+              return `${code}${name ? ` - ${name}` : sym ? " -" : ""}${sym ? ` (${sym})` : ""}`;
+            })()}
           </button>
 
-          <div
-            className="dropdown-menu drop-down-height"
-            aria-labelledby="dropdownMenuButton"
-          >
-            {Object.keys(currencies)?.length > 0 ? (
-              Object.keys(currencies).map((curr, index) => (
-                <p
-                  onClick={() => handleCurr(curr, getSymbolFromCurrency(curr))}
-                  key={index}
-                  className="dropdown-item"
-                >
-                  {curr} - {getSymbolFromCurrency(curr)}
-                </p>
-              ))
-            ) : (
-              <p>Loading currencies...</p>
-            )}
-          </div>
-          <div className="region-btns">
-            <button onClick={handleSubmit} className="save-btn">
-              Save
-            </button>
-            <button onClick={() => setModal(false)} className="cancel-btn">
-              Cancel
-            </button>
-          </div>
+          {openCurr && (
+            <div
+              className="dropdown-menu show drop-down-height"
+              role="menu"
+              style={{
+                position: "absolute",
+                top: "100%",
+                left: 0,
+                right: 0,
+                zIndex: 9999,
+                maxHeight: "280px",
+                overflowY: "auto",
+              }}
+            >
+              {Object.keys(currencies)?.length > 0 ? (
+                Object.keys(currencies)
+                  .sort((a, b) => a.localeCompare(b))
+                  .map((currCode, index) => {
+                    const name = currencies[currCode] || currCode;
+                    const sym = getSymbolFromCurrency(currCode) || "";
+                    return (
+                      <button
+                        onClick={() => handleCurr(currCode, sym)}
+                        key={index}
+                        className="dropdown-item"
+                      >
+                        {`${currCode} - ${name}${sym ? ` (${sym})` : ""}`}
+                      </button>
+                    );
+                  })
+              ) : (
+                <p>Loading currencies...</p>
+              )}
+            </div>
+          )}
         </div>
+      </div>
+      <div className="region-btns">
+        <button onClick={handleSubmit} className="save-btn">
+          Save
+        </button>
+        <button onClick={() => setModal(false)} className="cancel-btn">
+          Cancel
+        </button>
       </div>
     </div>
   );
 }
 
 export default RegionModal;
+
+RegionModal.propTypes = {
+  setModal: PropTypes.func.isRequired,
+};
