@@ -54,7 +54,7 @@ const HeroSearchFilter = () => {
               </TabsList>
               <TabsContent value="flights">
                 {/* Flight Type Radio Selectors */}
-                <div className="tw:flex tw:flex-col tw:md:flex-row tw:gap-2 tw:md:gap-5 tw:md:items-center tw:mb-5">
+                <div className="tw:flex tw:flex-row tw:gap-3 tw:md:gap-5 tw:md:items-center tw:mb-5 tw:scrollbar-hide tw:overflow-x-auto">
                   <div className="tw:inline-flex tw:items-center tw:gap-1.5 md:tw:gap-2">
                     <input
                       type="radio"
@@ -67,7 +67,7 @@ const HeroSearchFilter = () => {
                     />
                     <label
                       htmlFor="oneWay"
-                      className="tw:!mb-0 tw:peer-checked:!text-dark-purple tw:text-secondary tw:font-semibold"
+                      className="tw:whitespace-nowrap tw:!mb-0 tw:peer-checked:!text-dark-purple tw:text-secondary tw:font-semibold"
                     >
                       One Way
                     </label>
@@ -84,7 +84,7 @@ const HeroSearchFilter = () => {
                     />
                     <label
                       htmlFor="roundWay"
-                      className="tw:!mb-0 tw:peer-checked:!text-dark-purple tw:text-secondary tw:font-semibold"
+                      className="tw:whitespace-nowrap tw:!mb-0 tw:peer-checked:!text-dark-purple tw:text-secondary tw:font-semibold"
                     >
                       Round Way
                     </label>
@@ -101,7 +101,7 @@ const HeroSearchFilter = () => {
                     />
                     <label
                       htmlFor="multiCity"
-                      className="tw:!mb-0 tw:peer-checked:!text-dark-purple tw:text-secondary tw:font-semibold"
+                      className="tw:whitespace-nowrap tw:!mb-0 tw:peer-checked:!text-dark-purple tw:text-secondary tw:font-semibold"
                     >
                       Multi City
                     </label>
