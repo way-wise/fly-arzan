@@ -94,9 +94,9 @@ const Header = () => {
 
   return (
     <>
-      <header className="tw:!py-0 tw:!sticky tw:top-0 tw:z-50">
+      <header className="tw:!py-0 tw:!fixed tw:!top-0 tw:z-50">
         {/* Top Bar */}
-        <div className="tw:h-[48px] tw:flex tw:items-center tw:bg-[#353978]">
+        {/* <div className="tw:h-[48px] tw:flex tw:items-center tw:bg-[#353978]">
           <div className="container">
             <div className="tw:flex tw:items-center tw:justify-between">
               <div className="tw:flex tw:items-center tw:gap-4">
@@ -131,7 +131,7 @@ const Header = () => {
               </Link>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Navigation */}
         <div className="tw:h-16 tw:md:h-[92px] tw:bg-white tw:flex tw:items-center tw:shadow">

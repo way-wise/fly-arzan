@@ -18,7 +18,7 @@ const HeroSearchFilter = () => {
   return (
     <div>
       <div
-        className={`tw:bg-cover tw:bg-center tw:bg-no-repeat tw:bg-[url(/images/hero_bg.png)] tw:!py-[60px]`}
+        className={`tw:bg-cover tw:mt-16 tw:md:mt-[92px] tw:bg-center tw:bg-no-repeat tw:bg-[url(/images/hero_bg.png)] tw:!py-[60px]`}
       >
         <div className="container">
           <div className="hero-tital">
