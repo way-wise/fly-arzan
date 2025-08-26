@@ -157,11 +157,11 @@ p {
   justify-content: center;
 }
 
-header {
+/* header {
   width: 100%;
   position: relative;
   padding: 20px 0px;
-}
+} */
 
 .container {
   width: 100%;
@@ -7279,9 +7279,9 @@ h2.react-datepicker__current-month {
 }
 
 @media screen and (max-width: 1600px) {
-  header {
+  /* header {
     padding: 20px 0px;
-  }
+  } */
 
   .nav-btn-box p {
     font-size: 16px;
@@ -8957,9 +8957,9 @@ h2.react-datepicker__current-month {
     width: 170px;
   }
 
-  header {
+  /* header {
     padding: 8px 0;
-  }
+  } */
 
   section.Sec4-sec {
     height: 600px;
@@ -9131,9 +9131,9 @@ h2.react-datepicker__current-month {
     font-size: 12px;
   }
 
-  header {
+  /* header {
     padding: 15px 0px;
-  }
+  } */
 
   .responsiv-box-card img {
     border-radius: 10px 0px 0px 0px !important;
