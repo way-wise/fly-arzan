@@ -11,6 +11,7 @@ import { FlightContext } from "../context/FlightContext";
 import { useLocation } from "react-router-dom";
 import HeroSearchFilter from "@/components/ui/hero-search-filter/flights";
 import Header from "@/header-footer/Header";
+import { Toaster } from "sonner";
 
 const LandingFlights = () => {
   const location = useLocation();
@@ -57,6 +58,7 @@ const LandingFlights = () => {
       <FlightFaq ref={sectionRefs.faq} />
       <FlightSec4 ref={sectionRefs.sec4} />
       <Footer />
+      <Toaster position="bottom-center" richColors />
     </>
   );
 };

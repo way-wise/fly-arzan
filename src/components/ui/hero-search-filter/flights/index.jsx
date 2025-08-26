@@ -6,10 +6,13 @@ import RoundWayFlightForm from "./round-way-form";
 import { useState } from "react";
 import MultiCityForm from "./multi-city-form";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 
 const HeroSearchFilter = () => {
   const { t } = useTranslation();
   const [flightType, setFlightType] = useState("oneWay");
+  // Control which tab is active so we can block switching
+  const [activeTab, setActiveTab] = useState("flights");
 
   const handleFlightTypeChange = (type) => {
     setFlightType(type);
@@ -26,7 +29,15 @@ const HeroSearchFilter = () => {
             <p> {t("upperSection.Our_search")}</p>
           </div>
           <div className="tw:rounded-xl tw:bg-white tw:shadow-lg">
-            <Tabs defaultValue="flights">
+            <Tabs
+              value={activeTab}
+              onValueChange={(v) => {
+                if (v === "flights") return setActiveTab(v);
+                // Use a per-tab id so Hotels and Cars can both notify independently
+                const toastId = `coming-soon-${v}`;
+                toast.info("Coming Soon, Please check again later", { id: toastId });
+              }}
+            >
               <TabsList>
                 <TabsTrigger value="flights">
                   <GiCommercialAirplane />
