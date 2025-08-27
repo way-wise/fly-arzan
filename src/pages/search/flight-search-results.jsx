@@ -28,6 +28,7 @@ const FlightSearchResults = () => {
       duration: "4h 30m",
       price: "$241",
       icon: <RiVerifiedBadgeFill size={24} />,
+      showInMobile: true,
     },
     {
       id: 2,
@@ -35,6 +36,7 @@ const FlightSearchResults = () => {
       duration: "12h 05m",
       price: "$129",
       icon: <RiPercentFill size={24} />,
+      showInMobile: false,
     },
     {
       id: 3,
@@ -42,6 +44,7 @@ const FlightSearchResults = () => {
       duration: "4h 25m",
       price: "$622",
       icon: <RiFlashlightFill size={24} />,
+      showInMobile: true,
     },
   ];
 
@@ -410,7 +413,9 @@ const FlightSearchResults = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="best">Best</SelectItem>
-              <SelectItem value="cheapest">Cheapest</SelectItem>
+              <SelectItem value="cheapest" className="tw:hidden tw:md:flex">
+                Cheapest
+              </SelectItem>
               <SelectItem value="fastest">Fastest</SelectItem>
             </SelectContent>
           </Select>
@@ -423,8 +428,9 @@ const FlightSearchResults = () => {
           <label
             key={data.id}
             className={cn(
-              "tw:snap-center tw:w-full tw:md:basis-[100px] tw:shrink-0 tw:!flex tw:items-center tw:justify-between tw:gap-1 tw:!py-3 tw:!px-[20px] tw:!mb-0 tw:cursor-pointer tw:grow tw:text-center tw:text-white tw:md:h-[57px] tw:first:rounded-t-md tw:md:first:rounded-t-none tw:last:rounded-b-md tw:md:last:rounded-b-none tw:md:first:rounded-l-md tw:md:last:rounded-r-md",
-              selectedTimeCost === data.id && "tw:bg-primary"
+              "tw:snap-center tw:w-full tw:md:basis-[100px] tw:shrink-0  tw:items-center tw:!flex tw:justify-between tw:gap-1 tw:!py-3 tw:!px-[20px] tw:!mb-0 tw:cursor-pointer tw:grow tw:text-center tw:text-white tw:md:h-[57px] tw:first:rounded-t-md tw:md:first:rounded-t-none tw:last:rounded-b-md tw:md:last:rounded-b-none tw:md:first:rounded-l-md tw:md:last:rounded-r-md",
+              selectedTimeCost === data.id && "tw:bg-primary",
+              !data.showInMobile && "tw:!hidden tw:md:!flex"
             )}
             onClick={() => setSelectedTimeCost(data.id)}
           >
