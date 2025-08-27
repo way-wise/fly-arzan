@@ -8,6 +8,7 @@ import MultiCityForm from "./multi-city-form";
 import { useTranslation } from "react-i18next";
 import { Modal } from "../../modal";
 import { BsClockHistory } from "react-icons/bs";
+import { X } from "lucide-react";
 
 const HeroSearchFilter = () => {
   const { t } = useTranslation();
@@ -23,12 +24,22 @@ const HeroSearchFilter = () => {
   return (
     <>
       <Modal isOpen={modalOpen} onClose={setModalOpen}>
-        <div className="tw:text-center tw:p-8">
-          <BsClockHistory className="tw:text-6xl tw:text-secondary tw:mx-auto tw:mb-3" />
-          <h3 className="tw:text-lg tw:font-semibold tw:!mb-3">Coming Soon!</h3>
-          <p className="tw:text-gray-600">
-            This feature is under development and will be available soon.
-          </p>
+        <div className="tw:relative">
+          <button>
+            <X
+              className="tw:absolute tw:top-0 tw:right-0"
+              onClick={() => setModalOpen(false)}
+            />
+          </button>
+          <div className="tw:text-center tw:p-8">
+            <BsClockHistory className="tw:text-6xl tw:text-secondary tw:mx-auto tw:mb-3" />
+            <h3 className="tw:text-lg tw:font-semibold tw:!mb-3">
+              Coming Soon!
+            </h3>
+            <p className="tw:text-gray-600">
+              This feature is under development and will be available soon.
+            </p>
+          </div>
         </div>
       </Modal>
       <div
