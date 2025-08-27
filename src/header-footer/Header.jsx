@@ -1,4 +1,3 @@
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Drawer,
   DrawerClose,
@@ -8,11 +7,8 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { Modal } from "@/components/ui/modal";
-import { DialogTitle } from "@headlessui/react";
 import { LucideX, X } from "lucide-react";
 import { useState } from "react";
-import { FaApple } from "react-icons/fa6";
-import { FcGoogle } from "react-icons/fc";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { TfiWorld } from "react-icons/tfi";
 import { Link } from "react-router-dom";
@@ -24,6 +20,7 @@ import { useTranslation } from "react-i18next";
 import getSymbolFromCurrency from "currency-symbol-map";
 import NewLoginForm from "@/components/ui/auth/new-login-form";
 import NewRegisterForm from "@/components/ui/auth/new-register-form";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
   const [openAuthModal, setAuthModal] = useState(false);
@@ -32,6 +29,7 @@ const Header = () => {
     initializeWithValue: false,
   });
   const [openRegionModal, setOpenRegionModal] = useState(false);
+  const [showLogin, setShowLogin] = useState(true);
 
   const { selectedLocalCurr, currency } = useCurrency();
   const { userLocation } = useLocationContext();
@@ -236,37 +234,52 @@ const Header = () => {
             <LucideX />
           </button>
         </div>
-
-        {/* Login Form */}
-        <div>
-          <NewLoginForm />
-
-          <div className="tw:mt-4 tw:flex tw:flex-wrap tw:items-center tw:justify-center tw:gap-1 tw:text-center">
-            <span className="tw:text-secondary">
-              Don&apos;t have an account?
-            </span>
-            <button
-              onClick={() => {}}
-              className="tw:!text-dark-purple tw:hover:!underline tw:focus-visible:underline tw:focus-visible:outline-hidden"
-            >
-              Sign Up
-            </button>
-          </div>
-        </div>
-
-        {/* Register Form */}
-        <div>
-          <NewRegisterForm />
-
-          <div className="tw:mt-4 tw:flex tw:flex-wrap tw:items-center tw:justify-center tw:gap-1 tw:text-center">
-            <span className="tw:text-secondary">Already have an account?</span>
-            <button
-              onClick={() => {}}
-              className="tw:!text-dark-purple tw:hover:!underline tw:focus-visible:underline tw:focus-visible:outline-hidden"
-            >
-              Log in
-            </button>
-          </div>
+        <div className="tw:relative tw:w-full">
+          <AnimatePresence initial={false} mode="wait">
+            {showLogin ? (
+              <motion.div
+                key="login"
+                initial={{ x: 100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+                layout
+              >
+                <NewLoginForm />
+                <div className="tw:mt-4 tw:flex tw:flex-wrap tw:items-center tw:justify-center tw:gap-1 tw:text-center">
+                  <span className="tw:text-secondary">
+                    Don&apos;t have an account?
+                  </span>
+                  <button
+                    onClick={() => setShowLogin(false)}
+                    className="tw:!text-dark-purple tw:hover:!underline tw:focus-visible:underline tw:focus-visible:outline-hidden"
+                  >
+                    Sign Up
+                  </button>
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="register"
+                initial={{ x: 100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+                layout
+              >
+                <NewRegisterForm />
+                <div className="tw:mt-4 tw:flex tw:flex-wrap tw:items-center tw:justify-center tw:gap-1 tw:text-center">
+                  <span className="tw:text-secondary">
+                    Already have an account?
+                  </span>
+                  <button
+                    onClick={() => setShowLogin(true)}
+                    className="tw:!text-dark-purple tw:hover:!underline tw:focus-visible:underline tw:focus-visible:outline-hidden"
+                  >
+                    Log in
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </Modal>
 

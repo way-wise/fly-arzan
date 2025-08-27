@@ -50,8 +50,8 @@ const NewLoginForm = () => {
           </button>
 
           <div className="tw:relative tw:py-3 tw:text-center tw:text-sm tw:after:absolute tw:after:inset-0 tw:after:top-1/2 tw:after:z-0 tw:after:flex tw:after:items-center tw:after:border-t tw:after:border-muted">
-            <span className="tw:relative tw:z-10 tw:bg-white tw:px-2 tw:font-medium tw:text-muted-foreground tw:select-none">
-              OR Continue with
+            <span className="tw:relative tw:z-10 tw:bg-white tw:px-2 tw:text-secondary tw:select-none">
+              Or Continue with
             </span>
           </div>
 

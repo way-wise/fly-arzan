@@ -49,11 +49,14 @@ const NewRegisterForm = () => {
               <Checkbox className="tw:!mb-0.5" id="rememberMe" />
               <label className="tw:text-sm tw:!mb-0" htmlFor="rememberMe">
                 I agree to the platform&apos;s
-                <Link to="/terms" className="tw:text-primary">
-                  Terms of Service
+                <Link to="/terms" className="tw:text-primary tw:!no-underline">
+                  &nbsp;Terms of Service
                 </Link>
-                and &nbsp;
-                <Link to="/privacy" className="tw:text-primary">
+                &nbsp;and&nbsp;
+                <Link
+                  to="/privacy"
+                  className="tw:text-primary tw:!no-underline"
+                >
                   Privacy Policy
                 </Link>
               </label>
@@ -65,8 +68,8 @@ const NewRegisterForm = () => {
           </button>
 
           <div className="tw:relative tw:py-3 tw:text-center tw:text-sm tw:after:absolute tw:after:inset-0 tw:after:top-1/2 tw:after:z-0 tw:after:flex tw:after:items-center tw:after:border-t tw:after:border-muted">
-            <span className="tw:relative tw:z-10 tw:bg-white tw:px-2 tw:font-medium tw:text-muted-foreground tw:select-none">
-              OR Continue with
+            <span className="tw:relative tw:z-10 tw:bg-white tw:px-2 tw:text-secondary tw:select-none">
+              Or Continue with
             </span>
           </div>
 
