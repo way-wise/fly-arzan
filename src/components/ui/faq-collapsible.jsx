@@ -24,10 +24,12 @@ export const FaqCollapsible = ({ title, children }) => {
           )}
         >
           <div className="tw:flex tw:items-center tw:gap-2">
-            <span className="tw:text-xl tw:font-semibold">{title}</span>
+            <span className="tw:md:text-xl tw:text-left tw:font-semibold tw:text-base">
+              {title}
+            </span>
           </div>
           <Plus
-            className={`tw:transition tw:bg-dark-purple tw:text-white tw:size-8 tw:p-1 tw:rounded-full tw:stroke-[1.5] ${
+            className={`tw:!shrink-0 tw:transition tw:bg-dark-purple tw:text-white tw:size-8 tw:p-1 tw:rounded-full tw:stroke-[1.5] ${
               open ? "tw:rotate-180" : "tw:rotate-0"
             }`}
           />
