@@ -3,6 +3,7 @@ import Header from "@/header-footer/Header";
 import { ChevronLeft, Dot } from "lucide-react";
 import { Link } from "react-router-dom";
 import { RiPlaneLine, RiStarFill, RiStarLine } from "react-icons/ri";
+import { FaqCollapsible } from "@/components/ui/faq-collapsible";
 
 const FlightDetailsPage = () => {
   const ticketList = [
@@ -109,7 +110,7 @@ const FlightDetailsPage = () => {
   return (
     <>
       <Header />
-      <div className="tw:flex tw:flex-col tw:min-h-screen">
+      <div className="tw:flex tw:flex-col tw:min-h-screen tw:mt-16 tw:md:mt-[92px]">
         <div className="tw:py-6 tw:bg-[#F2FAFF]">
           <div className="container tw:flex tw:flex-col tw:gap-5">
             <Link className="tw:flex tw:!text-secondary tw:gap-1 tw:!no-underline">
@@ -137,6 +138,18 @@ const FlightDetailsPage = () => {
                 <h2 className="tw:!text-2xl tw:font-semibold tw:text-center tw:sm:text-left">
                   Book your tickets
                 </h2>
+
+                {/* FAQ */}
+                <FaqCollapsible title="How can I find the best flight deals?">
+                  <p>
+                    For the best flight deals, book in advance and be flexible
+                    with your travel dates and destinations. Use our flexible
+                    search tools to compare prices across different airlines and
+                    find deals by searching for an entire month rather than
+                    specific days.
+                  </p>
+                </FaqCollapsible>
+
                 {/* Tags */}
                 <div className="tw:flex tw:items-center tw:flex-wrap tw:justify-center tw:sm:justify-start tw:gap-2">
                   <button className="tw:bg-white tw:!text-sm tw:!rounded-md tw:border tw:border-muted tw:py-[10px] tw:px-4">
@@ -192,7 +205,7 @@ const FlightDetailsPage = () => {
               </div>
 
               {/* Details */}
-              <div className="tw:w-full tw:lg:w-[468px] tw:order-1 tw:lg:order-2">
+              <div className="tw:w-full tw:lg:w-[468px] tw:order-1 tw:lg:order-2 tw:shrink-0">
                 <div className="tw:flex tw:items-end tw:justify-between tw:gap-2 tw:mb-6 tw:~text-[#5D586C]">
                   <div className="tw:flex tw:flex-col tw:gap-2">
                     <h4 className="tw:text-xl tw:font-medium">

@@ -53,7 +53,7 @@ const FlightSearchPage = () => {
     <>
       <SidebarFilterProvider>
         <Header />
-        <div className="tw:flex tw:flex-col tw:min-h-screen">
+        <div className="tw:flex tw:flex-col tw:min-h-screen tw:mt-16 tw:md:mt-[92px]">
           <div className="tw:py-6 tw:bg-[#F2FAFF]">
             <div className="container">
               <h1 className="tw:!text-[18px] tw:font-semibold tw:text-[#00000B] tw:!mb-5">
