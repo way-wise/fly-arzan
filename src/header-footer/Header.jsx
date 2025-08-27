@@ -22,6 +22,8 @@ import { useCurrency } from "@/context/CurrencyContext";
 import { useLocationContext } from "@/context/userLocationContext";
 import { useTranslation } from "react-i18next";
 import getSymbolFromCurrency from "currency-symbol-map";
+import NewLoginForm from "@/components/ui/auth/new-login-form";
+import NewRegisterForm from "@/components/ui/auth/new-register-form";
 
 const Header = () => {
   const [openAuthModal, setAuthModal] = useState(false);
@@ -234,75 +236,37 @@ const Header = () => {
             <LucideX />
           </button>
         </div>
-        <div className="tw:mb-4">
-          <DialogTitle className="tw:text-lg tw:!text-dark-purple tw:font-medium tw:!mb-2">
-            Sign in
-          </DialogTitle>
-          <p className="tw:text-secondary">Enter your information</p>
-        </div>
-        <form>
-          <fieldset className="tw:flex tw:flex-col tw:gap-2">
-            <div className="tw:flex tw:flex-col">
-              <label className="tw:font-medium">Email</label>
-              <input
-                name="email"
-                placeholder="Enter your email"
-                className="input"
-              />
-            </div>
-            <div className="tw:flex tw:flex-col tw:mb-3">
-              <label className="tw:font-medium">Password</label>
-              <input
-                name="password"
-                type="password"
-                placeholder="Enter your password"
-                className="input"
-              />
-            </div>
 
-            <div className="tw:flex tw:items-center tw:gap-2 tw:justify-between">
-              <div className="tw:flex tw:gap-2 tw:items-center">
-                <Checkbox className="tw:!mb-0.5" id="rememberMe" />
-                <label className="tw:text-sm tw:!mb-0" htmlFor="rememberMe">
-                  Remember Me
-                </label>
-              </div>
-              <Link className="tw:text-sm tw:!text-inherit tw:!no-underline tw:hover:!underline">
-                Forgot Password
-              </Link>
-            </div>
+        {/* Login Form */}
+        <div>
+          <NewLoginForm />
 
-            <button className="tw:!mt-3 tw:px-3 tw:py-2 tw:bg-dark-purple tw:hover:bg-dark-purple/80 tw:!text-white tw:!rounded">
-              Submit
+          <div className="tw:mt-4 tw:flex tw:flex-wrap tw:items-center tw:justify-center tw:gap-1 tw:text-center">
+            <span className="tw:text-secondary">
+              Don&apos;t have an account?
+            </span>
+            <button
+              onClick={() => {}}
+              className="tw:!text-dark-purple tw:hover:!underline tw:focus-visible:underline tw:focus-visible:outline-hidden"
+            >
+              Sign Up
             </button>
+          </div>
+        </div>
 
-            <div className="tw:relative tw:py-3 tw:text-center tw:text-sm tw:after:absolute tw:after:inset-0 tw:after:top-1/2 tw:after:z-0 tw:after:flex tw:after:items-center tw:after:border-t tw:after:border-muted">
-              <span className="tw:relative tw:z-10 tw:bg-white tw:px-2 tw:font-medium tw:text-muted-foreground tw:select-none">
-                OR
-              </span>
-            </div>
+        {/* Register Form */}
+        <div>
+          <NewRegisterForm />
 
-            <div className="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:gap-4">
-              <button className="tw:justify-center tw:flex tw:items-center tw:gap-2 tw:px-3 tw:py-2 tw:!rounded tw:shadow tw:border tw:border-muted">
-                <FcGoogle size={20} />
-                <span>Login with Google</span>
-              </button>
-              <button className="tw:justify-center tw:flex tw:items-center tw:gap-2 tw:px-3 tw:py-2 tw:!rounded tw:shadow tw:border tw:border-muted">
-                <FaApple size={20} />
-                <span>Login with Apple</span>
-              </button>
-            </div>
-          </fieldset>
-        </form>
-
-        <div className="tw:mt-4 tw:flex tw:flex-wrap tw:items-center tw:justify-center tw:gap-1 tw:text-center">
-          <span className="tw:text-secondary">Don&apos;t have an account?</span>
-          <Link
-            href="#"
-            className="tw:!no-underline tw:!text-dark-purple tw:hover:!underline tw:focus-visible:underline tw:focus-visible:outline-hidden"
-          >
-            Sign Up
-          </Link>
+          <div className="tw:mt-4 tw:flex tw:flex-wrap tw:items-center tw:justify-center tw:gap-1 tw:text-center">
+            <span className="tw:text-secondary">Already have an account?</span>
+            <button
+              onClick={() => {}}
+              className="tw:!text-dark-purple tw:hover:!underline tw:focus-visible:underline tw:focus-visible:outline-hidden"
+            >
+              Log in
+            </button>
+          </div>
         </div>
       </Modal>
 
