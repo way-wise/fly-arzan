@@ -16,6 +16,14 @@ const HeroSearchFilter = () => {
   // Control which tab is active so we can block switching
   const [activeTab, setActiveTab] = useState("flights");
 
+  const handleTabChange = (v) => {
+    if (v === "flights") {
+      setActiveTab(v);
+    } else {
+      setModalOpen(true);
+    }
+  };
+
   const handleFlightTypeChange = (type) => {
     setFlightType(type);
   };
@@ -51,13 +59,7 @@ const HeroSearchFilter = () => {
             <p> {t("upperSection.Our_search")}</p>
           </div>
           <div className="tw:rounded-xl tw:bg-white tw:shadow-lg">
-            <Tabs
-              value={activeTab}
-              onValueChange={(v) => {
-                if (v === "flights") return setActiveTab(v);
-                setModalOpen(true);
-              }}
-            >
+            <Tabs value={activeTab} onValueChange={handleTabChange}>
               <TabsList>
                 <TabsTrigger value="flights">
                   <GiCommercialAirplane />
