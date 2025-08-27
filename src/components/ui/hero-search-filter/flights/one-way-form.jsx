@@ -25,6 +25,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { string, number, object, date } from "yup";
 import { useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 const city = [
   { id: 1, name: "New York", code: "NYC", state: "NY" },
@@ -44,6 +45,10 @@ const OneWayForm = () => {
   const [queryFrom, setQueryFrom] = useState("");
   const [queryTo, setQueryTo] = useState("");
   const [isSwapped, setIsSwapped] = useState(false);
+
+  const handleSwap = () => {
+    setIsSwapped((prevValue) => !prevValue);
+  };
 
   const OneWayFormSchema = object({
     flyingFrom: object()
@@ -143,7 +148,12 @@ const OneWayForm = () => {
             onChange={(value) => setValue("flyingFrom", value)}
             onClose={() => setQueryFrom("")}
           >
-            <div className="tw:relative tw:z-40 tw:grow">
+            <div
+              className={cn(
+                "tw:relative tw:z-40 tw:grow",
+                isSwapped ? "tw:order-2" : "tw:order-1"
+              )}
+            >
               <ComboboxInput
                 id="flyingFrom"
                 displayValue={(city) => city?.name || ""}
@@ -169,6 +179,7 @@ const OneWayForm = () => {
           </Combobox>
           <button
             type="button"
+            onClick={handleSwap}
             className="tw:absolute tw:z-50 tw:top-[6px] tw:md:top-[50%] tw:left-1/2 tw:-translate-x-1/2 tw:bg-white tw:md:-translate-y-1/2 tw:h-[50px] tw:w-[50px] tw:inline-flex tw:items-center tw:justify-center tw:border tw:!border-muted tw:!rounded-full"
           >
             <svg
@@ -195,7 +206,12 @@ const OneWayForm = () => {
             onChange={(value) => setValue("flyingTo", value)}
             onClose={() => setQueryTo("")}
           >
-            <div className="tw:relative tw:grow">
+            <div
+              className={cn(
+                "tw:relative tw:grow",
+                isSwapped ? "tw:order-1" : "tw:order-2"
+              )}
+            >
               <ComboboxInput
                 id="flyingTo"
                 displayValue={(city) => city?.name || ""}
