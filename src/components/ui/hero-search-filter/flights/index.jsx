@@ -6,7 +6,8 @@ import RoundWayFlightForm from "./round-way-form";
 import { useState } from "react";
 import MultiCityForm from "./multi-city-form";
 import { useTranslation } from "react-i18next";
-import { toast } from "sonner";
+import { Modal } from "../../modal";
+import { BsClockHistory } from "react-icons/bs";
 
 const HeroSearchFilter = () => {
   const { t } = useTranslation();
@@ -17,9 +18,19 @@ const HeroSearchFilter = () => {
   const handleFlightTypeChange = (type) => {
     setFlightType(type);
   };
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
-    <div>
+    <>
+      <Modal isOpen={modalOpen} onClose={setModalOpen}>
+        <div className="tw:text-center tw:p-8">
+          <BsClockHistory className="tw:text-6xl tw:text-secondary tw:mx-auto tw:mb-3" />
+          <h3 className="tw:text-lg tw:font-semibold tw:!mb-3">Coming Soon!</h3>
+          <p className="tw:text-gray-600">
+            This feature is under development and will be available soon.
+          </p>
+        </div>
+      </Modal>
       <div
         className={`tw:bg-cover tw:mt-16 tw:md:mt-[92px] tw:bg-center tw:bg-no-repeat tw:bg-[url(/images/hero_bg.png)] tw:!py-[60px]`}
       >
@@ -33,9 +44,7 @@ const HeroSearchFilter = () => {
               value={activeTab}
               onValueChange={(v) => {
                 if (v === "flights") return setActiveTab(v);
-                // Use a per-tab id so Hotels and Cars can both notify independently
-                const toastId = `coming-soon-${v}`;
-                toast.info("Coming Soon, Please check again later", { id: toastId });
+                setModalOpen(true);
               }}
             >
               <TabsList>
@@ -127,7 +136,7 @@ const HeroSearchFilter = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
