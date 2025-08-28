@@ -17,9 +17,16 @@ const HeroSearchFilter = () => {
   const [activeTab, setActiveTab] = useState("flights");
 
   const handleTabChange = (v) => {
+    // Prevent redundant state updates and block switching away from flights
     if (v === "flights") {
-      setActiveTab(v);
-    } else {
+      if (activeTab !== "flights") {
+        setActiveTab("flights");
+      }
+      return;
+    }
+
+    // For other tabs, show modal without changing the active tab
+    if (!modalOpen) {
       setModalOpen(true);
     }
   };
