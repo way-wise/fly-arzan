@@ -58,7 +58,7 @@ const LandingFlights = () => {
       <FlightFaq ref={sectionRefs.faq} />
       <FlightSec4 ref={sectionRefs.sec4} />
       <Footer />
-      <Toaster position="bottom-center" richColors />
+      <Toaster position="top-center" richColors />
     </>
   );
 };

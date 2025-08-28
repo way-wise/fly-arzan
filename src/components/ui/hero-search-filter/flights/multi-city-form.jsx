@@ -25,6 +25,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { string, number, object, date, array } from "yup";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const city = [
   { id: 1, name: "New York", code: "NYC", state: "NY" },
@@ -172,6 +173,11 @@ const MultiCityForm = () => {
   };
 
   const addSegment = () => {
+    // Don't allow more than 6
+    if (fields.length > 5) {
+      toast.error("No more allowed");
+      return;
+    }
     append({
       flyingFrom: null,
       flyingTo: null,
