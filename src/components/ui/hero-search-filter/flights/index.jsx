@@ -13,7 +13,6 @@ import { X } from "lucide-react";
 const HeroSearchFilter = () => {
   const { t } = useTranslation();
   const [flightType, setFlightType] = useState("oneWay");
-  // Control which tab is active so we can block switching
   const [modalOpen, setModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("flights");
 
@@ -22,6 +21,7 @@ const HeroSearchFilter = () => {
   };
 
   const handleTabChange = (v) => {
+    // Prevent auto reopening modal
     if (v === "flights") {
       setActiveTab("flights");
     } else {
