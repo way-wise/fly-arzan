@@ -14,31 +14,24 @@ const HeroSearchFilter = () => {
   const { t } = useTranslation();
   const [flightType, setFlightType] = useState("oneWay");
   // Control which tab is active so we can block switching
+  const [modalOpen, setModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("flights");
-
-  const handleTabChange = (v) => {
-    // Prevent redundant state updates and block switching away from flights
-    if (v === "flights") {
-      if (activeTab !== "flights") {
-        setActiveTab("flights");
-      }
-      return;
-    }
-
-    // For other tabs, show modal without changing the active tab
-    if (!modalOpen) {
-      setModalOpen(true);
-    }
-  };
 
   const handleFlightTypeChange = (type) => {
     setFlightType(type);
   };
-  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleTabChange = (v) => {
+    if (v === "flights") {
+      setActiveTab("flights");
+    } else {
+      setModalOpen(true);
+    }
+  };
 
   return (
     <>
-      <Modal isOpen={modalOpen} onClose={setModalOpen}>
+      <Modal isOpen={modalOpen} onClose={() => setModalOpen(!modalOpen)}>
         <div className="tw:relative">
           <button>
             <X
@@ -66,7 +59,11 @@ const HeroSearchFilter = () => {
             <p> {t("upperSection.Our_search")}</p>
           </div>
           <div className="tw:rounded-xl tw:bg-white tw:shadow-lg">
-            <Tabs value={activeTab} onValueChange={handleTabChange}>
+            <Tabs
+              value={activeTab}
+              onValueChange={handleTabChange}
+              activationMode="manual"
+            >
               <TabsList>
                 <TabsTrigger value="flights">
                   <GiCommercialAirplane />
