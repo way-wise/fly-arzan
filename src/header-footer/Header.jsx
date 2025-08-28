@@ -21,6 +21,7 @@ import getSymbolFromCurrency from "currency-symbol-map";
 import NewLoginForm from "@/components/ui/auth/new-login-form";
 import NewRegisterForm from "@/components/ui/auth/new-register-form";
 import { motion, AnimatePresence } from "framer-motion";
+import { RiLoginCircleLine } from "react-icons/ri";
 
 const Header = () => {
   const [openAuthModal, setAuthModal] = useState(false);
@@ -161,8 +162,10 @@ const Header = () => {
                   onClick={() => setAuthModal(true)}
                   className="tw:inline-flex tw:items-center tw:gap-1 tw:bg-primary tw:hover:bg-primary/90 tw:shadow-[0_2px_4px_0_rgba(165,163,174,0.30)] tw:py-2.5 tw:md:py-[10px] tw:md:px-5 tw:px-3 tw:!text-sm tw:!text-white tw:!rounded-md"
                 >
-                  <span className="tw:hidden tw:md:block">Register /</span>
-                  Login
+                  <span className="tw:hidden tw:md:block">
+                    Register / Login
+                  </span>
+                  <RiLoginCircleLine size={20} className="tw:md:hidden" />
                 </button>
                 <button
                   className="tw:flex tw:gap-2 tw:text-xl tw:font-medium"
