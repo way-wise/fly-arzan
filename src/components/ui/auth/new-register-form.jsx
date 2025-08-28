@@ -3,8 +3,13 @@ import { Checkbox } from "../checkbox";
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa6";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 const NewRegisterForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   return (
     <>
       <div className="tw:mb-4">
@@ -26,22 +31,40 @@ const NewRegisterForm = () => {
 
           <div className="tw:flex tw:flex-col">
             <label className="tw:font-medium">Password</label>
-            <input
-              name="password"
-              type="password"
-              placeholder="Enter your password"
-              className="input"
-            />
+            <div className="tw:relative">
+              <input
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
+                className="input tw:w-full tw:pr-12"
+              />
+              <button
+                type="button"
+                className="tw:absolute tw:right-3 tw:top-2 tw:!text-secondary"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <EyeOff /> : <Eye />}
+              </button>
+            </div>
           </div>
 
           <div className="tw:flex tw:flex-col tw:mb-3">
             <label className="tw:font-medium">Confirm Password</label>
-            <input
-              name="confirmPassword"
-              type="password"
-              placeholder="Confirm your password"
-              className="input"
-            />
+            <div className="tw:relative">
+              <input
+                name="confirmPassword"
+                type={showConfirmPassword ? "text" : "password"}
+                placeholder="Confirm your password"
+                className="input tw:w-full tw:pr-12"
+              />
+              <button
+                type="button"
+                className="tw:absolute tw:right-3 tw:top-2 tw:!text-secondary"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                {showConfirmPassword ? <EyeOff /> : <Eye />}
+              </button>
+            </div>
           </div>
 
           <div className="tw:flex tw:items-center tw:gap-2 tw:justify-between">
