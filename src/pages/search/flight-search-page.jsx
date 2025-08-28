@@ -2,52 +2,58 @@ import OneWayForm from "@/components/ui/hero-search-filter/flights/one-way-form"
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { CalendarDays } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import SearchFilterSidebar from "./search-filter-sidebar";
 import FlightSearchResults from "./flight-search-results";
 import Footer from "@/header-footer/Footer";
 import Header from "@/header-footer/Header";
 import { SidebarFilterProvider } from "@/providers/filter-sidebar-provider";
+import FlexibleDatesCalendar from "@/components/ui/flexible-dates-calendar/FlexibleDatesCalendar";
+import { generatePriceDataForRange, getFlexibleDatesAroundDate } from "@/components/ui/flexible-dates-calendar/calendarUtils";
+import { format } from "date-fns";
 
 const FlightSearchPage = () => {
   const [selectedFlexibleDate, setSelectedFlexibleDate] = useState(1);
-  const flexibleDates = [
-    {
-      id: 1,
-      date: "31 Aug",
-      price: "$122",
-    },
-    {
-      id: 2,
-      date: "1 Sep",
-      price: "$173",
-    },
-    {
-      id: 3,
-      date: "2 Sep",
-      price: "$126",
-    },
-    {
-      id: 4,
-      date: "3 Sep",
-      price: "$129",
-    },
-    {
-      id: 5,
-      date: "4 Sep",
-      price: "$122",
-    },
-    {
-      id: 6,
-      date: "5 Sep",
-      price: "$141",
-    },
-    {
-      id: 7,
-      date: "6 Sep",
-      price: "$141",
-    },
-  ];
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [flexibleDates, setFlexibleDates] = useState([]);
+  
+  // Generate price data for the calendar (90 days range - 30 before, today, 59 after)
+  const priceData = useMemo(() => {
+    return generatePriceDataForRange(new Date(), 90);
+  }, []);
+  
+  // Update flexible dates when selected date changes
+  useEffect(() => {
+    const dates = getFlexibleDatesAroundDate(selectedDate, priceData, 3);
+    setFlexibleDates(dates);
+    // Select the middle date (which is the selected date)
+    if (dates.length > 0) {
+      const middleIndex = Math.floor(dates.length / 2);
+      setSelectedFlexibleDate(dates[middleIndex].id);
+    }
+  }, [selectedDate, priceData]);
+  
+  const handleDateSelect = (date) => {
+    setSelectedDate(date);
+    setIsCalendarOpen(false);
+    // Update the flexible dates list based on the new selection
+    const dates = getFlexibleDatesAroundDate(date, priceData, 3);
+    setFlexibleDates(dates);
+    // Select the middle date (which is the newly selected date)
+    if (dates.length > 0) {
+      const middleIndex = Math.floor(dates.length / 2);
+      setSelectedFlexibleDate(dates[middleIndex].id);
+    }
+  };
+  
+  const handleFlexibleDateClick = (dateId) => {
+    setSelectedFlexibleDate(dateId);
+    const selectedFlexible = flexibleDates.find(d => d.id === dateId);
+    if (selectedFlexible) {
+      setSelectedDate(selectedFlexible.fullDate);
+    }
+  };
 
   return (
     <>
@@ -73,11 +79,23 @@ const FlightSearchPage = () => {
                   <label
                     key={date.id}
                     className={cn(
-                      "tw:snap-center tw:basis-[100px] tw:shrink-0 tw:!flex tw:flex-col tw:justify-center tw:gap-1 tw:!py-[24px] tw:!px-[20px] tw:!mb-0 tw:cursor-pointer tw:grow tw:text-center tw:h-[93px] tw:first:rounded-l-xl tw:last:rounded-r-xl",
-                      selectedFlexibleDate === date.id && "tw:bg-primary"
+                      "tw:snap-center tw:basis-[100px] tw:shrink-0 tw:!flex tw:flex-col tw:justify-center tw:gap-1 tw:!py-[24px] tw:!px-[20px] tw:!mb-0 tw:cursor-pointer tw:grow tw:text-center tw:h-[93px] tw:first:rounded-l-xl tw:last:rounded-r-xl tw:relative",
+                      selectedFlexibleDate === date.id && "tw:bg-primary",
+                      date.isCheapest && selectedFlexibleDate !== date.id && "tw:bg-green-50",
+                      date.isRecommended && selectedFlexibleDate !== date.id && "tw:bg-blue-50"
                     )}
-                    onClick={() => setSelectedFlexibleDate(date.id)}
+                    onClick={() => handleFlexibleDateClick(date.id)}
                   >
+                    {/* Indicator for cheapest/recommended */}
+                    {(date.isCheapest || date.isRecommended) && (
+                      <div className="tw:absolute tw:top-2 tw:right-2">
+                        <div className={cn(
+                          "tw:w-2 tw:h-2 tw:rounded-full",
+                          date.isCheapest && "tw:bg-green-500",
+                          date.isRecommended && "tw:bg-blue-500"
+                        )} />
+                      </div>
+                    )}
                     <span
                       className={cn(
                         "tw:text-[14px] tw:font-medium tw:text-secondary",
@@ -88,8 +106,11 @@ const FlightSearchPage = () => {
                     </span>
                     <span
                       className={cn(
-                        "tw:text-[20px] tw:font-semibold tw:text-primary",
-                        selectedFlexibleDate === date.id && "tw:text-white"
+                        "tw:text-[20px] tw:font-semibold",
+                        selectedFlexibleDate === date.id && "tw:text-white",
+                        selectedFlexibleDate !== date.id && date.isCheapest && "tw:text-green-600",
+                        selectedFlexibleDate !== date.id && date.isRecommended && "tw:text-blue-600",
+                        selectedFlexibleDate !== date.id && !date.isCheapest && !date.isRecommended && "tw:text-primary"
                       )}
                     >
                       {date.price}
@@ -97,7 +118,10 @@ const FlightSearchPage = () => {
                   </label>
                 ))}
               </div>
-              <button className="tw:!rounded-xl tw:hidden tw:bg-white tw:shadow tw:md:flex tw:flex-col tw:items-center tw:gap-2 tw:!py-[24px] tw:!px-[20px] tw:h-[93px] tw:shrink-0">
+              <button 
+                onClick={() => setIsCalendarOpen(true)}
+                className="tw:!rounded-xl tw:hidden tw:bg-white tw:shadow tw:md:flex tw:flex-col tw:items-center tw:gap-2 tw:!py-[24px] tw:!px-[20px] tw:h-[93px] tw:shrink-0 tw:hover:shadow-lg tw:transition-shadow tw:cursor-pointer"
+              >
                 <CalendarDays
                   size={20}
                   className="tw:text-secondary tw:shrink-0"
@@ -128,6 +152,15 @@ const FlightSearchPage = () => {
         </div>
         <Footer />
       </SidebarFilterProvider>
+      
+      {/* Flexible Dates Calendar Modal */}
+      <FlexibleDatesCalendar
+        isOpen={isCalendarOpen}
+        onClose={() => setIsCalendarOpen(false)}
+        onDateSelect={handleDateSelect}
+        selectedDate={selectedDate}
+        priceData={priceData}
+      />
     </>
   );
 };
