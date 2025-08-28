@@ -40,10 +40,10 @@ const NewRegisterForm = () => {
               />
               <button
                 type="button"
-                className="tw:absolute tw:right-3 tw:top-2 tw:!text-secondary"
+                className="tw:absolute tw:right-3 tw:top-2.5 tw:!text-secondary"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? <EyeOff /> : <Eye />}
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
           </div>
@@ -59,10 +59,10 @@ const NewRegisterForm = () => {
               />
               <button
                 type="button"
-                className="tw:absolute tw:right-3 tw:top-2 tw:!text-secondary"
+                className="tw:absolute tw:right-3 tw:top-2.5 tw:!text-secondary"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               >
-                {showConfirmPassword ? <EyeOff /> : <Eye />}
+                {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
           </div>
