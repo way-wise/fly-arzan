@@ -144,8 +144,8 @@ const RoundWayForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-      <fieldset className="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:xl:grid-cols-4 tw:2xl:flex tw:items-center tw:gap-4">
-        <div className="tw:flex tw:gap-4 tw:relative">
+      <fieldset className="tw:grid tw:grid-cols-1 tw:sm:grid-cols-2 tw:xl:grid-cols-5 tw:2xl:flex tw:items-center tw:gap-4">
+        <div className="tw:flex tw:flex-col tw:sm:flex-row tw:gap-4 tw:relative tw:grow tw:sm:col-span-2">
           {/* Flying From */}
           <Combobox
             value={flyingFrom}
@@ -185,7 +185,7 @@ const RoundWayForm = () => {
           <button
             type="button"
             onClick={handleSwap}
-            className="tw:absolute tw:z-50 tw:top-[6px] tw:md:top-[50%] tw:left-1/2 tw:-translate-x-1/2 tw:bg-white tw:md:-translate-y-1/2 tw:h-[50px] tw:w-[50px] tw:inline-flex tw:items-center tw:justify-center tw:border tw:!border-muted tw:!rounded-full"
+            className="tw:absolute tw:z-50 tw:top-[45px] tw:sm:top-[50%] tw:left-1/2 tw:-translate-x-1/2 tw:bg-white tw:sm:-translate-y-1/2 tw:h-[50px] tw:w-[50px] tw:inline-flex tw:items-center tw:justify-center tw:border tw:!border-muted tw:!rounded-full"
           >
             <svg
               width="20"
@@ -449,7 +449,7 @@ const RoundWayForm = () => {
         </Popover>
         {/* Search Button */}
         <button
-          className="tw:w-full tw:md:!w-fit tw:px-5 tw:h-[62px] tw:shrink-0 tw:2xl:px-0 tw:2xl:!w-[62px] tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
+          className="tw:w-full tw:xl:col-span-5 tw:sm:col-span-2 tw:justify-self-end tw:md:!w-fit tw:px-5 tw:h-[62px] tw:shrink-0 tw:2xl:px-0 tw:2xl:!w-[62px] tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
           disabled={isSubmitting}
         >
           <IoSearchOutline size={28} />
