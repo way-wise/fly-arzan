@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { useSidebarFilter } from "@/providers/filter-sidebar-provider";
+import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import {
   RiPlaneLine,
@@ -544,6 +545,10 @@ const FlightSearchResults = () => {
             </div>
           </div>
         ))}
+        <button className="tw:flex tw:!mx-auto tw:items-center tw:gap-1.5 tw:hover:bg-primary/90 tw:px-[40px] tw:h-[56px] tw:!text-white tw:font-semibold tw:!rounded-[40px] tw:bg-primary">
+          <span>Explore More</span>
+          <ArrowRight size={18} />
+        </button>
       </div>
     </div>
   );

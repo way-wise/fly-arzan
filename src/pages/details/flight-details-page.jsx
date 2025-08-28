@@ -1,6 +1,6 @@
 import Footer from "@/header-footer/Footer";
 import Header from "@/header-footer/Header";
-import { ChevronLeft, Dot } from "lucide-react";
+import { ArrowRight, ChevronLeft, Dot } from "lucide-react";
 import { Link } from "react-router-dom";
 import { RiPlaneLine, RiStarFill, RiStarLine } from "react-icons/ri";
 import { FaqCollapsible } from "@/components/ui/faq-collapsible";
@@ -201,6 +201,11 @@ const FlightDetailsPage = () => {
                       </div>
                     </div>
                   ))}
+
+                  <button className="tw:flex tw:!mx-auto tw:items-center tw:gap-1.5 tw:hover:bg-primary/90 tw:px-[40px] tw:h-[56px] tw:!text-white tw:font-semibold tw:!rounded-[40px] tw:bg-primary">
+                    <span>Explore More</span>
+                    <ArrowRight size={18} />
+                  </button>
                 </div>
               </div>
 
