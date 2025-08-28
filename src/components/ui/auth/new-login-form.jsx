@@ -12,13 +12,13 @@ const NewLoginForm = () => {
   return (
     <>
       <div className="tw:mb-4">
-        <DialogTitle className="tw:text-lg tw:!text-dark-purple tw:font-medium tw:!mb-2">
+        <DialogTitle className="tw:md:text-lg tw:!text-dark-purple tw:font-medium tw:!mb-2">
           Sign in
         </DialogTitle>
         <p className="tw:text-secondary">Enter your information</p>
       </div>
       <form method="post">
-        <fieldset className="tw:flex tw:flex-col tw:gap-2">
+        <fieldset className="tw:flex tw:flex-col tw:gap-1.5 tw:md:gap-2">
           <div className="tw:flex tw:flex-col">
             <label className="tw:font-medium">Email</label>
             <input
@@ -27,7 +27,7 @@ const NewLoginForm = () => {
               className="input"
             />
           </div>
-          <div className="tw:flex tw:flex-col tw:mb-3">
+          <div className="tw:flex tw:flex-col tw:mb-1 tw:md:mb-3">
             <label className="tw:font-medium">Password</label>
             <div className="tw:relative">
               <input
@@ -58,17 +58,17 @@ const NewLoginForm = () => {
             </Link>
           </div>
 
-          <button className="tw:!mt-3 tw:px-3 tw:py-2 tw:bg-dark-purple tw:hover:bg-dark-purple/80 tw:!text-white tw:!rounded">
+          <button className="tw:!mt-1 tw:md:!mt-3 tw:px-3 tw:py-2 tw:bg-dark-purple tw:hover:bg-dark-purple/80 tw:!text-white tw:!rounded">
             Login
           </button>
 
-          <div className="tw:relative tw:py-3 tw:text-center tw:text-sm tw:after:absolute tw:after:inset-0 tw:after:top-1/2 tw:after:z-0 tw:after:flex tw:after:items-center tw:after:border-t tw:after:border-muted">
+          <div className="tw:relative tw:py-1 tw:md:py-3 tw:text-center tw:text-sm tw:after:absolute tw:after:inset-0 tw:after:top-1/2 tw:after:z-0 tw:after:flex tw:after:items-center tw:after:border-t tw:after:border-muted">
             <span className="tw:relative tw:z-10 tw:bg-white tw:px-2 tw:text-secondary tw:select-none">
               Or Continue with
             </span>
           </div>
 
-          <div className="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:gap-4">
+          <div className="tw:grid tw:grid-cols-2 tw:gap-4">
             <button className="tw:justify-center tw:flex tw:items-center tw:gap-2 tw:px-3 tw:py-2 tw:!rounded tw:shadow tw:border tw:border-muted">
               <FcGoogle size={20} />
               <span>Google</span>

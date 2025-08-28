@@ -232,7 +232,7 @@ const Header = () => {
       {/* Auth Modal */}
       <Modal isOpen={openAuthModal} onClose={setAuthModal}>
         <div className="tw:flex tw:justify-between tw:items-start tw:text-secondary tw:mb-4">
-          <img src="/logo.png" className="tw:w-[150px]" />
+          <img src="/logo.png" className="tw:!w-[120px] tw:md:!w-[150px]" />
           <button onClick={() => setAuthModal(false)}>
             <LucideX />
           </button>
