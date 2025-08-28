@@ -1,11 +1,13 @@
 import Footer from "@/header-footer/Footer";
 import Header from "@/header-footer/Header";
 import { ArrowRight, ChevronLeft, Dot } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RiPlaneLine, RiStarFill, RiStarLine } from "react-icons/ri";
 import { FaqCollapsible } from "@/components/ui/faq-collapsible";
 
 const FlightDetailsPage = () => {
+  const navigate = useNavigate();
+
   const ticketList = [
     {
       id: 1,
@@ -195,7 +197,10 @@ const FlightDetailsPage = () => {
                             {data.totalPrice}
                           </span>
                         </div>
-                        <button className="tw:bg-[#50ADD8] tw:!text-white tw:!rounded-full tw:px-[30px] tw:py-2 tw:text-sm">
+                        <button
+                          className="tw:bg-[#50ADD8] tw:!text-white tw:!rounded-full tw:px-[30px] tw:py-2 tw:text-sm"
+                          onClick={() => navigate("/loader")}
+                        >
                           Select
                         </button>
                       </div>
