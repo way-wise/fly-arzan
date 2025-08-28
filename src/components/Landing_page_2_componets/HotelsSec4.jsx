@@ -4,7 +4,7 @@ import { useGet } from "../../utils/ApiMethod";
 import { BackendUrl } from "../../baseUrl";
 import { useLocationContext } from "../../context/userLocationContext";
 
-const HotelsSec4 = forwardRef((props, ref) =>{
+const HotelsSec4 = forwardRef((props, ref) => {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("Top Cities");
   const { userLocation } = useLocationContext();
@@ -78,7 +78,7 @@ const HotelsSec4 = forwardRef((props, ref) =>{
     console.log(title);
   };
   return (
-    <section ref={ref} className="Sec4-sec">
+    <section ref={ref} className="Sec4-sec" id="extended-hotel">
       <div className="container">
         <div className="Sec4-sec--main">
           <div className="Sec4-sec--title">

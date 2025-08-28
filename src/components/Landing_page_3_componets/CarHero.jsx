@@ -8,13 +8,12 @@ const CarHero = () => {
   const { t } = useTranslation();
   return (
     <>
-      <section className="hero-sec CarHero-sec add-more-height">
+      <section className="hero-sec CarHero-sec add-more-height top-margin">
         <div className="container">
           <div className="main-hero">
             <div className="hero-tital">
-              <h2>  { t(`carsection.Find_the_best_car`)}</h2>
-
-              <p>   { t(`carsection.Our_search`)}</p>
+              <h2> {t(`carsection.Find_the_best_car`)}</h2>
+              <p> {t(`carsection.Our_search`)}</p>
             </div>
             <div className="Flights-box">
               <Tab3 />

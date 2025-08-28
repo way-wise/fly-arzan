@@ -4,10 +4,10 @@ import Tab2 from "../Tab-componet/Tab2";
 import { useTranslation } from "react-i18next";
 
 const HeroHotels = () => {
-  const {t}=useTranslation();
+  const { t } = useTranslation();
   return (
     <>
-      <section className="hero-sec HeroHotels-sec add-more-height">
+      <section className="hero-sec HeroHotels-sec add-more-height top-margin">
         <div className="container">
           <div className="main-hero">
             <div className="hero-tital">

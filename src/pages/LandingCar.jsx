@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import Header from "../header-footer/HeaderOld2";
+import { useEffect, useRef } from "react";
+import Header from "../header-footer/Header";
 import Footer from "../header-footer/Footer";
 import CarsFaq from "../components/Landing_page_3_componets/CarsFaq";
 import FlightSec1 from "../components/Landing_page_1_componets/FlightSec1";
@@ -35,6 +35,18 @@ const LandingCar = () => {
       }, 300);
     }
   }, [location]);
+
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const element = document.getElementById(hash.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [hash]);
+
   return (
     <>
       <Header onNavigate={scrollToSection} />

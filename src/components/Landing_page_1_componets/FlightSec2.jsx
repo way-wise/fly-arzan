@@ -1,5 +1,5 @@
-import React, { forwardRef, useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { forwardRef, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Places1 from "../../assets/Images/Places1.png";
 import Places2 from "../../assets/Images/Places2.png";
 import Places3 from "../../assets/Images/Places3.png";
@@ -92,13 +92,13 @@ const cardData = [
   // Add more cards as needed
 ];
 
-const FlightSec2 =  forwardRef((props, ref) => {
+const FlightSec2 = forwardRef((props, ref) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { userLocation } = useLocationContext();
   const [flightData, setFlightData] = useState([]);
   const [limit, setLimit] = useState(6);
-  
+
   const { data, refetch } = useGet(
     userLocation?.country_name
       ? `/flight?page=1&limit=${limit}&country=${userLocation?.country_name}&city=${userLocation?.city}`
@@ -121,14 +121,15 @@ const FlightSec2 =  forwardRef((props, ref) => {
 
   return (
     <>
-      <section ref={ref} className="Sec2-sec">
+      <section ref={ref} id="flight-main-deals" className="Sec2-sec">
         <div className="container">
           <div className="main-Sec2">
             {userLocation?.country_name ? (
               <div className="Sec2-tital">
                 <h2>
-                { t('flightFaqSection.flightCard.FlightDealsFrom', { country: userLocation?.country_name || '' }) }
-
+                  {t("flightFaqSection.flightCard.FlightDealsFrom", {
+                    country: userLocation?.country_name || "",
+                  })}
                 </h2>
                 {/* <p>
                 Discover the best flight deals from France at the lowest prices.
@@ -136,29 +137,25 @@ const FlightSec2 =  forwardRef((props, ref) => {
                 explore them at your own pace!
               </p> */}
                 <p>
-                  {t('flightFaqSection.flightCard.Discover_flight_deals')}{" "}
-                  {userLocation?.country_name} {t('flightFaqSection.flightCard.at_the_lowest_prices')}
+                  {t("flightFaqSection.flightCard.Discover_flight_deals")}{" "}
+                  {userLocation?.country_name}{" "}
+                  {t("flightFaqSection.flightCard.at_the_lowest_prices")}
                 </p>
               </div>
             ) : (
               <div className="Sec2-tital">
-              <h2>
-              {t('flightFaqSection.flightCard.PlacesLike')}
-              </h2>
-              {/* <p>
+                <h2>{t("flightFaqSection.flightCard.PlacesLike")}</h2>
+                {/* <p>
               Discover the best flight deals from France at the lowest prices.
               These offers are available for a limited time, so you can
               explore them at your own pace!
             </p> */}
-              <p>
-              {t('flightFaqSection.flightCard.PlacesLikePara')}
-
-              </p>
-            </div>
+                <p>{t("flightFaqSection.flightCard.PlacesLikePara")}</p>
+              </div>
             )}
 
             {Array.isArray(flightData) && flightData?.length > 0 ? (
-              <FlightCard  cardData={flightData} navigateTo="/FlightsInner" />
+              <FlightCard cardData={flightData} navigateTo="/FlightsInner" />
             ) : (
               <FlightCard cardData={cardData} navigateTo="/FlightsInner" />
             )}

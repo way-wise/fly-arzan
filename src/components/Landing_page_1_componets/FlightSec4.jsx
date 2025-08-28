@@ -14,10 +14,8 @@ const FlightSec4 = forwardRef((props, ref) => {
   const selectLocalLang = JSON.parse(localStorage.getItem("selectLang"));
 
   // Fetch data when activeTab changes
-  const endpoint = 
-  userLocation?.country_name
-    ?
-     `/category-flight/${activeTab}/${userLocation?.country_name}`
+  const endpoint = userLocation?.country_name
+    ? `/category-flight/${activeTab}/${userLocation?.country_name}`
     : null;
 
   const { data, loading, refetch } = useGet(
@@ -51,7 +49,7 @@ const FlightSec4 = forwardRef((props, ref) => {
   };
 
   return (
-    <section ref={ref} className="Sec4-sec">
+    <section ref={ref} className="Sec4-sec" id="flight-begin-Journey">
       <div className="container">
         <div className="Sec4-sec--main">
           <div className="Sec4-sec--title">

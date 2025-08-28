@@ -99,6 +99,10 @@ p {
   margin: 0px;
 }
 
+.top-margin {
+  @apply tw:mt-16 tw:md:mt-[92px];
+}
+
 /* Header________Styling________Css */
 /* Header________Styling________Css */
 /* Header________Styling________Css */

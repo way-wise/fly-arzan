@@ -45,7 +45,7 @@ const FlightSec3 = forwardRef((props, ref) => {
 
   return (
     <>
-      <section ref={ref} className="Sec3-sec">
+      <section ref={ref} className="Sec3-sec" id="flight-article">
         <div className="container">
           <div className="main-Sec3">
             <div className="Sec3-tital">

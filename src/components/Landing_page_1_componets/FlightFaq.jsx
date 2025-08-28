@@ -69,7 +69,7 @@ const FlightFaq = forwardRef((props, ref) => {
   };
 
   return (
-    <section className="faq--flight--sec" ref={faqSectionRef}>
+    <section className="faq--flight--sec" id="flight-faq" ref={faqSectionRef}>
       <div className="container">
         <div className="main-hero">
           <div className="faq--heading">

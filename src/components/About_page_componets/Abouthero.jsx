@@ -7,10 +7,10 @@ const Abouthero = () => {
   const { t } = useTranslation();
   return (
     <>
-      <section className="Abouthero-sec">
+      <section className="Abouthero-sec top-margin">
         <div className="container">
           <div className="Abouthero-main">
-            <h2>{ t(`AboutUs.heading`)}</h2>
+            <h2>{t(`AboutUs.heading`)}</h2>
           </div>
         </div>
       </section>

@@ -11,7 +11,6 @@ import { LucideX, X } from "lucide-react";
 import { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { TfiWorld } from "react-icons/tfi";
-import { Link } from "react-router-dom";
 import { useMediaQuery } from "usehooks-ts";
 import RegionModal from "@/components/RegionModal/RegionModal";
 import { useCurrency } from "@/context/CurrencyContext";
@@ -22,6 +21,7 @@ import NewLoginForm from "@/components/ui/auth/new-login-form";
 import NewRegisterForm from "@/components/ui/auth/new-register-form";
 import { motion, AnimatePresence } from "framer-motion";
 import { RiLoginCircleLine } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [openAuthModal, setAuthModal] = useState(false);
@@ -46,48 +46,64 @@ const Header = () => {
       id: 1,
       heading: "Pages",
       list: [
-        { id: 1, title: "Home", link: "#" },
-        { id: 2, title: "About", link: "#" },
-        { id: 3, title: "FAQ", link: "#" },
-        { id: 4, title: "Contact", link: "#" },
+        { id: 1, title: "Home", link: "/" },
+        { id: 2, title: "About", link: "/About" },
+        { id: 3, title: "FAQ", link: "/Faq" },
+        { id: 4, title: "Contact", link: "/Contact" },
       ],
     },
     {
       id: 2,
       heading: "Flights",
       list: [
-        { id: 1, title: "Main Deals", link: "#" },
-        { id: 2, title: "Articles", link: "#" },
-        { id: 3, title: "Frequently Asked Questions", link: "#" },
-        { id: 4, title: "Begin Your Journey Today", link: "#" },
+        { id: 1, title: "Main Deals", link: "/#flight-main-deals" },
+        { id: 2, title: "Articles", link: "/#flight-article" },
+        { id: 3, title: "Frequently Asked Questions", link: "/#flight-faq" },
+        {
+          id: 4,
+          title: "Begin Your Journey Today",
+          link: "/#flight-begin-Journey",
+        },
       ],
     },
     {
       id: 3,
       heading: "Hotel",
       list: [
-        { id: 1, title: "Main Deals", link: "#" },
-        { id: 2, title: "Articles", link: "#" },
-        { id: 3, title: "Frequently Asked Questions", link: "#" },
-        { id: 4, title: "Extended Hotel Options", link: "#" },
+        { id: 1, title: "Main Deals", link: "/Hotels#hotel-main-deals" },
+        { id: 2, title: "Articles", link: "/Hotels#hotel-article" },
+        {
+          id: 3,
+          title: "Frequently Asked Questions",
+          link: "/Hotels#hotel-faq",
+        },
+        {
+          id: 4,
+          title: "Extended Hotel Options",
+          link: "/Hotels#extended-hotel",
+        },
       ],
     },
     {
       id: 4,
       heading: "Car",
       list: [
-        { id: 1, title: "Main Deals", link: "#" },
-        { id: 2, title: "Articles", link: "#" },
-        { id: 3, title: "Frequently Asked Questions", link: "#" },
-        { id: 4, title: "Begin Your Toad Trip Journey", link: "#" },
+        { id: 1, title: "Main Deals", link: "/Car#car-main-deals" },
+        { id: 2, title: "Articles", link: "/Car#car-article" },
+        { id: 3, title: "Frequently Asked Questions", link: "/Car#car-faq" },
+        {
+          id: 4,
+          title: "Begin Your Toad Trip Journey",
+          link: "/Car#begin-Journey",
+        },
       ],
     },
     {
       id: 5,
       heading: "Activity",
       list: [
-        { id: 1, title: "Visa requirements", link: "#" },
-        { id: 2, title: "Nearest airport details", link: "#" },
+        { id: 1, title: "Visa requirements", link: "/VisaRequirements" },
+        { id: 2, title: "Nearest airport details", link: "/Airport" },
         { id: 3, title: "Article", link: "#" },
       ],
     },
@@ -217,6 +233,7 @@ const Header = () => {
                         to={link}
                         key={id}
                         className="tw:text-xl tw:!no-underline tw:!text-dark-purple"
+                        onClick={() => setOpenMenu(false)}
                       >
                         {title}
                       </Link>

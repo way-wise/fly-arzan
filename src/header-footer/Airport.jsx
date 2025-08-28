@@ -1,5 +1,4 @@
-import React from "react";
-import Header from "./HeaderOld2";
+import Header from "./Header";
 import Footer from "./Footer";
 import Airportcomponet from "../components/COVID-page-componet/Airportcomponet";
 

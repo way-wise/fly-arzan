@@ -92,7 +92,7 @@ const cardData = [
   // Add more cards as needed
 ];
 
-const CarSec2 = forwardRef((props, ref) =>{
+const CarSec2 = forwardRef((props, ref) => {
   const { t } = useTranslation();
   const [limit, setLimit] = useState(6);
 
@@ -111,7 +111,7 @@ const CarSec2 = forwardRef((props, ref) =>{
   }, [limit]);
   return (
     <>
-      <section ref={ref} className="Sec2-sec">
+      <section ref={ref} className="Sec2-sec" id="car-main-deals">
         <div className="container">
           <div className="main-Sec2">
             <div className="Sec2-tital">
@@ -127,7 +127,7 @@ const CarSec2 = forwardRef((props, ref) =>{
             {Array.isArray(data?.data) && data?.data?.length > 0 ? (
               <FlightCard cardData={data?.data} navigateTo="/CarInner" />
             ) : (
-              <FlightCard cardData={cardData} navigateTo="/CarInner"/>
+              <FlightCard cardData={cardData} navigateTo="/CarInner" />
             )}
             {data?.data?.length > 6 && (
               <div className="Sec2-btn-box">

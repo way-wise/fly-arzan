@@ -1,5 +1,4 @@
-import React, { forwardRef, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { forwardRef, useEffect, useState } from "react";
 import Places1 from "../../assets/Images/Places1.png";
 import Places2 from "../../assets/Images/Places2.png";
 import Places3 from "../../assets/Images/Places3.png";
@@ -105,17 +104,21 @@ const HotelsSec2 = forwardRef((props, ref) => {
     BackendUrl,
     false
   );
- useEffect(() => {
+  useEffect(() => {
     refetch();
   }, [limit]);
 
   return (
     <>
-      <section ref={ref} className="Sec2-sec">
+      <section ref={ref} className="Sec2-sec" id="hotel-main-deals">
         <div className="container">
           <div className="main-Sec2">
             <div className="Sec2-tital">
-              <h2>{ t("hotel_section.Discover_Hotel", { country: userLocation?.country_name || '' }) }</h2>
+              <h2>
+                {t("hotel_section.Discover_Hotel", {
+                  country: userLocation?.country_name || "",
+                })}
+              </h2>
               <p>{t("hotel_section.Explore_hotel_para")}</p>
             </div>
             {Array.isArray(data?.data) && data?.data?.length > 0 ? (

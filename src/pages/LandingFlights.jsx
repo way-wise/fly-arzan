@@ -14,7 +14,7 @@ import Header from "@/header-footer/Header";
 import { Toaster } from "sonner";
 
 const LandingFlights = () => {
-  const location = useLocation();
+  const { hash } = useLocation();
 
   const { setContextData } = useContext(FlightContext);
   useEffect(() => {
@@ -44,6 +44,15 @@ const LandingFlights = () => {
   //     }, 300);
   //   }
   // }, [location]);
+
+  useEffect(() => {
+    if (hash) {
+      const element = document.getElementById(hash.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [hash]);
 
   return (
     <>
