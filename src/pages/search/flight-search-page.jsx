@@ -97,13 +97,15 @@ const FlightSearchPage = () => {
                   </label>
                 ))}
               </div>
-              <div className="tw:rounded-xl tw:hidden tw:bg-white tw:shadow tw:md:flex tw:flex-col tw:items-center tw:gap-2 tw:!py-[24px] tw:!px-[20px] tw:h-[93px] tw:shrink-0">
+              <button className="tw:!rounded-xl tw:hidden tw:bg-white tw:shadow tw:md:flex tw:flex-col tw:items-center tw:gap-2 tw:!py-[24px] tw:!px-[20px] tw:h-[93px] tw:shrink-0">
                 <CalendarDays
                   size={20}
                   className="tw:text-secondary tw:shrink-0"
                 />
-                <p className="tw:text-[14px] tw:font-medium">Flexible Dates</p>
-              </div>
+                <span className="tw:text-[14px] tw:font-medium">
+                  Flexible Dates
+                </span>
+              </button>
             </div>
 
             {/* Progress Bar */}
