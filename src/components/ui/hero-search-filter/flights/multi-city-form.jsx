@@ -549,7 +549,7 @@ const MultiCityForm = () => {
         {/* Search Button */}
         <button
           type="submit"
-          className="tw:w-full tw:justify-self-end tw:md:!w-fit tw:px-5 tw:h-[62px] tw:shrink-0 tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
+          className="tw:w-full tw:!ms-auto tw:md:!w-fit tw:px-5 tw:h-[62px] tw:shrink-0 tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
           disabled={isSubmitting}
         >
           <IoSearchOutline size={28} />
