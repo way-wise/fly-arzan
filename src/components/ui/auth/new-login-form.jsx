@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa6";
 import { useState } from "react";
-import { Eye, EyeClosed, EyeOff } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 
 const NewLoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,7 +17,7 @@ const NewLoginForm = () => {
         </DialogTitle>
         <p className="tw:text-secondary">Enter your information</p>
       </div>
-      <form>
+      <form method="post">
         <fieldset className="tw:flex tw:flex-col tw:gap-2">
           <div className="tw:flex tw:flex-col">
             <label className="tw:font-medium">Email</label>
