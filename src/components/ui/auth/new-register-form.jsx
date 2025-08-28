@@ -18,7 +18,7 @@ const NewRegisterForm = () => {
         </DialogTitle>
         <p className="tw:text-secondary">Enter your information</p>
       </div>
-      <form>
+      <form method="post">
         <fieldset className="tw:flex tw:flex-col tw:gap-2">
           <div className="tw:flex tw:flex-col">
             <label className="tw:font-medium">Email</label>
