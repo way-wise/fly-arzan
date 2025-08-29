@@ -37,7 +37,7 @@ const FlightSearchResults = () => {
       duration: "12h 05m",
       price: "$129",
       icon: <RiPercentFill size={24} />,
-      showInMobile: false,
+      showInMobile: true,
     },
     {
       id: 3,
@@ -414,7 +414,7 @@ const FlightSearchResults = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="best">Best</SelectItem>
-              <SelectItem value="cheapest" className="tw:hidden tw:md:flex">
+              <SelectItem value="cheapest">
                 Cheapest
               </SelectItem>
               <SelectItem value="fastest">Fastest</SelectItem>
@@ -481,9 +481,9 @@ const FlightSearchResults = () => {
                       alt={flight.airline}
                       className="tw:w-[120px] tw:object-contain"
                     />
-                    <span className="tw:text-sm tw:text-secondary">
+                    {/* <span className="tw:text-sm tw:text-secondary">
                       {flight.airline}
-                    </span>
+                    </span> */}
                     <span className="tw:text-sm tw:text-secondary">{`${flight.airlineCode} - ${flight.flightNumber}`}</span>
                   </div>
 

@@ -155,9 +155,9 @@ const FlightSec2 = forwardRef((props, ref) => {
             )}
 
             {Array.isArray(flightData) && flightData?.length > 0 ? (
-              <FlightCard cardData={flightData} navigateTo="/FlightsInner" />
+              <FlightCard cardData={flightData} navigateTo="/search/flight" />
             ) : (
-              <FlightCard cardData={cardData} navigateTo="/FlightsInner" />
+              <FlightCard cardData={cardData} navigateTo="/search/flight" />
             )}
             {flightData?.length > 6 && (
               <div className="Sec2-btn-box">

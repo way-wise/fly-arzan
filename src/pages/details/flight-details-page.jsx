@@ -207,10 +207,10 @@ const FlightDetailsPage = () => {
                     </div>
                   ))}
 
-                  <button className="tw:flex tw:!mx-auto tw:items-center tw:gap-1.5 tw:hover:bg-primary/90 tw:px-[40px] tw:h-[56px] tw:!text-white tw:font-semibold tw:!rounded-[40px] tw:bg-primary">
+                  {/* <button className="tw:flex tw:!mx-auto tw:items-center tw:gap-1.5 tw:hover:bg-primary/90 tw:px-[40px] tw:h-[56px] tw:!text-white tw:font-semibold tw:!rounded-[40px] tw:bg-primary">
                     <span>Explore More</span>
                     <ArrowRight size={18} />
-                  </button>
+                  </button> */}
                 </div>
               </div>
 

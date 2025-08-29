@@ -254,7 +254,7 @@ const Header = () => {
             <LucideX />
           </button>
         </div>
-        <div className="tw:relative tw:w-full">
+        <div className="tw:relative tw:w-full tw:overflow-x-hidden">
           <AnimatePresence initial={false} mode="wait">
             {showLogin ? (
               <motion.div

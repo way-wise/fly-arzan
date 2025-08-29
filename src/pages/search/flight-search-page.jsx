@@ -10,7 +10,6 @@ import Header from "@/header-footer/Header";
 import { SidebarFilterProvider } from "@/providers/filter-sidebar-provider";
 import FlexibleDatesCalendar from "@/components/ui/flexible-dates-calendar/FlexibleDatesCalendar";
 import { generatePriceDataForRange, getFlexibleDatesAroundDate } from "@/components/ui/flexible-dates-calendar/calendarUtils";
-import { format } from "date-fns";
 
 const FlightSearchPage = () => {
   const [selectedFlexibleDate, setSelectedFlexibleDate] = useState(1);

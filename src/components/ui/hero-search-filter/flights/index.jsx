@@ -54,7 +54,7 @@ const HeroSearchFilter = () => {
         className={`tw:bg-cover top-margin tw:bg-center tw:bg-no-repeat tw:bg-[url(/images/hero_bg.png)] tw:!py-[60px]`}
       >
         <div className="container">
-          <div className="hero-tital">
+          <div className="hero-tital tw:hidden tw:md:block">
             <h2> {t("upperSection.Cheap_flights_para")}</h2>
             <p> {t("upperSection.Our_search")}</p>
           </div>

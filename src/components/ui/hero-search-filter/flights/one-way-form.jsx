@@ -132,8 +132,7 @@ const OneWayForm = () => {
           return city.name.toLowerCase().includes(queryTo.toLowerCase());
         });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = () => {
     navigate("/search/flight");
   };
 
@@ -180,7 +179,9 @@ const OneWayForm = () => {
           <button
             type="button"
             onClick={handleSwap}
-            className="tw:absolute tw:z-50 tw:top-[45px] tw:sm:top-[50%] tw:left-1/2 tw:-translate-x-1/2 tw:bg-white tw:sm:-translate-y-1/2 tw:h-[50px] tw:w-[50px] tw:inline-flex tw:items-center tw:justify-center tw:border tw:!border-muted tw:!rounded-full"
+            className={cn("tw:absolute tw:z-50 tw:top-[45px] tw:sm:top-[50%] tw:left-1/2 tw:-translate-x-1/2 tw:bg-white tw:sm:-translate-y-1/2 tw:h-[50px] tw:w-[50px] tw:inline-flex tw:items-center tw:justify-center tw:transition-[rotate] tw:duration-300 tw:border tw:!border-muted tw:!rounded-full", 
+              isSwapped ? "tw:rotate-180" : "tw:-rotate-180"
+            )}
           >
             <svg
               width="20"

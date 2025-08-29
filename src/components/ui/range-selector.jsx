@@ -23,6 +23,7 @@ export function RangeSelector({
 
   return (
     <SliderPrimitive.Root
+      data-vaul-no-drag
       data-slot="slider"
       defaultValue={initialValues}
       minStepsBetweenThumbs={1}
