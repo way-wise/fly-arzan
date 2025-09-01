@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import PropTypes from "prop-types";
 
 function Popover({ ...props }) {
-  return <PopoverPrimitive.Root data-slot="popover" {...props} />;
+  return <PopoverPrimitive.Root data-slot="popover" modal={true} {...props} />;
 }
 
 function PopoverTrigger({ ...props }) {
