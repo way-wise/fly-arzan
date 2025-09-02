@@ -64,7 +64,7 @@ const HeroSearchFilter = () => {
               onValueChange={handleTabChange}
               activationMode="manual"
             >
-              <TabsList className="tw:mb-5 tw:max-w-max tw:bg-[#353978] tw:rounded-xl tw:p-2 tw:!border-none">
+              <TabsList className="tw:mb-5 tw:max-w-max tw:bg-transparent tw:rounded-full tw:!border-none">
                 <TabsTrigger value="flights">
                   <GiCommercialAirplane />
                   <span className="tw:font-semibold">Flights</span>
