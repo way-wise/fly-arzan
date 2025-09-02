@@ -70,17 +70,19 @@ const Header = () => {
       id: 3,
       heading: "Hotel",
       list: [
-        { id: 1, title: "Main Deals", link: "/Hotels#hotel-main-deals" },
-        { id: 2, title: "Articles", link: "/Hotels#hotel-article" },
+        { id: 1, title: "Main Deals", link: "/Hotels#hotel-main-deals", disabled: true },
+        { id: 2, title: "Articles", link: "/Hotels#hotel-article", disabled: true },
         {
           id: 3,
           title: "Frequently Asked Questions",
           link: "/Hotels#hotel-faq",
+          disabled: true,
         },
         {
           id: 4,
           title: "Extended Hotel Options",
           link: "/Hotels#extended-hotel",
+          disabled: true,
         },
       ],
     },
@@ -88,13 +90,14 @@ const Header = () => {
       id: 4,
       heading: "Car",
       list: [
-        { id: 1, title: "Main Deals", link: "/Car#car-main-deals" },
-        { id: 2, title: "Articles", link: "/Car#car-article" },
-        { id: 3, title: "Frequently Asked Questions", link: "/Car#car-faq" },
+        { id: 1, title: "Main Deals", link: "/Car#car-main-deals", disabled: true },
+        { id: 2, title: "Articles", link: "/Car#car-article", disabled: true },
+        { id: 3, title: "Frequently Asked Questions", link: "/Car#car-faq", disabled: true },
         {
           id: 4,
           title: "Begin Your Toad Trip Journey",
           link: "/Car#begin-Journey",
+          disabled: true,
         },
       ],
     },
@@ -228,15 +231,24 @@ const Header = () => {
                     {heading}
                   </h5>
                   <div className="tw:flex tw:flex-col tw:gap-3">
-                    {list.map(({ id, title, link }) => (
-                      <Link
-                        to={link}
-                        key={id}
-                        className="tw:text-xl tw:!no-underline tw:!text-dark-purple"
-                        onClick={() => setOpenMenu(false)}
-                      >
-                        {title}
-                      </Link>
+                    {list.map(({ id, title, link, disabled }) => (
+                      disabled ? (
+                        <span
+                          key={id}
+                          className="tw:cursor-not-allowed tw:text-xl tw:!no-underline tw:!text-dark-purple tw:hover:tw:text-primary tw:transition-colors"
+                        >
+                          {title}
+                        </span>
+                      ) : (
+                        <Link
+                          to={link}
+                          key={id}
+                          className="tw:text-xl tw:!no-underline tw:!text-dark-purple tw:hover:tw:text-primary tw:transition-colors"
+                          onClick={() => setOpenMenu(false)}
+                        >
+                          {title}
+                        </Link>
+                      )
                     ))}
                   </div>
                 </div>
