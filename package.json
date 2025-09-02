@@ -32,6 +32,8 @@
     "@react-google-maps/api": "^2.20.6",
     "@reduxjs/toolkit": "^2.2.7",
     "@tailwindcss/vite": "^4.1.12",
+    "@tanstack/react-query": "^5.85.8",
+    "@tanstack/react-query-devtools": "^5.85.8",
     "antd": "^5.24.4",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
@@ -73,6 +75,7 @@
   "devDependencies": {
     "@eslint/js": "^9.9.0",
     "@tailwindcss/forms": "^0.5.10",
+    "@tanstack/eslint-plugin-query": "^5.83.1",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
