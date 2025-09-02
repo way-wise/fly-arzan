@@ -58,13 +58,13 @@ const HeroSearchFilter = () => {
             <h2> {t("upperSection.Cheap_flights_para")}</h2>
             <p> {t("upperSection.Our_search")}</p>
           </div>
-          <div className="tw:rounded-xl tw:bg-white tw:shadow-lg">
+          <div className="">
             <Tabs
               value={activeTab}
               onValueChange={handleTabChange}
               activationMode="manual"
             >
-              <TabsList>
+              <TabsList className="tw:mb-5 tw:max-w-max tw:bg-[#353978] tw:rounded-xl tw:p-2 tw:!border-none">
                 <TabsTrigger value="flights">
                   <GiCommercialAirplane />
                   <span className="tw:font-semibold">Flights</span>
@@ -78,7 +78,7 @@ const HeroSearchFilter = () => {
                   <span>Cars</span>
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="flights">
+              <TabsContent value="flights" className="tw:rounded-xl tw:bg-white tw:shadow-lg">
                 {/* Flight Type Radio Selectors */}
                 <div className="tw:flex tw:flex-row tw:gap-3 tw:md:gap-5 tw:md:items-center tw:mb-5 tw:scrollbar-hide tw:overflow-x-auto">
                   <div className="tw:inline-flex tw:items-center tw:gap-1.5 md:tw:gap-2">
