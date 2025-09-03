@@ -3,7 +3,7 @@ import { toast } from "sonner";
 
 // Create Axios instance (proxied `/api` to backend via Next.js config)
 const axiosInstance = axios.create({
-  baseURL: "/api",
+  baseURL: `${import.meta.env.VITE_API_URL}/api`,
 });
 
 // Response interceptor

@@ -9,6 +9,7 @@ const Calendar = ({ ...props }) => {
       fixedWeeks
       navLayout="around"
       captionLayout="label"
+      disabled={{ before: new Date() }}
       classNames={{
         root: "tw:relative",
         caption_label: "tw:font-medium",

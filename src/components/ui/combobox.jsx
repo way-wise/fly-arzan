@@ -53,7 +53,7 @@ const ComboboxOption = ({ children, ...props }) => {
     <ComboboxOptionPrimitive
       {...props}
       className={cn(
-        "tw:w-full tw:data-focus:bg-muted/50 tw:py-2 tw:px-3 tw:rounded-md tw:flex tw:items-center tw:gap-2 tw:truncate tw:cursor-default"
+        "tw:w-full tw:data-focus:bg-muted/50 tw:py-2 tw:px-3 tw:rounded-md tw:!flex tw:items-center tw:gap-2 tw:!truncate tw:cursor-default"
       )}
     >
       {children}

@@ -9,19 +9,40 @@ import Footer from "@/header-footer/Footer";
 import Header from "@/header-footer/Header";
 import { SidebarFilterProvider } from "@/providers/filter-sidebar-provider";
 import FlexibleDatesCalendar from "@/components/ui/flexible-dates-calendar/FlexibleDatesCalendar";
-import { generatePriceDataForRange, getFlexibleDatesAroundDate } from "@/components/ui/flexible-dates-calendar/calendarUtils";
+import {
+  generatePriceDataForRange,
+  getFlexibleDatesAroundDate,
+} from "@/components/ui/flexible-dates-calendar/calendarUtils";
+import { useLocation } from "react-router-dom";
 
 const FlightSearchPage = () => {
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+
+  // One Way Form Initial Values from URL params (If one way selected)
+  const initialOneWayFormValues = {
+    flyingFrom: params.get("from")
+      ? JSON.parse(decodeURIComponent(params.get("from")))
+      : undefined,
+    flyingTo: params.get("to")
+      ? JSON.parse(decodeURIComponent(params.get("to")))
+      : undefined,
+    travellers: params.get("travellers")
+      ? JSON.parse(decodeURIComponent(params.get("travellers")))
+      : undefined,
+    depart: params.get("depart") || undefined,
+  };
+
   const [selectedFlexibleDate, setSelectedFlexibleDate] = useState(1);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [flexibleDates, setFlexibleDates] = useState([]);
-  
+
   // Generate price data for the calendar (90 days range - 30 before, today, 59 after)
   const priceData = useMemo(() => {
     return generatePriceDataForRange(new Date(), 90);
   }, []);
-  
+
   // Update flexible dates when selected date changes
   useEffect(() => {
     const dates = getFlexibleDatesAroundDate(selectedDate, priceData, 3);
@@ -32,7 +53,7 @@ const FlightSearchPage = () => {
       setSelectedFlexibleDate(dates[middleIndex].id);
     }
   }, [selectedDate, priceData]);
-  
+
   const handleDateSelect = (date) => {
     setSelectedDate(date);
     setIsCalendarOpen(false);
@@ -45,10 +66,10 @@ const FlightSearchPage = () => {
       setSelectedFlexibleDate(dates[middleIndex].id);
     }
   };
-  
+
   const handleFlexibleDateClick = (dateId) => {
     setSelectedFlexibleDate(dateId);
-    const selectedFlexible = flexibleDates.find(d => d.id === dateId);
+    const selectedFlexible = flexibleDates.find((d) => d.id === dateId);
     if (selectedFlexible) {
       setSelectedDate(selectedFlexible.fullDate);
     }
@@ -62,10 +83,34 @@ const FlightSearchPage = () => {
           <div className="tw:py-6 tw:bg-[#F2FAFF]">
             <div className="container">
               <h1 className="tw:!text-[18px] tw:font-semibold tw:text-[#00000B] tw:!mb-5">
-                Istanbul (IST) - Dubai (DXB) - 2 Travelers, Economy
+                {/* One Way Selected Values */}
+                <h1 className="tw:!text-[18px] tw:font-semibold tw:text-[#00000B] tw:!mb-5">
+                  {`${initialOneWayFormValues.flyingFrom.name} (${
+                    initialOneWayFormValues.flyingFrom.iata
+                  }) - ${initialOneWayFormValues.flyingTo.name} (${
+                    initialOneWayFormValues.flyingTo.iata
+                  }) - ${
+                    initialOneWayFormValues.travellers.adults +
+                    initialOneWayFormValues.travellers.children
+                  } Traveller${
+                    initialOneWayFormValues.travellers.adults +
+                      initialOneWayFormValues.travellers.children !==
+                    1
+                      ? "s"
+                      : ""
+                  }, ${
+                    initialOneWayFormValues.travellers.cabin
+                      .charAt(0)
+                      .toUpperCase() +
+                    initialOneWayFormValues.travellers.cabin.slice(1)
+                  }`}
+                </h1>
               </h1>
               <div className="tw:rounded-xl tw:bg-white tw:shadow tw:!p-5">
-                <OneWayForm />
+                {/* One Way Form */}
+                {params.get("type") === "one-way" && (
+                  <OneWayForm initialValues={initialOneWayFormValues} />
+                )}
               </div>
             </div>
           </div>
@@ -80,19 +125,25 @@ const FlightSearchPage = () => {
                     className={cn(
                       "tw:snap-center tw:basis-[100px] tw:shrink-0 tw:!flex tw:flex-col tw:justify-center tw:gap-1 tw:!py-[24px] tw:!px-[20px] tw:!mb-0 tw:cursor-pointer tw:grow tw:text-center tw:h-[93px] tw:first:rounded-l-xl tw:last:rounded-r-xl tw:relative",
                       selectedFlexibleDate === date.id && "tw:bg-primary",
-                      date.isCheapest && selectedFlexibleDate !== date.id && "tw:bg-green-50",
-                      date.isRecommended && selectedFlexibleDate !== date.id && "tw:bg-blue-50"
+                      date.isCheapest &&
+                        selectedFlexibleDate !== date.id &&
+                        "tw:bg-green-50",
+                      date.isRecommended &&
+                        selectedFlexibleDate !== date.id &&
+                        "tw:bg-blue-50"
                     )}
                     onClick={() => handleFlexibleDateClick(date.id)}
                   >
                     {/* Indicator for cheapest/recommended */}
                     {(date.isCheapest || date.isRecommended) && (
                       <div className="tw:absolute tw:top-2 tw:right-2">
-                        <div className={cn(
-                          "tw:w-2 tw:h-2 tw:rounded-full",
-                          date.isCheapest && "tw:bg-green-500",
-                          date.isRecommended && "tw:bg-blue-500"
-                        )} />
+                        <div
+                          className={cn(
+                            "tw:w-2 tw:h-2 tw:rounded-full",
+                            date.isCheapest && "tw:bg-green-500",
+                            date.isRecommended && "tw:bg-blue-500"
+                          )}
+                        />
                       </div>
                     )}
                     <span
@@ -107,9 +158,16 @@ const FlightSearchPage = () => {
                       className={cn(
                         "tw:text-[20px] tw:font-semibold",
                         selectedFlexibleDate === date.id && "tw:text-white",
-                        selectedFlexibleDate !== date.id && date.isCheapest && "tw:text-green-600",
-                        selectedFlexibleDate !== date.id && date.isRecommended && "tw:text-blue-600",
-                        selectedFlexibleDate !== date.id && !date.isCheapest && !date.isRecommended && "tw:text-primary"
+                        selectedFlexibleDate !== date.id &&
+                          date.isCheapest &&
+                          "tw:text-green-600",
+                        selectedFlexibleDate !== date.id &&
+                          date.isRecommended &&
+                          "tw:text-blue-600",
+                        selectedFlexibleDate !== date.id &&
+                          !date.isCheapest &&
+                          !date.isRecommended &&
+                          "tw:text-primary"
                       )}
                     >
                       {date.price}
@@ -117,7 +175,7 @@ const FlightSearchPage = () => {
                   </label>
                 ))}
               </div>
-              <button 
+              <button
                 onClick={() => setIsCalendarOpen(true)}
                 className="tw:!rounded-xl tw:hidden tw:bg-white tw:shadow tw:md:flex tw:flex-col tw:items-center tw:gap-2 tw:!py-[24px] tw:!px-[20px] tw:h-[93px] tw:shrink-0 tw:hover:shadow-lg tw:transition-shadow tw:cursor-pointer"
               >
@@ -151,7 +209,7 @@ const FlightSearchPage = () => {
         </div>
         <Footer />
       </SidebarFilterProvider>
-      
+
       {/* Flexible Dates Calendar Modal */}
       <FlexibleDatesCalendar
         isOpen={isCalendarOpen}
