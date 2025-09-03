@@ -28,11 +28,12 @@ import { cn } from "@/lib/utils";
 import { OneWayFormSchema } from "@/schema/one-way-schema";
 import { useCityLocation } from "@/hooks/useCityLocation";
 import PropTypes from "prop-types";
+import { useDebounceValue } from "usehooks-ts";
 
 const OneWayForm = ({ initialValues }) => {
   const navigate = useNavigate();
-  const [queryFrom, setQueryFrom] = useState("");
-  const [queryTo, setQueryTo] = useState("");
+  const [queryFrom, setQueryFrom] = useDebounceValue("", 600);
+  const [queryTo, setQueryTo] = useDebounceValue("", 600);
   const [isSwapped, setIsSwapped] = useState(false);
 
   const handleSwap = () => {
@@ -43,7 +44,7 @@ const OneWayForm = ({ initialValues }) => {
     handleSubmit,
     setValue,
     watch,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting },
   } = useForm({
     resolver: yupResolver(OneWayFormSchema),
     defaultValues: {
@@ -67,8 +68,6 @@ const OneWayForm = ({ initialValues }) => {
       depart: initialValues?.depart ? new Date(initialValues.depart) : "",
     },
   });
-
-  console.log(errors);
 
   // Watch form values
   const formValues = watch();
