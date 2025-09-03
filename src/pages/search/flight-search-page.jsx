@@ -102,7 +102,11 @@ const FlightSearchPage = () => {
                     initialOneWayFormValues.travellers.cabin
                       .charAt(0)
                       .toUpperCase() +
-                    initialOneWayFormValues.travellers.cabin.slice(1)
+                    initialOneWayFormValues.travellers.cabin
+                      .slice(1)
+                      .toUpperCase()
+                      .split("_")
+                      .join(" ")
                   }`}
                 </h1>
               </h1>
