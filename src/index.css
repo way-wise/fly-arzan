@@ -9,6 +9,10 @@
   max-width: 1260px;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 :root {
   --primary-color: #50add8;
   --dark-purple-color: #000057;
