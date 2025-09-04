@@ -14,6 +14,7 @@ import {
   getFlexibleDatesAroundDate,
 } from "@/components/ui/flexible-dates-calendar/calendarUtils";
 import { useLocation } from "react-router-dom";
+import { useOneWayOffers } from "@/hooks/useOneWayOffers";
 
 const FlightSearchPage = () => {
   const location = useLocation();
@@ -32,6 +33,14 @@ const FlightSearchPage = () => {
       : undefined,
     depart: params.get("depart") || undefined,
   };
+
+  // Flight One Way Offers
+  const { isLoading, data: flightOffersData } = useOneWayOffers({
+    originLocationCode: initialOneWayFormValues.flyingFrom.iata,
+    destinationLocationCode: initialOneWayFormValues.flyingTo.iata,
+    departureDate: new Date(initialOneWayFormValues.depart),
+    adults: initialOneWayFormValues.travellers.adults,
+  });
 
   const [selectedFlexibleDate, setSelectedFlexibleDate] = useState(1);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -195,7 +204,7 @@ const FlightSearchPage = () => {
 
             {/* Progress Bar */}
             <div className="container tw:!py-[30px]">
-              <Progress isLoading={true} />
+              <Progress isLoading={isLoading} />
             </div>
 
             {/* Flight Search Results */}
@@ -205,7 +214,7 @@ const FlightSearchPage = () => {
                   <SearchFilterSidebar />
                 </div>
                 <div className="tw:grow">
-                  <FlightSearchResults />
+                  <FlightSearchResults flightOffersData={flightOffersData} />
                 </div>
               </div>
             </div>
