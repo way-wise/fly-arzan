@@ -24,7 +24,7 @@ function PopoverContent({
         align={align}
         sideOffset={sideOffset}
         className={cn(
-          "tw:origin-top tw:w-[var(--radix-popover-trigger-width)] tw:border tw:border-muted tw:transition tw:duration-200 tw:ease-out tw:data-[state=closed]:scale-95 tw:data-[state=closed]:opacity-0 tw:bg-white tw:shadow-lg tw:rounded-lg tw:z-50 tw:p-3",
+          "tw:origin-(--radix-popover-content-transform-origin) tw:w-[var(--radix-popover-trigger-width)] tw:border tw:border-muted tw:data-[state=open]:animate-in tw:data-[state=closed]:animate-out tw:data-[state=closed]:fade-out-0 tw:data-[state=open]:fade-in-0 tw:data-[state=closed]:zoom-out-95 tw:data-[state=open]:zoom-in-95 tw:data-[side=bottom]:slide-in-from-top-2 tw:data-[side=left]:slide-in-from-right-2 tw:data-[side=right]:slide-in-from-left-2 tw:data-[side=top]:slide-in-from-bottom-2 tw:bg-white tw:shadow-lg tw:rounded-lg tw:z-50 tw:p-3",
           className
         )}
         {...props}
