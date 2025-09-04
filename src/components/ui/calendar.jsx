@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import { DayPicker } from "react-day-picker";
 
 const Calendar = ({ ...props }) => {
@@ -11,22 +10,20 @@ const Calendar = ({ ...props }) => {
       captionLayout="label"
       disabled={{ before: new Date() }}
       classNames={{
-        root: "tw:relative",
-        caption_label: "tw:font-medium",
-        month_grid: cn("tw:w-full tw:mt-4"),
+        root: "tw:relative tw:p-1",
+        caption_label: "tw:font-semibold tw:text-gray-900",
+        month_grid: "tw:w-full tw:mt-2",
         month_caption: "tw:text-center",
-        today: cn(
-          "tw:relative tw:after:absolute tw:after:content-[' '] tw:after:bottom-0 tw:after:left-1/2 tw:after:-translate-x-1/2 tw:after:w-2.5 tw:after:h-1 tw:after:bg-primary tw:after:rounded-full"
-        ),
-        day: "group tw:size-9 tw:text-sm tw:leading-[2.25rem] tw:text-center tw:rounded tw:hover:bg-muted",
-        selected: cn(
-          "tw:bg-primary tw:text-white tw:hover:bg-primary tw:hover:text-white"
-        ),
+        day: "tw:size-10 tw:text-center tw:!border tw:!border-muted/30",
+        day_button:
+          "tw:size-full tw:hover:bg-primary tw:hover:!text-white tw:disabled:!text-secondary tw:disabled:!bg-transparent",
         outside: "tw:text-secondary",
         weekday:
-          "tw:size-9 tw:!border tw:!border-muted tw:text-sm tw:font-medium tw:text-dark-purple tw:leading-[2.25rem] tw:!text-center",
-        button_previous: "tw:absolute tw:left-0 tw:top-0",
-        button_next: "tw:absolute tw:right-0 tw:top-0",
+          "tw:size-10 tw:text-sm tw:font-normal tw:text-center tw:!text-center",
+        today: "tw:bg-primary/10 tw:text-primary",
+        selected: "tw:!bg-primary tw:text-white",
+        button_previous: "tw:absolute tw:left-0 tw:top-1",
+        button_next: "tw:absolute tw:right-0 tw:top-1",
       }}
       {...props}
     />
