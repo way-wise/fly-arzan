@@ -5,7 +5,7 @@ import Footer from "@/header-footer/Footer";
 import Header from "@/header-footer/Header";
 import { SidebarFilterProvider } from "@/providers/filter-sidebar-provider";
 import FlexibleDatesCalendar from "@/components/ui/flexible-dates-calendar/FlexibleDatesCalendar";
-import { useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import FlightSearchPageHeader from "@/components/ui/FlightSearchPageHeader";
 import { useOneWayOffers } from "@/hooks/useOneWayOffers";
 import { useFlexibleDates } from "@/hooks/useFlexibleDates";
@@ -13,27 +13,41 @@ import OneWayForm from "@/components/ui/hero-search-filter/flights/one-way-form"
 import FlexibleDates from "@/components/ui/flexible-dates/FlexibleDates";
 
 const FlightSearchPage = () => {
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
+  const [searchParams] = useSearchParams();
 
-  // One Way Form Initial Values from URL params (If one way selected)
+  const fromParam = searchParams.get("from");
+  const toParam = searchParams.get("to");
+  const travellersParam = searchParams.get("travellers");
+  const departParam = searchParams.get("depart");
+
+  const parsedFrom = fromParam ? JSON.parse(decodeURIComponent(fromParam)) : {};
+  const parsedTo = toParam ? JSON.parse(decodeURIComponent(toParam)) : {};
+  const parsedTravellers = travellersParam
+    ? JSON.parse(decodeURIComponent(travellersParam))
+    : {};
+
+  // One Way Initial Values
   const initialOneWayFormValues = {
-    flyingFrom: params.get("from")
-      ? JSON.parse(decodeURIComponent(params.get("from")))
-      : undefined,
-    flyingTo: params.get("to")
-      ? JSON.parse(decodeURIComponent(params.get("to")))
-      : undefined,
-    travellers: params.get("travellers")
-      ? JSON.parse(decodeURIComponent(params.get("travellers")))
-      : undefined,
-    depart: params.get("depart") || undefined,
+    flyingFrom: {
+      name: parsedFrom.name || "",
+      iataCode: parsedFrom.iata || "",
+    },
+    flyingTo: {
+      name: parsedTo.name || "",
+      iataCode: parsedTo.iata || "",
+    },
+    travellers: {
+      cabin: parsedTravellers.cabin || "economy",
+      adults: parsedTravellers.adults ?? 1,
+      children: parsedTravellers.children ?? 0,
+    },
+    depart: departParam || "",
   };
 
   // Flight One Way Offers
   const { isLoading, data: flightOffersData } = useOneWayOffers({
-    originLocationCode: initialOneWayFormValues.flyingFrom.iata,
-    destinationLocationCode: initialOneWayFormValues.flyingTo.iata,
+    originLocationCode: initialOneWayFormValues.flyingFrom.iataCode,
+    destinationLocationCode: initialOneWayFormValues.flyingTo.iataCode,
     departureDate: new Date(initialOneWayFormValues.depart),
     adults: initialOneWayFormValues.travellers.adults,
   });
@@ -56,10 +70,12 @@ const FlightSearchPage = () => {
         <div className="tw:flex tw:flex-col tw:min-h-screen tw:mt-16 tw:md:mt-[92px]">
           <div className="tw:py-6 tw:bg-[#F2FAFF]">
             <div className="container">
-              <FlightSearchPageHeader initialOneWayFormValues={initialOneWayFormValues} />
+              <FlightSearchPageHeader
+                initialOneWayFormValues={initialOneWayFormValues}
+              />
               <div className="tw:rounded-xl tw:bg-white tw:shadow tw:!p-5">
                 {/* One Way Form */}
-                {params.get("type") === "one-way" && (
+                {searchParams.get("type") === "one-way" && (
                   <OneWayForm initialValues={initialOneWayFormValues} />
                 )}
               </div>
@@ -68,7 +84,7 @@ const FlightSearchPage = () => {
 
           <div className="tw:bg-[#EFF3F8] tw:py-10 tw:grow">
             {/* Flexible Dates */}
-            <FlexibleDates 
+            <FlexibleDates
               flexibleDates={flexibleDates}
               selectedFlexibleDate={selectedFlexibleDate}
               handleFlexibleDateClick={handleFlexibleDateClick}
@@ -109,4 +125,3 @@ const FlightSearchPage = () => {
 };
 
 export default FlightSearchPage;
-           
