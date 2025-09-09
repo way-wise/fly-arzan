@@ -10,7 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GiCommercialAirplane } from "react-icons/gi";
 import {
   Select,
@@ -20,20 +20,25 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Minus, Plus } from "lucide-react";
-import Calendar from "../../calendar";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { OneWayFormSchema } from "@/schema/one-way-schema";
 import { useCityLocation } from "@/hooks/useCityLocation";
-import PropTypes from "prop-types";
 import { useDebounceValue } from "usehooks-ts";
+import Calendar from "../../calendar";
+import PropTypes from "prop-types";
 
 const OneWayForm = ({ initialValues }) => {
   const navigate = useNavigate();
   const [queryFrom, setQueryFrom] = useDebounceValue("", 600);
   const [queryTo, setQueryTo] = useDebounceValue("", 600);
+  const [travellersOpen, setTravellersOpen] = useState(false);
+  const [dateOpen, setDateOpen] = useState(false);
+  const [appliedTravellers, setAppliedTravellers] = useState(
+    initialValues?.travellers ? { ...initialValues.travellers } : null
+  );
   const [isSwapped, setIsSwapped] = useState(false);
 
   const handleSwap = () => {
@@ -44,21 +49,18 @@ const OneWayForm = ({ initialValues }) => {
     handleSubmit,
     setValue,
     watch,
+    reset,
     formState: { isSubmitting },
   } = useForm({
     resolver: yupResolver(OneWayFormSchema),
     defaultValues: {
       flyingFrom: initialValues?.flyingFrom || {
-        id: "",
         name: "",
         iataCode: "",
-        country: "",
       },
       flyingTo: initialValues?.flyingTo || {
-        id: "",
         name: "",
         iataCode: "",
-        country: "",
       },
       travellers: {
         cabin: initialValues?.travellers?.cabin || "economy",
@@ -69,21 +71,28 @@ const OneWayForm = ({ initialValues }) => {
     },
   });
 
+  useEffect(() => {
+    if (initialValues) {
+      reset({
+        flyingFrom: initialValues.flyingFrom,
+        flyingTo: initialValues.flyingTo,
+        travellers: initialValues.travellers,
+        depart: new Date(initialValues.depart),
+      });
+    }
+  }, [initialValues, reset]);
+
   // Watch form values
   const formValues = watch();
   const { flyingFrom, flyingTo, travellers, depart } = formValues;
 
+  // Get City Data
   const { data: cityFromData, isLoading: isLoadingFrom } =
     useCityLocation(queryFrom);
   const cityFromOptions = cityFromData?.data || [];
+
   const { data: cityToData, isLoading: isLoadingTo } = useCityLocation(queryTo);
   const cityToOptions = cityToData?.data || [];
-
-  // Travellers & Cabin Class state
-  const [travellersOpen, setTravellersOpen] = useState(false);
-  const [appliedTravellers, setAppliedTravellers] = useState(
-    initialValues?.travellers ? { ...initialValues.travellers } : null
-  );
 
   const cabinLabelMap = {
     economy: "Economy",
@@ -98,23 +107,18 @@ const OneWayForm = ({ initialValues }) => {
       }, ${cabinLabelMap[appliedTravellers.cabin]}`
     : "";
 
-  // Date state
-  const [dateOpen, setDateOpen] = useState(false);
-
   const onSubmit = (values) => {
     const query = new URLSearchParams({
       from: encodeURIComponent(
         JSON.stringify({
-          name: values.flyingFrom.name,
-          iata: values.flyingFrom.iataCode,
-          country: values.flyingFrom.country,
+          city: values.flyingFrom.city,
+          iataCode: values.flyingFrom.iataCode,
         })
       ),
       to: encodeURIComponent(
         JSON.stringify({
-          name: values.flyingTo.name,
-          iata: values.flyingTo.iataCode,
-          country: values.flyingTo.country,
+          city: values.flyingTo.city,
+          iataCode: values.flyingTo.iataCode,
         })
       ),
       travellers: encodeURIComponent(
@@ -149,7 +153,7 @@ const OneWayForm = ({ initialValues }) => {
             >
               <ComboboxInput
                 id="flyingFrom"
-                displayValue={(city) => city?.name}
+                displayValue={(data) => data?.city}
                 onChange={(event) => setQueryFrom(event.target.value)}
                 className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0"
                 placeholder="From"
@@ -161,36 +165,43 @@ const OneWayForm = ({ initialValues }) => {
                 From
               </label>
               <ComboboxOptions className="tw:w-[var(--input-width)] tw:2xl:w-72">
-                {/* Loading State */}
                 {isLoadingFrom && (
                   <div className="tw:p-2 tw:text-center tw:text-sm">
                     Loading...
                   </div>
                 )}
 
-                {/* Empty State */}
                 {!isLoadingFrom && cityFromOptions.length === 0 && (
                   <div className="tw:p-2 tw:text-center tw:text-sm tw:text-secondary">
                     No results found.
                   </div>
                 )}
 
-                {cityFromOptions.map((city) => {
-                  return (
-                    <ComboboxOption
-                      key={city.id}
-                      value={{
-                        id: city.id,
-                        name: city.name,
-                        iataCode: city.iataCode,
-                        country: city.address.countryName,
-                      }}
-                    >
-                      <GiCommercialAirplane className="tw:text-secondary" />
-                      <span>{city.name}</span>
-                    </ComboboxOption>
-                  );
-                })}
+                {cityFromOptions.map((data, index) => (
+                  <ComboboxOption
+                    key={index}
+                    value={{
+                      city: data.city,
+                      iataCode: data.iataCode,
+                    }}
+                    className="tw:flex"
+                  >
+                    <div className="tw:flex tw:justify-start tw:gap-2.5 tw:w-full">
+                      <GiCommercialAirplane
+                        size={20}
+                        className="tw:text-secondary tw:!shrink-0 tw:mt-1"
+                      />
+                      <div className="tw:flex tw:flex-col">
+                        <div>
+                          {data.city} ({data.iataCode})
+                        </div>
+                        <div className="tw:text-secondary tw:text-sm">
+                          {data.airport} ({data.country})
+                        </div>
+                      </div>
+                    </div>
+                  </ComboboxOption>
+                ))}
               </ComboboxOptions>
             </div>
           </Combobox>
@@ -233,7 +244,7 @@ const OneWayForm = ({ initialValues }) => {
             >
               <ComboboxInput
                 id="flyingTo"
-                displayValue={(city) => city?.name}
+                displayValue={(data) => data?.city}
                 onChange={(event) => setQueryTo(event.target.value)}
                 className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0"
                 placeholder="To"
@@ -245,33 +256,42 @@ const OneWayForm = ({ initialValues }) => {
                 To
               </label>
               <ComboboxOptions className="tw:w-[var(--input-width)] tw:2xl:w-72">
-                {/* Loading State */}
                 {isLoadingTo && (
                   <div className="tw:p-2 tw:text-center tw:text-sm">
                     Loading...
                   </div>
                 )}
 
-                {/* Empty State */}
                 {!isLoadingTo && cityToOptions.length === 0 && (
                   <div className="tw:p-2 tw:text-center tw:text-sm tw:text-secondary">
                     No results found.
                   </div>
                 )}
 
-                {cityToOptions.map((city) => {
+                {cityToOptions.map((data, index) => {
                   return (
                     <ComboboxOption
-                      key={city.id}
+                      key={index}
                       value={{
-                        id: city.id,
-                        name: city.name,
-                        iataCode: city.iataCode,
-                        country: city.address.countryName,
+                        city: data.city,
+                        iataCode: data.iataCode,
                       }}
+                      className="tw:flex"
                     >
-                      <GiCommercialAirplane className="tw:text-secondary" />
-                      <span>{city.name}</span>
+                      <div className="tw:flex tw:justify-start tw:gap-2.5 tw:w-full">
+                        <GiCommercialAirplane
+                          size={20}
+                          className="tw:text-secondary tw:!shrink-0 tw:mt-1"
+                        />
+                        <div className="tw:flex tw:flex-col">
+                          <div className="tw:truncate">
+                            {data.city} ({data.iataCode})
+                          </div>
+                          <div className="tw:text-secondary tw:text-sm tw:truncate">
+                            {data.airport} ({data.country})
+                          </div>
+                        </div>
+                      </div>
                     </ComboboxOption>
                   );
                 })}
@@ -476,16 +496,12 @@ const OneWayForm = ({ initialValues }) => {
 OneWayForm.propTypes = {
   initialValues: PropTypes.shape({
     flyingFrom: PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string,
+      city: PropTypes.string,
       iataCode: PropTypes.string,
-      country: PropTypes.string,
     }),
     flyingTo: PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string,
+      city: PropTypes.string,
       iataCode: PropTypes.string,
-      country: PropTypes.string,
     }),
     travellers: PropTypes.shape({
       cabin: PropTypes.string,
