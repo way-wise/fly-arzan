@@ -255,7 +255,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
     return (
       <div className="tw:flex tw:flex-col tw:gap-6">
         <Skeleton className="tw:h-10 tw:w-full" />
-        {Array.from({ length: 20 }).map((_, index) => (
+        {Array.from({ length: 14 }).map((_, index) => (
           <Skeleton key={index} className="tw:h-[100px] tw:w-full" />
         ))}
       </div>
