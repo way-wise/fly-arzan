@@ -81,6 +81,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
   const [selectedTimeCost, setSelectedTimeCost] = useState("best");
   const [processedFlights, setProcessedFlights] = useState([]);
   const [timeCostFilters, setTimeCostFilters] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(14);
 
   useEffect(() => {
     if (flightOffersData?.data) {
@@ -240,6 +241,11 @@ const FlightSearchResults = ({ flightOffersData }) => {
     return sorted;
   }, [processedFlights, selectedTimeCost]);
 
+  // Reset visible count when sorting changes
+  useEffect(() => {
+    setVisibleCount(14);
+  }, [selectedTimeCost]);
+
   if (!flightOffersData) {
     return (
       <div className="tw:flex tw:flex-col tw:gap-6">
@@ -316,7 +322,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
       {/* Available Flight List */}
       <div className="tw:grid tw:grid-cols-1 tw:gap-[30px]">
         {sortedFlights.length > 0 ? (
-          sortedFlights.map((itinerary) => (
+          sortedFlights.slice(0, visibleCount).map((itinerary) => (
             <div
               key={itinerary.id}
               className="tw:rounded-xl tw:bg-white tw:shadow tw:p-4 tw:flex tw:flex-col tw:md:flex-row tw:items-center tw:justify-between"
@@ -412,11 +418,20 @@ const FlightSearchResults = ({ flightOffersData }) => {
           </div>
         )}
 
-        {sortedFlights.length > 0 && (
-          <button className="tw:flex tw:!mx-auto tw:items-center tw:gap-1.5 tw:hover:bg-primary/90 tw:px-[40px] tw:h-[56px] tw:!text-white tw:font-semibold tw:!rounded-[40px] tw:bg-primary tw:transition-colors">
+        {visibleCount < sortedFlights.length ? (
+          <button
+            onClick={() => setVisibleCount((prev) => prev + 5)}
+            className="tw:flex tw:!mx-auto tw:items-center tw:gap-1.5 tw:hover:bg-primary/90 tw:px-[40px] tw:h-[56px] tw:!text-white tw:font-semibold tw:!rounded-[40px] tw:bg-primary tw:transition-colors"
+          >
             <span>Explore More</span>
             <ArrowRight size={18} />
           </button>
+        ) : (
+          sortedFlights.length > 0 && (
+            <div className="tw:text-center tw:py-4 tw:text-muted-foreground">
+              All offers loaded.
+            </div>
+          )
         )}
       </div>
     </div>
