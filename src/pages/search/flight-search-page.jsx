@@ -8,52 +8,59 @@ import FlexibleDatesCalendar from "@/components/ui/flexible-dates-calendar/Flexi
 import FlightSearchPageHeader from "@/components/ui/FlightSearchPageHeader";
 import FlexibleDates from "@/components/ui/flexible-dates/FlexibleDates";
 import { SidebarFilterProvider } from "@/providers/filter-sidebar-provider";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { useOneWayOffers } from "@/hooks/useOneWayOffers";
 import { useFlexibleDates } from "@/hooks/useFlexibleDates";
+import { useEffect, useState } from "react";
 
 const FlightSearchPage = () => {
   const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const [initialOneWayFormValues, setInitialOneWayFormValues] = useState(null);
 
-  // Extract Query Params
-  const fromParam = searchParams.get("from");
-  const toParam = searchParams.get("to");
-  const travellersParam = searchParams.get("travellers");
-  const departParam = searchParams.get("depart");
+  useEffect(() => {
+    // Extract Query Params
+    const fromParam = searchParams.get("from");
+    const toParam = searchParams.get("to");
+    const travellersParam = searchParams.get("travellers");
+    const departParam = searchParams.get("depart");
 
-  // Parse the params
-  const parsedFrom = fromParam ? JSON.parse(decodeURIComponent(fromParam)) : {};
-  const parsedTo = toParam ? JSON.parse(decodeURIComponent(toParam)) : {};
-  const parsedTravellers = travellersParam
-    ? JSON.parse(decodeURIComponent(travellersParam))
-    : {};
+    // Parse the params
+    const parsedFrom = fromParam
+      ? JSON.parse(decodeURIComponent(fromParam))
+      : {};
+    const parsedTo = toParam ? JSON.parse(decodeURIComponent(toParam)) : {};
+    const parsedTravellers = travellersParam
+      ? JSON.parse(decodeURIComponent(travellersParam))
+      : {};
 
-  // Construct the initialValues
-  const initialOneWayFormValues = {
-    flyingFrom: {
-      city: parsedFrom.city || "",
-      iataCode: parsedFrom.iataCode || "",
-    },
-    flyingTo: {
-      city: parsedTo.city || "",
-      iataCode: parsedTo.iataCode || "",
-    },
-    travellers: {
-      cabin: parsedTravellers.cabin || "economy",
-      adults: parsedTravellers.adults ?? 1,
-      children: parsedTravellers.children ?? 0,
-    },
-    depart: departParam || "",
-  };
+    // Construct the initialValues
+    setInitialOneWayFormValues({
+      flyingFrom: {
+        city: parsedFrom.city || "",
+        iataCode: parsedFrom.iataCode || "",
+      },
+      flyingTo: {
+        city: parsedTo.city || "",
+        iataCode: parsedTo.iataCode || "",
+      },
+      travellers: {
+        cabin: parsedTravellers.cabin || "economy",
+        adults: parsedTravellers.adults ?? 1,
+        children: parsedTravellers.children ?? 0,
+      },
+      depart: departParam || "",
+    });
+  }, [location.search, searchParams]);
 
   // Flight One Way Offers
   const { isLoading, data: flightOffersData } = useOneWayOffers({
-    originLocationCode: initialOneWayFormValues.flyingFrom.iataCode,
-    destinationLocationCode: initialOneWayFormValues.flyingTo.iataCode,
-    departureDate: initialOneWayFormValues.depart
+    originLocationCode: initialOneWayFormValues?.flyingFrom?.iataCode,
+    destinationLocationCode: initialOneWayFormValues?.flyingTo?.iataCode,
+    departureDate: initialOneWayFormValues?.depart
       ? new Date(initialOneWayFormValues.depart)
       : null,
-    adults: initialOneWayFormValues.travellers.adults,
+    travellers: initialOneWayFormValues?.travellers,
   });
 
   const {
@@ -74,14 +81,17 @@ const FlightSearchPage = () => {
         <div className="tw:flex tw:flex-col tw:min-h-screen tw:mt-16 tw:md:mt-[92px]">
           <div className="tw:py-6 tw:bg-[#F2FAFF]">
             <div className="container">
-              <FlightSearchPageHeader
-                initialOneWayFormValues={initialOneWayFormValues}
-              />
+              {initialOneWayFormValues && (
+                <FlightSearchPageHeader
+                  initialOneWayFormValues={initialOneWayFormValues}
+                />
+              )}
               <div className="tw:rounded-xl tw:bg-white tw:shadow tw:!p-5">
                 {/* One Way Form */}
-                {searchParams.get("type") === "one-way" && (
-                  <OneWayForm initialValues={initialOneWayFormValues} />
-                )}
+                {searchParams.get("type") === "one-way" &&
+                  initialOneWayFormValues && (
+                    <OneWayForm initialValues={initialOneWayFormValues} />
+                  )}
               </div>
             </div>
           </div>

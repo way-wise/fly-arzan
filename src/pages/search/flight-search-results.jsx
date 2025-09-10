@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   RiVerifiedBadgeFill,
@@ -78,7 +78,7 @@ const parseDuration = (duration) => {
 const FlightSearchResults = ({ flightOffersData }) => {
   const navigate = useNavigate();
   const { openMobile, setOpenMobile } = useSidebarFilter();
-  const [selectedTimeCost, setSelectedTimeCost] = useState(1);
+  const [selectedTimeCost, setSelectedTimeCost] = useState("best");
   const [processedFlights, setProcessedFlights] = useState([]);
   const [timeCostFilters, setTimeCostFilters] = useState([]);
 
@@ -122,6 +122,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
                   airport: segment.arrival?.iataCode || "N/A",
                 },
                 duration: formatDurationFromMinutes(durationMinutes),
+                durationMinutes,
                 stops:
                   segment.numberOfStops === 0
                     ? "Direct"
@@ -142,6 +143,10 @@ const FlightSearchResults = ({ flightOffersData }) => {
           logo: flights[0].airlineCode,
           airlineCode: flights[0].airlineCode,
           flights,
+          totalDurationMinutes: flights.reduce(
+            (acc, flight) => acc + flight.durationMinutes,
+            0
+          ),
         };
       })
       .filter(Boolean);
@@ -151,7 +156,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
     if (flights.length === 0) {
       setTimeCostFilters([
         {
-          id: 1,
+          id: "best",
           title: "Best",
           duration: "4h 30m",
           price: "$241",
@@ -159,7 +164,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
           showInMobile: true,
         },
         {
-          id: 2,
+          id: "cheapest",
           title: "Cheapest",
           duration: "12h 05m",
           price: "$129",
@@ -167,7 +172,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
           showInMobile: true,
         },
         {
-          id: 3,
+          id: "fastest",
           title: "Fastest",
           duration: "4h 25m",
           price: "$622",
@@ -179,15 +184,8 @@ const FlightSearchResults = ({ flightOffersData }) => {
     }
 
     const bestOption = flights.reduce((prev, current) => {
-      const prevDuration = parseInt(
-        prev.flights[0]?.duration?.replace("h", "")?.replace("m", "") || 0
-      );
-      const currentDuration = parseInt(
-        current.flights[0]?.duration?.replace("h", "")?.replace("m", "") || 0
-      );
-      const prevScore = prevDuration > 0 ? prev.price / prevDuration : Infinity;
-      const currentScore =
-        currentDuration > 0 ? current.price / currentDuration : Infinity;
+      const prevScore = prev.price / prev.totalDurationMinutes;
+      const currentScore = current.price / current.totalDurationMinutes;
       return prevScore < currentScore ? prev : current;
     });
 
@@ -195,45 +193,52 @@ const FlightSearchResults = ({ flightOffersData }) => {
       prev.price < current.price ? prev : current
     );
 
-    const fastestOption = flights.reduce((prev, current) => {
-      const prevDuration = parseInt(
-        prev.flights[0]?.duration?.replace("h", "")?.replace("m", "") ||
-          Infinity
-      );
-      const currentDuration = parseInt(
-        current.flights[0]?.duration?.replace("h", "")?.replace("m", "") ||
-          Infinity
-      );
-      return prevDuration < currentDuration ? prev : current;
-    });
+    const fastestOption = flights.reduce((prev, current) =>
+      prev.totalDurationMinutes < current.totalDurationMinutes ? prev : current
+    );
 
     setTimeCostFilters([
       {
-        id: 1,
+        id: "best",
         title: "Best",
-        duration: bestOption.flights[0]?.duration || "0h 0m",
-        price: `$${bestOption.price}`,
+        duration: formatDurationFromMinutes(bestOption.totalDurationMinutes),
+        price: `${bestOption.price}`,
         icon: <RiVerifiedBadgeFill size={24} />,
         showInMobile: true,
       },
       {
-        id: 2,
+        id: "cheapest",
         title: "Cheapest",
-        duration: cheapestOption.flights[0]?.duration || "0h 0m",
-        price: `$${cheapestOption.price}`,
+        duration: formatDurationFromMinutes(cheapestOption.totalDurationMinutes),
+        price: `${cheapestOption.price}`,
         icon: <RiPercentFill size={24} />,
         showInMobile: true,
       },
       {
-        id: 3,
+        id: "fastest",
         title: "Fastest",
-        duration: fastestOption.flights[0]?.duration || "0h 0m",
-        price: `$${fastestOption.price}`,
+        duration: formatDurationFromMinutes(fastestOption.totalDurationMinutes),
+        price: `${fastestOption.price}`,
         icon: <RiFlashlightFill size={24} />,
         showInMobile: true,
       },
     ]);
   };
+
+  const sortedFlights = useMemo(() => {
+    let sorted = [...processedFlights];
+    if (selectedTimeCost === "cheapest") {
+      sorted.sort((a, b) => a.price - b.price);
+    } else if (selectedTimeCost === "fastest") {
+      sorted.sort((a, b) => a.totalDurationMinutes - b.totalDurationMinutes);
+    } else if (selectedTimeCost === "best") {
+      sorted.sort(
+        (a, b) =>
+          a.price / a.totalDurationMinutes - b.price / b.totalDurationMinutes
+      );
+    }
+    return sorted;
+  }, [processedFlights, selectedTimeCost]);
 
   if (!flightOffersData) {
     return (
@@ -250,11 +255,11 @@ const FlightSearchResults = ({ flightOffersData }) => {
     <div className="tw:flex tw:flex-col tw:gap-6">
       {/* List Header */}
       <h4 className="tw:lg:hidden tw:text-[15px] tw:font-medium tw:!mb-2 tw:text-center">
-        {processedFlights.length} results sorted by Best
+        {sortedFlights.length} results sorted by {selectedTimeCost}
       </h4>
       <div className="tw:flex tw:items-center tw:justify-between tw:gap-2 tw:h-7">
         <h4 className="tw:hidden tw:lg:block tw:text-[15px] tw:font-medium">
-          {processedFlights.length} results sorted by Best
+          {sortedFlights.length} results sorted by {selectedTimeCost}
         </h4>
         <button
           onClick={() => setOpenMobile(!openMobile)}
@@ -265,7 +270,10 @@ const FlightSearchResults = ({ flightOffersData }) => {
         </button>
         <div className="tw:flex tw:items-center tw:gap-2 tw:relative">
           <span className="tw:whitespace-nowrap tw:font-medium">Sort By</span>
-          <Select>
+          <Select
+            value={selectedTimeCost}
+            onValueChange={(value) => setSelectedTimeCost(value)}
+          >
             <SelectTrigger className="tw:px-4 tw:py-2 tw:min-w-[183px]">
               <SelectValue placeholder="Best" />
             </SelectTrigger>
@@ -307,8 +315,8 @@ const FlightSearchResults = ({ flightOffersData }) => {
 
       {/* Available Flight List */}
       <div className="tw:grid tw:grid-cols-1 tw:gap-[30px]">
-        {processedFlights.length > 0 ? (
-          processedFlights.map((itinerary) => (
+        {sortedFlights.length > 0 ? (
+          sortedFlights.map((itinerary) => (
             <div
               key={itinerary.id}
               className="tw:rounded-xl tw:bg-white tw:shadow tw:p-4 tw:flex tw:flex-col tw:md:flex-row tw:items-center tw:justify-between"
@@ -404,7 +412,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
           </div>
         )}
 
-        {processedFlights.length > 0 && (
+        {sortedFlights.length > 0 && (
           <button className="tw:flex tw:!mx-auto tw:items-center tw:gap-1.5 tw:hover:bg-primary/90 tw:px-[40px] tw:h-[56px] tw:!text-white tw:font-semibold tw:!rounded-[40px] tw:bg-primary tw:transition-colors">
             <span>Explore More</span>
             <ArrowRight size={18} />
