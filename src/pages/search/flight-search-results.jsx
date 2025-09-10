@@ -49,29 +49,13 @@ const calculateTotalPrice = (priceData) => {
   };
 };
 
-// Helper function to get airline logo path using carrier code
-const getAirlineLogo = (carrierCode) => {
-  const logoMap = {
-    FZ: "/images/airlines/flyDubai.png",
-    S4: "/images/airlines/azal.png",
-    FI: "/images/airlines/icelandair.png",
-    DL: "/images/airlines/delta.png",
-    EK: "/images/airlines/emirates.png",
-    TK: "/images/airlines/turkish.png",
-    QR: "/images/airlines/qatar.png",
-    ME: "/images/airlines/mea.png",
-    BA: "/images/airlines/british.png",
-    AF: "/images/airlines/airfrance.png",
-    LH: "/images/airlines/lufthansa.png",
-    AA: "/images/airlines/american.png",
-    UA: "/images/airlines/united.png",
-    WN: "/images/airlines/southwest.png",
-    AS: "/images/airlines/alaska.png",
-    B6: "/images/airlines/jetblue.png",
-  };
-
-  // Return null if no logo exists for this carrier code
-  return logoMap[carrierCode] || null;
+// Helper function to get airline logo URL based on carrier code
+const getAirlineLogoUrl = (carrierCode) => {
+  if (!carrierCode) {
+    return null;
+  }
+  // Construct the path using the carrier code.
+  return `/logos/${carrierCode.toUpperCase()}.png`;
 };
 
 // Helper to parse duration from ISO format (PT4H25M) or minutes
@@ -155,7 +139,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
           price: Math.round(price),
           totalPrice: Math.round(totalPrice * 100) / 100, // Keep 2 decimal places
           currency,
-          logo: getAirlineLogo(flights[0].airlineCode),
+          logo: flights[0].airlineCode,
           airlineCode: flights[0].airlineCode,
           flights,
         };
@@ -338,11 +322,11 @@ const FlightSearchResults = ({ flightOffersData }) => {
                   >
                     {/* Airline Logo, Code */}
                     <div className="tw:flex tw:flex-col tw:justify-center tw:items-center tw:gap-0.5 tw:text-center">
-                      {getAirlineLogo(flight.airlineCode) ? (
+                      {getAirlineLogoUrl(flight.airlineCode) ? (
                         <img
-                          src={getAirlineLogo(flight.airlineCode)}
+                          src={getAirlineLogoUrl(flight.airlineCode)}
                           alt={flight.airline}
-                          className="tw:w-[120px] tw:object-contain"
+                          className="tw:w-[120px]"
                         />
                       ) : (
                         <div className="tw:w-[120px] tw:h-[60px] tw:flex tw:items-center tw:justify-center tw:bg-gray-100 tw:rounded">

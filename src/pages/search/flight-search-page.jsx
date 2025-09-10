@@ -77,9 +77,6 @@ const FlightSearchPage = () => {
               <FlightSearchPageHeader
                 initialOneWayFormValues={initialOneWayFormValues}
               />
-              <FlightSearchPageHeader
-                initialOneWayFormValues={initialOneWayFormValues}
-              />
               <div className="tw:rounded-xl tw:bg-white tw:shadow tw:!p-5">
                 {/* One Way Form */}
                 {searchParams.get("type") === "one-way" && (

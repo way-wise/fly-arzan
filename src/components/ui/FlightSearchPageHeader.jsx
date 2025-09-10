@@ -15,7 +15,7 @@ const FlightSearchPageHeader = ({ initialOneWayFormValues }) => {
 
   return (
     <h1 className="tw:!text-[18px] tw:font-semibold tw:text-[#00000B] tw:!mb-5">
-      {`${flyingFrom.name} (${flyingFrom.iataCode}) - ${flyingTo.name} (${
+      {`${flyingFrom.city} (${flyingFrom.iataCode}) - ${flyingTo.city} (${
         flyingTo.iataCode
       }) - ${totalTravellers} Traveller${
         totalTravellers !== 1 ? "s" : ""
@@ -27,11 +27,11 @@ const FlightSearchPageHeader = ({ initialOneWayFormValues }) => {
 FlightSearchPageHeader.propTypes = {
   initialOneWayFormValues: PropTypes.shape({
     flyingFrom: PropTypes.shape({
-      name: PropTypes.string,
+      city: PropTypes.string,
       iataCode: PropTypes.string,
     }).isRequired,
     flyingTo: PropTypes.shape({
-      name: PropTypes.string,
+      city: PropTypes.string,
       iataCode: PropTypes.string,
     }).isRequired,
     travellers: PropTypes.shape({

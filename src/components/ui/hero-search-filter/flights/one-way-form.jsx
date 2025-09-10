@@ -50,16 +50,16 @@ const OneWayForm = ({ initialValues }) => {
     setValue,
     watch,
     reset,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = useForm({
     resolver: yupResolver(OneWayFormSchema),
     defaultValues: {
       flyingFrom: initialValues?.flyingFrom || {
-        name: "",
+        city: "",
         iataCode: "",
       },
       flyingTo: initialValues?.flyingTo || {
-        name: "",
+        city: "",
         iataCode: "",
       },
       travellers: {

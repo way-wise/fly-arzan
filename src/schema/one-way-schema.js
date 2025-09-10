@@ -2,11 +2,11 @@ import { string, number, object, date } from "yup";
 
 export const OneWayFormSchema = object({
   flyingFrom: object({
-    name: string().required(),
+    city: string().required(),
     iataCode: string().required(),
   }).required("Flying From is required"),
   flyingTo: object({
-    name: string().required(),
+    city: string().required(),
     iataCode: string().required(),
   }).required("Flying To is required"),
   travellers: object({
