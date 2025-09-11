@@ -108,6 +108,11 @@ const OneWayForm = ({ initialValues }) => {
     : "";
 
   const onSubmit = (values) => {
+    const travelClass =
+      values.travellers.cabin === "premium_economy"
+        ? "PREMIUM_ECONOMY"
+        : values.travellers.cabin.toUpperCase();
+
     const query = new URLSearchParams({
       from: encodeURIComponent(
         JSON.stringify({
@@ -121,15 +126,13 @@ const OneWayForm = ({ initialValues }) => {
           iataCode: values.flyingTo.iataCode,
         })
       ),
-      travellers: encodeURIComponent(
-        JSON.stringify({
-          cabin: values.travellers.cabin,
-          adults: values.travellers.adults,
-          children: values.travellers.children,
-        })
-      ),
       depart: values.depart.toISOString().split("T")[0],
+      adults: values.travellers.adults,
+      children: values.travellers.children,
+      travelClass: travelClass,
       type: "one-way",
+      // Keep travellers object for pre-filling the form on the next page
+      travellers: encodeURIComponent(JSON.stringify(values.travellers)),
     }).toString();
 
     navigate(`/search/flight?${query}`);

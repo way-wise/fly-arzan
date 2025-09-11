@@ -22,8 +22,11 @@ const FlightSearchPage = () => {
     // Extract Query Params
     const fromParam = searchParams.get("from");
     const toParam = searchParams.get("to");
-    const travellersParam = searchParams.get("travellers");
+    const travellersParam = searchParams.get("travellers"); // Used for form pre-population
     const departParam = searchParams.get("depart");
+    const adultsParam = searchParams.get("adults");
+    const childrenParam = searchParams.get("children");
+    const travelClassParam = searchParams.get("travelClass");
 
     // Parse the params
     const parsedFrom = fromParam
@@ -60,7 +63,9 @@ const FlightSearchPage = () => {
     departureDate: initialOneWayFormValues?.depart
       ? new Date(initialOneWayFormValues.depart)
       : null,
-    travellers: initialOneWayFormValues?.travellers,
+    adults: searchParams.get("adults") || 1,
+    children: searchParams.get("children") || 0,
+    travelClass: searchParams.get("travelClass") || "ECONOMY",
   });
 
   const {
