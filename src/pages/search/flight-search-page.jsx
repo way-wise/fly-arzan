@@ -114,7 +114,7 @@ const FlightSearchPage = () => {
             <div className="container">
               <div className="tw:flex tw:gap-[30px]">
                 <div className="tw:w-[270px] tw:shrink-0 tw:hidden tw:lg:block">
-                  <SearchFilterSidebar />
+                  <SearchFilterSidebar flightOffersData={flightOffersData} />
                 </div>
                 <div className="tw:grow">
                   <FlightSearchResults flightOffersData={flightOffersData} />

@@ -20,6 +20,16 @@ import { format, parseISO } from "date-fns";
 import { useSidebarFilter } from "@/providers/filter-sidebar-provider";
 import { Skeleton } from "@/components/ui/skeleton";
 
+// Helper to convert "HH:mm" to minutes from midnight
+const timeToMinutes = (timeStr) => {
+  try {
+    const [hours, minutes] = timeStr.split(":").map(Number);
+    return hours * 60 + minutes;
+  } catch (e) {
+    return 0;
+  }
+};
+
 // Helper function to format duration from minutes to "Xh Ym" format
 const formatDurationFromMinutes = (minutes) => {
   if (isNaN(minutes) || minutes <= 0) return "0h 0m";
@@ -134,6 +144,11 @@ const FlightSearchResults = ({ flightOffersData }) => {
             })
             .filter(Boolean) || [];
 
+        const hasCheckedBaggage =
+          offer.travelerPricings?.[0]?.fareDetailsBySegment?.some(
+            (segment) => segment.includedCheckedBags
+          ) || false;
+
         if (flights.length === 0) return null;
 
         return {
@@ -144,6 +159,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
           logo: flights[0].airlineCode,
           airlineCode: flights[0].airlineCode,
           flights,
+          hasCheckedBaggage,
           totalDurationMinutes: flights.reduce(
             (acc, flight) => acc + flight.durationMinutes,
             0
@@ -210,7 +226,9 @@ const FlightSearchResults = ({ flightOffersData }) => {
       {
         id: "cheapest",
         title: "Cheapest",
-        duration: formatDurationFromMinutes(cheapestOption.totalDurationMinutes),
+        duration: formatDurationFromMinutes(
+          cheapestOption.totalDurationMinutes
+        ),
         price: `${cheapestOption.price}`,
         icon: <RiPercentFill size={24} />,
         showInMobile: true,
@@ -226,8 +244,49 @@ const FlightSearchResults = ({ flightOffersData }) => {
     ]);
   };
 
+  const { filters } = useSidebarFilter();
+
   const sortedFlights = useMemo(() => {
-    let sorted = [...processedFlights];
+    let filtered = [...processedFlights];
+
+    // Apply filters
+    if (filters.stops.length > 0) {
+      filtered = filtered.filter((flight) => {
+        const numStops = flight.flights.length - 1;
+        return filters.stops.includes(numStops);
+      });
+    }
+
+    if (filters.airlines.length > 0) {
+      filtered = filtered.filter((flight) =>
+        filters.airlines.includes(flight.airlineCode)
+      );
+    }
+
+    if (filters.baggage.length > 0) {
+      if (filters.baggage.includes("checked")) {
+        filtered = filtered.filter((flight) => flight.hasCheckedBaggage);
+      }
+      // Add other baggage filters here if needed in the future
+    }
+
+    // Departure time filter
+    filtered = filtered.filter((flight) => {
+      const departureTime = timeToMinutes(flight.flights[0].departure.time);
+      return (
+        departureTime >= filters.departureTime.min &&
+        departureTime <= filters.departureTime.max
+      );
+    });
+
+    // Journey duration filter
+    filtered = filtered.filter(
+      (flight) =>
+        flight.totalDurationMinutes >= filters.journeyDuration.min &&
+        flight.totalDurationMinutes <= filters.journeyDuration.max
+    );
+
+    let sorted = filtered;
     if (selectedTimeCost === "cheapest") {
       sorted.sort((a, b) => a.price - b.price);
     } else if (selectedTimeCost === "fastest") {
@@ -239,7 +298,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
       );
     }
     return sorted;
-  }, [processedFlights, selectedTimeCost]);
+  }, [processedFlights, selectedTimeCost, filters]);
 
   // Reset visible count when sorting changes
   useEffect(() => {
@@ -329,70 +388,98 @@ const FlightSearchResults = ({ flightOffersData }) => {
             >
               {/* Flight Details Section */}
               <div className="tw:flex tw:flex-col tw:justify-between tw:grow tw:gap-4 tw:px-[30px] tw:mb-8 tw:md:mb-0">
-                {itinerary.flights.map((flight, index) => (
-                  <div
-                    key={index}
-                    className="tw:flex tw:items-center tw:justify-between tw:flex-col tw:gap-4 tw:md:gap-0 tw:md:flex-row"
-                  >
-                    {/* Airline Logo, Code */}
-                    <div className="tw:flex tw:flex-col tw:justify-center tw:items-center tw:gap-0.5 tw:text-center">
-                      {getAirlineLogoUrl(flight.airlineCode) ? (
-                        <img
-                          src={getAirlineLogoUrl(flight.airlineCode)}
-                          alt={flight.airline}
-                          className="tw:w-[120px]"
-                        />
-                      ) : (
-                        <div className="tw:w-[120px] tw:h-[60px] tw:flex tw:items-center tw:justify-center tw:bg-gray-100 tw:rounded">
-                          <span className="tw:text-sm tw:text-gray-500">
-                            {flight.airlineCode}
-                          </span>
-                        </div>
-                      )}
-                      <span className="tw:text-sm tw:text-secondary">
-                        {flight.airlineCode} - {flight.flightNumber}
+                <div className="tw:flex tw:items-center tw:justify-between tw:flex-col tw:gap-4 tw:md:gap-0 tw:md:flex-row">
+                  {/* Airline Logo, Code */}
+                  <div className="tw:flex tw:flex-col tw:justify-center tw:items-center tw:gap-0.5 tw:text-center">
+                    {getAirlineLogoUrl(itinerary.airlineCode) ? (
+                      <img
+                        src={getAirlineLogoUrl(itinerary.airlineCode)}
+                        alt={itinerary.flights[0].airline}
+                        className="tw:w-[120px]"
+                      />
+                    ) : (
+                      <div className="tw:w-[120px] tw:h-[60px] tw:flex tw:items-center tw:justify-center tw:bg-gray-100 tw:rounded">
+                        <span className="tw:text-sm tw:text-gray-500">
+                          {itinerary.airlineCode}
+                        </span>
+                      </div>
+                    )}
+                    <span className="tw:text-sm tw:text-secondary">
+                      {itinerary.airlineCode} -{" "}
+                      {itinerary.flights[0].flightNumber}
+                    </span>
+                  </div>
+
+                  {/* Time, Stop, Airline */}
+                  <div className="tw:flex tw:items-center tw:gap-6 tw:grow tw:justify-center">
+                    {/* Depart */}
+                    <div className="tw:flex tw:flex-col tw:gap-1 tw:text-right">
+                      <span className="tw:font-semibold tw:text-[20px]">
+                        {itinerary.flights[0].departure.time}
+                      </span>
+                      <span className="tw:text-sm tw:text-[#5D586C]">
+                        {itinerary.flights[0].departure.airport}
                       </span>
                     </div>
-
-                    {/* Time, Stop, Airline */}
-                    <div className="tw:flex tw:items-center tw:gap-6 tw:grow tw:justify-center">
-                      {/* Depart */}
-                      <div className="tw:flex tw:flex-col tw:gap-1 tw:text-right">
-                        <span className="tw:font-semibold tw:text-[20px]">
-                          {flight.departure.time}
+                    {/* Duration & Stop */}
+                    <div className="tw:flex tw:items-center tw:gap-2">
+                      <div className="tw:flex tw:flex-col tw:text-center tw:gap-1">
+                        <span className="tw:text-sm tw:font-semibold">
+                          {formatDurationFromMinutes(
+                            itinerary.totalDurationMinutes
+                          )}
                         </span>
-                        <span className="tw:text-sm tw:text-[#5D586C]">
-                          {flight.departure.airport}
+                        <span className="tw:h-px tw:w-[82px] tw:bg-secondary" />
+                        <span className="tw:text-sm tw:text-primary">
+                          {(() => {
+                            const stops = itinerary.flights.length - 1;
+                            if (stops === 0) {
+                              return "Direct";
+                            }
+                            const stopAirports = itinerary.flights
+                              .slice(0, stops)
+                              .map((flight) => flight.arrival.airport);
+                            return (
+                              <>
+                                {`${stops} Stop${stops > 1 ? "s" : ""}`}{" "}
+                                {stopAirports.map((airport, index) => (
+                                  <strong
+                                    key={index}
+                                    className="tw:text-[#5D586C] tw:!font-normal"
+                                  >
+                                    {airport}
+                                    {index < stopAirports.length - 1
+                                      ? ", "
+                                      : ""}
+                                  </strong>
+                                ))}
+                              </>
+                            );
+                          })()}
                         </span>
                       </div>
-                      {/* Duration & Stop */}
-                      <div className="tw:flex tw:items-center tw:gap-2">
-                        <div className="tw:flex tw:flex-col tw:text-center tw:gap-1">
-                          <span className="tw:text-sm tw:font-semibold">
-                            {flight.duration}
-                          </span>
-                          <span className="tw:h-px tw:w-[82px] tw:bg-secondary" />
-                          <span className="tw:text-sm tw:text-primary">
-                            {flight.stops}
-                          </span>
-                        </div>
-                        <RiPlaneLine
-                          size={24}
-                          className="tw:text-secondary tw:rotate-90"
-                        />
-                      </div>
-                      {/* Arrival */}
-                      <div className="tw:flex tw:flex-col tw:gap-1 tw:text-left">
-                        <span className="tw:font-semibold tw:text-[20px]">
-                          {flight.arrival.time}
-                        </span>
-                        <span className="tw:text-sm tw:text-[#5D586C]">
-                          {flight.arrival.airport}
-                        </span>
-                      </div>
+                      <RiPlaneLine
+                        size={24}
+                        className="tw:text-secondary tw:rotate-90"
+                      />
+                    </div>
+                    {/* Arrival */}
+                    <div className="tw:flex tw:flex-col tw:gap-1 tw:text-left">
+                      <span className="tw:font-semibold tw:text-[20px]">
+                        {
+                          itinerary.flights[itinerary.flights.length - 1]
+                            .arrival.time
+                        }
+                      </span>
+                      <span className="tw:text-sm tw:text-[#5D586C]">
+                        {
+                          itinerary.flights[itinerary.flights.length - 1]
+                            .arrival.airport
+                        }
+                      </span>
                     </div>
                   </div>
-                ))}
+                </div>
               </div>
 
               {/* Price Select Button */}

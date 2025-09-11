@@ -10,7 +10,7 @@ import { X } from "lucide-react";
 import FilterComponent from "@/components/ui/filter-component";
 import { useSidebarFilter } from "@/providers/filter-sidebar-provider";
 
-const SearchFilterSidebar = () => {
+const SearchFilterSidebar = ({ flightOffersData }) => {
   const { isMobile, openMobile, setOpenMobile } = useSidebarFilter();
 
   if (isMobile) {
@@ -32,14 +32,14 @@ const SearchFilterSidebar = () => {
             </DrawerClose>
           </DrawerHeader>
           <div className="tw:p-4 tw:overflow-y-auto">
-            <FilterComponent />
+            <FilterComponent flightOffersData={flightOffersData} />
           </div>
         </DrawerContent>
       </Drawer>
     );
   }
 
-  return <FilterComponent />;
+  return <FilterComponent flightOffersData={flightOffersData} />;
 };
 
 export default SearchFilterSidebar;
