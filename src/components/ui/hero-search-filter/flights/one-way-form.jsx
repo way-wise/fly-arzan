@@ -10,7 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { GiCommercialAirplane } from "react-icons/gi";
 import {
   Select,
@@ -50,7 +50,7 @@ const OneWayForm = ({ initialValues }) => {
     setValue,
     watch,
     reset,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting },
   } = useForm({
     resolver: yupResolver(OneWayFormSchema),
     defaultValues: {
@@ -85,6 +85,56 @@ const OneWayForm = ({ initialValues }) => {
   // Watch form values
   const formValues = watch();
   const { flyingFrom, flyingTo, travellers, depart } = formValues;
+
+  const [debouncedFormValues] = useDebounceValue(formValues, 1000);
+  const isInitialMount = useRef(true);
+
+  useEffect(() => {
+    // Skip the effect on the initial render and if the form isn't ready.
+    if (
+      isInitialMount.current ||
+      !debouncedFormValues.depart ||
+      !debouncedFormValues.flyingFrom?.iataCode ||
+      !debouncedFormValues.flyingTo?.iataCode
+    ) {
+      isInitialMount.current = false;
+      return;
+    }
+
+    const travelClass =
+      debouncedFormValues.travellers.cabin === "premium_economy"
+        ? "PREMIUM_ECONOMY"
+        : debouncedFormValues.travellers.cabin.toUpperCase();
+
+    const queryParams = {
+      from: encodeURIComponent(
+        JSON.stringify({
+          city: debouncedFormValues.flyingFrom.city,
+          iataCode: debouncedFormValues.flyingFrom.iataCode,
+        })
+      ),
+      to: encodeURIComponent(
+        JSON.stringify({
+          city: debouncedFormValues.flyingTo.city,
+          iataCode: debouncedFormValues.flyingTo.iataCode,
+        })
+      ),
+      depart: debouncedFormValues.depart.toISOString().split("T")[0],
+      adults: debouncedFormValues.travellers.adults,
+      children: debouncedFormValues.travellers.children,
+      travelClass: travelClass,
+      type: "one-way",
+      travellers: encodeURIComponent(
+        JSON.stringify(debouncedFormValues.travellers)
+      ),
+    };
+
+    const query = new URLSearchParams(queryParams).toString();
+
+    // Replace the URL in the browser's history without triggering a re-render
+    const newUrl = `${window.location.pathname}?${query}`;
+    window.history.replaceState(null, "", newUrl);
+  }, [debouncedFormValues, navigate]);
 
   // Get City Data
   const { data: cityFromData, isLoading: isLoadingFrom } =

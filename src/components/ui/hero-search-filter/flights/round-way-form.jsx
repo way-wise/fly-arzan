@@ -10,7 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { GiCommercialAirplane } from "react-icons/gi";
 import {
   Select,
@@ -20,136 +20,204 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Minus, Plus } from "lucide-react";
-import Calendar from "../../calendar";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { string, number, object, date } from "yup";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { RoundWayFormSchema } from "@/schema/round-way-schema";
+import { useCityLocation } from "@/hooks/useCityLocation";
+import { useDebounceValue } from "usehooks-ts";
+import Calendar from "../../calendar";
+import PropTypes from "prop-types";
 
-const city = [
-  { id: 1, name: "New York", code: "NYC", state: "NY" },
-  { id: 2, name: "Los Angeles", code: "LAX", state: "CA" },
-  { id: 3, name: "Chicago", code: "CHI", state: "IL" },
-  { id: 4, name: "Houston", code: "HOU", state: "TX" },
-  { id: 5, name: "Phoenix", code: "PHX", state: "AZ" },
-  { id: 6, name: "Philadelphia", code: "PHL", state: "PA" },
-  { id: 7, name: "San Antonio", code: "SAT", state: "TX" },
-  { id: 8, name: "San Diego", code: "SAN", state: "CA" },
-  { id: 9, name: "Dallas", code: "DFW", state: "TX" },
-  { id: 10, name: "Miamis", code: "MIA", state: "FL" },
-];
-
-const RoundWayForm = () => {
+const RoundWayForm = ({ initialValues }) => {
   const navigate = useNavigate();
-  const [queryFrom, setQueryFrom] = useState("");
-  const [queryTo, setQueryTo] = useState("");
+  const [queryFrom, setQueryFrom] = useDebounceValue("", 600);
+  const [queryTo, setQueryTo] = useDebounceValue("", 600);
+  const [travellersOpen, setTravellersOpen] = useState(false);
+  const [departDateOpen, setDepartDateOpen] = useState(false);
+  const [returnDateOpen, setReturnDateOpen] = useState(false);
+  const [appliedTravellers, setAppliedTravellers] = useState(
+    initialValues?.travellers ? { ...initialValues.travellers } : null
+  );
   const [isSwapped, setIsSwapped] = useState(false);
-
-  const handleSwap = () => {
-    setIsSwapped((prevValue) => !prevValue);
-  };
-
-  const RoundWayFormSchema = object({
-    flyingFrom: object()
-      .shape({
-        id: number().required(),
-        name: string().required(),
-        code: string().required(),
-        state: string().required(),
-      })
-      .required("Flying From is required"),
-    flyingTo: object()
-      .shape({
-        id: number().required(),
-        name: string().required(),
-        code: string().required(),
-        state: string().required(),
-      })
-      .required("Flying To is required"),
-    travellers: object({
-      cabin: string().required("Cabin is required"),
-      adults: number().required("Adults is required"),
-      children: number().required("Children is required"),
-    }),
-    depart: date().required("Depart date is required"),
-    arrival: date().required("Arrival date is required"),
-  });
 
   const {
     handleSubmit,
     setValue,
     watch,
+    reset,
     formState: { isSubmitting },
   } = useForm({
     resolver: yupResolver(RoundWayFormSchema),
     defaultValues: {
-      flyingFrom: null,
-      flyingTo: null,
+      flyingFrom: initialValues?.flyingFrom || { city: "", iataCode: "" },
+      flyingTo: initialValues?.flyingTo || { city: "", iataCode: "" },
       travellers: {
-        cabin: "economy",
-        adults: 1,
-        children: 0,
+        cabin: initialValues?.travellers?.cabin || "economy",
+        adults: initialValues?.travellers?.adults ?? 1,
+        children: initialValues?.travellers?.children ?? 0,
       },
-      depart: "",
-      arrival: "",
+      depart: initialValues?.depart ? new Date(initialValues.depart) : "",
+      return: initialValues?.return ? new Date(initialValues.return) : "",
     },
   });
 
   // Watch form values
   const formValues = watch();
-  const { flyingFrom, flyingTo, travellers, depart, arrival } = formValues;
+  const {
+    flyingFrom,
+    flyingTo,
+    travellers,
+    depart,
+    return: returnDate,
+  } = formValues;
 
-  // Travellers & Cabin Class state
-  const [travellersOpen, setTravellersOpen] = useState(false);
-  const [travellersApplied, setTravellersApplied] = useState(false);
+  const [debouncedFormValues] = useDebounceValue(formValues, 1000);
+  const isInitialMount = useRef(true);
 
-  const totalTravellers = travellers.adults + travellers.children;
+  useEffect(() => {
+    // Skip the effect on the initial render and if the form isn't ready.
+    if (
+      isInitialMount.current ||
+      !debouncedFormValues.depart ||
+      !debouncedFormValues.return ||
+      !debouncedFormValues.flyingFrom?.iataCode ||
+      !debouncedFormValues.flyingTo?.iataCode
+    ) {
+      isInitialMount.current = false;
+      return;
+    }
+
+    const travelClass =
+      debouncedFormValues.travellers.cabin === "premium_economy"
+        ? "PREMIUM_ECONOMY"
+        : debouncedFormValues.travellers.cabin.toUpperCase();
+
+    const queryParams = {
+      from: encodeURIComponent(
+        JSON.stringify({
+          city: debouncedFormValues.flyingFrom.city,
+          iataCode: debouncedFormValues.flyingFrom.iataCode,
+        })
+      ),
+      to: encodeURIComponent(
+        JSON.stringify({
+          city: debouncedFormValues.flyingTo.city,
+          iataCode: debouncedFormValues.flyingTo.iataCode,
+        })
+      ),
+      depart: debouncedFormValues.depart.toISOString().split("T")[0],
+      adults: debouncedFormValues.travellers.adults,
+      children: debouncedFormValues.travellers.children,
+      travelClass: travelClass,
+      type: "round-way",
+      travellers: encodeURIComponent(
+        JSON.stringify(debouncedFormValues.travellers)
+      ),
+    };
+
+    if (debouncedFormValues.return) {
+      queryParams.return = debouncedFormValues.return
+        .toISOString()
+        .split("T")[0];
+    }
+
+    const query = new URLSearchParams(queryParams).toString();
+
+    // Replace the URL in the browser's history without triggering a re-render
+    const newUrl = `${window.location.pathname}?${query}`;
+    window.history.replaceState(null, "", newUrl);
+  }, [debouncedFormValues, navigate]);
+
+  const handleSwap = () => {
+    // Swap the actual form values
+    setValue("flyingFrom", flyingTo);
+    setValue("flyingTo", flyingFrom);
+    // Toggle visual order
+    setIsSwapped((prevValue) => !prevValue);
+  };
+
+  useEffect(() => {
+    if (initialValues) {
+      reset({
+        flyingFrom: initialValues.flyingFrom,
+        flyingTo: initialValues.flyingTo,
+        travellers: initialValues.travellers,
+        depart: new Date(initialValues.depart),
+        return: new Date(initialValues.return),
+      });
+      if (initialValues.travellers) {
+        setAppliedTravellers(initialValues.travellers);
+      }
+    }
+  }, [initialValues, reset]);
+
+  // Get City Data
+  const { data: cityFromData, isLoading: isLoadingFrom } =
+    useCityLocation(queryFrom);
+  const cityFromOptions = cityFromData?.data || [];
+
+  const { data: cityToData, isLoading: isLoadingTo } = useCityLocation(queryTo);
+  const cityToOptions = cityToData?.data || [];
+
   const cabinLabelMap = {
     economy: "Economy",
     premium_economy: "Premium Economy",
     business: "Business",
     first_class: "First Class",
   };
-  const travellersSummary = `${totalTravellers} Traveller${
-    totalTravellers !== 1 ? "s" : ""
-  }, ${cabinLabelMap[travellers.cabin]}`;
 
-  // Depart Date state
-  const [departDateOpen, setDepartDateOpen] = useState(false);
+  const travellersSummary = appliedTravellers
+    ? `${appliedTravellers.adults + appliedTravellers.children} Traveller${
+        appliedTravellers.adults + appliedTravellers.children !== 1 ? "s" : ""
+      }, ${cabinLabelMap[appliedTravellers.cabin]}`
+    : "";
 
-  // Arrival Date state
-  const [arrivalDateOpen, setArrivalDateOpen] = useState(false);
+  const onSubmit = (values) => {
+    const travelClass =
+      values.travellers.cabin === "premium_economy"
+        ? "PREMIUM_ECONOMY"
+        : values.travellers.cabin.toUpperCase();
 
-  // Mock Data
-  const filteredCityFrom =
-    queryFrom === ""
-      ? city
-      : city.filter((city) => {
-          return city.name.toLowerCase().includes(queryFrom.toLowerCase());
-        });
+    const queryParams = {
+      from: encodeURIComponent(
+        JSON.stringify({
+          city: values.flyingFrom.city,
+          iataCode: values.flyingFrom.iataCode,
+        })
+      ),
+      to: encodeURIComponent(
+        JSON.stringify({
+          city: values.flyingTo.city,
+          iataCode: values.flyingTo.iataCode,
+        })
+      ),
+      depart: values.depart.toISOString().split("T")[0],
+      adults: values.travellers.adults,
+      children: values.travellers.children,
+      travelClass: travelClass,
+      type: "round-way",
+      travellers: encodeURIComponent(JSON.stringify(values.travellers)),
+    };
 
-  // Mock Data
-  const filteredCityTo =
-    queryTo === ""
-      ? city
-      : city.filter((city) => {
-          return city.name.toLowerCase().includes(queryTo.toLowerCase());
-        });
+    if (values.return) {
+      queryParams.return = values.return.toISOString().split("T")[0];
+    }
 
-  const onSubmit = (data) => {
-    console.log(data);
-    navigate("/search/flight");
+    const query = new URLSearchParams(queryParams).toString();
+
+    navigate(`/search/flight?${query}`);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-      <fieldset className="tw:grid tw:grid-cols-1 tw:sm:grid-cols-2 tw:xl:grid-cols-5 tw:2xl:flex tw:items-center tw:gap-4">
-        <div className="tw:flex tw:flex-col tw:sm:flex-row tw:gap-4 tw:relative tw:grow tw:sm:col-span-2">
+      <fieldset className="tw:grid tw:grid-cols-1 md:grid-cols-2 tw:xl:grid-cols-5 tw:2xl:flex tw:items-center tw:gap-4">
+        {/* From / To Inputs */}
+        <div className="tw:flex tw:flex-col tw:sm:flex-row tw:gap-4 tw:relative tw:grow tw:md:col-span-2 tw:xl:col-span-2">
           {/* Flying From */}
           <Combobox
             value={flyingFrom}
-            virtual={{ options: filteredCityFrom }}
             onChange={(value) => setValue("flyingFrom", value)}
             onClose={() => setQueryFrom("")}
           >
@@ -161,7 +229,7 @@ const RoundWayForm = () => {
             >
               <ComboboxInput
                 id="flyingFrom"
-                displayValue={(city) => city?.name || ""}
+                displayValue={(data) => data?.city}
                 onChange={(event) => setQueryFrom(event.target.value)}
                 className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0"
                 placeholder="From"
@@ -173,19 +241,52 @@ const RoundWayForm = () => {
                 From
               </label>
               <ComboboxOptions className="tw:w-[var(--input-width)] tw:2xl:w-72">
-                {({ option: city }) => (
-                  <ComboboxOption value={city}>
-                    <GiCommercialAirplane className="tw:text-secondary" />
-                    <span>{city.name}</span>
-                  </ComboboxOption>
+                {isLoadingFrom && (
+                  <div className="tw:p-2 tw:text-center tw:text-sm">
+                    Loading...
+                  </div>
                 )}
+
+                {!isLoadingFrom && cityFromOptions.length === 0 && (
+                  <div className="tw:p-2 tw:text-center tw:text-sm tw:text-secondary">
+                    No results found.
+                  </div>
+                )}
+
+                {cityFromOptions.map((data, index) => (
+                  <ComboboxOption
+                    key={index}
+                    value={{
+                      city: data.city,
+                      iataCode: data.iataCode,
+                    }}
+                    className="tw:flex"
+                  >
+                    <div className="tw:flex tw:justify-start tw:gap-2.5 tw:w-full">
+                      <GiCommercialAirplane
+                        size={20}
+                        className="tw:text-secondary tw:!shrink-0 tw:mt-1"
+                      />
+                      <div className="tw:flex tw:flex-col">
+                        <div>
+                          {data.city} ({data.iataCode})
+                        </div>
+                        <div className="tw:text-secondary tw:text-sm">
+                          {data.airport} ({data.country})
+                        </div>
+                      </div>
+                    </div>
+                  </ComboboxOption>
+                ))}
               </ComboboxOptions>
             </div>
           </Combobox>
           <button
             type="button"
             onClick={handleSwap}
-            className={cn("tw:absolute tw:z-50 tw:top-[45px] tw:sm:top-[50%] tw:left-1/2 tw:-translate-x-1/2 tw:bg-white tw:sm:-translate-y-1/2 tw:h-[50px] tw:w-[50px] tw:inline-flex tw:items-center tw:justify-center tw:transition-[rotate] tw:duration-300 tw:border tw:!border-muted tw:!rounded-full", isSwapped ? "tw:rotate-180" : "tw:-rotate-180"
+            className={cn(
+              "tw:absolute tw:z-50 tw:top-[45px] tw:sm:top-[50%] tw:left-1/2 tw:-translate-x-1/2 tw:bg-white tw:sm:-translate-y-1/2 tw:h-[50px] tw:w-[50px] tw:inline-flex tw:items-center tw:justify-center tw:transition-[rotate] tw:duration-300 tw:border tw:!border-muted tw:!rounded-full",
+              isSwapped ? "tw:rotate-180" : "tw:-rotate-180"
             )}
           >
             <svg
@@ -208,7 +309,6 @@ const RoundWayForm = () => {
           {/* Flying To */}
           <Combobox
             value={flyingTo}
-            virtual={{ options: filteredCityTo }}
             onChange={(value) => setValue("flyingTo", value)}
             onClose={() => setQueryTo("")}
           >
@@ -220,7 +320,7 @@ const RoundWayForm = () => {
             >
               <ComboboxInput
                 id="flyingTo"
-                displayValue={(city) => city?.name || ""}
+                displayValue={(data) => data?.city}
                 onChange={(event) => setQueryTo(event.target.value)}
                 className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0"
                 placeholder="To"
@@ -232,90 +332,135 @@ const RoundWayForm = () => {
                 To
               </label>
               <ComboboxOptions className="tw:w-[var(--input-width)] tw:2xl:w-72">
-                {({ option: city }) => (
-                  <ComboboxOption value={city}>
-                    <GiCommercialAirplane className="tw:text-secondary" />
-                    <span>{city.name}</span>
-                  </ComboboxOption>
+                {isLoadingTo && (
+                  <div className="tw:p-2 tw:text-center tw:text-sm">
+                    Loading...
+                  </div>
                 )}
+
+                {!isLoadingTo && cityToOptions.length === 0 && (
+                  <div className="tw:p-2 tw:text-center tw:text-sm tw:text-secondary">
+                    No results found.
+                  </div>
+                )}
+
+                {cityToOptions.map((data, index) => {
+                  return (
+                    <ComboboxOption
+                      key={index}
+                      value={{
+                        city: data.city,
+                        iataCode: data.iataCode,
+                      }}
+                      className="tw:flex"
+                    >
+                      <div className="tw:flex tw:justify-start tw:gap-2.5 tw:w-full">
+                        <GiCommercialAirplane
+                          size={20}
+                          className="tw:text-secondary tw:!shrink-0 tw:mt-1"
+                        />
+                        <div className="tw:flex tw:flex-col">
+                          <div className="tw:truncate">
+                            {data.city} ({data.iataCode})
+                          </div>
+                          <div className="tw:text-secondary tw:text-sm tw:truncate">
+                            {data.airport} ({data.country})
+                          </div>
+                        </div>
+                      </div>
+                    </ComboboxOption>
+                  );
+                })}
               </ComboboxOptions>
             </div>
           </Combobox>
         </div>
-        {/* Depart */}
-        <Popover open={departDateOpen} onOpenChange={setDepartDateOpen}>
-          <PopoverTrigger asChild>
-            <div className="tw:relative tw:grow">
-              <input
-                type="text"
-                id="depart"
-                className="tw:peer tw:py-[10px] tw:ps-5 tw:pe-16 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default"
-                placeholder="Depart"
-                value={
-                  depart instanceof Date ? depart.toLocaleDateString() : ""
-                }
-                readOnly
+
+        {/* Date Inputs */}
+        <div className="tw:flex tw:flex-col tw:sm:flex-row tw:gap-4 tw:grow tw:md:col-span-2 tw:xl:col-span-2">
+          {/* Depart */}
+          <Popover open={departDateOpen} onOpenChange={setDepartDateOpen}>
+            <PopoverTrigger asChild>
+              <div className="tw:relative tw:grow">
+                <input
+                  type="text"
+                  id="depart"
+                  className="tw:peer tw:py-[10px] tw:ps-5 tw:pe-16 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none"
+                  placeholder="Depart"
+                  value={
+                    depart instanceof Date ? depart.toLocaleDateString() : ""
+                  }
+                  readOnly
+                />
+                <label
+                  htmlFor="depart"
+                  className="tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
+                >
+                  Depart
+                </label>
+              </div>
+            </PopoverTrigger>
+            <PopoverContent>
+              <Calendar
+                mode="single"
+                selected={depart}
+                onSelect={(d) => {
+                  setValue("depart", d);
+                  setDepartDateOpen(false);
+                }}
+                disabled={{ before: new Date() }}
               />
-              <label
-                htmlFor="depart"
-                className="tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
-              >
-                Depart
-              </label>
-            </div>
-          </PopoverTrigger>
-          <PopoverContent>
-            <Calendar
-              selected={depart}
-              onSelect={(d) => {
-                setValue("depart", d);
-                setDepartDateOpen(false);
-              }}
-            />
-          </PopoverContent>
-        </Popover>
-        {/* Arrival */}
-        <Popover open={arrivalDateOpen} onOpenChange={setArrivalDateOpen}>
-          <PopoverTrigger asChild>
-            <div className="tw:relative tw:grow">
-              <input
-                type="text"
-                id="arrival"
-                className="tw:peer tw:py-[10px] tw:ps-5 tw:pe-16 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default"
-                placeholder="Arrival"
-                value={
-                  arrival instanceof Date ? arrival.toLocaleDateString() : ""
-                }
-                readOnly
+            </PopoverContent>
+          </Popover>
+
+          {/* Return */}
+          <Popover open={returnDateOpen} onOpenChange={setReturnDateOpen}>
+            <PopoverTrigger asChild>
+              <div className="tw:relative tw:grow">
+                <input
+                  type="text"
+                  id="return"
+                  className="tw:peer tw:py-[10px] tw:ps-5 tw:pe-16 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none"
+                  placeholder="Return"
+                  value={
+                    returnDate instanceof Date
+                      ? returnDate.toLocaleDateString()
+                      : ""
+                  }
+                  readOnly
+                />
+                <label
+                  htmlFor="return"
+                  className="tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
+                >
+                  Return
+                </label>
+              </div>
+            </PopoverTrigger>
+            <PopoverContent>
+              <Calendar
+                mode="single"
+                selected={returnDate}
+                onSelect={(d) => {
+                  setValue("return", d);
+                  setReturnDateOpen(false);
+                }}
+                disabled={{ before: depart || new Date() }}
               />
-              <label
-                htmlFor="arrival"
-                className="tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
-              >
-                Arrival
-              </label>
-            </div>
-          </PopoverTrigger>
-          <PopoverContent>
-            <Calendar
-              selected={depart}
-              onSelect={(d) => {
-                setValue("arrival", d);
-                setArrivalDateOpen(false);
-              }}
-            />
-          </PopoverContent>
-        </Popover>
+            </PopoverContent>
+          </Popover>
+        </div>
+
         {/* Travellers & Cabin Class */}
         <Popover open={travellersOpen} onOpenChange={setTravellersOpen}>
           <PopoverTrigger asChild>
-            <div className="tw:relative tw:basis-78">
+            <div className="tw:relative tw:grow">
               <input
                 type="text"
                 id="travellers"
-                className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default"
+                className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none"
                 placeholder="Travellers"
-                value={travellersApplied ? travellersSummary : ""}
+                value={travellersSummary}
                 readOnly
               />
               <label
@@ -364,7 +509,7 @@ const RoundWayForm = () => {
                       Math.max(1, travellers.adults - 1)
                     )
                   }
-                  className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100"
+                  className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 hover:tw:bg-muted tw:transition tw:!rounded tw:duration-100"
                 >
                   <Minus />
                 </button>
@@ -377,7 +522,7 @@ const RoundWayForm = () => {
                       Math.min(9, travellers.adults + 1)
                     )
                   }
-                  className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100"
+                  className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 hover:tw:bg-muted tw:transition tw:!rounded tw:duration-100"
                 >
                   <Plus />
                 </button>
@@ -398,7 +543,7 @@ const RoundWayForm = () => {
                       Math.max(0, travellers.children - 1)
                     )
                   }
-                  className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100"
+                  className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 hover:tw:bg-muted tw:transition tw:!rounded tw:duration-100"
                 >
                   <Minus />
                 </button>
@@ -411,7 +556,7 @@ const RoundWayForm = () => {
                       Math.min(9, travellers.children + 1)
                     )
                   }
-                  className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100"
+                  className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 hover:tw:bg-muted tw:transition tw:!rounded tw:duration-100"
                 >
                   <Plus />
                 </button>
@@ -423,25 +568,30 @@ const RoundWayForm = () => {
               <button
                 type="button"
                 onClick={() => {
-                  setValue("travellers", {
-                    cabin: "economy",
-                    adults: 1,
-                    children: 0,
-                  });
-                  setTravellersApplied(false);
+                  if (initialValues?.travellers) {
+                    setValue("travellers", { ...initialValues.travellers });
+                    setAppliedTravellers({ ...initialValues.travellers });
+                  } else {
+                    setValue("travellers", {
+                      cabin: "economy",
+                      adults: 1,
+                      children: 0,
+                    });
+                    setAppliedTravellers(null);
+                  }
                   setTravellersOpen(false);
                 }}
-                className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100 tw:font-medium"
+                className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-muted/50 hover:tw:bg-muted tw:transition tw:!rounded tw:duration-100 tw:font-medium"
               >
                 Reset
               </button>
               <button
                 type="button"
                 onClick={() => {
-                  setTravellersApplied(true);
+                  setAppliedTravellers({ ...travellers });
                   setTravellersOpen(false);
                 }}
-                className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:transition tw:!rounded tw:duration-100 tw:font-medium"
+                className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-primary tw:!text-white hover:tw:bg-primary/80 tw:transition tw:!rounded tw:duration-100 tw:font-medium"
               >
                 Apply
               </button>
@@ -450,7 +600,7 @@ const RoundWayForm = () => {
         </Popover>
         {/* Search Button */}
         <button
-          className="tw:w-full tw:xl:col-span-5 tw:sm:col-span-2 tw:justify-self-end tw:md:!w-fit tw:px-5 tw:h-[62px] tw:shrink-0 tw:2xl:px-0 tw:2xl:!w-[62px] tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
+          className="tw:w-full tw:xl:col-span-5 md:col-span-2 tw:justify-self-end md:!w-fit tw:px-5 tw:h-[62px] tw:shrink-0 tw:2xl:px-0 tw:2xl:!w-[62px] tw:bg-primary tw:!text-white hover:tw:bg-primary/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
           disabled={isSubmitting}
         >
           <IoSearchOutline size={28} />
@@ -461,6 +611,26 @@ const RoundWayForm = () => {
       </fieldset>
     </form>
   );
+};
+
+RoundWayForm.propTypes = {
+  initialValues: PropTypes.shape({
+    flyingFrom: PropTypes.shape({
+      city: PropTypes.string,
+      iataCode: PropTypes.string,
+    }),
+    flyingTo: PropTypes.shape({
+      city: PropTypes.string,
+      iataCode: PropTypes.string,
+    }),
+    travellers: PropTypes.shape({
+      cabin: PropTypes.string,
+      adults: PropTypes.number,
+      children: PropTypes.number,
+    }),
+    depart: PropTypes.string,
+    return: PropTypes.string, // Added return date prop type
+  }),
 };
 
 export default RoundWayForm;

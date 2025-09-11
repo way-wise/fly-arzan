@@ -251,7 +251,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
         id: "best",
         title: "Best",
         duration: formatDurationFromMinutes(bestOption.totalDurationMinutes),
-        price: `${bestOption.price}`,
+        price: `$${bestOption.price}`,
         icon: <RiVerifiedBadgeFill size={24} />,
         showInMobile: true,
       },
@@ -261,7 +261,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
         duration: formatDurationFromMinutes(
           cheapestOption.totalDurationMinutes
         ),
-        price: `${cheapestOption.price}`,
+        price: `$${cheapestOption.price}`,
         icon: <RiPercentFill size={24} />,
         showInMobile: true,
       },
@@ -269,7 +269,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
         id: "fastest",
         title: "Fastest",
         duration: formatDurationFromMinutes(fastestOption.totalDurationMinutes),
-        price: `${fastestOption.price}`,
+        price: `$${fastestOption.price}`,
         icon: <RiFlashlightFill size={24} />,
         showInMobile: true,
       },

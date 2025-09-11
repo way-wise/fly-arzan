@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAxios } from "./useAxios";
 
-export const useOneWayOffers = (queries) => {
+export const useFlightOffers = (queries) => {
   const axios = useAxios();
 
   // Build Query
@@ -14,21 +14,28 @@ export const useOneWayOffers = (queries) => {
     travelClass: queries.travelClass,
   };
 
+  // Conditionally add returnDate if it exists
+  if (queries.returnDate) {
+    searchParams.returnDate = queries.returnDate.toISOString().split("T")[0];
+  }
+
   // Remove undefined/null params
   Object.keys(searchParams).forEach(
     (key) =>
-      (searchParams[key] === undefined || searchParams[key] === null) &&
+      (searchParams[key] === undefined ||
+        searchParams[key] === null ||
+        searchParams[key] === "") &&
       delete searchParams[key]
   );
 
   const searchQueries = new URLSearchParams(searchParams);
 
   const { isLoading, error, data } = useQuery({
-    queryKey: ["one-way-offers", queries],
+    queryKey: ["flight-offers", queries],
 
     queryFn: () =>
       axios
-        .get(`/flight-offers/one-way?${searchQueries.toString()}`)
+        .get(`/flight-offers?${searchQueries.toString()}`)
         .then((res) => res.data),
     enabled:
       !!queries.originLocationCode &&

@@ -9,14 +9,15 @@ import FlightSearchPageHeader from "@/components/ui/FlightSearchPageHeader";
 import FlexibleDates from "@/components/ui/flexible-dates/FlexibleDates";
 import { SidebarFilterProvider } from "@/providers/filter-sidebar-provider";
 import { useLocation, useSearchParams } from "react-router-dom";
-import { useOneWayOffers } from "@/hooks/useOneWayOffers";
+import { useFlightOffers } from "@/hooks/useFlightOffers";
 import { useFlexibleDates } from "@/hooks/useFlexibleDates";
 import { useEffect, useState } from "react";
+import RoundWayForm from "@/components/ui/hero-search-filter/flights/round-way-form";
 
 const FlightSearchPage = () => {
-  const [searchParams] = useSearchParams();
   const location = useLocation();
-  const [initialOneWayFormValues, setInitialOneWayFormValues] = useState(null);
+  const [searchParams] = useSearchParams();
+  const [initialValues, setInitialValues] = useState(null);
 
   useEffect(() => {
     // Extract Query Params
@@ -24,9 +25,7 @@ const FlightSearchPage = () => {
     const toParam = searchParams.get("to");
     const travellersParam = searchParams.get("travellers"); // Used for form pre-population
     const departParam = searchParams.get("depart");
-    const adultsParam = searchParams.get("adults");
-    const childrenParam = searchParams.get("children");
-    const travelClassParam = searchParams.get("travelClass");
+    const returnParam = searchParams.get("return");
 
     // Parse the params
     const parsedFrom = fromParam
@@ -38,7 +37,7 @@ const FlightSearchPage = () => {
       : {};
 
     // Construct the initialValues
-    setInitialOneWayFormValues({
+    setInitialValues({
       flyingFrom: {
         city: parsedFrom.city || "",
         iataCode: parsedFrom.iataCode || "",
@@ -53,16 +52,21 @@ const FlightSearchPage = () => {
         children: parsedTravellers.children ?? 0,
       },
       depart: departParam || "",
+      return: returnParam || "",
     });
   }, [location.search, searchParams]);
 
-  // Flight One Way Offers
-  const { isLoading, data: flightOffersData } = useOneWayOffers({
-    originLocationCode: initialOneWayFormValues?.flyingFrom?.iataCode,
-    destinationLocationCode: initialOneWayFormValues?.flyingTo?.iataCode,
-    departureDate: initialOneWayFormValues?.depart
-      ? new Date(initialOneWayFormValues.depart)
+  // Flight Offers
+  const { isLoading, data: flightOffersData } = useFlightOffers({
+    originLocationCode: initialValues?.flyingFrom?.iataCode,
+    destinationLocationCode: initialValues?.flyingTo?.iataCode,
+    departureDate: initialValues?.depart
+      ? new Date(initialValues.depart)
       : null,
+    returnDate:
+      searchParams.get("type") === "round-way" && initialValues?.return
+        ? new Date(initialValues.return)
+        : null,
     adults: searchParams.get("adults") || 1,
     children: searchParams.get("children") || 0,
     travelClass: searchParams.get("travelClass") || "ECONOMY",
@@ -86,17 +90,20 @@ const FlightSearchPage = () => {
         <div className="tw:flex tw:flex-col tw:min-h-screen tw:mt-16 tw:md:mt-[92px]">
           <div className="tw:py-6 tw:bg-[#F2FAFF]">
             <div className="container">
-              {initialOneWayFormValues && (
+              {initialValues && (
                 <FlightSearchPageHeader
-                  initialOneWayFormValues={initialOneWayFormValues}
+                  initialOneWayFormValues={initialValues}
                 />
               )}
               <div className="tw:rounded-xl tw:bg-white tw:shadow tw:!p-5">
                 {/* One Way Form */}
-                {searchParams.get("type") === "one-way" &&
-                  initialOneWayFormValues && (
-                    <OneWayForm initialValues={initialOneWayFormValues} />
-                  )}
+                {searchParams.get("type") === "one-way" && initialValues && (
+                  <OneWayForm initialValues={initialValues} />
+                )}
+                {/* Round Way Form */}
+                {searchParams.get("type") === "round-way" && (
+                  <RoundWayForm initialValues={initialValues} />
+                )}
               </div>
             </div>
           </div>

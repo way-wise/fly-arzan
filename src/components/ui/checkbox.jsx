@@ -26,7 +26,7 @@ function Checkbox({ className, ...props }) {
 
 Checkbox.propTypes = {
   className: PropTypes.string,
-  checked: PropTypes.string,
+  checked: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 };
 
 export { Checkbox };
