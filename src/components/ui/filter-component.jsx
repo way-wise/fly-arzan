@@ -44,7 +44,7 @@ const FilterComponent = ({ flightOffersData }) => {
         };
       }
 
-      const stopSet = new Set();
+      const stopOptions = [0, 1, 2]; // Static list of stop options
       const airlineSet = new Map();
       let minDeparture = 1440;
       let maxDeparture = 0;
@@ -68,9 +68,6 @@ const FilterComponent = ({ flightOffersData }) => {
           if (duration < minDuration) minDuration = duration;
           if (duration > maxDuration) maxDuration = duration;
 
-          const numStops = segment.numberOfStops || 0;
-          stopSet.add(numStops);
-
           const carrierCode = segment.carrierCode;
           if (
             !airlineSet.has(carrierCode) &&
@@ -85,7 +82,7 @@ const FilterComponent = ({ flightOffersData }) => {
       });
 
       return {
-        stops: Array.from(stopSet).sort((a, b) => a - b),
+        stops: stopOptions,
         airlines: Array.from(airlineSet.entries()),
         departureTimeRange: { min: minDeparture, max: maxDeparture },
         journeyDurationRange: { min: minDuration, max: maxDuration },

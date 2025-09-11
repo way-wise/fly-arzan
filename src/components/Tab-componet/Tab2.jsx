@@ -15,7 +15,7 @@ import GuestDropdown from "../drop-dwon/GuestsDrop";
 import { useTranslation } from "react-i18next";
 
 const Tab2 = () => {
-  const {t}=useTranslation()
+  const { t } = useTranslation();
   const { setContextHotelData } = useContext(HotelContext);
   const [activeButton, setActiveButton] = useState("One Way");
   const [CheckIn, setCheckIn] = useState(null);
@@ -25,13 +25,14 @@ const Tab2 = () => {
   const [selectCityGeoCode, setSelectCityGeoCode] = useState({});
   const [citySuggestion, setCitySuggestion] = useState([]);
   const [rooms, setRoomNo] = useState(0);
-   const [persons, setPersons] = useState({
-      childrens:  0,
-      adults: 1,
-    });
+  const [persons, setPersons] = useState({
+    childrens: 0,
+    adults: 1,
+  });
   const { data: cityNamesData, refetch: cityFetch } = useGet(
-    citySearch ?
-      `/v1/reference-data/locations?subType=CITY,AIRPORT&keyword=${citySearch}` : null
+    citySearch
+      ? `/v1/reference-data/locations?subType=CITY,AIRPORT&keyword=${citySearch}`
+      : null
   );
 
   useEffect(() => {
@@ -89,14 +90,6 @@ const Tab2 = () => {
   };
 
   const hanldeSubmit = () => {
-    console.log("City", selectCity.split("(")[0]);
-    console.log("Rooms", rooms);
-    console.log("Persons", persons);
-    console.log("CheckIn", CheckIn);
-    console.log("iataCode", selectCity.split("(")[1]?.replace(")", ""));
-
-    console.log("CheckOut", CheckOut);
-
     setContextHotelData({
       city: selectCity.split("(")[0],
       iataCode: selectCity.split("(")[1]?.replace(")", ""),
@@ -139,8 +132,7 @@ const Tab2 = () => {
                   </clipPath>
                 </defs>
               </svg>
-              {t('upperSection.flights')}
-
+              {t("upperSection.flights")}
             </li>
             <li style={{ color: "#50ADD8", borderBottom: "1px solid #50ADD8" }}>
               <svg
@@ -175,8 +167,7 @@ const Tab2 = () => {
                   </clipPath>
                 </defs>
               </svg>
-              {t('upperSection.hotels')}
-
+              {t("upperSection.hotels")}
             </li>
             <li onClick={routetoCars}>
               <svg
@@ -204,8 +195,8 @@ const Tab2 = () => {
                   </clipPath>
                 </defs>
               </svg>
-              {t('upperSection.cars_Rentals')}
-              </li>
+              {t("upperSection.cars_Rentals")}
+            </li>
           </ul>
         </div>
 
@@ -252,7 +243,7 @@ const Tab2 = () => {
                   onChange={(e) => handleChange(e)}
                 />
                 <label for="name" className="form__label">
-                {t('upperSection.city')}   
+                  {t("upperSection.city")}
                 </label>
               </div>
               {/* <Dropcity /> */}
@@ -276,7 +267,6 @@ const Tab2 = () => {
                 </ul>
               )}
             </div>
-       
 
             <div className="Flights-Tab-input-group more-with">
               <div className="Flights-Tab-input-group-icon">
@@ -318,14 +308,14 @@ const Tab2 = () => {
                   onFocus={(e) => e.target.showPicker()}
                 />
               </div> */}
-              {console.log(CheckIn, "checkin")}
               <div className="form__group field one-box-add">
                 <label
-                  className={`form__label more-label-x ${CheckIn ? "hidden" : ""
-                    }`}
+                  className={`form__label more-label-x ${
+                    CheckIn ? "hidden" : ""
+                  }`}
                   htmlFor="date"
                 >
-                  {t('upperSection.CheckIn')}
+                  {t("upperSection.CheckIn")}
                 </label>
                 <DatePicker
                   selected={CheckIn ? new Date(CheckIn) : null}
@@ -382,11 +372,12 @@ const Tab2 = () => {
 
               <div className="form__group field one-box-add">
                 <label
-                  className={`form__label more-label-x ${CheckOut ? "hidden" : ""
-                    }`}
+                  className={`form__label more-label-x ${
+                    CheckOut ? "hidden" : ""
+                  }`}
                   htmlFor="date"
                 >
-                  {t('upperSection.CheckOut')}
+                  {t("upperSection.CheckOut")}
                 </label>
                 <DatePicker
                   selected={CheckOut ? new Date(CheckOut) : null}
@@ -400,14 +391,31 @@ const Tab2 = () => {
             </div>
             <div className="Flights-Tab-input-group more-with">
               <div className="Flights-Tab-input-group-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="26"
+                  height="26"
+                  viewBox="0 0 26 26"
+                  fill="none"
+                >
                   <g clipPath="url(#clip0_93_889)">
-                    <path d="M22.9492 5.35601H17.7409V4.31431C17.7409 3.16533 16.8066 2.23096 15.6576 2.23096H9.40759C8.25862 2.23096 7.32424 3.16528 7.32424 4.31431V5.35596H2.11594C0.966919 5.35601 0.0325928 6.29033 0.0325928 7.43931V10.5643C0.0325928 11.7133 0.966919 12.6477 2.11594 12.6477H10.4493V12.1268C10.4493 11.8389 10.6823 11.606 10.9701 11.606H14.0951C14.383 11.606 14.616 11.8389 14.616 12.1268V12.6477H22.9493C24.0983 12.6477 25.0326 11.7133 25.0326 10.5643V7.43931C25.0326 6.29033 24.0983 5.35601 22.9492 5.35601ZM15.6576 5.35601H9.40759V4.31431H15.6576V5.35601Z" fill="#353978" />
-                    <path d="M24.7437 13.2098C24.5662 13.1218 24.3541 13.1422 24.1974 13.2612C23.8271 13.5414 23.3958 13.6894 22.9492 13.6894H14.6159V15.2519C14.6159 15.5398 14.383 15.7728 14.0951 15.7728H10.9701C10.6822 15.7728 10.4492 15.5398 10.4492 15.2519V13.6894H2.11594C1.66936 13.6894 1.23806 13.5414 0.867749 13.2612C0.710571 13.1411 0.498999 13.1208 0.32146 13.2098C0.144507 13.2978 0.0325928 13.4783 0.0325928 13.6762V20.9811C0.0325928 22.1301 0.966919 23.0645 2.11594 23.0645H22.9493C24.0983 23.0645 25.0326 22.1302 25.0326 20.9811V13.6762C25.0326 13.4783 24.9207 13.2978 24.7437 13.2098Z" fill="#353978" />
+                    <path
+                      d="M22.9492 5.35601H17.7409V4.31431C17.7409 3.16533 16.8066 2.23096 15.6576 2.23096H9.40759C8.25862 2.23096 7.32424 3.16528 7.32424 4.31431V5.35596H2.11594C0.966919 5.35601 0.0325928 6.29033 0.0325928 7.43931V10.5643C0.0325928 11.7133 0.966919 12.6477 2.11594 12.6477H10.4493V12.1268C10.4493 11.8389 10.6823 11.606 10.9701 11.606H14.0951C14.383 11.606 14.616 11.8389 14.616 12.1268V12.6477H22.9493C24.0983 12.6477 25.0326 11.7133 25.0326 10.5643V7.43931C25.0326 6.29033 24.0983 5.35601 22.9492 5.35601ZM15.6576 5.35601H9.40759V4.31431H15.6576V5.35601Z"
+                      fill="#353978"
+                    />
+                    <path
+                      d="M24.7437 13.2098C24.5662 13.1218 24.3541 13.1422 24.1974 13.2612C23.8271 13.5414 23.3958 13.6894 22.9492 13.6894H14.6159V15.2519C14.6159 15.5398 14.383 15.7728 14.0951 15.7728H10.9701C10.6822 15.7728 10.4492 15.5398 10.4492 15.2519V13.6894H2.11594C1.66936 13.6894 1.23806 13.5414 0.867749 13.2612C0.710571 13.1411 0.498999 13.1208 0.32146 13.2098C0.144507 13.2978 0.0325928 13.4783 0.0325928 13.6762V20.9811C0.0325928 22.1301 0.966919 23.0645 2.11594 23.0645H22.9493C24.0983 23.0645 25.0326 22.1302 25.0326 20.9811V13.6762C25.0326 13.4783 24.9207 13.2978 24.7437 13.2098Z"
+                      fill="#353978"
+                    />
                   </g>
                 </svg>
               </div>
-              <GuestDropdown setRooms={setRoomNo} rooms={rooms} setPersons={setPersons}  persons={persons} />
+              <GuestDropdown
+                setRooms={setRoomNo}
+                rooms={rooms}
+                setPersons={setPersons}
+                persons={persons}
+              />
             </div>
             {/* <div className="Flights-Tab-input-group ">
               <div className="Flights-Tab-input-group-icon">
@@ -499,7 +507,9 @@ const Tab2 = () => {
             </div> */}
 
             <div className="Flights-Tab-btn-group">
-              <button onClick={hanldeSubmit}>{t('upperSection.Search_Hotels')}</button>
+              <button onClick={hanldeSubmit}>
+                {t("upperSection.Search_Hotels")}
+              </button>
             </div>
           </div>
         </div>

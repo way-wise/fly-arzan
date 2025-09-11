@@ -29,7 +29,6 @@ const LandingFlights = () => {
   };
 
   // const scrollToSection = (key) => {
-  //   console.log(key);
 
   //   sectionRefs[key]?.current?.scrollIntoView({ behavior: "smooth" });
   // };

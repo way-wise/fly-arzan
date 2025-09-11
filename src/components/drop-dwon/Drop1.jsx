@@ -6,11 +6,8 @@ const Drop1 = ({ setCabin, value, persons, setPersons }) => {
 
   const [selectedOption, setSelectedOption] = useState("Cabin_Class_Adults");
   const [isOpen, setIsOpen] = useState(false);
-  console.log(value, "value");
 
   const handleOptionClick = (option, value) => {
-    console.log(option, value, "option, value");
-
     setSelectedOption(option);
     setCabin(value);
     setIsOpen(false);

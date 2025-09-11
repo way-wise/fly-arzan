@@ -219,7 +219,6 @@ const MultiCityForm = () => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
     navigate("/search/flight");
   };
 

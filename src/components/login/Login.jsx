@@ -28,8 +28,6 @@ const Login = ({ setShowPopup }) => {
   const { t } = useTranslation();
 
   const onSubmit = async (data) => {
-    console.log(data); // Handle form submission (e.g., API call)
-
     const response = await postData(data);
     if (response?.status === true) {
       setShowPopup(false);
@@ -60,7 +58,7 @@ const Login = ({ setShowPopup }) => {
                       <label>{t(`Logsec.label1`)}</label>
                       <input
                         type="text"
-                      placeholder="info@example.com"
+                        placeholder="info@example.com"
                         {...register("email")}
                       />
                     </div>

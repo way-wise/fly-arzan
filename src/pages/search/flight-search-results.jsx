@@ -25,7 +25,7 @@ const timeToMinutes = (timeStr) => {
   try {
     const [hours, minutes] = timeStr.split(":").map(Number);
     return hours * 60 + minutes;
-  } catch (e) {
+  } catch {
     return 0;
   }
 };
@@ -42,8 +42,7 @@ const formatDurationFromMinutes = (minutes) => {
 const formatTimeFromISO = (dateTime) => {
   try {
     return format(parseISO(dateTime), "HH:mm");
-  } catch (error) {
-    console.error("Error formatting time:", error);
+  } catch {
     return "00:00";
   }
 };
@@ -90,14 +89,44 @@ const FlightSearchResults = ({ flightOffersData }) => {
   const { openMobile, setOpenMobile } = useSidebarFilter();
   const [selectedTimeCost, setSelectedTimeCost] = useState("best");
   const [processedFlights, setProcessedFlights] = useState([]);
-  const [timeCostFilters, setTimeCostFilters] = useState([]);
+  const [timeCostFilters, setTimeCostFilters] = useState([
+    {
+      id: "best",
+      title: "Best",
+      duration: "0h 00m",
+      price: "$0",
+      icon: <RiVerifiedBadgeFill size={24} />,
+      showInMobile: true,
+    },
+    {
+      id: "cheapest",
+      title: "Cheapest",
+      duration: "0h 00m",
+      price: "$0",
+      icon: <RiPercentFill size={24} />,
+      showInMobile: true,
+    },
+    {
+      id: "fastest",
+      title: "Fastest",
+      duration: "0h 00m",
+      price: "$0",
+      icon: <RiFlashlightFill size={24} />,
+      showInMobile: true,
+    },
+  ]);
   const [visibleCount, setVisibleCount] = useState(14);
 
   useEffect(() => {
-    if (flightOffersData?.data) {
+    // Check if there is valid flight data to process
+    if (flightOffersData?.data && flightOffersData.data.length > 0) {
       const flights = processAmadeusData(flightOffersData);
       setProcessedFlights(flights);
       generateTimeCostFilters(flights);
+    } else {
+      // Handle the case where there are no flight offers
+      setProcessedFlights([]);
+      generateTimeCostFilters([]); // Explicitly call with an empty array
     }
   }, [flightOffersData]);
 
@@ -175,36 +204,30 @@ const FlightSearchResults = ({ flightOffersData }) => {
         {
           id: "best",
           title: "Best",
-          duration: "4h 30m",
-          price: "$241",
+          duration: "0h 00m",
+          price: "$0",
           icon: <RiVerifiedBadgeFill size={24} />,
           showInMobile: true,
         },
         {
           id: "cheapest",
           title: "Cheapest",
-          duration: "12h 05m",
-          price: "$129",
+          duration: "0h 00m",
+          price: "$0",
           icon: <RiPercentFill size={24} />,
           showInMobile: true,
         },
         {
           id: "fastest",
           title: "Fastest",
-          duration: "4h 25m",
-          price: "$622",
+          duration: "0h 00m",
+          price: "$0",
           icon: <RiFlashlightFill size={24} />,
           showInMobile: true,
         },
       ]);
       return;
     }
-
-    const bestOption = flights.reduce((prev, current) => {
-      const prevScore = prev.price / prev.totalDurationMinutes;
-      const currentScore = current.price / current.totalDurationMinutes;
-      return prevScore < currentScore ? prev : current;
-    });
 
     const cheapestOption = flights.reduce((prev, current) =>
       prev.price < current.price ? prev : current
@@ -213,6 +236,15 @@ const FlightSearchResults = ({ flightOffersData }) => {
     const fastestOption = flights.reduce((prev, current) =>
       prev.totalDurationMinutes < current.totalDurationMinutes ? prev : current
     );
+
+    // A more balanced "best" option: not the absolute cheapest if it's excessively long.
+    // We'll score based on a combination of price and duration.
+    const bestOption = flights.reduce((prev, current) => {
+      // Lower score is better. Penalize long durations more heavily.
+      const prevScore = prev.price + prev.totalDurationMinutes * 0.5; // Adjust multiplier as needed
+      const currentScore = current.price + current.totalDurationMinutes * 0.5;
+      return prevScore < currentScore ? prev : current;
+    });
 
     setTimeCostFilters([
       {
@@ -292,13 +324,21 @@ const FlightSearchResults = ({ flightOffersData }) => {
     } else if (selectedTimeCost === "fastest") {
       sorted.sort((a, b) => a.totalDurationMinutes - b.totalDurationMinutes);
     } else if (selectedTimeCost === "best") {
+      // Sort by the same balanced score used to find the best option
       sorted.sort(
         (a, b) =>
-          a.price / a.totalDurationMinutes - b.price / b.totalDurationMinutes
+          a.price +
+          a.totalDurationMinutes * 0.5 -
+          (b.price + b.totalDurationMinutes * 0.5)
       );
     }
     return sorted;
   }, [processedFlights, selectedTimeCost, filters]);
+
+  // Regenerate time cost filters whenever the sorted flights change
+  useEffect(() => {
+    generateTimeCostFilters(sortedFlights);
+  }, [sortedFlights]);
 
   // Reset visible count when sorting changes
   useEffect(() => {
@@ -353,29 +393,31 @@ const FlightSearchResults = ({ flightOffersData }) => {
 
       {/* Time Cost Filter */}
       <div className="tw:flex tw:flex-col tw:md:flex-row tw:items-center tw:shadow tw:grow tw:md:divide-x tw:md:divide-y-0 tw:divide-y tw:divide-muted tw:bg-white tw:rounded-md">
-        {timeCostFilters.map((data) => (
-          <label
-            key={data.id}
-            className={cn(
-              "tw:snap-center tw:w-full tw:md:basis-[100px] tw:shrink-0 tw:items-center tw:!flex tw:justify-between tw:gap-1 tw:!py-3 tw:!px-[20px] tw:!mb-0 tw:cursor-pointer tw:grow tw:text-center tw:md:h-[57px] tw:first:rounded-t-md tw:md:first:rounded-t-none tw:last:rounded-b-md tw:md:last:rounded-b-none tw:md:first:rounded-l-md tw:md:last:rounded-r-md",
-              selectedTimeCost === data.id
-                ? "tw:bg-primary tw:text-white"
-                : "tw:text-secondary"
-            )}
-            onClick={() => setSelectedTimeCost(data.id)}
-          >
-            <div className="tw:flex tw:items-center tw:gap-2">
-              {data.icon}
-              <div className="tw:text-left tw:text-sm">
-                <p>{data.title}</p>
-                <p className="tw:font-medium">{data.duration}</p>
+        {timeCostFilters.map((data) => {
+          return (
+            <label
+              key={data.id}
+              className={cn(
+                "tw:snap-center tw:w-full tw:md:basis-[100px] tw:shrink-0 tw:items-center tw:!flex tw:justify-between tw:gap-1 tw:!py-3 tw:!px-[20px] tw:!mb-0 tw:cursor-pointer tw:grow tw:text-center tw:md:h-[57px] tw:first:rounded-t-md tw:md:first:rounded-t-none tw:last:rounded-b-md tw:md:last:rounded-b-none tw:md:first:rounded-l-md tw:md:last:rounded-r-md",
+                selectedTimeCost === data.id
+                  ? "tw:bg-primary tw:text-white"
+                  : "tw:text-secondary"
+              )}
+              onClick={() => setSelectedTimeCost(data.id)}
+            >
+              <div className="tw:flex tw:items-center tw:gap-2">
+                {data.icon}
+                <div className="tw:text-left tw:text-sm">
+                  <p>{data.title}</p>
+                  <p className="tw:font-medium">{data.duration}</p>
+                </div>
               </div>
-            </div>
-            <span className="tw:text-[20px] tw:font-semibold">
-              {data.price}
-            </span>
-          </label>
-        ))}
+              <span className="tw:text-[20px] tw:font-semibold">
+                {data.price}
+              </span>
+            </label>
+          );
+        })}
       </div>
 
       {/* Available Flight List */}
