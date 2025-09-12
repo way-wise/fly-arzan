@@ -24,7 +24,7 @@ const minutesToTime = (minutes) => {
   return `${hours}:${mins}`;
 };
 
-const FilterComponent = ({ flightOffersData }) => {
+const OneWayFilter = ({ flightOffersData }) => {
   const {
     filters,
     handleFilterChange,
@@ -194,4 +194,4 @@ const FilterComponent = ({ flightOffersData }) => {
   );
 };
 
-export default FilterComponent;
+export default OneWayFilter;

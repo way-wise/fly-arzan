@@ -5,7 +5,6 @@ import {
   RiPercentFill,
   RiFlashlightFill,
   RiFilterFill,
-  RiPlaneLine,
 } from "react-icons/ri";
 import { ArrowRight } from "lucide-react";
 import {
@@ -19,70 +18,16 @@ import { cn } from "@/lib/utils";
 import { format, parseISO } from "date-fns";
 import { useSidebarFilter } from "@/providers/filter-sidebar-provider";
 import { Skeleton } from "@/components/ui/skeleton";
+import OneWayFlightCard from "@/components/ui/one-way-flight-card";
+import RoundTripFlightCard from "@/components/ui/round-trip-flight-card";
 
-// Helper to convert "HH:mm" to minutes from midnight
-const timeToMinutes = (timeStr) => {
-  try {
-    const [hours, minutes] = timeStr.split(":").map(Number);
-    return hours * 60 + minutes;
-  } catch {
-    return 0;
-  }
-};
-
-// Helper function to format duration from minutes to "Xh Ym" format
-const formatDurationFromMinutes = (minutes) => {
-  if (isNaN(minutes) || minutes <= 0) return "0h 0m";
-  const hours = Math.floor(minutes / 60);
-  const mins = minutes % 60;
-  return `${hours}h ${mins.toString().padStart(2, "0")}m`;
-};
-
-// Helper function to format time from ISO date string
-const formatTimeFromISO = (dateTime) => {
-  try {
-    return format(parseISO(dateTime), "HH:mm");
-  } catch {
-    return "00:00";
-  }
-};
-
-// Helper function to calculate total price
-const calculateTotalPrice = (priceData) => {
-  const base = parseFloat(priceData?.base) || 0;
-  const total = parseFloat(priceData?.grandTotal) || base;
-  return {
-    price: base,
-    totalPrice: total,
-    currency: priceData?.currency || "USD",
-  };
-};
-
-// Helper function to get airline logo URL based on carrier code
-const getAirlineLogoUrl = (carrierCode) => {
-  if (!carrierCode) {
-    return null;
-  }
-  // Construct the path using the carrier code.
-  return `/logos/${carrierCode.toUpperCase()}.png`;
-};
-
-// Helper to parse duration from ISO format (PT4H25M) or minutes
-const parseDuration = (duration) => {
-  if (typeof duration === "number") return duration;
-  if (typeof duration === "string") {
-    if (duration.startsWith("PT")) {
-      // ISO 8601 format like "PT4H25M"
-      const hoursMatch = duration.match(/(\d+)H/);
-      const minutesMatch = duration.match(/(\d+)M/);
-      const hours = hoursMatch ? parseInt(hoursMatch[1]) : 0;
-      const minutes = minutesMatch ? parseInt(minutesMatch[1]) : 0;
-      return hours * 60 + minutes;
-    }
-    return parseInt(duration) || 0;
-  }
-  return 0;
-};
+import {
+  timeToMinutes,
+  formatTimeFromISO,
+  calculateTotalPrice,
+  parseDuration,
+  formatDurationFromMinutes,
+} from "@/lib/flight-utils";
 
 const FlightSearchResults = ({ flightOffersData }) => {
   const navigate = useNavigate();
@@ -138,61 +83,79 @@ const FlightSearchResults = ({ flightOffersData }) => {
         const { price: priceData } = offer;
         const { price, totalPrice, currency } = calculateTotalPrice(priceData);
 
-        const itinerary = offer.itineraries?.[0];
-        if (!itinerary) return null;
+        const isRoundTrip = offer.itineraries.length === 2;
 
-        const flights =
-          itinerary.segments
-            ?.map((segment) => {
-              const carrierCode = segment.carrierCode;
-              const airlineName =
-                data.dictionaries?.carriers?.[carrierCode] || "Unknown Airline";
-              const durationMinutes = parseDuration(segment.duration);
+        const processedItineraries = offer.itineraries.map((itinerary) => {
+          const flights =
+            itinerary.segments
+              ?.map((segment) => {
+                const carrierCode = segment.carrierCode;
+                const airlineName =
+                  data.dictionaries?.carriers?.[carrierCode] ||
+                  "Unknown Airline";
+                const durationMinutes = parseDuration(segment.duration);
 
-              return {
-                airline: airlineName,
-                airlineCode: carrierCode,
-                flightNumber: `${carrierCode}${segment.number}`,
-                departure: {
-                  time: formatTimeFromISO(segment.departure?.at),
-                  airport: segment.departure?.iataCode || "N/A",
-                },
-                arrival: {
-                  time: formatTimeFromISO(segment.arrival?.at),
-                  airport: segment.arrival?.iataCode || "N/A",
-                },
-                duration: formatDurationFromMinutes(durationMinutes),
-                durationMinutes,
-                stops:
-                  segment.numberOfStops === 0
-                    ? "Direct"
-                    : `${segment.numberOfStops} Stop${
-                        segment.numberOfStops > 1 ? "s" : ""
-                      }`,
-              };
-            })
-            .filter(Boolean) || [];
+                return {
+                  airline: airlineName,
+                  airlineCode: carrierCode,
+                  flightNumber: `${carrierCode}${segment.number}`,
+                  departure: {
+                    time: formatTimeFromISO(segment.departure?.at),
+                    airport: segment.departure?.iataCode || "N/A",
+                    at: segment.departure?.at,
+                  },
+                  arrival: {
+                    time: formatTimeFromISO(segment.arrival?.at),
+                    airport: segment.arrival?.iataCode || "N/A",
+                    at: segment.arrival?.at,
+                  },
+                  duration: formatDurationFromMinutes(durationMinutes),
+                  durationMinutes,
+                  stops:
+                    segment.numberOfStops === 0
+                      ? "Direct"
+                      : `${segment.numberOfStops} Stop${
+                          segment.numberOfStops > 1 ? "s" : ""
+                        }`,
+                };
+              })
+              .filter(Boolean) || [];
+
+          return {
+            flights,
+            totalDurationMinutes: flights.reduce(
+              (acc, flight) => acc + flight.durationMinutes,
+              0
+            ),
+          };
+        });
 
         const hasCheckedBaggage =
           offer.travelerPricings?.[0]?.fareDetailsBySegment?.some(
             (segment) => segment.includedCheckedBags
           ) || false;
 
-        if (flights.length === 0) return null;
+        if (processedItineraries.some((it) => it.flights.length === 0)) {
+          return null;
+        }
+
+        const firstAirlineCode =
+          processedItineraries[0]?.flights[0]?.airlineCode;
 
         return {
           id: `${index + 1}-${offer.id || Date.now()}`,
           price: Math.round(price),
-          totalPrice: Math.round(totalPrice * 100) / 100, // Keep 2 decimal places
+          totalPrice: Math.round(totalPrice * 100) / 100,
           currency,
-          logo: flights[0].airlineCode,
-          airlineCode: flights[0].airlineCode,
-          flights,
+          logo: firstAirlineCode,
+          airlineCode: firstAirlineCode,
+          itineraries: processedItineraries,
           hasCheckedBaggage,
-          totalDurationMinutes: flights.reduce(
-            (acc, flight) => acc + flight.durationMinutes,
+          totalDurationMinutes: processedItineraries.reduce(
+            (acc, it) => acc + it.totalDurationMinutes,
             0
           ),
+          tripType: isRoundTrip ? "round-trip" : "one-way",
         };
       })
       .filter(Boolean);
@@ -251,7 +214,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
         id: "best",
         title: "Best",
         duration: formatDurationFromMinutes(bestOption.totalDurationMinutes),
-        price: `$${bestOption.price}`,
+        price: `${bestOption.price}`,
         icon: <RiVerifiedBadgeFill size={24} />,
         showInMobile: true,
       },
@@ -261,7 +224,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
         duration: formatDurationFromMinutes(
           cheapestOption.totalDurationMinutes
         ),
-        price: `$${cheapestOption.price}`,
+        price: `${cheapestOption.price}`,
         icon: <RiPercentFill size={24} />,
         showInMobile: true,
       },
@@ -269,7 +232,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
         id: "fastest",
         title: "Fastest",
         duration: formatDurationFromMinutes(fastestOption.totalDurationMinutes),
-        price: `$${fastestOption.price}`,
+        price: `${fastestOption.price}`,
         icon: <RiFlashlightFill size={24} />,
         showInMobile: true,
       },
@@ -284,8 +247,9 @@ const FlightSearchResults = ({ flightOffersData }) => {
     // Apply filters
     if (filters.stops.length > 0) {
       filtered = filtered.filter((flight) => {
-        const numStops = flight.flights.length - 1;
-        return filters.stops.includes(numStops);
+        return flight.itineraries.every((itinerary) =>
+          filters.stops.includes(itinerary.flights.length - 1)
+        );
       });
     }
 
@@ -299,12 +263,13 @@ const FlightSearchResults = ({ flightOffersData }) => {
       if (filters.baggage.includes("checked")) {
         filtered = filtered.filter((flight) => flight.hasCheckedBaggage);
       }
-      // Add other baggage filters here if needed in the future
     }
 
     // Departure time filter
     filtered = filtered.filter((flight) => {
-      const departureTime = timeToMinutes(flight.flights[0].departure.time);
+      const departureTime = timeToMinutes(
+        flight.itineraries[0].flights[0].departure.time
+      );
       return (
         departureTime >= filters.departureTime.min &&
         departureTime <= filters.departureTime.max
@@ -324,7 +289,6 @@ const FlightSearchResults = ({ flightOffersData }) => {
     } else if (selectedTimeCost === "fastest") {
       sorted.sort((a, b) => a.totalDurationMinutes - b.totalDurationMinutes);
     } else if (selectedTimeCost === "best") {
-      // Sort by the same balanced score used to find the best option
       sorted.sort(
         (a, b) =>
           a.price +
@@ -423,124 +387,25 @@ const FlightSearchResults = ({ flightOffersData }) => {
       {/* Available Flight List */}
       <div className="tw:grid tw:grid-cols-1 tw:gap-[30px]">
         {sortedFlights.length > 0 ? (
-          sortedFlights.slice(0, visibleCount).map((itinerary) => (
-            <div
-              key={itinerary.id}
-              className="tw:rounded-xl tw:bg-white tw:shadow tw:p-4 tw:flex tw:flex-col tw:md:flex-row tw:items-center tw:justify-between"
-            >
-              {/* Flight Details Section */}
-              <div className="tw:flex tw:flex-col tw:justify-between tw:grow tw:gap-4 tw:px-[30px] tw:mb-8 tw:md:mb-0">
-                <div className="tw:flex tw:items-center tw:justify-between tw:flex-col tw:gap-4 tw:md:gap-0 tw:md:flex-row">
-                  {/* Airline Logo, Code */}
-                  <div className="tw:flex tw:flex-col tw:justify-center tw:items-center tw:gap-0.5 tw:text-center">
-                    {getAirlineLogoUrl(itinerary.airlineCode) ? (
-                      <img
-                        src={getAirlineLogoUrl(itinerary.airlineCode)}
-                        alt={itinerary.flights[0].airline}
-                        className="tw:w-[120px]"
-                      />
-                    ) : (
-                      <div className="tw:w-[120px] tw:h-[60px] tw:flex tw:items-center tw:justify-center tw:bg-gray-100 tw:rounded">
-                        <span className="tw:text-sm tw:text-gray-500">
-                          {itinerary.airlineCode}
-                        </span>
-                      </div>
-                    )}
-                    <span className="tw:text-sm tw:text-secondary">
-                      {itinerary.airlineCode} -{" "}
-                      {itinerary.flights[0].flightNumber}
-                    </span>
-                  </div>
-
-                  {/* Time, Stop, Airline */}
-                  <div className="tw:flex tw:items-center tw:gap-6 tw:grow tw:justify-center">
-                    {/* Depart */}
-                    <div className="tw:flex tw:flex-col tw:gap-1 tw:text-right">
-                      <span className="tw:font-semibold tw:text-[20px]">
-                        {itinerary.flights[0].departure.time}
-                      </span>
-                      <span className="tw:text-sm tw:text-[#5D586C]">
-                        {itinerary.flights[0].departure.airport}
-                      </span>
-                    </div>
-                    {/* Duration & Stop */}
-                    <div className="tw:flex tw:items-center tw:gap-2">
-                      <div className="tw:flex tw:flex-col tw:text-center tw:gap-1">
-                        <span className="tw:text-sm tw:font-semibold">
-                          {formatDurationFromMinutes(
-                            itinerary.totalDurationMinutes
-                          )}
-                        </span>
-                        <span className="tw:h-px tw:w-[82px] tw:bg-secondary" />
-                        <span className="tw:text-sm tw:text-primary">
-                          {(() => {
-                            const stops = itinerary.flights.length - 1;
-                            if (stops === 0) {
-                              return "Direct";
-                            }
-                            const stopAirports = itinerary.flights
-                              .slice(0, stops)
-                              .map((flight) => flight.arrival.airport);
-                            return (
-                              <>
-                                {`${stops} Stop${stops > 1 ? "s" : ""}`}{" "}
-                                {stopAirports.map((airport, index) => (
-                                  <strong
-                                    key={index}
-                                    className="tw:text-[#5D586C] tw:!font-normal"
-                                  >
-                                    {airport}
-                                    {index < stopAirports.length - 1
-                                      ? ", "
-                                      : ""}
-                                  </strong>
-                                ))}
-                              </>
-                            );
-                          })()}
-                        </span>
-                      </div>
-                      <RiPlaneLine
-                        size={24}
-                        className="tw:text-secondary tw:rotate-90"
-                      />
-                    </div>
-                    {/* Arrival */}
-                    <div className="tw:flex tw:flex-col tw:gap-1 tw:text-left">
-                      <span className="tw:font-semibold tw:text-[20px]">
-                        {
-                          itinerary.flights[itinerary.flights.length - 1]
-                            .arrival.time
-                        }
-                      </span>
-                      <span className="tw:text-sm tw:text-[#5D586C]">
-                        {
-                          itinerary.flights[itinerary.flights.length - 1]
-                            .arrival.airport
-                        }
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Price Select Button */}
-              <div className="tw:w-full tw:md:w-fit tw:py-4 tw:px-6 tw:bg-[#F2FAFF] tw:rounded-xl tw:flex tw:flex-col tw:items-center tw:gap-3 tw:md:ml-4">
-                <button
-                  onClick={() => navigate("/flight/details")}
-                  className="tw:w-full tw:md:w-fit tw:bg-primary tw:py-2 tw:px-[30px] tw:flex tw:flex-col tw:!text-white tw:!rounded-full hover:tw:bg-primary/90 tw:transition-colors"
-                >
-                  <span className="tw:text-sm">Select</span>
-                  <span className="tw:text-xl tw:font-medium">
-                    ${itinerary.price}
-                  </span>
-                </button>
-                <span className="tw:text-sm tw:text-[#939393]">
-                  ${itinerary.totalPrice} Total
-                </span>
-              </div>
-            </div>
-          ))
+          sortedFlights.slice(0, visibleCount).map((itinerary) => {
+            if (itinerary.tripType === "round-trip") {
+              return (
+                <RoundTripFlightCard key={itinerary.id} itinerary={itinerary} />
+              );
+            }
+            const oneWayItinerary = {
+              ...itinerary,
+              ...itinerary.itineraries[0],
+              departure: itinerary.itineraries[0].flights[0].departure,
+              arrival:
+                itinerary.itineraries[0].flights[
+                  itinerary.itineraries[0].flights.length - 1
+                ].arrival,
+            };
+            return (
+              <OneWayFlightCard key={itinerary.id} itinerary={oneWayItinerary} />
+            );
+          })
         ) : (
           <div className="tw:text-center tw:py-12 tw:text-muted-foreground">
             No flights found matching your criteria.

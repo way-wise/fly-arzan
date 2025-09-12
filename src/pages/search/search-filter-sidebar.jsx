@@ -7,11 +7,14 @@ import {
   DrawerHeader,
 } from "@/components/ui/drawer";
 import { X } from "lucide-react";
-import FilterComponent from "@/components/ui/filter-component";
 import { useSidebarFilter } from "@/providers/filter-sidebar-provider";
 
-const SearchFilterSidebar = ({ flightOffersData }) => {
+const SearchFilterSidebar = ({ flightOffersData, FilterComponent }) => {
   const { isMobile, openMobile, setOpenMobile } = useSidebarFilter();
+
+  if (!FilterComponent) {
+    return null; // or a loading state
+  }
 
   if (isMobile) {
     return (

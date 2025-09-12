@@ -14,10 +14,14 @@ import { useFlexibleDates } from "@/hooks/useFlexibleDates";
 import { useEffect, useState } from "react";
 import RoundWayForm from "@/components/ui/hero-search-filter/flights/round-way-form";
 
+import OneWayFilter from "@/components/ui/one-way-filter";
+import RoundTripFilter from "@/components/ui/round-trip-filter";
+
 const FlightSearchPage = () => {
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const [initialValues, setInitialValues] = useState(null);
+  const tripType = searchParams.get("type");
 
   useEffect(() => {
     // Extract Query Params
@@ -64,7 +68,7 @@ const FlightSearchPage = () => {
       ? new Date(initialValues.depart)
       : null,
     returnDate:
-      searchParams.get("type") === "round-way" && initialValues?.return
+      tripType === "round-way" && initialValues?.return
         ? new Date(initialValues.return)
         : null,
     adults: searchParams.get("adults") || 1,
@@ -83,6 +87,8 @@ const FlightSearchPage = () => {
     handleFlexibleDateClick,
   } = useFlexibleDates();
 
+  const FilterComponent = tripType === "round-way" ? RoundTripFilter : OneWayFilter;
+
   return (
     <>
       <SidebarFilterProvider>
@@ -97,11 +103,11 @@ const FlightSearchPage = () => {
               )}
               <div className="tw:rounded-xl tw:bg-white tw:shadow tw:!p-5">
                 {/* One Way Form */}
-                {searchParams.get("type") === "one-way" && initialValues && (
+                {tripType === "one-way" && initialValues && (
                   <OneWayForm initialValues={initialValues} />
                 )}
                 {/* Round Way Form */}
-                {searchParams.get("type") === "round-way" && (
+                {tripType === "round-way" && (
                   <RoundWayForm initialValues={initialValues} />
                 )}
               </div>
@@ -126,7 +132,10 @@ const FlightSearchPage = () => {
             <div className="container">
               <div className="tw:flex tw:gap-[30px]">
                 <div className="tw:w-[270px] tw:shrink-0 tw:hidden tw:lg:block">
-                  <SearchFilterSidebar flightOffersData={flightOffersData} />
+                  <SearchFilterSidebar
+                    flightOffersData={flightOffersData}
+                    FilterComponent={FilterComponent}
+                  />
                 </div>
                 <div className="tw:grow">
                   <FlightSearchResults flightOffersData={flightOffersData} />
@@ -149,5 +158,6 @@ const FlightSearchPage = () => {
     </>
   );
 };
+
 
 export default FlightSearchPage;
