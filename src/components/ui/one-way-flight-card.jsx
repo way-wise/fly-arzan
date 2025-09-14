@@ -4,6 +4,7 @@ import { memo } from "react";
 import {
   getAirlineLogoUrl,
   formatDurationFromMinutes,
+  formatDateFromISO,
 } from "@/lib/flight-utils";
 import PropTypes from "prop-types";
 
@@ -47,6 +48,9 @@ const OneWayFlightCard = memo(({ itinerary }) => {
               </span>
               <span className="tw:text-sm tw:text-[#5D586C]">
                 {itinerary.flights[0].departure.airport}
+              </span>
+              <span className="tw:text-sm tw:text-[#5D586C]">
+                {formatDateFromISO(itinerary.flights[0].departure.at)}
               </span>
             </div>
             {/* Duration & Stop */}
@@ -97,6 +101,11 @@ const OneWayFlightCard = memo(({ itinerary }) => {
                   itinerary.flights[itinerary.flights.length - 1].arrival
                     .airport
                 }
+              </span>
+              <span className="tw:text-sm tw:text-[#5D586C]">
+                {formatDateFromISO(
+                  itinerary.flights[itinerary.flights.length - 1].arrival.at
+                )}
               </span>
             </div>
           </div>

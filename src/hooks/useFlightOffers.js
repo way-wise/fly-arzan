@@ -1,14 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAxios } from "./useAxios";
+import { formatDateForURL } from "@/lib/flight-utils";
 
 export const useFlightOffers = (queries) => {
   const axios = useAxios();
 
-  // Build Query
+  // Build Query with timezone-safe date formatting
   const searchParams = {
     originLocationCode: queries.originLocationCode,
     destinationLocationCode: queries.destinationLocationCode,
-    departureDate: queries.departureDate?.toISOString().split("T")[0],
+    departureDate: formatDateForURL(queries.departureDate),
     adults: queries.adults,
     children: queries.children,
     travelClass: queries.travelClass,
@@ -16,7 +17,7 @@ export const useFlightOffers = (queries) => {
 
   // Conditionally add returnDate if it exists
   if (queries.returnDate) {
-    searchParams.returnDate = queries.returnDate.toISOString().split("T")[0];
+    searchParams.returnDate = formatDateForURL(queries.returnDate);
   }
 
   // Remove undefined/null params
