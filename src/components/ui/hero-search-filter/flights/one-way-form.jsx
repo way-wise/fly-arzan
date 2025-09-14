@@ -27,6 +27,7 @@ import { cn } from "@/lib/utils";
 import { OneWayFormSchema } from "@/schema/one-way-schema";
 import { useCityLocation } from "@/hooks/useCityLocation";
 import { useDebounceValue } from "usehooks-ts";
+import { formatDateForURL } from "@/lib/flight-utils";
 import Calendar from "../../calendar";
 import PropTypes from "prop-types";
 
@@ -40,19 +41,6 @@ const OneWayForm = ({ initialValues }) => {
     initialValues?.travellers ? { ...initialValues.travellers } : null
   );
   const [isSwapped, setIsSwapped] = useState(false);
-
-  // Memoized handlers for better performance
-  const handleSwap = useCallback(() => {
-    setIsSwapped((prevValue) => !prevValue);
-  }, []);
-
-  const handleTravellersClose = useCallback(() => {
-    setTravellersOpen(false);
-  }, []);
-
-  const handleDateClose = useCallback(() => {
-    setDateOpen(false);
-  }, []);
 
   const {
     handleSubmit,
@@ -76,9 +64,26 @@ const OneWayForm = ({ initialValues }) => {
         adults: initialValues?.travellers?.adults ?? 1,
         children: initialValues?.travellers?.children ?? 0,
       },
-      depart: initialValues?.depart ? new Date(initialValues.depart) : "",
+      depart: initialValues?.depart || "",
     },
   });
+
+  // Handlers for better performance (defined after useForm)
+  const handleSwap = useCallback(() => {
+    // Get current values directly from form state
+    const currentValues = watch();
+    setValue("flyingFrom", currentValues.flyingTo);
+    setValue("flyingTo", currentValues.flyingFrom);
+    setIsSwapped((prevValue) => !prevValue);
+  }, [setValue, watch]);
+
+  const handleTravellersClose = useCallback(() => {
+    setTravellersOpen(false);
+  }, []);
+
+  const handleDateClose = useCallback(() => {
+    setDateOpen(false);
+  }, []);
 
   useEffect(() => {
     if (initialValues) {
@@ -86,7 +91,7 @@ const OneWayForm = ({ initialValues }) => {
         flyingFrom: initialValues.flyingFrom,
         flyingTo: initialValues.flyingTo,
         travellers: initialValues.travellers,
-        depart: new Date(initialValues.depart),
+        depart: initialValues.depart || "",
       });
     }
   }, [initialValues, reset]);
@@ -103,6 +108,7 @@ const OneWayForm = ({ initialValues }) => {
     if (
       isInitialMount.current ||
       !debouncedFormValues.depart ||
+      !(debouncedFormValues.depart instanceof Date) ||
       !debouncedFormValues.flyingFrom?.iataCode ||
       !debouncedFormValues.flyingTo?.iataCode
     ) {
@@ -128,7 +134,7 @@ const OneWayForm = ({ initialValues }) => {
           iataCode: debouncedFormValues.flyingTo.iataCode,
         })
       ),
-      depart: debouncedFormValues.depart.toISOString().split("T")[0],
+      depart: formatDateForURL(debouncedFormValues.depart),
       adults: debouncedFormValues.travellers.adults,
       children: debouncedFormValues.travellers.children,
       travelClass: travelClass,
@@ -195,7 +201,7 @@ const OneWayForm = ({ initialValues }) => {
             iataCode: values.flyingTo.iataCode,
           })
         ),
-        depart: values.depart.toISOString().split("T")[0],
+        depart: formatDateForURL(values.depart),
         adults: values.travellers.adults,
         children: values.travellers.children,
         travelClass: travelClass,
@@ -582,7 +588,7 @@ OneWayForm.propTypes = {
       adults: PropTypes.number,
       children: PropTypes.number,
     }),
-    depart: PropTypes.string, // ISO date string
+    depart: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
   }),
 };
 

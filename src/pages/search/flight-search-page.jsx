@@ -13,6 +13,7 @@ import { useFlightOffers } from "@/hooks/useFlightOffers";
 import { useFlexibleDates } from "@/hooks/useFlexibleDates";
 import { useEffect, useState, useMemo } from "react";
 import RoundWayForm from "@/components/ui/hero-search-filter/flights/round-way-form";
+import { parseDateFromURL } from "@/lib/flight-utils";
 
 import OneWayFilter from "@/components/ui/one-way-filter";
 import RoundTripFilter from "@/components/ui/round-trip-filter";
@@ -27,7 +28,7 @@ const FlightSearchPage = () => {
     // Extract Query Params
     const fromParam = searchParams.get("from");
     const toParam = searchParams.get("to");
-    const travellersParam = searchParams.get("travellers"); // Used for form pre-population
+    const travellersParam = searchParams.get("travellers");
     const departParam = searchParams.get("depart");
     const returnParam = searchParams.get("return");
 
@@ -40,7 +41,7 @@ const FlightSearchPage = () => {
       ? JSON.parse(decodeURIComponent(travellersParam))
       : {};
 
-    // Construct the initialValues
+    // Construct the initialValues with timezone-safe dates
     setInitialValues({
       flyingFrom: {
         city: parsedFrom.city || "",
@@ -55,8 +56,8 @@ const FlightSearchPage = () => {
         adults: parsedTravellers.adults ?? 1,
         children: parsedTravellers.children ?? 0,
       },
-      depart: departParam || "",
-      return: returnParam || "",
+      depart: departParam ? parseDateFromURL(departParam) : null,
+      return: returnParam ? parseDateFromURL(returnParam) : null,
     });
   }, [location.search, searchParams]);
 
@@ -65,12 +66,11 @@ const FlightSearchPage = () => {
     () => ({
       originLocationCode: initialValues?.flyingFrom?.iataCode,
       destinationLocationCode: initialValues?.flyingTo?.iataCode,
-      departureDate: initialValues?.depart
-        ? new Date(initialValues.depart)
-        : null,
+      departureDate:
+        initialValues?.depart instanceof Date ? initialValues.depart : null,
       returnDate:
-        tripType === "round-way" && initialValues?.return
-          ? new Date(initialValues.return)
+        tripType === "round-way" && initialValues?.return instanceof Date
+          ? initialValues.return
           : null,
       adults: searchParams.get("adults") || 1,
       children: searchParams.get("children") || 0,

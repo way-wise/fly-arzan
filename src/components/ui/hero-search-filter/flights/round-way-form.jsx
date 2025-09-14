@@ -27,6 +27,7 @@ import { cn } from "@/lib/utils";
 import { RoundWayFormSchema } from "@/schema/round-way-schema";
 import { useCityLocation } from "@/hooks/useCityLocation";
 import { useDebounceValue } from "usehooks-ts";
+import { formatDateForURL } from "@/lib/flight-utils";
 import Calendar from "../../calendar";
 import PropTypes from "prop-types";
 
@@ -58,8 +59,8 @@ const RoundWayForm = ({ initialValues }) => {
         adults: initialValues?.travellers?.adults ?? 1,
         children: initialValues?.travellers?.children ?? 0,
       },
-      depart: initialValues?.depart ? new Date(initialValues.depart) : "",
-      return: initialValues?.return ? new Date(initialValues.return) : "",
+      depart: initialValues?.depart || "",
+      return: initialValues?.return || "",
     },
   });
 
@@ -81,7 +82,9 @@ const RoundWayForm = ({ initialValues }) => {
     if (
       isInitialMount.current ||
       !debouncedFormValues.depart ||
+      !(debouncedFormValues.depart instanceof Date) ||
       !debouncedFormValues.return ||
+      !(debouncedFormValues.return instanceof Date) ||
       !debouncedFormValues.flyingFrom?.iataCode ||
       !debouncedFormValues.flyingTo?.iataCode
     ) {
@@ -107,7 +110,7 @@ const RoundWayForm = ({ initialValues }) => {
           iataCode: debouncedFormValues.flyingTo.iataCode,
         })
       ),
-      depart: debouncedFormValues.depart.toISOString().split("T")[0],
+      depart: formatDateForURL(debouncedFormValues.depart),
       adults: debouncedFormValues.travellers.adults,
       children: debouncedFormValues.travellers.children,
       travelClass: travelClass,
@@ -117,10 +120,8 @@ const RoundWayForm = ({ initialValues }) => {
       ),
     };
 
-    if (debouncedFormValues.return) {
-      queryParams.return = debouncedFormValues.return
-        .toISOString()
-        .split("T")[0];
+    if (debouncedFormValues.return instanceof Date) {
+      queryParams.return = formatDateForURL(debouncedFormValues.return);
     }
 
     const query = new URLSearchParams(queryParams).toString();
@@ -130,14 +131,15 @@ const RoundWayForm = ({ initialValues }) => {
     window.history.replaceState(null, "", newUrl);
   }, [debouncedFormValues, navigate]);
 
-  // Memoized handlers for better performance
+  // Handlers for better performance (defined after useForm)
   const handleSwap = useCallback(() => {
-    // Swap the actual form values
-    setValue("flyingFrom", flyingTo);
-    setValue("flyingTo", flyingFrom);
+    // Get current values directly from form state
+    const currentValues = watch();
+    setValue("flyingFrom", currentValues.flyingTo);
+    setValue("flyingTo", currentValues.flyingFrom);
     // Toggle visual order
     setIsSwapped((prevValue) => !prevValue);
-  }, [setValue, flyingFrom, flyingTo]);
+  }, [setValue, watch]);
 
   const handleTravellersClose = useCallback(() => {
     setTravellersOpen(false);
@@ -157,8 +159,8 @@ const RoundWayForm = ({ initialValues }) => {
         flyingFrom: initialValues.flyingFrom,
         flyingTo: initialValues.flyingTo,
         travellers: initialValues.travellers,
-        depart: new Date(initialValues.depart),
-        return: new Date(initialValues.return),
+        depart: initialValues.depart || "",
+        return: initialValues.return || "",
       });
       if (initialValues.travellers) {
         setAppliedTravellers(initialValues.travellers);
@@ -216,7 +218,7 @@ const RoundWayForm = ({ initialValues }) => {
             iataCode: values.flyingTo.iataCode,
           })
         ),
-        depart: values.depart.toISOString().split("T")[0],
+        depart: formatDateForURL(values.depart),
         adults: values.travellers.adults,
         children: values.travellers.children,
         travelClass: travelClass,
@@ -224,8 +226,8 @@ const RoundWayForm = ({ initialValues }) => {
         travellers: encodeURIComponent(JSON.stringify(values.travellers)),
       };
 
-      if (values.return) {
-        queryParams.return = values.return.toISOString().split("T")[0];
+      if (values.return instanceof Date) {
+        queryParams.return = formatDateForURL(values.return);
       }
 
       const query = new URLSearchParams(queryParams).toString();
@@ -653,8 +655,8 @@ RoundWayForm.propTypes = {
       adults: PropTypes.number,
       children: PropTypes.number,
     }),
-    depart: PropTypes.string,
-    return: PropTypes.string, // Added return date prop type
+    depart: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+    return: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
   }),
 };
 

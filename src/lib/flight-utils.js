@@ -73,6 +73,39 @@ export const parseDuration = (duration) => {
   return 0;
 };
 
+// Timezone-safe date utilities to prevent date shifting issues
+export const createLocalDate = (dateString) => {
+  if (!dateString) return null;
+
+  // If it's already a Date object, return as is
+  if (dateString instanceof Date) return dateString;
+
+  // Parse date string in local timezone to prevent shifting
+  const date = new Date(dateString + "T00:00:00");
+  return isNaN(date.getTime()) ? null : date;
+};
+
+export const formatDateForURL = (date) => {
+  if (!date || !(date instanceof Date) || isNaN(date.getTime())) return "";
+
+  // Use local date components to avoid timezone issues
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+};
+
+export const parseDateFromURL = (dateString) => {
+  if (!dateString) return null;
+
+  // Parse YYYY-MM-DD format in local timezone
+  const [year, month, day] = dateString.split("-").map(Number);
+  if (!year || !month || !day) return null;
+
+  return new Date(year, month - 1, day);
+};
+
 // Optimized function to extract baggage information
 export const extractBaggageInfo = (offer) => {
   const fareDetails = offer.travelerPricings?.[0]?.fareDetailsBySegment || [];
