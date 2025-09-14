@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import { useMediaQuery } from "usehooks-ts";
+import PropTypes from "prop-types";
 
 const SidebarContext = createContext(null);
 
@@ -14,7 +15,7 @@ const initialFilters = {
   departureTime: { min: 0, max: 1440 }, // in minutes from midnight
   journeyDuration: { min: 0, max: 3000 }, // in minutes
   airlines: [],
-  baggage: [],
+  baggage: [], // Can include "checked" and "cabin"
 };
 
 export function SidebarFilterProvider({ children }) {
@@ -87,6 +88,10 @@ export function SidebarFilterProvider({ children }) {
     </SidebarContext.Provider>
   );
 }
+
+SidebarFilterProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 // userSidebarFilter hook
 export function useSidebarFilter() {

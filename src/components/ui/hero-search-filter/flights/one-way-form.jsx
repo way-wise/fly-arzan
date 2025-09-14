@@ -10,7 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import { GiCommercialAirplane } from "react-icons/gi";
 import {
   Select,
@@ -41,9 +41,18 @@ const OneWayForm = ({ initialValues }) => {
   );
   const [isSwapped, setIsSwapped] = useState(false);
 
-  const handleSwap = () => {
+  // Memoized handlers for better performance
+  const handleSwap = useCallback(() => {
     setIsSwapped((prevValue) => !prevValue);
-  };
+  }, []);
+
+  const handleTravellersClose = useCallback(() => {
+    setTravellersOpen(false);
+  }, []);
+
+  const handleDateClose = useCallback(() => {
+    setDateOpen(false);
+  }, []);
 
   const {
     handleSubmit,
@@ -144,49 +153,61 @@ const OneWayForm = ({ initialValues }) => {
   const { data: cityToData, isLoading: isLoadingTo } = useCityLocation(queryTo);
   const cityToOptions = cityToData?.data || [];
 
-  const cabinLabelMap = {
-    economy: "Economy",
-    premium_economy: "Premium Economy",
-    business: "Business",
-    first_class: "First Class",
-  };
+  // Memoized cabin label mapping
+  const cabinLabelMap = useMemo(
+    () => ({
+      economy: "Economy",
+      premium_economy: "Premium Economy",
+      business: "Business",
+      first_class: "First Class",
+    }),
+    []
+  );
 
-  const travellersSummary = appliedTravellers
-    ? `${appliedTravellers.adults + appliedTravellers.children} Traveller${
-        appliedTravellers.adults + appliedTravellers.children !== 1 ? "s" : ""
-      }, ${cabinLabelMap[appliedTravellers.cabin]}`
-    : "";
+  // Memoized travellers summary to prevent unnecessary recalculations
+  const travellersSummary = useMemo(() => {
+    if (!appliedTravellers) return "";
+    const totalTravellers =
+      appliedTravellers.adults + appliedTravellers.children;
+    return `${totalTravellers} Traveller${totalTravellers !== 1 ? "s" : ""}, ${
+      cabinLabelMap[appliedTravellers.cabin]
+    }`;
+  }, [appliedTravellers, cabinLabelMap]);
 
-  const onSubmit = (values) => {
-    const travelClass =
-      values.travellers.cabin === "premium_economy"
-        ? "PREMIUM_ECONOMY"
-        : values.travellers.cabin.toUpperCase();
+  // Memoized submit handler
+  const onSubmit = useCallback(
+    (values) => {
+      const travelClass =
+        values.travellers.cabin === "premium_economy"
+          ? "PREMIUM_ECONOMY"
+          : values.travellers.cabin.toUpperCase();
 
-    const query = new URLSearchParams({
-      from: encodeURIComponent(
-        JSON.stringify({
-          city: values.flyingFrom.city,
-          iataCode: values.flyingFrom.iataCode,
-        })
-      ),
-      to: encodeURIComponent(
-        JSON.stringify({
-          city: values.flyingTo.city,
-          iataCode: values.flyingTo.iataCode,
-        })
-      ),
-      depart: values.depart.toISOString().split("T")[0],
-      adults: values.travellers.adults,
-      children: values.travellers.children,
-      travelClass: travelClass,
-      type: "one-way",
-      // Keep travellers object for pre-filling the form on the next page
-      travellers: encodeURIComponent(JSON.stringify(values.travellers)),
-    }).toString();
+      const query = new URLSearchParams({
+        from: encodeURIComponent(
+          JSON.stringify({
+            city: values.flyingFrom.city,
+            iataCode: values.flyingFrom.iataCode,
+          })
+        ),
+        to: encodeURIComponent(
+          JSON.stringify({
+            city: values.flyingTo.city,
+            iataCode: values.flyingTo.iataCode,
+          })
+        ),
+        depart: values.depart.toISOString().split("T")[0],
+        adults: values.travellers.adults,
+        children: values.travellers.children,
+        travelClass: travelClass,
+        type: "one-way",
+        // Keep travellers object for pre-filling the form on the next page
+        travellers: encodeURIComponent(JSON.stringify(values.travellers)),
+      }).toString();
 
-    navigate(`/search/flight?${query}`);
-  };
+      navigate(`/search/flight?${query}`);
+    },
+    [navigate]
+  );
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
@@ -379,7 +400,7 @@ const OneWayForm = ({ initialValues }) => {
               selected={depart}
               onSelect={(d) => {
                 setValue("depart", d);
-                setDateOpen(false);
+                handleDateClose();
               }}
             />
           </PopoverContent>
@@ -512,7 +533,7 @@ const OneWayForm = ({ initialValues }) => {
                     });
                     setAppliedTravellers(null);
                   }
-                  setTravellersOpen(false);
+                  handleTravellersClose();
                 }}
                 className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100 tw:font-medium"
               >
@@ -522,7 +543,7 @@ const OneWayForm = ({ initialValues }) => {
                 type="button"
                 onClick={() => {
                   setAppliedTravellers({ ...travellers });
-                  setTravellersOpen(false);
+                  handleTravellersClose();
                 }}
                 className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:transition tw:!rounded tw:duration-100 tw:font-medium"
               >

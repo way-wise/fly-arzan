@@ -72,3 +72,126 @@ export const parseDuration = (duration) => {
   }
   return 0;
 };
+
+// Optimized function to extract baggage information
+export const extractBaggageInfo = (offer) => {
+  const fareDetails = offer.travelerPricings?.[0]?.fareDetailsBySegment || [];
+
+  return {
+    hasCheckedBaggage: fareDetails.some(
+      (segment) => segment.includedCheckedBags
+    ),
+    hasCabinBaggage: fareDetails.some((segment) => segment.includedCabinBags),
+    checkedBagDetails: fareDetails
+      .filter((segment) => segment.includedCheckedBags)
+      .map((segment) => ({
+        weight: segment.includedCheckedBags.weight,
+        weightUnit: segment.includedCheckedBags.weightUnit,
+        quantity: segment.includedCheckedBags.quantity,
+      })),
+    cabinBagDetails: fareDetails
+      .filter((segment) => segment.includedCabinBags)
+      .map((segment) => ({
+        weight: segment.includedCabinBags.weight,
+        weightUnit: segment.includedCabinBags.weightUnit,
+        quantity: segment.includedCabinBags.quantity,
+      })),
+  };
+};
+
+// Optimized function to extract operating carriers
+export const extractOperatingCarriers = (offer) => {
+  const operatingCarriers = new Set();
+
+  offer.itineraries.forEach((itinerary) => {
+    itinerary.segments.forEach((segment) => {
+      const operatingCarrier =
+        segment.operating?.carrierCode || segment.carrierCode;
+      operatingCarriers.add(operatingCarrier);
+    });
+  });
+
+  return Array.from(operatingCarriers);
+};
+
+// Memoized flight processing function
+export const processFlightOffer = (offer, index, dictionaries) => {
+  const { price: priceData } = offer;
+  const { price, totalPrice, currency } = calculateTotalPrice(priceData);
+  const isRoundTrip = offer.itineraries.length === 2;
+
+  const processedItineraries = offer.itineraries.map((itinerary) => {
+    const flights =
+      itinerary.segments
+        ?.map((segment) => {
+          const carrierCode =
+            segment.operating?.carrierCode || segment.carrierCode;
+          const airlineName =
+            dictionaries?.carriers?.[carrierCode] || "Unknown Airline";
+          const durationMinutes = parseDuration(segment.duration);
+
+          return {
+            airline: airlineName,
+            airlineCode: carrierCode,
+            flightNumber: `${carrierCode}${segment.number}`,
+            departure: {
+              time: formatTimeFromISO(segment.departure?.at),
+              airport: segment.departure?.iataCode || "N/A",
+              at: segment.departure?.at,
+            },
+            arrival: {
+              time: formatTimeFromISO(segment.arrival?.at),
+              airport: segment.arrival?.iataCode || "N/A",
+              at: segment.arrival?.at,
+            },
+            duration: formatDurationFromMinutes(durationMinutes),
+            durationMinutes,
+            stops:
+              segment.numberOfStops === 0
+                ? "Direct"
+                : `${segment.numberOfStops} Stop${
+                    segment.numberOfStops > 1 ? "s" : ""
+                  }`,
+          };
+        })
+        .filter(Boolean) || [];
+
+    return {
+      flights,
+      totalDurationMinutes: flights.reduce(
+        (acc, flight) => acc + flight.durationMinutes,
+        0
+      ),
+    };
+  });
+
+  if (processedItineraries.some((it) => it.flights.length === 0)) {
+    return null;
+  }
+
+  const baggageInfo = extractBaggageInfo(offer);
+  const carrierCodes = extractOperatingCarriers(offer);
+  const firstAirlineCode = processedItineraries[0]?.flights[0]?.airlineCode;
+
+  return {
+    id: `${index + 1}-${offer.id || Date.now()}`,
+    price: Math.round(price),
+    totalPrice: Math.round(totalPrice * 100) / 100,
+    currency,
+    logo: firstAirlineCode,
+    airlineCode: firstAirlineCode,
+    carrierCodes,
+    itineraries: processedItineraries,
+    hasCheckedBaggage: baggageInfo.hasCheckedBaggage,
+    hasCabinBaggage: baggageInfo.hasCabinBaggage,
+    baggageDetails: {
+      checked: baggageInfo.checkedBagDetails,
+      cabin: baggageInfo.cabinBagDetails,
+    },
+    totalDurationMinutes: processedItineraries.reduce(
+      (acc, it) => acc + it.totalDurationMinutes,
+      0
+    ),
+    tripType: isRoundTrip ? "round-trip" : "one-way",
+  };
+};

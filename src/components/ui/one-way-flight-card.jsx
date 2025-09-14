@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { RiPlaneLine } from "react-icons/ri";
+import { memo } from "react";
 import {
   getAirlineLogoUrl,
   formatDurationFromMinutes,
 } from "@/lib/flight-utils";
+import PropTypes from "prop-types";
 
-const OneWayFlightCard = ({ itinerary }) => {
+const OneWayFlightCard = memo(({ itinerary }) => {
   const navigate = useNavigate();
 
   return (
@@ -88,10 +90,7 @@ const OneWayFlightCard = ({ itinerary }) => {
             {/* Arrival */}
             <div className="tw:flex tw:flex-col tw:gap-1 tw:text-left">
               <span className="tw:font-semibold tw:text-[20px]">
-                {
-                  itinerary.flights[itinerary.flights.length - 1].arrival
-                    .time
-                }
+                {itinerary.flights[itinerary.flights.length - 1].arrival.time}
               </span>
               <span className="tw:text-sm tw:text-[#5D586C]">
                 {
@@ -111,9 +110,7 @@ const OneWayFlightCard = ({ itinerary }) => {
           className="tw:w-full tw:md:w-fit tw:bg-primary tw:py-2 tw:px-[30px] tw:flex tw:flex-col tw:!text-white tw:!rounded-full hover:tw:bg-primary/90 tw:transition-colors"
         >
           <span className="tw:text-sm">Select</span>
-          <span className="tw:text-xl tw:font-medium">
-            ${itinerary.price}
-          </span>
+          <span className="tw:text-xl tw:font-medium">${itinerary.price}</span>
         </button>
         <span className="tw:text-sm tw:text-[#939393]">
           ${itinerary.totalPrice} Total
@@ -121,6 +118,19 @@ const OneWayFlightCard = ({ itinerary }) => {
       </div>
     </div>
   );
+});
+
+OneWayFlightCard.displayName = "OneWayFlightCard";
+
+OneWayFlightCard.propTypes = {
+  itinerary: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    totalPrice: PropTypes.number.isRequired,
+    airlineCode: PropTypes.string.isRequired,
+    flights: PropTypes.arrayOf(PropTypes.object).isRequired,
+    totalDurationMinutes: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default OneWayFlightCard;

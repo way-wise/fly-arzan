@@ -4,6 +4,7 @@ import { RangeSelector } from "@/components/ui/range-selector";
 import { useSidebarFilter } from "@/providers/filter-sidebar-provider";
 import { useMemo, useEffect } from "react";
 import { format, parse } from "date-fns";
+import PropTypes from "prop-types";
 
 // Helper to convert "HH:mm" to minutes from midnight
 const timeToMinutes = (timeStr) => {
@@ -33,70 +34,101 @@ const RoundTripFilter = ({ flightOffersData }) => {
     setFilters,
   } = useSidebarFilter();
 
-  const { stops, airlines, departureTimeRange, journeyDurationRange } =
-    useMemo(() => {
-      if (!flightOffersData?.data) {
-        return {
-          stops: [],
-          airlines: [],
-          departureTimeRange: { min: 0, max: 1440 },
-          journeyDurationRange: { min: 0, max: 3000 },
-        };
-      }
+  const {
+    stops,
+    airlines,
+    departureTimeRange,
+    journeyDurationRange,
+    baggageOptions,
+  } = useMemo(() => {
+    if (!flightOffersData?.data) {
+      return {
+        stops: [],
+        airlines: [],
+        departureTimeRange: { min: 0, max: 1440 },
+        journeyDurationRange: { min: 0, max: 3000 },
+        baggageOptions: [],
+      };
+    }
 
-      const stopOptions = [0, 1, 2]; // Static list of stop options
-      const airlineSet = new Map();
-      let minDeparture = 1440;
-      let maxDeparture = 0;
-      let minDuration = 3000;
-      let maxDuration = 0;
+    // Only collect operating airlines to fix the filter issue
+    const operatingAirlineSet = new Map();
+    const baggageTypes = new Set();
 
-      flightOffersData.data.forEach((offer) => {
-        let totalDuration = 0;
-        offer.itineraries.forEach((itinerary) => {
-          itinerary.segments.forEach((segment) => {
-            const duration =
-              parseInt(segment.duration.match(/(\d+)H/)?.[1] || 0) * 60 +
-              parseInt(segment.duration.match(/(\d+)M/)?.[1] || 0);
-            totalDuration += duration;
-
-            const carrierCode = segment.carrierCode;
-            if (
-              !airlineSet.has(carrierCode) &&
-              flightOffersData.dictionaries.carriers[carrierCode]
-            ) {
-              airlineSet.set(
-                carrierCode,
-                flightOffersData.dictionaries.carriers[carrierCode]
-              );
-            }
-          });
+    flightOffersData.data.forEach((offer) => {
+      // Collect only operating carriers
+      offer.itineraries.forEach((itinerary) => {
+        itinerary.segments.forEach((segment) => {
+          const operatingCarrier =
+            segment.operating?.carrierCode || segment.carrierCode;
+          if (
+            !operatingAirlineSet.has(operatingCarrier) &&
+            flightOffersData.dictionaries?.carriers?.[operatingCarrier]
+          ) {
+            operatingAirlineSet.set(
+              operatingCarrier,
+              flightOffersData.dictionaries.carriers[operatingCarrier]
+            );
+          }
         });
-
-        if (totalDuration < minDuration) minDuration = totalDuration;
-        if (totalDuration > maxDuration) maxDuration = totalDuration;
-
-        const departureMinutes = timeToMinutes(
-          format(
-            parse(
-              offer.itineraries[0].segments[0].departure.at,
-              "yyyy-MM-dd'T'HH:mm:ss",
-              new Date()
-            ),
-            "HH:mm"
-          )
-        );
-        if (departureMinutes < minDeparture) minDeparture = departureMinutes;
-        if (departureMinutes > maxDeparture) maxDeparture = departureMinutes;
       });
 
-      return {
-        stops: stopOptions,
-        airlines: Array.from(airlineSet.entries()),
-        departureTimeRange: { min: minDeparture, max: maxDeparture },
-        journeyDurationRange: { min: minDuration, max: maxDuration },
-      };
-    }, [flightOffersData]);
+      // Collect baggage information
+      offer.travelerPricings?.forEach((pricing) => {
+        pricing.fareDetailsBySegment?.forEach((segment) => {
+          if (segment.includedCheckedBags) {
+            baggageTypes.add("checked");
+          }
+          if (segment.includedCabinBags) {
+            baggageTypes.add("cabin");
+          }
+        });
+      });
+    });
+
+    const stopOptions = [0, 1, 2];
+    let minDeparture = 1440;
+    let maxDeparture = 0;
+    let minDuration = 3000;
+    let maxDuration = 0;
+
+    flightOffersData.data.forEach((offer) => {
+      let totalDuration = 0;
+      offer.itineraries.forEach((itinerary) => {
+        itinerary.segments.forEach((segment) => {
+          const duration =
+            parseInt(segment.duration.match(/(\d+)H/)?.[1] || 0) * 60 +
+            parseInt(segment.duration.match(/(\d+)M/)?.[1] || 0);
+          totalDuration += duration;
+        });
+      });
+
+      if (totalDuration < minDuration) minDuration = totalDuration;
+      if (totalDuration > maxDuration) maxDuration = totalDuration;
+
+      const departureSegment = offer.itineraries[0].segments[0];
+      const departureMinutes = timeToMinutes(
+        format(
+          parse(
+            departureSegment.departure.at,
+            "yyyy-MM-dd'T'HH:mm:ss",
+            new Date()
+          ),
+          "HH:mm"
+        )
+      );
+      if (departureMinutes < minDeparture) minDeparture = departureMinutes;
+      if (departureMinutes > maxDeparture) maxDeparture = departureMinutes;
+    });
+
+    return {
+      stops: stopOptions,
+      airlines: Array.from(operatingAirlineSet.entries()),
+      departureTimeRange: { min: minDeparture, max: maxDeparture },
+      journeyDurationRange: { min: minDuration, max: maxDuration },
+      baggageOptions: Array.from(baggageTypes),
+    };
+  }, [flightOffersData]);
 
   useEffect(() => {
     if (flightOffersData?.data) {
@@ -140,13 +172,24 @@ const RoundTripFilter = ({ flightOffersData }) => {
 
       {/* Filter Baggage */}
       <FilterCollapsible title="Baggage">
-        <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
-          <Checkbox
-            checked={filters.baggage.includes("checked")}
-            onCheckedChange={() => handleFilterChange("baggage", "checked")}
-          />
-          <span className="tw:text-sm">Checked Bag</span>
-        </label>
+        {baggageOptions.includes("checked") && (
+          <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
+            <Checkbox
+              checked={filters.baggage.includes("checked")}
+              onCheckedChange={() => handleFilterChange("baggage", "checked")}
+            />
+            <span className="tw:text-sm">Checked Bag</span>
+          </label>
+        )}
+        {baggageOptions.includes("cabin") && (
+          <label className="tw:!flex tw:!mb-0 tw:gap-2.5">
+            <Checkbox
+              checked={filters.baggage.includes("cabin")}
+              onCheckedChange={() => handleFilterChange("baggage", "cabin")}
+            />
+            <span className="tw:text-sm">Cabin Bag</span>
+          </label>
+        )}
       </FilterCollapsible>
 
       {/* Filter Departure Times */}
@@ -201,6 +244,15 @@ const RoundTripFilter = ({ flightOffersData }) => {
       </FilterCollapsible>
     </div>
   );
+};
+
+RoundTripFilter.propTypes = {
+  flightOffersData: PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.object),
+    dictionaries: PropTypes.shape({
+      carriers: PropTypes.object,
+    }),
+  }),
 };
 
 export default RoundTripFilter;

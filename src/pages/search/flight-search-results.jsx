@@ -1,5 +1,4 @@
 import { useState, useEffect, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   RiVerifiedBadgeFill,
   RiPercentFill,
@@ -15,22 +14,19 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { format, parseISO } from "date-fns";
 import { useSidebarFilter } from "@/providers/filter-sidebar-provider";
 import { Skeleton } from "@/components/ui/skeleton";
 import OneWayFlightCard from "@/components/ui/one-way-flight-card";
 import RoundTripFlightCard from "@/components/ui/round-trip-flight-card";
+import PropTypes from "prop-types";
 
 import {
   timeToMinutes,
-  formatTimeFromISO,
-  calculateTotalPrice,
-  parseDuration,
   formatDurationFromMinutes,
+  processFlightOffer,
 } from "@/lib/flight-utils";
 
 const FlightSearchResults = ({ flightOffersData }) => {
-  const navigate = useNavigate();
   const { openMobile, setOpenMobile } = useSidebarFilter();
   const [selectedTimeCost, setSelectedTimeCost] = useState("best");
   const [processedFlights, setProcessedFlights] = useState([]);
@@ -62,6 +58,20 @@ const FlightSearchResults = ({ flightOffersData }) => {
   ]);
   const [visibleCount, setVisibleCount] = useState(14);
 
+  // Optimized data processing using utility functions
+  const processAmadeusData = useMemo(
+    () => (data) => {
+      if (!data?.data) return [];
+
+      return data.data
+        .map((offer, index) =>
+          processFlightOffer(offer, index, data.dictionaries)
+        )
+        .filter(Boolean);
+    },
+    []
+  );
+
   useEffect(() => {
     // Check if there is valid flight data to process
     if (flightOffersData?.data && flightOffersData.data.length > 0) {
@@ -73,93 +83,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
       setProcessedFlights([]);
       generateTimeCostFilters([]); // Explicitly call with an empty array
     }
-  }, [flightOffersData]);
-
-  const processAmadeusData = (data) => {
-    if (!data?.data) return [];
-
-    return data.data
-      .map((offer, index) => {
-        const { price: priceData } = offer;
-        const { price, totalPrice, currency } = calculateTotalPrice(priceData);
-
-        const isRoundTrip = offer.itineraries.length === 2;
-
-        const processedItineraries = offer.itineraries.map((itinerary) => {
-          const flights =
-            itinerary.segments
-              ?.map((segment) => {
-                const carrierCode = segment.carrierCode;
-                const airlineName =
-                  data.dictionaries?.carriers?.[carrierCode] ||
-                  "Unknown Airline";
-                const durationMinutes = parseDuration(segment.duration);
-
-                return {
-                  airline: airlineName,
-                  airlineCode: carrierCode,
-                  flightNumber: `${carrierCode}${segment.number}`,
-                  departure: {
-                    time: formatTimeFromISO(segment.departure?.at),
-                    airport: segment.departure?.iataCode || "N/A",
-                    at: segment.departure?.at,
-                  },
-                  arrival: {
-                    time: formatTimeFromISO(segment.arrival?.at),
-                    airport: segment.arrival?.iataCode || "N/A",
-                    at: segment.arrival?.at,
-                  },
-                  duration: formatDurationFromMinutes(durationMinutes),
-                  durationMinutes,
-                  stops:
-                    segment.numberOfStops === 0
-                      ? "Direct"
-                      : `${segment.numberOfStops} Stop${
-                          segment.numberOfStops > 1 ? "s" : ""
-                        }`,
-                };
-              })
-              .filter(Boolean) || [];
-
-          return {
-            flights,
-            totalDurationMinutes: flights.reduce(
-              (acc, flight) => acc + flight.durationMinutes,
-              0
-            ),
-          };
-        });
-
-        const hasCheckedBaggage =
-          offer.travelerPricings?.[0]?.fareDetailsBySegment?.some(
-            (segment) => segment.includedCheckedBags
-          ) || false;
-
-        if (processedItineraries.some((it) => it.flights.length === 0)) {
-          return null;
-        }
-
-        const firstAirlineCode =
-          processedItineraries[0]?.flights[0]?.airlineCode;
-
-        return {
-          id: `${index + 1}-${offer.id || Date.now()}`,
-          price: Math.round(price),
-          totalPrice: Math.round(totalPrice * 100) / 100,
-          currency,
-          logo: firstAirlineCode,
-          airlineCode: firstAirlineCode,
-          itineraries: processedItineraries,
-          hasCheckedBaggage,
-          totalDurationMinutes: processedItineraries.reduce(
-            (acc, it) => acc + it.totalDurationMinutes,
-            0
-          ),
-          tripType: isRoundTrip ? "round-trip" : "one-way",
-        };
-      })
-      .filter(Boolean);
-  };
+  }, [flightOffersData, processAmadeusData]);
 
   const generateTimeCostFilters = (flights) => {
     if (flights.length === 0) {
@@ -214,7 +138,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
         id: "best",
         title: "Best",
         duration: formatDurationFromMinutes(bestOption.totalDurationMinutes),
-        price: `${bestOption.price}`,
+        price: `$${bestOption.price}`,
         icon: <RiVerifiedBadgeFill size={24} />,
         showInMobile: true,
       },
@@ -224,7 +148,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
         duration: formatDurationFromMinutes(
           cheapestOption.totalDurationMinutes
         ),
-        price: `${cheapestOption.price}`,
+        price: `$${cheapestOption.price}`,
         icon: <RiPercentFill size={24} />,
         showInMobile: true,
       },
@@ -232,7 +156,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
         id: "fastest",
         title: "Fastest",
         duration: formatDurationFromMinutes(fastestOption.totalDurationMinutes),
-        price: `${fastestOption.price}`,
+        price: `$${fastestOption.price}`,
         icon: <RiFlashlightFill size={24} />,
         showInMobile: true,
       },
@@ -255,14 +179,18 @@ const FlightSearchResults = ({ flightOffersData }) => {
 
     if (filters.airlines.length > 0) {
       filtered = filtered.filter((flight) =>
-        filters.airlines.includes(flight.airlineCode)
+        flight.carrierCodes.some((code) => filters.airlines.includes(code))
       );
     }
 
     if (filters.baggage.length > 0) {
-      if (filters.baggage.includes("checked")) {
-        filtered = filtered.filter((flight) => flight.hasCheckedBaggage);
-      }
+      filtered = filtered.filter((flight) => {
+        const matchesChecked =
+          !filters.baggage.includes("checked") || flight.hasCheckedBaggage;
+        const matchesCabin =
+          !filters.baggage.includes("cabin") || flight.hasCabinBaggage;
+        return matchesChecked && matchesCabin;
+      });
     }
 
     // Departure time filter
@@ -403,7 +331,10 @@ const FlightSearchResults = ({ flightOffersData }) => {
                 ].arrival,
             };
             return (
-              <OneWayFlightCard key={itinerary.id} itinerary={oneWayItinerary} />
+              <OneWayFlightCard
+                key={itinerary.id}
+                itinerary={oneWayItinerary}
+              />
             );
           })
         ) : (
@@ -430,6 +361,15 @@ const FlightSearchResults = ({ flightOffersData }) => {
       </div>
     </div>
   );
+};
+
+FlightSearchResults.propTypes = {
+  flightOffersData: PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.object),
+    dictionaries: PropTypes.shape({
+      carriers: PropTypes.object,
+    }),
+  }),
 };
 
 export default FlightSearchResults;

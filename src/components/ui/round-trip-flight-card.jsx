@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { RiPlaneLine } from "react-icons/ri";
+import { memo } from "react";
 import {
   getAirlineLogoUrl,
   formatDurationFromMinutes,
   formatDateFromISO,
 } from "@/lib/flight-utils";
+import PropTypes from "prop-types";
 
 const FlightSegment = ({ flights }) => {
   if (!flights || flights.length === 0) return null;
@@ -104,6 +106,10 @@ const FlightSegment = ({ flights }) => {
   );
 };
 
+FlightSegment.propTypes = {
+  flights: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
 const RoundTripFlightCard = ({ itinerary }) => {
   const navigate = useNavigate();
   const outboundFlights = itinerary.itineraries[0].flights;
@@ -128,9 +134,7 @@ const RoundTripFlightCard = ({ itinerary }) => {
           className="tw:w-full tw:md:w-fit tw:bg-primary tw:py-2 tw:px-[30px] tw:flex tw:flex-col tw:!text-white tw:!rounded-full hover:tw:bg-primary/90 tw:transition-colors"
         >
           <span className="tw:text-sm">Select</span>
-          <span className="tw:text-xl tw:font-medium">
-            ${itinerary.price}
-          </span>
+          <span className="tw:text-xl tw:font-medium">${itinerary.price}</span>
         </button>
         <span className="tw:text-sm tw:text-[#939393]">
           ${itinerary.totalPrice} Total
@@ -140,4 +144,17 @@ const RoundTripFlightCard = ({ itinerary }) => {
   );
 };
 
-export default RoundTripFlightCard;
+RoundTripFlightCard.propTypes = {
+  itinerary: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    totalPrice: PropTypes.number.isRequired,
+    itineraries: PropTypes.arrayOf(
+      PropTypes.shape({
+        flights: PropTypes.arrayOf(PropTypes.object).isRequired,
+      })
+    ).isRequired,
+  }).isRequired,
+};
+
+export default memo(RoundTripFlightCard);

@@ -10,7 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import { GiCommercialAirplane } from "react-icons/gi";
 import {
   Select,
@@ -130,13 +130,26 @@ const RoundWayForm = ({ initialValues }) => {
     window.history.replaceState(null, "", newUrl);
   }, [debouncedFormValues, navigate]);
 
-  const handleSwap = () => {
+  // Memoized handlers for better performance
+  const handleSwap = useCallback(() => {
     // Swap the actual form values
     setValue("flyingFrom", flyingTo);
     setValue("flyingTo", flyingFrom);
     // Toggle visual order
     setIsSwapped((prevValue) => !prevValue);
-  };
+  }, [setValue, flyingFrom, flyingTo]);
+
+  const handleTravellersClose = useCallback(() => {
+    setTravellersOpen(false);
+  }, []);
+
+  const handleDepartDateClose = useCallback(() => {
+    setDepartDateOpen(false);
+  }, []);
+
+  const handleReturnDateClose = useCallback(() => {
+    setReturnDateOpen(false);
+  }, []);
 
   useEffect(() => {
     if (initialValues) {
@@ -161,54 +174,66 @@ const RoundWayForm = ({ initialValues }) => {
   const { data: cityToData, isLoading: isLoadingTo } = useCityLocation(queryTo);
   const cityToOptions = cityToData?.data || [];
 
-  const cabinLabelMap = {
-    economy: "Economy",
-    premium_economy: "Premium Economy",
-    business: "Business",
-    first_class: "First Class",
-  };
+  // Memoized cabin label mapping
+  const cabinLabelMap = useMemo(
+    () => ({
+      economy: "Economy",
+      premium_economy: "Premium Economy",
+      business: "Business",
+      first_class: "First Class",
+    }),
+    []
+  );
 
-  const travellersSummary = appliedTravellers
-    ? `${appliedTravellers.adults + appliedTravellers.children} Traveller${
-        appliedTravellers.adults + appliedTravellers.children !== 1 ? "s" : ""
-      }, ${cabinLabelMap[appliedTravellers.cabin]}`
-    : "";
+  // Memoized travellers summary to prevent unnecessary recalculations
+  const travellersSummary = useMemo(() => {
+    if (!appliedTravellers) return "";
+    const totalTravellers =
+      appliedTravellers.adults + appliedTravellers.children;
+    return `${totalTravellers} Traveller${totalTravellers !== 1 ? "s" : ""}, ${
+      cabinLabelMap[appliedTravellers.cabin]
+    }`;
+  }, [appliedTravellers, cabinLabelMap]);
 
-  const onSubmit = (values) => {
-    const travelClass =
-      values.travellers.cabin === "premium_economy"
-        ? "PREMIUM_ECONOMY"
-        : values.travellers.cabin.toUpperCase();
+  // Memoized submit handler
+  const onSubmit = useCallback(
+    (values) => {
+      const travelClass =
+        values.travellers.cabin === "premium_economy"
+          ? "PREMIUM_ECONOMY"
+          : values.travellers.cabin.toUpperCase();
 
-    const queryParams = {
-      from: encodeURIComponent(
-        JSON.stringify({
-          city: values.flyingFrom.city,
-          iataCode: values.flyingFrom.iataCode,
-        })
-      ),
-      to: encodeURIComponent(
-        JSON.stringify({
-          city: values.flyingTo.city,
-          iataCode: values.flyingTo.iataCode,
-        })
-      ),
-      depart: values.depart.toISOString().split("T")[0],
-      adults: values.travellers.adults,
-      children: values.travellers.children,
-      travelClass: travelClass,
-      type: "round-way",
-      travellers: encodeURIComponent(JSON.stringify(values.travellers)),
-    };
+      const queryParams = {
+        from: encodeURIComponent(
+          JSON.stringify({
+            city: values.flyingFrom.city,
+            iataCode: values.flyingFrom.iataCode,
+          })
+        ),
+        to: encodeURIComponent(
+          JSON.stringify({
+            city: values.flyingTo.city,
+            iataCode: values.flyingTo.iataCode,
+          })
+        ),
+        depart: values.depart.toISOString().split("T")[0],
+        adults: values.travellers.adults,
+        children: values.travellers.children,
+        travelClass: travelClass,
+        type: "round-way",
+        travellers: encodeURIComponent(JSON.stringify(values.travellers)),
+      };
 
-    if (values.return) {
-      queryParams.return = values.return.toISOString().split("T")[0];
-    }
+      if (values.return) {
+        queryParams.return = values.return.toISOString().split("T")[0];
+      }
 
-    const query = new URLSearchParams(queryParams).toString();
+      const query = new URLSearchParams(queryParams).toString();
 
-    navigate(`/search/flight?${query}`);
-  };
+      navigate(`/search/flight?${query}`);
+    },
+    [navigate]
+  );
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
@@ -406,7 +431,7 @@ const RoundWayForm = ({ initialValues }) => {
                 selected={depart}
                 onSelect={(d) => {
                   setValue("depart", d);
-                  setDepartDateOpen(false);
+                  handleDepartDateClose();
                 }}
                 disabled={{ before: new Date() }}
               />
@@ -443,7 +468,7 @@ const RoundWayForm = ({ initialValues }) => {
                 selected={returnDate}
                 onSelect={(d) => {
                   setValue("return", d);
-                  setReturnDateOpen(false);
+                  handleReturnDateClose();
                 }}
                 disabled={{ before: depart || new Date() }}
               />
@@ -579,7 +604,7 @@ const RoundWayForm = ({ initialValues }) => {
                     });
                     setAppliedTravellers(null);
                   }
-                  setTravellersOpen(false);
+                  handleTravellersClose();
                 }}
                 className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-muted/50 hover:tw:bg-muted tw:transition tw:!rounded tw:duration-100 tw:font-medium"
               >
@@ -589,7 +614,7 @@ const RoundWayForm = ({ initialValues }) => {
                 type="button"
                 onClick={() => {
                   setAppliedTravellers({ ...travellers });
-                  setTravellersOpen(false);
+                  handleTravellersClose();
                 }}
                 className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-primary tw:!text-white hover:tw:bg-primary/80 tw:transition tw:!rounded tw:duration-100 tw:font-medium"
               >

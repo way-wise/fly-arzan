@@ -11,7 +11,7 @@ import { SidebarFilterProvider } from "@/providers/filter-sidebar-provider";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { useFlightOffers } from "@/hooks/useFlightOffers";
 import { useFlexibleDates } from "@/hooks/useFlexibleDates";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import RoundWayForm from "@/components/ui/hero-search-filter/flights/round-way-form";
 
 import OneWayFilter from "@/components/ui/one-way-filter";
@@ -60,21 +60,28 @@ const FlightSearchPage = () => {
     });
   }, [location.search, searchParams]);
 
-  // Flight Offers
-  const { isLoading, data: flightOffersData } = useFlightOffers({
-    originLocationCode: initialValues?.flyingFrom?.iataCode,
-    destinationLocationCode: initialValues?.flyingTo?.iataCode,
-    departureDate: initialValues?.depart
-      ? new Date(initialValues.depart)
-      : null,
-    returnDate:
-      tripType === "round-way" && initialValues?.return
-        ? new Date(initialValues.return)
+  // Memoized flight offers query parameters to prevent unnecessary re-renders
+  const flightOffersParams = useMemo(
+    () => ({
+      originLocationCode: initialValues?.flyingFrom?.iataCode,
+      destinationLocationCode: initialValues?.flyingTo?.iataCode,
+      departureDate: initialValues?.depart
+        ? new Date(initialValues.depart)
         : null,
-    adults: searchParams.get("adults") || 1,
-    children: searchParams.get("children") || 0,
-    travelClass: searchParams.get("travelClass") || "ECONOMY",
-  });
+      returnDate:
+        tripType === "round-way" && initialValues?.return
+          ? new Date(initialValues.return)
+          : null,
+      adults: searchParams.get("adults") || 1,
+      children: searchParams.get("children") || 0,
+      travelClass: searchParams.get("travelClass") || "ECONOMY",
+    }),
+    [initialValues, tripType, searchParams]
+  );
+
+  // Flight Offers
+  const { isLoading, data: flightOffersData } =
+    useFlightOffers(flightOffersParams);
 
   const {
     selectedFlexibleDate,
@@ -87,7 +94,11 @@ const FlightSearchPage = () => {
     handleFlexibleDateClick,
   } = useFlexibleDates();
 
-  const FilterComponent = tripType === "round-way" ? RoundTripFilter : OneWayFilter;
+  // Memoized filter component selection
+  const FilterComponent = useMemo(
+    () => (tripType === "round-way" ? RoundTripFilter : OneWayFilter),
+    [tripType]
+  );
 
   return (
     <>
@@ -158,6 +169,5 @@ const FlightSearchPage = () => {
     </>
   );
 };
-
 
 export default FlightSearchPage;
