@@ -239,9 +239,9 @@ const RoundWayForm = ({ initialValues }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-      <fieldset className="tw:grid tw:grid-cols-1 md:grid-cols-2 tw:xl:grid-cols-5 tw:2xl:flex tw:items-center tw:gap-4">
+      <fieldset className="tw:grid tw:grid-cols-1  tw:md:grid-cols-6 tw:xl:flex tw:items-center tw:gap-4">
         {/* From / To Inputs */}
-        <div className="tw:flex tw:flex-col tw:sm:flex-row tw:gap-4 tw:relative tw:grow tw:md:col-span-2 tw:xl:col-span-2">
+        <div className="tw:flex tw:flex-col tw:sm:flex-row tw:gap-4 tw:relative tw:grow tw:md:col-span-6 tw:lg:col-span-4">
           {/* Flying From */}
           <Combobox
             value={flyingFrom}
@@ -403,85 +403,82 @@ const RoundWayForm = ({ initialValues }) => {
           </Combobox>
         </div>
 
-        {/* Date Inputs */}
-        <div className="tw:flex tw:flex-col tw:sm:flex-row tw:gap-4 tw:grow tw:md:col-span-2 tw:xl:col-span-2">
-          {/* Depart */}
-          <Popover open={departDateOpen} onOpenChange={setDepartDateOpen}>
-            <PopoverTrigger asChild>
-              <div className="tw:relative tw:grow">
-                <input
-                  type="text"
-                  id="depart"
-                  className="tw:peer tw:py-[10px] tw:ps-5 tw:pe-16 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none"
-                  placeholder="Depart"
-                  value={
-                    depart instanceof Date ? depart.toLocaleDateString() : ""
-                  }
-                  readOnly
-                />
-                <label
-                  htmlFor="depart"
-                  className="tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
-                >
-                  Depart
-                </label>
-              </div>
-            </PopoverTrigger>
-            <PopoverContent>
-              <Calendar
-                mode="single"
-                selected={depart}
-                onSelect={(d) => {
-                  setValue("depart", d);
-                  handleDepartDateClose();
-                }}
-                disabled={{ before: new Date() }}
+        {/* Depart */}
+        <Popover open={departDateOpen} onOpenChange={setDepartDateOpen}>
+          <PopoverTrigger asChild>
+            <div className="tw:relative tw:md:col-span-2">
+              <input
+                type="text"
+                id="depart"
+                className="tw:peer tw:py-[10px] tw:ps-5 tw:pe-16 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none"
+                placeholder="Depart"
+                value={
+                  depart instanceof Date ? depart.toLocaleDateString() : ""
+                }
+                readOnly
               />
-            </PopoverContent>
-          </Popover>
+              <label
+                htmlFor="depart"
+                className="tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
+              >
+                Depart
+              </label>
+            </div>
+          </PopoverTrigger>
+          <PopoverContent>
+            <Calendar
+              mode="single"
+              selected={depart}
+              onSelect={(d) => {
+                setValue("depart", d);
+                handleDepartDateClose();
+              }}
+              disabled={{ before: new Date() }}
+            />
+          </PopoverContent>
+        </Popover>
 
-          {/* Return */}
-          <Popover open={returnDateOpen} onOpenChange={setReturnDateOpen}>
-            <PopoverTrigger asChild>
-              <div className="tw:relative tw:grow">
-                <input
-                  type="text"
-                  id="return"
-                  className="tw:peer tw:py-[10px] tw:ps-5 tw:pe-16 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none"
-                  placeholder="Return"
-                  value={
-                    returnDate instanceof Date
-                      ? returnDate.toLocaleDateString()
-                      : ""
-                  }
-                  readOnly
-                />
-                <label
-                  htmlFor="return"
-                  className="tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
-                >
-                  Return
-                </label>
-              </div>
-            </PopoverTrigger>
-            <PopoverContent>
-              <Calendar
-                mode="single"
-                selected={returnDate}
-                onSelect={(d) => {
-                  setValue("return", d);
-                  handleReturnDateClose();
-                }}
-                disabled={{ before: depart || new Date() }}
+        {/* Return */}
+        <Popover open={returnDateOpen} onOpenChange={setReturnDateOpen}>
+          <PopoverTrigger asChild>
+            <div className="tw:relative tw:md:col-span-2 tw:lg:col-span-3">
+              <input
+                type="text"
+                id="return"
+                className="tw:peer tw:py-[10px] tw:ps-5 tw:pe-16 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none"
+                placeholder="Return"
+                value={
+                  returnDate instanceof Date
+                    ? returnDate.toLocaleDateString()
+                    : ""
+                }
+                readOnly
               />
-            </PopoverContent>
-          </Popover>
-        </div>
+              <label
+                htmlFor="return"
+                className="tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
+              >
+                Return
+              </label>
+            </div>
+          </PopoverTrigger>
+          <PopoverContent>
+            <Calendar
+              mode="single"
+              selected={returnDate}
+              onSelect={(d) => {
+                setValue("return", d);
+                handleReturnDateClose();
+              }}
+              disabled={{ before: depart || new Date() }}
+            />
+          </PopoverContent>
+        </Popover>
 
         {/* Travellers & Cabin Class */}
         <Popover open={travellersOpen} onOpenChange={setTravellersOpen}>
           <PopoverTrigger asChild>
-            <div className="tw:relative tw:grow">
+            <div className="tw:relative tw:md:col-span-2 tw:lg:col-span-3 tw:xl:basis-[270px]">
               <input
                 type="text"
                 id="travellers"
@@ -494,7 +491,7 @@ const RoundWayForm = ({ initialValues }) => {
                 htmlFor="travellers"
                 className="tw:max-w-full tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
               >
-                Travellers & Cabin Class
+                Travellers & Cabin
               </label>
             </div>
           </PopoverTrigger>
@@ -627,13 +624,11 @@ const RoundWayForm = ({ initialValues }) => {
         </Popover>
         {/* Search Button */}
         <button
-          className="tw:w-full tw:xl:col-span-5 md:col-span-2 tw:justify-self-end md:!w-fit tw:px-5 tw:h-[62px] tw:shrink-0 tw:2xl:px-0 tw:2xl:!w-[62px] tw:bg-primary tw:!text-white hover:tw:bg-primary/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
+          className="tw:md:w-fit tw:md:col-span-6 tw:justify-self-end tw:px-5 tw:h-[62px] tw:shrink-0 tw:xl:px-0 tw:xl:!w-[62px] tw:bg-primary tw:!text-white hover:tw:bg-primary/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
           disabled={isSubmitting}
         >
           <IoSearchOutline size={28} />
-          <span className="tw:2xl:hidden tw:text-xl tw:font-medium">
-            Search
-          </span>
+          <span className="tw:xl:hidden tw:text-xl tw:font-medium">Search</span>
         </button>
       </fieldset>
     </form>
