@@ -31,216 +31,212 @@ import { useDebounceValue, useSessionStorage } from "usehooks-ts";
 import PropTypes from "prop-types";
 
 // SegmentRow component moved outside to avoid hook violations
-const SegmentRow = memo(({ segmentIndex, segments, setValue, fields, addSegment, removeSegment, isSubmitting }) => {
-  const [queryFrom, setQueryFrom] = useState("");
-  const [queryTo, setQueryTo] = useState("");
-  const [dateOpen, setDateOpen] = useState(false);
+const SegmentRow = memo(
+  ({
+    segmentIndex,
+    segments,
+    setValue,
+    fields,
+    removeSegment,
+    isSubmitting,
+  }) => {
+    const [queryFrom, setQueryFrom] = useState("");
+    const [queryTo, setQueryTo] = useState("");
+    const [dateOpen, setDateOpen] = useState(false);
 
-  const [debouncedQueryFrom] = useDebounceValue(queryFrom, 600);
-  const [debouncedQueryTo] = useDebounceValue(queryTo, 600);
+    const [debouncedQueryFrom] = useDebounceValue(queryFrom, 600);
+    const [debouncedQueryTo] = useDebounceValue(queryTo, 600);
 
-  const { data: cityFromData, isLoading: isLoadingFrom } =
-    useCityLocation(debouncedQueryFrom);
-  const { data: cityToData, isLoading: isLoadingTo } =
-    useCityLocation(debouncedQueryTo);
+    const { data: cityFromData, isLoading: isLoadingFrom } =
+      useCityLocation(debouncedQueryFrom);
+    const { data: cityToData, isLoading: isLoadingTo } =
+      useCityLocation(debouncedQueryTo);
 
-  const cityFromOptions = cityFromData?.data || [];
-  const cityToOptions = cityToData?.data || [];
-  const currentSegment = segments[segmentIndex];
+    const cityFromOptions = cityFromData?.data || [];
+    const cityToOptions = cityToData?.data || [];
+    const currentSegment = segments[segmentIndex];
 
-  const handleDateClose = useCallback(() => {
-    setDateOpen(false);
-  }, []);
+    const handleDateClose = useCallback(() => {
+      setDateOpen(false);
+    }, []);
 
-  return (
-    <div className="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:xl:grid-cols-4 tw:2xl:flex tw:items-center tw:gap-4">
-      {/* From Input */}
-      <Combobox
-        value={currentSegment?.from || { city: "", iataCode: "" }}
-        onChange={(value) => setValue(`segments.${segmentIndex}.from`, value)}
-        onClose={() => setQueryFrom("")}
-      >
-        <div className="tw:relative tw:z-40 tw:grow">
-          <ComboboxInput
-            id={`from-${segmentIndex}`}
-            name={`segments.${segmentIndex}.from`}
-            displayValue={(data) => data?.city || ""}
-            onChange={(event) => setQueryFrom(event.target.value)}
-            placeholder="From"
-            aria-labelledby={`from-label-${segmentIndex}`}
-            className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0"
-          />
-          <label
-            id={`from-label-${segmentIndex}`}
-            htmlFor={`from-${segmentIndex}`}
-            className="tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-focus:scale-80 tw:peer-focus:translate-x-0.5 tw:peer-focus:-translate-y-1.5 tw:peer-focus:text-secondary tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
-          >
-            From
-          </label>
-          <ComboboxOptions className="tw:w-[var(--input-width)] tw:2xl:w-72">
-            {isLoadingFrom && (
-              <div className="tw:p-2 tw:text-center tw:text-sm">
-                Loading...
-              </div>
-            )}
-            {!isLoadingFrom && cityFromOptions.length === 0 && (
-              <div className="tw:p-2 tw:text-center tw:text-sm tw:text-secondary">
-                No results found.
-              </div>
-            )}
-            {cityFromOptions.map((data, index) => (
-              <ComboboxOption
-                key={index}
-                value={{ city: data.city, iataCode: data.iataCode }}
-                className="tw:flex"
-              >
-                <div className="tw:flex tw:justify-start tw:gap-2.5 tw:w-full">
-                  <GiCommercialAirplane
-                    size={20}
-                    className="tw:text-secondary tw:!shrink-0 tw:mt-1"
-                  />
-                  <div className="tw:flex tw:flex-col">
-                    <div className="tw:truncate">
-                      {data.city} ({data.iataCode})
-                    </div>
-                    <div className="tw:text-secondary tw:text-sm tw:truncate">
-                      {data.airport} ({data.country})
-                    </div>
-                  </div>
-                </div>
-              </ComboboxOption>
-            ))}
-          </ComboboxOptions>
-        </div>
-      </Combobox>
-
-      {/* To Input */}
-      <Combobox
-        value={currentSegment?.to || { city: "", iataCode: "" }}
-        onChange={(value) => setValue(`segments.${segmentIndex}.to`, value)}
-        onClose={() => setQueryTo("")}
-      >
-        <div className="tw:relative tw:grow">
-          <ComboboxInput
-            id={`to-${segmentIndex}`}
-            name={`segments.${segmentIndex}.to`}
-            displayValue={(data) => data?.city || ""}
-            onChange={(event) => setQueryTo(event.target.value)}
-            placeholder="To"
-            aria-labelledby={`to-label-${segmentIndex}`}
-            className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0"
-          />
-          <label
-            id={`to-label-${segmentIndex}`}
-            htmlFor={`to-${segmentIndex}`}
-            className="tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-focus:scale-80 tw:peer-focus:translate-x-0.5 tw:peer-focus:-translate-y-1.5 tw:peer-focus:text-secondary tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
-          >
-            To
-          </label>
-          <ComboboxOptions className="tw:w-[var(--input-width)] tw:2xl:w-72">
-            {isLoadingTo && (
-              <div className="tw:p-2 tw:text-center tw:text-sm">
-                Loading...
-              </div>
-            )}
-            {!isLoadingTo && cityToOptions.length === 0 && (
-              <div className="tw:p-2 tw:text-center tw:text-sm tw:text-secondary">
-                No results found.
-              </div>
-            )}
-            {cityToOptions.map((data, index) => (
-              <ComboboxOption
-                key={index}
-                value={{ city: data.city, iataCode: data.iataCode }}
-                className="tw:flex"
-              >
-                <div className="tw:flex tw:justify-start tw:gap-2.5 tw:w-full">
-                  <GiCommercialAirplane
-                    size={20}
-                    className="tw:text-secondary tw:!shrink-0 tw:mt-1"
-                  />
-                  <div className="tw:flex tw:flex-col">
-                    <div className="tw:truncate">
-                      {data.city} ({data.iataCode})
-                    </div>
-                    <div className="tw:text-secondary tw:text-sm tw:truncate">
-                      {data.airport} ({data.country})
-                    </div>
-                  </div>
-                </div>
-              </ComboboxOption>
-            ))}
-          </ComboboxOptions>
-        </div>
-      </Combobox>
-
-      {/* Date Input */}
-      <Popover open={dateOpen} onOpenChange={setDateOpen}>
-        <PopoverTrigger asChild>
-          <div className="tw:relative tw:grow">
-            <input
-              id={`depart-${segmentIndex}`}
-              name={`segments.${segmentIndex}.depart`}
-              type="text"
-              className="tw:peer tw:py-[10px] tw:ps-5 tw:pe-16 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none"
-              placeholder="Depart"
-              aria-labelledby={`depart-label-${segmentIndex}`}
-              value={
-                currentSegment?.depart instanceof Date
-                  ? currentSegment.depart.toLocaleDateString()
-                  : ""
-              }
-              readOnly
+    return (
+      <div className="tw:flex tw:flex-col tw:lg:flex-row tw:items-center tw:lg:space-x-4 tw:space-y-4">
+        {/* From Input */}
+        <Combobox
+          value={currentSegment?.from || { city: "", iataCode: "" }}
+          onChange={(value) => setValue(`segments.${segmentIndex}.from`, value)}
+          onClose={() => setQueryFrom("")}
+        >
+          <div className="tw:relative tw:z-40 tw:w-full">
+            <ComboboxInput
+              id={`from-${segmentIndex}`}
+              name={`segments.${segmentIndex}.from`}
+              displayValue={(data) => data?.city || ""}
+              onChange={(event) => setQueryFrom(event.target.value)}
+              placeholder="From"
+              aria-labelledby={`from-label-${segmentIndex}`}
+              className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0"
             />
             <label
-              id={`depart-label-${segmentIndex}`}
-              htmlFor={`depart-${segmentIndex}`}
-              className="tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
+              id={`from-label-${segmentIndex}`}
+              htmlFor={`from-${segmentIndex}`}
+              className="tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-focus:scale-80 tw:peer-focus:translate-x-0.5 tw:peer-focus:-translate-y-1.5 tw:peer-focus:text-secondary tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
             >
-              Depart
+              From
             </label>
+            <ComboboxOptions className="tw:w-[var(--input-width)] tw:2xl:w-72">
+              {isLoadingFrom && (
+                <div className="tw:p-2 tw:text-center tw:text-sm">
+                  Loading...
+                </div>
+              )}
+              {!isLoadingFrom && cityFromOptions.length === 0 && (
+                <div className="tw:p-2 tw:text-center tw:text-sm tw:text-secondary">
+                  No results found.
+                </div>
+              )}
+              {cityFromOptions.map((data, index) => (
+                <ComboboxOption
+                  key={index}
+                  value={{ city: data.city, iataCode: data.iataCode }}
+                  className="tw:flex"
+                >
+                  <div className="tw:flex tw:justify-start tw:gap-2.5 tw:w-full">
+                    <GiCommercialAirplane
+                      size={20}
+                      className="tw:text-secondary tw:!shrink-0 tw:mt-1"
+                    />
+                    <div className="tw:flex tw:flex-col">
+                      <div className="tw:truncate">
+                        {data.city} ({data.iataCode})
+                      </div>
+                      <div className="tw:text-secondary tw:text-sm tw:truncate">
+                        {data.airport} ({data.country})
+                      </div>
+                    </div>
+                  </div>
+                </ComboboxOption>
+              ))}
+            </ComboboxOptions>
           </div>
-        </PopoverTrigger>
-        <PopoverContent>
-          <Calendar
-            selected={currentSegment?.depart}
-            onSelect={(d) => {
-              setValue(`segments.${segmentIndex}.depart`, d);
-              handleDateClose();
-            }}
-            disabled={{ before: new Date() }}
-          />
-        </PopoverContent>
-      </Popover>
+        </Combobox>
 
-      {/* Action Buttons */}
-      <div className="tw:flex tw:items-center tw:gap-2 tw:justify-end">
+        {/* To Input */}
+        <Combobox
+          value={currentSegment?.to || { city: "", iataCode: "" }}
+          onChange={(value) => setValue(`segments.${segmentIndex}.to`, value)}
+          onClose={() => setQueryTo("")}
+        >
+          <div className="tw:relative tw:w-full">
+            <ComboboxInput
+              id={`to-${segmentIndex}`}
+              name={`segments.${segmentIndex}.to`}
+              displayValue={(data) => data?.city || ""}
+              onChange={(event) => setQueryTo(event.target.value)}
+              placeholder="To"
+              aria-labelledby={`to-label-${segmentIndex}`}
+              className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0"
+            />
+            <label
+              id={`to-label-${segmentIndex}`}
+              htmlFor={`to-${segmentIndex}`}
+              className="tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-focus:scale-80 tw:peer-focus:translate-x-0.5 tw:peer-focus:-translate-y-1.5 tw:peer-focus:text-secondary tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
+            >
+              To
+            </label>
+            <ComboboxOptions className="tw:w-[var(--input-width)] tw:2xl:w-72">
+              {isLoadingTo && (
+                <div className="tw:p-2 tw:text-center tw:text-sm">
+                  Loading...
+                </div>
+              )}
+              {!isLoadingTo && cityToOptions.length === 0 && (
+                <div className="tw:p-2 tw:text-center tw:text-sm tw:text-secondary">
+                  No results found.
+                </div>
+              )}
+              {cityToOptions.map((data, index) => (
+                <ComboboxOption
+                  key={index}
+                  value={{ city: data.city, iataCode: data.iataCode }}
+                  className="tw:flex"
+                >
+                  <div className="tw:flex tw:justify-start tw:gap-2.5 tw:w-full">
+                    <GiCommercialAirplane
+                      size={20}
+                      className="tw:text-secondary tw:!shrink-0 tw:mt-1"
+                    />
+                    <div className="tw:flex tw:flex-col">
+                      <div className="tw:truncate">
+                        {data.city} ({data.iataCode})
+                      </div>
+                      <div className="tw:text-secondary tw:text-sm tw:truncate">
+                        {data.airport} ({data.country})
+                      </div>
+                    </div>
+                  </div>
+                </ComboboxOption>
+              ))}
+            </ComboboxOptions>
+          </div>
+        </Combobox>
+
+        {/* Date Input */}
+        <Popover open={dateOpen} onOpenChange={setDateOpen}>
+          <PopoverTrigger asChild>
+            <div className="tw:relative tw:w-full tw:lg:mr-0 tw:mb-0 tw:lg:mb-auto">
+              <input
+                id={`depart-${segmentIndex}`}
+                name={`segments.${segmentIndex}.depart`}
+                type="text"
+                className="tw:peer tw:py-[10px] tw:ps-5 tw:pe-16 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none"
+                placeholder="Depart"
+                aria-labelledby={`depart-label-${segmentIndex}`}
+                value={
+                  currentSegment?.depart instanceof Date
+                    ? currentSegment.depart.toLocaleDateString()
+                    : ""
+                }
+                readOnly
+              />
+              <label
+                id={`depart-label-${segmentIndex}`}
+                htmlFor={`depart-${segmentIndex}`}
+                className="tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
+              >
+                Depart
+              </label>
+            </div>
+          </PopoverTrigger>
+          <PopoverContent>
+            <Calendar
+              selected={currentSegment?.depart}
+              onSelect={(d) => {
+                setValue(`segments.${segmentIndex}.depart`, d);
+                handleDateClose();
+              }}
+              disabled={{ before: new Date() }}
+            />
+          </PopoverContent>
+        </Popover>
+
+        {/* Action Buttons */}
         {fields.length > 2 && (
           <button
             type="button"
             aria-label={`Remove segment ${segmentIndex + 1}`}
             onClick={() => removeSegment(segmentIndex)}
-            className="tw:justify-self-end tw:md:!w-fit tw:px-5 tw:h-[62px] tw:shrink-0 tw:2xl:px-0 tw:2xl:!w-[62px] tw:bg-red-400 tw:!text-white tw:hover:bg-red-400/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
+            className="tw:lg:!ml-4 tw:lg:!mb-4 tw:!mt-4 tw:!ml-auto tw:lg:!mt-0 tw:px-5 tw:h-[62px] tw:shrink-0 tw:2xl:px-0 tw:2xl:!w-[62px] tw:bg-red-400 tw:!text-white tw:hover:bg-red-400/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
             disabled={isSubmitting}
           >
             <Trash size={28} />
           </button>
         )}
-        {segmentIndex === fields.length - 1 && fields.length < 6 && (
-          <button
-            type="button"
-            aria-label="Add new segment"
-            onClick={addSegment}
-            className="tw:justify-self-end tw:md:!w-fit tw:px-5 tw:h-[62px] tw:shrink-0 tw:2xl:px-0 tw:2xl:!w-[62px] tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
-            disabled={isSubmitting}
-          >
-            <Plus size={28} />
-          </button>
-        )}
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
 
 SegmentRow.propTypes = {
   segmentIndex: PropTypes.number.isRequired,
@@ -303,10 +299,7 @@ const MultiCityForm = ({ initialValues, onSearch }) => {
   const isInitialMount = useRef(true);
 
   // Use session storage to persist form data
-  const [, setSessionData] = useSessionStorage(
-    "multicity-form-data",
-    {}
-  );
+  const [, setSessionData] = useSessionStorage("multicity-form-data", {});
 
   useEffect(() => {
     // Skip the effect on the initial render and if the form isn't ready.
@@ -326,7 +319,6 @@ const MultiCityForm = ({ initialValues, onSearch }) => {
     };
     setSessionData(sessionFormData);
   }, [debouncedFormValues, setSessionData]);
-
 
   // Memoized cabin label mapping
   const cabinLabelMap = useMemo(
@@ -406,24 +398,32 @@ const MultiCityForm = ({ initialValues, onSearch }) => {
           destinationCity: segment.to.city,
         })),
         travelers: [
-          ...Array(values.travellers.adults).fill(null).map((_, i) => ({
-            id: (i + 1).toString(),
-            travelerType: "ADULT"
-          })),
-          ...Array(values.travellers.children).fill(null).map((_, i) => ({
-            id: (values.travellers.adults + i + 1).toString(),
-            travelerType: "CHILD"
-          }))
+          ...Array(values.travellers.adults)
+            .fill(null)
+            .map((_, i) => ({
+              id: (i + 1).toString(),
+              travelerType: "ADULT",
+            })),
+          ...Array(values.travellers.children)
+            .fill(null)
+            .map((_, i) => ({
+              id: (values.travellers.adults + i + 1).toString(),
+              travelerType: "CHILD",
+            })),
         ],
         sources: ["GDS"],
         searchCriteria: {
           maxFlightOffers: 25,
           flightFilters: {
-            cabinRestrictions: [{
-              cabin: travelClass,
-              coverage: "MOST_SEGMENTS",
-              originDestinationIds: values.segments.map((_, index) => (index + 1).toString()),
-            }],
+            cabinRestrictions: [
+              {
+                cabin: travelClass,
+                coverage: "MOST_SEGMENTS",
+                originDestinationIds: values.segments.map((_, index) =>
+                  (index + 1).toString()
+                ),
+              },
+            ],
           },
         },
       };
@@ -445,10 +445,9 @@ const MultiCityForm = ({ initialValues, onSearch }) => {
     [navigate, onSearch, setSessionData]
   );
 
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-      <fieldset className="tw:space-y-4">
+      <fieldset className="tw:space-y-4 tw:lg:space-y-0">
         {fields.map((field, segmentIndex) => (
           <SegmentRow
             key={field.id}
@@ -462,163 +461,191 @@ const MultiCityForm = ({ initialValues, onSearch }) => {
           />
         ))}
 
-        <div className="tw:flex tw:items-center tw:gap-4 tw:w-full">
+        {fields.length < 6 && (
+          <button
+            type="button"
+            aria-label="Add new segment"
+            onClick={addSegment}
+            className="tw:justify-self-end tw:md:!w-fit tw:px-5 tw:h-[62px] tw:shrink-0 tw:2xl:px-0 tw:2xl:!w-[62px] tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
+            disabled={isSubmitting}
+          >
+            <Plus size={28} />
+          </button>
+        )}
+
+        <div className="tw:flex tw:flex-col tw:md:flex-row tw:items-center tw:lg:justify-end tw:gap-4 tw:w-full tw:mt-4">
           {/* Travellers & Cabin Class */}
-          <Popover open={travellersOpen} onOpenChange={setTravellersOpen}>
-            <PopoverTrigger asChild>
-              <div className="tw:relative tw:grow">
-                <input
-                  id="travellers-input"
-                  name="travellers"
-                  type="text"
-                  className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none"
-                  placeholder="Travellers"
-                  aria-labelledby="travellers-label"
-                  value={travellersSummary}
-                  readOnly
-                />
-                <label
-                  id="travellers-label"
-                  htmlFor="travellers-input"
-                  className="tw:max-w-full tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
-                >
-                  Travellers & Cabin Class
-                </label>
-              </div>
-            </PopoverTrigger>
-            <PopoverContent>
-              {/* Cabin Selection */}
-              <div className="tw:flex tw:flex-col tw:mb-3">
-                <label htmlFor="cabin-select" className="tw:font-medium">Cabin Class</label>
-                <Select
-                  value={travellers.cabin}
-                  onValueChange={(value) => setValue("travellers.cabin", value)}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select Cabin" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="economy">Economy</SelectItem>
-                    <SelectItem value="premium_economy">
-                      Premium Economy
-                    </SelectItem>
-                    <SelectItem value="business">Business</SelectItem>
-                    <SelectItem value="first_class">First Class</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+          <div className="tw:w-full tw:lg:w-[350px]">
+            <Popover open={travellersOpen} onOpenChange={setTravellersOpen}>
+              <PopoverTrigger asChild>
+                <div className="tw:relative">
+                  <input
+                    id="travellers-input"
+                    name="travellers"
+                    type="text"
+                    className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none"
+                    placeholder="Travellers"
+                    aria-labelledby="travellers-label"
+                    value={travellersSummary}
+                    readOnly
+                  />
+                  <label
+                    id="travellers-label"
+                    htmlFor="travellers-input"
+                    className="tw:max-w-full tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
+                  >
+                    Travellers & Cabin Class
+                  </label>
+                </div>
+              </PopoverTrigger>
+              <PopoverContent>
+                {/* Cabin Selection */}
+                <div className="tw:flex tw:flex-col tw:mb-3">
+                  <label htmlFor="cabin-select" className="tw:font-medium">
+                    Cabin Class
+                  </label>
+                  <Select
+                    value={travellers.cabin}
+                    onValueChange={(value) =>
+                      setValue("travellers.cabin", value)
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Cabin" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="economy">Economy</SelectItem>
+                      <SelectItem value="premium_economy">
+                        Premium Economy
+                      </SelectItem>
+                      <SelectItem value="business">Business</SelectItem>
+                      <SelectItem value="first_class">First Class</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
 
-              {/* Adult Travellers */}
-              <div className="tw:flex tw:flex-col tw:mb-3">
-                <label className="tw:font-medium">Adults (Age 18+)</label>
-                <div className="tw:flex tw:items-center tw:justify-between tw:gap-2 tw:border tw:border-muted tw:!rounded-md tw:p-2">
+                {/* Adult Travellers */}
+                <div className="tw:flex tw:flex-col tw:mb-3">
+                  <label className="tw:font-medium">Adults (Age 18+)</label>
+                  <div className="tw:flex tw:items-center tw:justify-between tw:gap-2 tw:border tw:border-muted tw:!rounded-md tw:p-2">
+                    <button
+                      type="button"
+                      aria-label="Decrease adult count"
+                      onClick={() =>
+                        setValue(
+                          "travellers.adults",
+                          Math.max(1, travellers.adults - 1)
+                        )
+                      }
+                      className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100"
+                    >
+                      <Minus />
+                    </button>
+                    <span
+                      className="tw:text-lg"
+                      aria-label={`${travellers.adults} adults`}
+                    >
+                      {travellers.adults}
+                    </span>
+                    <button
+                      type="button"
+                      aria-label="Increase adult count"
+                      onClick={() =>
+                        setValue(
+                          "travellers.adults",
+                          Math.min(9, travellers.adults + 1)
+                        )
+                      }
+                      className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100"
+                    >
+                      <Plus />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Children Travellers */}
+                <div className="tw:flex tw:flex-col tw:mb-3">
+                  <label className="tw:font-medium">Children (Age 0-17)</label>
+                  <div className="tw:flex tw:items-center tw:justify-between tw:gap-2 tw:border tw:border-muted tw:!rounded-md tw:p-2">
+                    <button
+                      type="button"
+                      aria-label="Decrease children count"
+                      onClick={() =>
+                        setValue(
+                          "travellers.children",
+                          Math.max(0, travellers.children - 1)
+                        )
+                      }
+                      className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100"
+                    >
+                      <Minus />
+                    </button>
+                    <span
+                      className="tw:text-lg"
+                      aria-label={`${travellers.children} children`}
+                    >
+                      {travellers.children}
+                    </span>
+                    <button
+                      type="button"
+                      aria-label="Increase children count"
+                      onClick={() =>
+                        setValue(
+                          "travellers.children",
+                          Math.min(9, travellers.children + 1)
+                        )
+                      }
+                      className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100"
+                    >
+                      <Plus />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Apply & Reset Button */}
+                <div className="tw:flex tw:items-center tw:flex-wrap tw:lg:flex-nowrap tw:gap-2">
                   <button
                     type="button"
-                    aria-label="Decrease adult count"
-                    onClick={() =>
-                      setValue(
-                        "travellers.adults",
-                        Math.max(1, travellers.adults - 1)
-                      )
-                    }
-                    className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100"
+                    aria-label="Reset traveller settings"
+                    onClick={() => {
+                      if (initialValues?.travellers) {
+                        setValue("travellers", { ...initialValues.travellers });
+                        setAppliedTravellers({ ...initialValues.travellers });
+                      } else {
+                        setValue("travellers", {
+                          cabin: "economy",
+                          adults: 1,
+                          children: 0,
+                        });
+                        setAppliedTravellers(null);
+                      }
+                      handleTravellersClose();
+                    }}
+                    className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100 tw:font-medium"
                   >
-                    <Minus />
+                    Reset
                   </button>
-                  <span className="tw:text-lg" aria-label={`${travellers.adults} adults`}>{travellers.adults}</span>
                   <button
                     type="button"
-                    aria-label="Increase adult count"
-                    onClick={() =>
-                      setValue(
-                        "travellers.adults",
-                        Math.min(9, travellers.adults + 1)
-                      )
-                    }
-                    className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100"
+                    aria-label="Apply traveller settings"
+                    onClick={() => {
+                      setAppliedTravellers({ ...travellers });
+                      handleTravellersClose();
+                    }}
+                    className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:transition tw:!rounded tw:duration-100 tw:font-medium"
                   >
-                    <Plus />
+                    Apply
                   </button>
                 </div>
-              </div>
-
-              {/* Children Travellers */}
-              <div className="tw:flex tw:flex-col tw:mb-3">
-                <label className="tw:font-medium">Children (Age 0-17)</label>
-                <div className="tw:flex tw:items-center tw:justify-between tw:gap-2 tw:border tw:border-muted tw:!rounded-md tw:p-2">
-                  <button
-                    type="button"
-                    aria-label="Decrease children count"
-                    onClick={() =>
-                      setValue(
-                        "travellers.children",
-                        Math.max(0, travellers.children - 1)
-                      )
-                    }
-                    className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100"
-                  >
-                    <Minus />
-                  </button>
-                  <span className="tw:text-lg" aria-label={`${travellers.children} children`}>{travellers.children}</span>
-                  <button
-                    type="button"
-                    aria-label="Increase children count"
-                    onClick={() =>
-                      setValue(
-                        "travellers.children",
-                        Math.min(9, travellers.children + 1)
-                      )
-                    }
-                    className="tw:size-8 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:text-white tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100"
-                  >
-                    <Plus />
-                  </button>
-                </div>
-              </div>
-
-              {/* Apply & Reset Button */}
-              <div className="tw:flex tw:items-center tw:flex-wrap tw:lg:flex-nowrap tw:gap-2">
-                <button
-                  type="button"
-                  aria-label="Reset traveller settings"
-                  onClick={() => {
-                    if (initialValues?.travellers) {
-                      setValue("travellers", { ...initialValues.travellers });
-                      setAppliedTravellers({ ...initialValues.travellers });
-                    } else {
-                      setValue("travellers", {
-                        cabin: "economy",
-                        adults: 1,
-                        children: 0,
-                      });
-                      setAppliedTravellers(null);
-                    }
-                    handleTravellersClose();
-                  }}
-                  className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100 tw:font-medium"
-                >
-                  Reset
-                </button>
-                <button
-                  type="button"
-                  aria-label="Apply traveller settings"
-                  onClick={() => {
-                    setAppliedTravellers({ ...travellers });
-                    handleTravellersClose();
-                  }}
-                  className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:transition tw:!rounded tw:duration-100 tw:font-medium"
-                >
-                  Apply
-                </button>
-              </div>
-            </PopoverContent>
-          </Popover>
+              </PopoverContent>
+            </Popover>
+          </div>
 
           {/* Search Button */}
           <button
             type="submit"
             aria-label="Search multi-city flights"
-            className="tw:w-full tw:md:!w-fit tw:px-5 tw:h-[62px] tw:shrink-0 tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
+            className="tw:w-full tw:md:w-fit tw:lg:w-[200px] tw:px-5 tw:h-[62px] tw:shrink-0 tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
             disabled={isSubmitting}
           >
             <IoSearchOutline size={28} />
