@@ -201,7 +201,7 @@ const FlightSearchPage = () => {
         console.warn("Failed to parse multi-city form data:", error);
       }
     }
-  }, [tripType, sessionData, hasInitialized]);
+  }, [tripType, sessionData, hasInitialized, searchMulticityFlights]);
 
   // Memoized flight offers query parameters to prevent unnecessary re-renders
   const flightOffersParams = useMemo(
