@@ -87,18 +87,23 @@ const FlightSearchPage = () => {
   // Initialize multi-city form data from sessionStorage
   const [hasInitialized, setHasInitialized] = useState(false);
 
+  // Multi-city Flight Offers
+  const { mutate: searchMulticityFlights, isPending: isMulticityLoading } =
+    useMulticityFlightOffers();
+
   useEffect(() => {
     if (tripType === "multicity" && sessionData && !hasInitialized) {
       try {
         console.log("Loading multi-city session data:", sessionData);
         // Extract form data without the type field
-        const { type, ...formData } = sessionData;
+        const { ...formData } = sessionData;
 
         // Convert to the format expected by MultiCityFlightSearchPageHeader
         if (formData.segments && formData.travellers) {
-          const travelClass = formData.travellers.cabin === "premium_economy"
-            ? "PREMIUM_ECONOMY"
-            : formData.travellers.cabin.toUpperCase();
+          const travelClass =
+            formData.travellers.cabin === "premium_economy"
+              ? "PREMIUM_ECONOMY"
+              : formData.travellers.cabin.toUpperCase();
 
           const convertedData = {
             // Convert segments to originDestinations format for header display
@@ -114,30 +119,36 @@ const FlightSearchPage = () => {
             })),
             // Convert travellers to travelers format for header display
             travelers: [
-              ...Array(formData.travellers.adults).fill(null).map((_, i) => ({
-                id: (i + 1).toString(),
-                travelerType: "ADULT"
-              })),
-              ...Array(formData.travellers.children).fill(null).map((_, i) => ({
-                id: (formData.travellers.adults + i + 1).toString(),
-                travelerType: "CHILD"
-              }))
+              ...Array(formData.travellers.adults)
+                .fill(null)
+                .map((_, i) => ({
+                  id: (i + 1).toString(),
+                  travelerType: "ADULT",
+                })),
+              ...Array(formData.travellers.children)
+                .fill(null)
+                .map((_, i) => ({
+                  id: (formData.travellers.adults + i + 1).toString(),
+                  travelerType: "CHILD",
+                })),
             ],
             searchCriteria: {
               flightFilters: {
-                cabinRestrictions: [{
-                  cabin: travelClass
-                }]
-              }
+                cabinRestrictions: [
+                  {
+                    cabin: travelClass,
+                  },
+                ],
+              },
             },
             // Keep original form data for form re-population, ensuring dates are Date objects
             originalFormData: {
               ...formData,
-              segments: formData.segments.map(segment => ({
+              segments: formData.segments.map((segment) => ({
                 ...segment,
-                depart: segment.depart ? new Date(segment.depart) : ""
-              }))
-            }
+                depart: segment.depart ? new Date(segment.depart) : "",
+              })),
+            },
           };
           setMulticityValues(convertedData);
           console.log("Multi-city form values converted:", convertedData);
@@ -145,23 +156,27 @@ const FlightSearchPage = () => {
           // Trigger automatic search like one-way and round-way forms do
           const apiSearchData = {
             currencyCode: "USD",
-            originDestinations: convertedData.originDestinations.map(od => ({
+            originDestinations: convertedData.originDestinations.map((od) => ({
               ...od,
               departureDateTimeRange: {
                 ...od.departureDateTimeRange,
-                time: "10:00:00"
-              }
+                time: "10:00:00",
+              },
             })),
             travelers: convertedData.travelers,
             sources: ["GDS"],
             searchCriteria: {
               maxFlightOffers: 25,
               flightFilters: {
-                cabinRestrictions: [{
-                  cabin: travelClass,
-                  coverage: "MOST_SEGMENTS",
-                  originDestinationIds: convertedData.originDestinations.map(od => od.id),
-                }],
+                cabinRestrictions: [
+                  {
+                    cabin: travelClass,
+                    coverage: "MOST_SEGMENTS",
+                    originDestinationIds: convertedData.originDestinations.map(
+                      (od) => od.id
+                    ),
+                  },
+                ],
               },
             },
           };
@@ -209,13 +224,6 @@ const FlightSearchPage = () => {
   // Flight Offers (for one-way and round-way)
   const { isLoading, data: flightOffersData } =
     useFlightOffers(flightOffersParams);
-
-  // Multi-city Flight Offers
-  const {
-    mutate: searchMulticityFlights,
-    isPending: isMulticityLoading,
-    data: multicityData,
-  } = useMulticityFlightOffers();
 
   const {
     selectedFlexibleDate,
@@ -267,9 +275,14 @@ const FlightSearchPage = () => {
                 {/* Multi City Form */}
                 {tripType === "multicity" && (
                   <MultiCityForm
-                    initialValues={multicityValues?.originalFormData || multicityValues}
+                    initialValues={
+                      multicityValues?.originalFormData || multicityValues
+                    }
                     onSearch={(searchData) => {
-                      console.log("Multi-city search triggered with data:", searchData);
+                      console.log(
+                        "Multi-city search triggered with data:",
+                        searchData
+                      );
                       searchMulticityFlights(searchData, {
                         onSuccess: (data) => {
                           console.log("Multi-city search successful:", data);

@@ -303,7 +303,7 @@ const MultiCityForm = ({ initialValues, onSearch }) => {
   const isInitialMount = useRef(true);
 
   // Use session storage to persist form data
-  const [sessionData, setSessionData] = useSessionStorage(
+  const [, setSessionData] = useSessionStorage(
     "multicity-form-data",
     {}
   );
