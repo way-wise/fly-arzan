@@ -112,7 +112,7 @@ const FlightSearchPage = () => {
               originLocationCode: segment.from.iataCode,
               destinationLocationCode: segment.to.iataCode,
               departureDateTimeRange: {
-                date: formatDateForURL(segment.depart),
+                date: formatDateForURL(new Date(segment.depart)),
               },
               originCity: segment.from.city,
               destinationCity: segment.to.city,
