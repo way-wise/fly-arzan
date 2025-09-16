@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState, useEffect, useMemo, useCallback, useRef, memo } from "react";
+import { useState, useEffect, useMemo, useCallback, memo } from "react";
 import { GiCommercialAirplane } from "react-icons/gi";
 import { Minus, Plus, Trash } from "lucide-react";
 import Calendar from "../../calendar";
@@ -295,30 +295,8 @@ const MultiCityForm = ({ initialValues, onSearch }) => {
   const formValues = watch();
   const { segments, travellers } = formValues;
 
-  const [debouncedFormValues] = useDebounceValue(formValues, 1000);
-  const isInitialMount = useRef(true);
-
   // Use session storage to persist form data
   const [, setSessionData] = useSessionStorage("multicity-form-data", {});
-
-  useEffect(() => {
-    // Skip the effect on the initial render and if the form isn't ready.
-    if (
-      isInitialMount.current ||
-      !debouncedFormValues.segments ||
-      debouncedFormValues.segments.length === 0
-    ) {
-      isInitialMount.current = false;
-      return;
-    }
-
-    // Update session storage with current form values
-    const sessionFormData = {
-      ...debouncedFormValues,
-      type: "multicity",
-    };
-    setSessionData(sessionFormData);
-  }, [debouncedFormValues, setSessionData]);
 
   // Memoized cabin label mapping
   const cabinLabelMap = useMemo(
@@ -431,6 +409,11 @@ const MultiCityForm = ({ initialValues, onSearch }) => {
       // Also store the original form data for session storage
       const sessionFormData = {
         ...values,
+        // Serialize dates before storing in session to prevent race conditions
+        segments: values.segments.map((segment) => ({
+          ...segment,
+          depart: segment.depart ? formatDateForURL(segment.depart) : "",
+        })),
         type: "multicity",
         travelClass,
       };

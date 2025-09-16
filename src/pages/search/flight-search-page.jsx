@@ -112,7 +112,7 @@ const FlightSearchPage = () => {
               originLocationCode: segment.from.iataCode,
               destinationLocationCode: segment.to.iataCode,
               departureDateTimeRange: {
-                date: formatDateForURL(new Date(segment.depart)),
+                date: formatDateForURL(parseDateFromURL(segment.depart)),
               },
               originCity: segment.from.city,
               destinationCity: segment.to.city,
@@ -185,6 +185,14 @@ const FlightSearchPage = () => {
           searchMulticityFlights(apiSearchData, {
             onSuccess: (data) => {
               console.log("Auto multi-city search successful:", data);
+              if (
+                data?.data?.length === 0 &&
+                data?.warnings?.[0]?.title === "IncompleteSearchWarning"
+              ) {
+                toast.warning(
+                  "No complete trips were found for the selected cities and dates. Please try adjusting your search."
+                );
+              }
               setMulticityResults(data);
             },
             onError: (error) => {
@@ -286,6 +294,15 @@ const FlightSearchPage = () => {
                       searchMulticityFlights(searchData, {
                         onSuccess: (data) => {
                           console.log("Multi-city search successful:", data);
+                          if (
+                            data?.data?.length === 0 &&
+                            data?.warnings?.[0]?.title ===
+                              "IncompleteSearchWarning"
+                          ) {
+                            toast.warning(
+                              "No complete trips were found for the selected cities and dates. Please try adjusting your search."
+                            );
+                          }
                           // Store results in state for FlightSearchResults component
                           setMulticityResults(data);
                         },
