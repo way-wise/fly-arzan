@@ -160,7 +160,6 @@ const FlightSearchPage = () => {
               ...od,
               departureDateTimeRange: {
                 ...od.departureDateTimeRange,
-                time: "10:00:00",
               },
             })),
             travelers: convertedData.travelers,

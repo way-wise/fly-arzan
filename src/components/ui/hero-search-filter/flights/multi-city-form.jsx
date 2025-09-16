@@ -370,7 +370,6 @@ const MultiCityForm = ({ initialValues, onSearch }) => {
           destinationLocationCode: segment.to.iataCode,
           departureDateTimeRange: {
             date: formatDateForURL(segment.depart),
-            time: "10:00:00",
           },
           originCity: segment.from.city,
           destinationCity: segment.to.city,
