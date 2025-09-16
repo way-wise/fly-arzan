@@ -94,7 +94,6 @@ const FlightSearchPage = () => {
   useEffect(() => {
     if (tripType === "multicity" && sessionData && !hasInitialized) {
       try {
-        console.log("Loading multi-city session data:", sessionData);
         // Extract form data without the type field
         const { ...formData } = sessionData;
 
@@ -151,7 +150,6 @@ const FlightSearchPage = () => {
             },
           };
           setMulticityValues(convertedData);
-          console.log("Multi-city form values converted:", convertedData);
 
           // Trigger automatic search like one-way and round-way forms do
           const apiSearchData = {
@@ -180,10 +178,8 @@ const FlightSearchPage = () => {
             },
           };
 
-          console.log("Auto-triggering multi-city search with:", apiSearchData);
           searchMulticityFlights(apiSearchData, {
             onSuccess: (data) => {
-              console.log("Auto multi-city search successful:", data);
               if (
                 data?.data?.length === 0 &&
                 data?.warnings?.[0]?.title === "IncompleteSearchWarning"
@@ -286,13 +282,8 @@ const FlightSearchPage = () => {
                       multicityValues?.originalFormData || multicityValues
                     }
                     onSearch={(searchData) => {
-                      console.log(
-                        "Multi-city search triggered with data:",
-                        searchData
-                      );
                       searchMulticityFlights(searchData, {
                         onSuccess: (data) => {
-                          console.log("Multi-city search successful:", data);
                           if (
                             data?.data?.length === 0 &&
                             data?.warnings?.[0]?.title ===
