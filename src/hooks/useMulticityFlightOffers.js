@@ -6,6 +6,7 @@ export const useMulticityFlightOffers = () => {
   const axios = useAxios();
 
   const mutation = useMutation({
+    mutationKey: ["multicity-data"],
     mutationFn: (multicityData) =>
       axios.post("/flight-offers", multicityData).then((res) => res.data),
     onError: () => {
