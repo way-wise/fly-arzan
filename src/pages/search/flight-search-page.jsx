@@ -246,6 +246,36 @@ const FlightSearchPage = () => {
     return OneWayFilter;
   }, [tripType]);
 
+  // Create search context for flight cards
+  const searchContext = useMemo(() => {
+    const context = {
+      tripType,
+      searchParams: Object.fromEntries(searchParams.entries()),
+      adults: parseInt(searchParams.get("adults")) || 1,
+      children: parseInt(searchParams.get("children")) || 0,
+      travelClass: searchParams.get("travelClass") || "ECONOMY",
+    };
+
+    // Add route information based on trip type
+    if (tripType === "one-way" || tripType === "round-way") {
+      if (initialValues) {
+        context.fromCity = initialValues.flyingFrom?.city;
+        context.toCity = initialValues.flyingTo?.city;
+        context.fromIataCode = initialValues.flyingFrom?.iataCode;
+        context.toIataCode = initialValues.flyingTo?.iataCode;
+        context.departureDate = initialValues.depart;
+        if (tripType === "round-way" && initialValues.return) {
+          context.returnDate = initialValues.return;
+        }
+      }
+    } else if (tripType === "multicity" && multicityValues) {
+      // Handle multi-city context
+      context.segments = multicityValues.originalFormData?.segments || multicityValues.segments || [];
+    }
+
+    return context;
+  }, [tripType, searchParams, initialValues, multicityValues]);
+
   return (
     <>
       <SidebarFilterProvider>
@@ -344,6 +374,7 @@ const FlightSearchPage = () => {
                         ? multicityResults
                         : flightOffersData
                     }
+                    searchContext={searchContext}
                   />
                 </div>
               </div>

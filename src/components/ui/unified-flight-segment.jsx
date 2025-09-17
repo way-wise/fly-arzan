@@ -1,0 +1,208 @@
+import { RiPlaneLine } from "react-icons/ri";
+import { memo } from "react";
+import {
+  getAirlineLogoUrl,
+  formatDurationFromMinutes,
+  formatDateFromISO,
+} from "@/lib/flight-utils";
+import PropTypes from "prop-types";
+
+const UnifiedFlightSegment = memo(({
+  segment,
+  tripType,
+  segmentIndex,
+  totalSegments,
+  segmentLabel
+}) => {
+  // Handle different data structures based on trip type
+  const flights = segment.flights || [];
+  if (flights.length === 0) return null;
+
+  const firstFlight = flights[0];
+  const lastFlight = flights[flights.length - 1];
+
+  // Calculate total duration for this segment
+  const totalDurationMinutes = segment.totalDurationMinutes || flights.reduce(
+    (acc, flight) => acc + (flight.durationMinutes || 0),
+    0
+  );
+
+  // Safely get flight times and airports
+  const departureTime = firstFlight.departure?.time || "00:00";
+  const arrivalTime = lastFlight.arrival?.time || "00:00";
+  const departureAirport = firstFlight.departure?.airport || firstFlight.departure?.iataCode || "N/A";
+  const arrivalAirport = lastFlight.arrival?.airport || lastFlight.arrival?.iataCode || "N/A";
+  const airlineCode = firstFlight.airlineCode || "XX";
+  const flightNumber = firstFlight.flightNumber || "0000";
+
+  // Determine segment type for labeling
+  const getSegmentTypeLabel = () => {
+    if (tripType === "round-trip") {
+      return segmentIndex === 0 ? "Outbound" : "Return";
+    } else if (tripType === "multi-city") {
+      return segmentLabel || `Segment ${segmentIndex + 1}`;
+    }
+    return ""; // No label for one-way
+  };
+
+  const segmentTypeLabel = getSegmentTypeLabel();
+
+  return (
+    <div className="tw:flex tw:flex-col tw:gap-4">
+      {/* Segment Label */}
+      {segmentTypeLabel && (
+        <div className="tw:flex tw:items-center tw:justify-between">
+          <h4 className="tw:text-lg tw:font-semibold tw:text-[#5D586C]">
+            {segmentTypeLabel}
+          </h4>
+          <span className="tw:text-sm tw:text-secondary">
+            {formatDateFromISO(firstFlight.departure.at)}
+          </span>
+        </div>
+      )}
+
+      {/* Flight Details */}
+      <div className="tw:flex tw:items-center tw:justify-between tw:flex-col tw:gap-4 tw:md:gap-0 tw:md:flex-row">
+        {/* Airline Logo & Details */}
+        <div className="tw:flex tw:flex-col tw:justify-center tw:items-center tw:gap-0.5 tw:text-center">
+          {getAirlineLogoUrl(airlineCode) ? (
+            <img
+              src={getAirlineLogoUrl(airlineCode)}
+              alt={firstFlight.airline || airlineCode}
+              className="tw:w-[120px] tw:object-contain"
+            />
+          ) : (
+            <div className="tw:w-[120px] tw:h-[60px] tw:flex tw:items-center tw:justify-center tw:bg-gray-100 tw:rounded">
+              <span className="tw:text-sm tw:text-gray-500">
+                {airlineCode}
+              </span>
+            </div>
+          )}
+          <span className="tw:text-sm tw:text-secondary">
+            {firstFlight.airline || airlineCode}
+          </span>
+          <span className="tw:text-sm tw:text-secondary">
+            {airlineCode} - {flightNumber}
+          </span>
+        </div>
+
+        {/* Flight Path & Times */}
+        <div className="tw:flex tw:items-center tw:gap-6 tw:grow tw:justify-center">
+          {/* Departure */}
+          <div className="tw:flex tw:flex-col tw:gap-1 tw:text-right">
+            <span className="tw:font-semibold tw:text-[20px]">
+              {departureTime}
+            </span>
+            <span className="tw:text-sm tw:text-[#5D586C]">
+              {departureAirport}
+            </span>
+            <span className="tw:text-sm tw:text-[#5D586C]">
+              {firstFlight.departure?.at ? formatDateFromISO(firstFlight.departure.at) : ""}
+            </span>
+          </div>
+
+          {/* Duration & Stops */}
+          <div className="tw:flex tw:items-center tw:gap-2">
+            <div className="tw:flex tw:flex-col tw:text-center tw:gap-1">
+              <span className="tw:text-sm tw:font-semibold">
+                {formatDurationFromMinutes(totalDurationMinutes)}
+              </span>
+              <span className="tw:h-px tw:w-[82px] tw:bg-secondary" />
+              <span className="tw:text-sm tw:text-primary">
+                {(() => {
+                  const stops = flights.length - 1;
+                  if (stops === 0) {
+                    return "Direct";
+                  }
+                  const stopAirports = flights
+                    .slice(0, stops)
+                    .map((flight) => flight.arrival?.airport || flight.arrival?.iataCode || "N/A");
+                  return (
+                    <>
+                      {`${stops} Stop${stops > 1 ? "s" : ""}`}{" "}
+                      {stopAirports.map((airport, index) => (
+                        <strong
+                          key={index}
+                          className="tw:text-[#5D586C] tw:!font-normal"
+                        >
+                          {airport}
+                          {index < stopAirports.length - 1 ? ", " : ""}
+                        </strong>
+                      ))}
+                    </>
+                  );
+                })()}
+              </span>
+            </div>
+            <RiPlaneLine
+              size={24}
+              className="tw:text-secondary tw:rotate-90"
+            />
+          </div>
+
+          {/* Arrival */}
+          <div className="tw:flex tw:flex-col tw:gap-1 tw:text-left">
+            <span className="tw:font-semibold tw:text-[20px]">
+              {arrivalTime}
+            </span>
+            <span className="tw:text-sm tw:text-[#5D586C]">
+              {arrivalAirport}
+            </span>
+            <span className="tw:text-sm tw:text-[#5D586C]">
+              {lastFlight.arrival?.at ? formatDateFromISO(lastFlight.arrival.at) : ""}
+            </span>
+          </div>
+        </div>
+      </div>
+
+
+      {/* Additional Trip Information */}
+      <div className="tw:text-sm tw:text-[#A5A2AD] tw:space-x-2">
+        <span>
+          Journey duration: {formatDurationFromMinutes(totalDurationMinutes)}
+        </span>
+        {flights.length > 1 && (
+          <span>
+            | {flights.length - 1} stop{flights.length > 2 ? "s" : ""}
+          </span>
+        )}
+      </div>
+
+      {/* Separator for multi-segment trips */}
+      {segmentIndex < totalSegments - 1 && (
+        <hr className="tw:my-4 tw:border-[#B3B3B3]" />
+      )}
+    </div>
+  );
+});
+
+UnifiedFlightSegment.displayName = "UnifiedFlightSegment";
+
+UnifiedFlightSegment.propTypes = {
+  segment: PropTypes.shape({
+    flights: PropTypes.arrayOf(
+      PropTypes.shape({
+        departure: PropTypes.shape({
+          time: PropTypes.string.isRequired,
+          airport: PropTypes.string.isRequired,
+          at: PropTypes.string.isRequired,
+        }).isRequired,
+        arrival: PropTypes.shape({
+          time: PropTypes.string.isRequired,
+          airport: PropTypes.string.isRequired,
+          at: PropTypes.string.isRequired,
+        }).isRequired,
+        airline: PropTypes.string,
+        airlineCode: PropTypes.string.isRequired,
+        flightNumber: PropTypes.string.isRequired,
+        durationMinutes: PropTypes.number,
+      })
+    ).isRequired,
+  }).isRequired,
+  tripType: PropTypes.oneOf(["one-way", "round-trip", "multi-city"]).isRequired,
+  segmentIndex: PropTypes.number.isRequired,
+  totalSegments: PropTypes.number.isRequired,
+  segmentLabel: PropTypes.string,
+};
+
+export default UnifiedFlightSegment;

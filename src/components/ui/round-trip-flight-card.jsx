@@ -110,10 +110,44 @@ FlightSegment.propTypes = {
   flights: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-const RoundTripFlightCard = ({ itinerary }) => {
+const RoundTripFlightCard = ({ itinerary, searchContext }) => {
   const navigate = useNavigate();
   const outboundFlights = itinerary.itineraries[0].flights;
   const returnFlights = itinerary.itineraries[1].flights;
+
+  const handleFlightSelect = () => {
+    // Store complete round-trip flight details in session storage
+    const flightDetailsData = {
+      tripType: "round-trip",
+      flightOffer: itinerary,
+      searchParams: searchContext?.searchParams || {},
+      passengerInfo: {
+        adults: searchContext?.adults || 1,
+        children: searchContext?.children || 0,
+        cabin: searchContext?.travelClass || "Economy",
+      },
+      routeInfo: {
+        from: {
+          city: outboundFlights[0].departure.city || searchContext?.fromCity,
+          airport: outboundFlights[0].departure.airport,
+          iataCode: outboundFlights[0].departure.iataCode,
+        },
+        to: {
+          city: outboundFlights[outboundFlights.length - 1].arrival.city || searchContext?.toCity,
+          airport: outboundFlights[outboundFlights.length - 1].arrival.airport,
+          iataCode: outboundFlights[outboundFlights.length - 1].arrival.iataCode,
+        },
+        departureDate: outboundFlights[0].departure.at,
+        returnDate: returnFlights[0].departure.at,
+      },
+    };
+
+    // Store in session storage
+    sessionStorage.setItem("selected-flight-details", JSON.stringify(flightDetailsData));
+
+    // Navigate to details page
+    navigate("/flight/details");
+  };
 
   return (
     <div
@@ -130,7 +164,7 @@ const RoundTripFlightCard = ({ itinerary }) => {
       {/* Price Select Button */}
       <div className="tw:w-full tw:md:w-fit tw:py-4 tw:px-6 tw:bg-[#F2FAFF] tw:rounded-xl tw:flex tw:flex-col tw:items-center tw:gap-3 tw:md:ml-4">
         <button
-          onClick={() => navigate("/flight/details")}
+          onClick={handleFlightSelect}
           className="tw:w-full tw:md:w-fit tw:bg-primary tw:py-2 tw:px-[30px] tw:flex tw:flex-col tw:!text-white tw:!rounded-full hover:tw:bg-primary/90 tw:transition-colors"
         >
           <span className="tw:text-sm">Select</span>
@@ -155,6 +189,14 @@ RoundTripFlightCard.propTypes = {
       })
     ).isRequired,
   }).isRequired,
+  searchContext: PropTypes.shape({
+    searchParams: PropTypes.object,
+    adults: PropTypes.number,
+    children: PropTypes.number,
+    travelClass: PropTypes.string,
+    fromCity: PropTypes.string,
+    toCity: PropTypes.string,
+  }),
 };
 
 export default memo(RoundTripFlightCard);

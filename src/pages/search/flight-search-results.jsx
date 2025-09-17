@@ -30,7 +30,7 @@ import {
   formatDateFromISO,
 } from "@/lib/flight-utils";
 
-const FlightSearchResults = ({ flightOffersData }) => {
+const FlightSearchResults = ({ flightOffersData, searchContext }) => {
   const navigate = useNavigate();
   const { openMobile, setOpenMobile } = useSidebarFilter();
   const [selectedTimeCost, setSelectedTimeCost] = useState("best");
@@ -321,15 +321,45 @@ const FlightSearchResults = ({ flightOffersData }) => {
       <div className="tw:grid tw:grid-cols-1 tw:gap-[30px]">
         {sortedFlights.length > 0 ? (
           sortedFlights.slice(0, visibleCount).map((itinerary) => {
-            if (itinerary.tripType === "round-trip") {
-              return (
-                <RoundTripFlightCard key={itinerary.id} itinerary={itinerary} />
-              );
-            }
+            // FIRST: Check if this is actually a multi-city based on search context
+            // Multi-city flights can have 2+ itineraries but should not be treated as round-trip
+            const isActualMultiCity = searchContext?.tripType === "multicity" ||
+                                    (searchContext?.segments && searchContext.segments.length > 0);
 
-            // Check if this is a multi-city flight (more than 1 itinerary)
-            if (itinerary.itineraries && itinerary.itineraries.length > 1) {
-              // Multi-city flight - use same pattern as round-trip but with variable segments
+            if (isActualMultiCity && itinerary.itineraries && itinerary.itineraries.length > 1) {
+              // Multi-city flight - handle session storage
+              const handleMultiCitySelect = () => {
+                const flightDetailsData = {
+                  tripType: "multi-city",
+                  flightOffer: itinerary,
+                  searchParams: searchContext?.searchParams || {},
+                  passengerInfo: {
+                    adults: searchContext?.adults || 1,
+                    children: searchContext?.children || 0,
+                    cabin: searchContext?.travelClass || "Economy",
+                  },
+                  routeInfo: {
+                    segments: itinerary.itineraries.map((seg, index) => ({
+                      segmentNumber: index + 1,
+                      from: {
+                        city: seg.flights[0].departure.city || seg.flights[0].departure.cityName || searchContext?.segments?.[index]?.from?.city || seg.flights[0].departure.iataCode,
+                        airport: seg.flights[0].departure.airport || seg.flights[0].departure.iataCode,
+                        iataCode: seg.flights[0].departure.iataCode,
+                      },
+                      to: {
+                        city: seg.flights[seg.flights.length - 1].arrival.city || seg.flights[seg.flights.length - 1].arrival.cityName || searchContext?.segments?.[index]?.to?.city || seg.flights[seg.flights.length - 1].arrival.iataCode,
+                        airport: seg.flights[seg.flights.length - 1].arrival.airport || seg.flights[seg.flights.length - 1].arrival.iataCode,
+                        iataCode: seg.flights[seg.flights.length - 1].arrival.iataCode,
+                      },
+                      departureDate: seg.flights[0].departure.at,
+                    })),
+                  },
+                };
+
+                sessionStorage.setItem("selected-flight-details", JSON.stringify(flightDetailsData));
+                navigate("/flight/details");
+              };
+
               return (
                 <div
                   key={itinerary.id}
@@ -444,7 +474,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
                   {/* Price Select Button */}
                   <div className="tw:w-full tw:md:w-fit tw:py-4 tw:px-6 tw:bg-[#F2FAFF] tw:rounded-xl tw:flex tw:flex-col tw:items-center tw:gap-3 tw:md:ml-4">
                     <button
-                      onClick={() => navigate("/flight/details")}
+                      onClick={handleMultiCitySelect}
                       className="tw:w-full tw:md:w-fit tw:bg-primary tw:py-2 tw:px-[30px] tw:flex tw:flex-col tw:!text-white tw:!rounded-full hover:tw:bg-primary/90 tw:transition-colors"
                     >
                       <span className="tw:text-sm">Select</span>
@@ -458,7 +488,14 @@ const FlightSearchResults = ({ flightOffersData }) => {
               );
             }
 
-            // Single itinerary (one-way or single segment)
+            // SECOND: Check if this is a round-trip (only if NOT multi-city)
+            if (!isActualMultiCity && itinerary.tripType === "round-trip") {
+              return (
+                <RoundTripFlightCard key={itinerary.id} itinerary={itinerary} searchContext={searchContext} />
+              );
+            }
+
+            // THIRD: Single itinerary (one-way or single segment)
             const oneWayItinerary = {
               ...itinerary,
               ...itinerary.itineraries[0],
@@ -472,6 +509,7 @@ const FlightSearchResults = ({ flightOffersData }) => {
               <OneWayFlightCard
                 key={itinerary.id}
                 itinerary={oneWayItinerary}
+                searchContext={searchContext}
               />
             );
           })
@@ -507,6 +545,15 @@ FlightSearchResults.propTypes = {
     dictionaries: PropTypes.shape({
       carriers: PropTypes.object,
     }),
+  }),
+  searchContext: PropTypes.shape({
+    searchParams: PropTypes.object,
+    adults: PropTypes.number,
+    children: PropTypes.number,
+    travelClass: PropTypes.string,
+    fromCity: PropTypes.string,
+    toCity: PropTypes.string,
+    tripType: PropTypes.string,
   }),
 };
 

@@ -1,87 +1,270 @@
 import Footer from "@/header-footer/Footer";
 import Header from "@/header-footer/Header";
-import { ArrowRight, ChevronLeft, Dot } from "lucide-react";
+import UnifiedFlightSegment from "@/components/ui/unified-flight-segment";
+import { ChevronLeft } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { RiPlaneLine, RiStarFill, RiStarLine } from "react-icons/ri";
+import { RiStarFill, RiStarLine } from "react-icons/ri";
 import { FaqCollapsible } from "@/components/ui/faq-collapsible";
+import { useEffect, useState } from "react";
 
 const FlightDetailsPage = () => {
   const navigate = useNavigate();
+  const [flightData, setFlightData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const ticketList = [
-    {
-      id: 1,
-      airline: "AGEAN AIRLINES",
-      totalRating: 556,
-      avgRating: 4,
-      price: "$241",
-      totalPrice: "$482",
-    },
-    {
-      id: 2,
-      airline: "FLYDUBAI",
-      totalRating: 738,
-      avgRating: 3,
-      price: "$242",
-      totalPrice: "$482",
-    },
-    {
-      id: 3,
-      airline: "EXPEDIA",
-      totalRating: 274,
-      avgRating: 4,
-      price: "$249",
-      totalPrice: "$482",
-    },
-    {
-      id: 4,
-      airline: "BUDGETAIR",
-      totalRating: 185,
-      avgRating: 5,
-      price: "$249",
-      totalPrice: "$482",
-    },
-    {
-      id: 5,
-      airline: "EDREAMS",
-      totalRating: 798,
-      avgRating: 4,
-      price: "$250",
-      totalPrice: "$482",
-    },
-    {
-      id: 6,
-      airline: "GOTOGATE",
-      totalRating: 423,
-      avgRating: 5,
-      price: "$251",
-      totalPrice: "$482",
-    },
-    {
-      id: 7,
-      airline: "FLIGHTNETWORK",
-      totalRating: 154,
-      avgRating: 2,
-      price: "$252",
-      totalPrice: "$482",
-    },
-    {
-      id: 8,
-      airline: "PRICELINE",
-      totalRating: 647,
-      avgRating: 5,
-      price: "$243",
-      totalPrice: "$482",
-    },
-    {
-      id: 9,
-      airline: "SKY-TOURS",
-      totalRating: 583,
-      avgRating: 5,
-      price: "$246",
-      totalPrice: "$482",
-    },
-  ];
+  useEffect(() => {
+    // Read flight data from session storage
+    const storedData = sessionStorage.getItem("selected-flight-details");
+    if (storedData) {
+      try {
+        const parsedData = JSON.parse(storedData);
+        setFlightData(parsedData);
+      } catch {
+        // Redirect back to search if data is invalid
+        navigate("/search/flight");
+        return;
+      }
+    } else {
+      // No flight data found, redirect to search
+      navigate("/search/flight");
+      return;
+    }
+    setLoading(false);
+  }, [navigate]);
+
+  if (loading) {
+    return (
+      <>
+        <Header />
+        <div className="tw:flex tw:items-center tw:justify-center tw:min-h-screen tw:mt-16 tw:md:mt-[92px]">
+          <div className="tw:flex tw:flex-col tw:items-center tw:gap-4">
+            <div className="tw:animate-spin tw:rounded-full tw:h-12 tw:w-12 tw:border-b-2 tw:border-primary"></div>
+            <div className="tw:text-lg tw:text-secondary">
+              Loading flight details...
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
+  if (!flightData) {
+    return (
+      <>
+        <Header />
+        <div className="tw:flex tw:items-center tw:justify-center tw:min-h-screen tw:mt-16 tw:md:mt-[92px]">
+          <div className="tw:flex tw:flex-col tw:items-center tw:gap-4 tw:text-center">
+            <div className="tw:text-lg tw:text-secondary">
+              No flight data found
+            </div>
+            <Link
+              to="/search/flight"
+              className="tw:bg-primary tw:text-white tw:px-6 tw:py-2 tw:rounded-full tw:no-underline hover:tw:bg-primary/90 tw:transition-colors"
+            >
+              Search Flights
+            </Link>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
+  // Helper function to get route display string
+  const getRouteDisplay = () => {
+    const { tripType, routeInfo, flightOffer } = flightData;
+
+    // Use the session storage tripType, not the processed flight offer tripType
+    // This ensures multi-city is correctly identified even with 2 segments
+    let actualTripType = tripType; // This comes from session storage
+
+    // Double-check: if we have segments in routeInfo, it's definitely multi-city
+    if (routeInfo?.segments && routeInfo.segments.length > 0) {
+      actualTripType = "multi-city";
+    }
+    // Special case: if we have 2 itineraries but the destinations are different, it's multi-city
+    else if (
+      flightOffer?.itineraries?.length === 2 &&
+      tripType === "round-trip"
+    ) {
+      const firstItinerary = flightOffer.itineraries[0];
+      const secondItinerary = flightOffer.itineraries[1];
+      const firstDestination =
+        firstItinerary?.flights?.[firstItinerary.flights.length - 1]?.arrival
+          ?.airport;
+      const secondOrigin = secondItinerary?.flights?.[0]?.departure?.airport;
+      const secondDestination =
+        secondItinerary?.flights?.[secondItinerary.flights.length - 1]?.arrival
+          ?.airport;
+      const firstOrigin = firstItinerary?.flights?.[0]?.departure?.airport;
+
+      // If the final destination is not the same as the original origin, it's multi-city
+      if (secondDestination !== firstOrigin) {
+        actualTripType = "multi-city";
+      }
+    }
+
+    switch (actualTripType) {
+      case "one-way":
+        const fromCity =
+          routeInfo.from?.city || routeInfo.from?.iataCode || "Unknown";
+        const toCity =
+          routeInfo.to?.city || routeInfo.to?.iataCode || "Unknown";
+        return `${fromCity} → ${toCity}`;
+
+      case "round-trip":
+        const rtFromCity =
+          routeInfo.from?.city || routeInfo.from?.iataCode || "Unknown";
+        const rtToCity =
+          routeInfo.to?.city || routeInfo.to?.iataCode || "Unknown";
+        return `${rtFromCity} ⇄ ${rtToCity}`;
+
+      case "multi-city":
+        if (routeInfo.segments && routeInfo.segments.length > 0) {
+          return routeInfo.segments
+            .map((seg) => {
+              const fromCity =
+                seg.from?.city || seg.from?.iataCode || "Unknown";
+              const toCity = seg.to?.city || seg.to?.iataCode || "Unknown";
+              return `${fromCity} → ${toCity}`;
+            })
+            .join(" → ");
+        }
+        // Fallback: try to get from flight offer data
+        if (flightData.flightOffer?.itineraries) {
+          return flightData.flightOffer.itineraries
+            .map((itinerary, index) => {
+              const firstFlight = itinerary.flights?.[0];
+              const lastFlight =
+                itinerary.flights?.[itinerary.flights.length - 1];
+              if (firstFlight && lastFlight) {
+                const fromCity =
+                  firstFlight.departure?.city ||
+                  firstFlight.departure?.iataCode ||
+                  "Unknown";
+                const toCity =
+                  lastFlight.arrival?.city ||
+                  lastFlight.arrival?.iataCode ||
+                  "Unknown";
+                return `${fromCity} → ${toCity}`;
+              }
+              return `Segment ${index + 1}`;
+            })
+            .join(" → ");
+        }
+        return "Multi-city Trip";
+
+      default:
+        return "Flight Details";
+    }
+  };
+
+  // Helper function to get passenger summary
+  const getPassengerSummary = () => {
+    const { passengerInfo, routeInfo, flightOffer, tripType } = flightData;
+    const total = passengerInfo.adults + passengerInfo.children;
+    const travelerText = total === 1 ? "Traveler" : "Travelers";
+    const cabinClass = passengerInfo.cabin
+      .replace("_", " ")
+      .toLowerCase()
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+
+    // Use the SAME logic as getRouteDisplay to determine actual trip type
+    let actualTripType = tripType; // This comes from session storage
+
+    // Double-check: if we have segments in routeInfo, it's definitely multi-city
+    if (routeInfo?.segments && routeInfo.segments.length > 0) {
+      actualTripType = "multi-city";
+    }
+    // Special case: if we have 2 itineraries but the destinations are different, it's multi-city
+    else if (
+      flightOffer?.itineraries?.length === 2 &&
+      tripType === "round-trip"
+    ) {
+      const firstItinerary = flightOffer.itineraries[0];
+      const secondItinerary = flightOffer.itineraries[1];
+      const firstDestination =
+        firstItinerary?.flights?.[firstItinerary.flights.length - 1]?.arrival
+          ?.airport;
+      const secondOrigin = secondItinerary?.flights?.[0]?.departure?.airport;
+      const secondDestination =
+        secondItinerary?.flights?.[secondItinerary.flights.length - 1]?.arrival
+          ?.airport;
+      const firstOrigin = firstItinerary?.flights?.[0]?.departure?.airport;
+
+      // If the final destination is not the same as the original origin, it's multi-city
+      if (secondDestination !== firstOrigin) {
+        actualTripType = "multi-city";
+      }
+    }
+
+    return `${total} ${travelerText} • ${actualTripType.replace(
+      "-",
+      " "
+    )} • ${cabinClass} class`;
+  };
+
+  // Generate dynamic ticket list based on actual flight data
+  const getTicketList = () => {
+    const basePrice = flightData.flightOffer.price || 250;
+    const totalPrice = flightData.flightOffer.totalPrice || basePrice;
+
+    return [
+      {
+        id: 1,
+        airline: "AIRLINE DIRECT",
+        totalRating: 556,
+        avgRating: 5,
+        price: `$${basePrice}`,
+        totalPrice: `$${totalPrice}`,
+      },
+      {
+        id: 2,
+        airline: "EXPEDIA",
+        totalRating: 738,
+        avgRating: 4,
+        price: `$${basePrice + 5}`,
+        totalPrice: `$${totalPrice + 5}`,
+      },
+      {
+        id: 3,
+        airline: "BOOKING.COM",
+        totalRating: 274,
+        avgRating: 4,
+        price: `$${basePrice + 8}`,
+        totalPrice: `$${totalPrice + 8}`,
+      },
+      {
+        id: 4,
+        airline: "BUDGETAIR",
+        totalRating: 185,
+        avgRating: 5,
+        price: `$${basePrice + 12}`,
+        totalPrice: `$${totalPrice + 12}`,
+      },
+      {
+        id: 5,
+        airline: "EDREAMS",
+        totalRating: 798,
+        avgRating: 4,
+        price: `$${basePrice + 15}`,
+        totalPrice: `$${totalPrice + 15}`,
+      },
+      {
+        id: 6,
+        airline: "GOTOGATE",
+        totalRating: 423,
+        avgRating: 3,
+        price: `$${basePrice + 18}`,
+        totalPrice: `$${totalPrice + 18}`,
+      },
+    ];
+  };
+
+  const ticketList = getTicketList();
 
   const renderStars = (avgRating) => {
     const stars = [];
@@ -112,22 +295,21 @@ const FlightDetailsPage = () => {
   return (
     <>
       <Header />
-      <div className="tw:flex tw:flex-col tw:min-h-screen tw:mt-16 tw:md:mt-[92px]">
+      <div className="tw:flex tw:flex-col tw:min-h-screen tw:mt-16 tw:md:mt-[92px] tw:animate-in tw:fade-in tw:duration-300">
         <div className="tw:py-6 tw:bg-[#F2FAFF]">
           <div className="container tw:flex tw:flex-col tw:gap-5">
-            <Link className="tw:flex tw:!text-secondary tw:gap-1 tw:!no-underline">
+            <Link
+              to="/search/flight"
+              className="tw:flex tw:!text-secondary tw:gap-1 tw:!no-underline"
+            >
               <ChevronLeft />
-              <span>Back to My Orders</span>
+              <span>Back to Search Results</span>
             </Link>
             <h1 className="tw:!text-[32px] tw:font-semibold tw:text-[#00000B]">
-              Heathrow
+              {getRouteDisplay()}
             </h1>
-            <div className="tw:flex tw:items-center">
-              <span>1 Traveler</span>
-              <Dot size={48} className="tw:text-secondary" />
-              <span>One way</span>
-              <Dot size={48} className="tw:text-secondary" />
-              <span>Economy class</span>
+            <div className="tw:flex tw:items-center tw:text-[#5D586C] tw:flex-wrap">
+              <span>{getPassengerSummary()}</span>
             </div>
           </div>
         </div>
@@ -198,7 +380,7 @@ const FlightDetailsPage = () => {
                           </span>
                         </div>
                         <button
-                          className="tw:bg-[#50ADD8] tw:!text-white tw:!rounded-full tw:px-[30px] tw:py-2 tw:text-sm"
+                          className="tw:bg-[#50ADD8] tw:!text-white tw:!rounded-full tw:px-[30px] tw:py-2 tw:text-sm hover:tw:bg-[#4A9BC4] tw:transition-colors tw:duration-200"
                           onClick={() => navigate("/loader")}
                         >
                           Select
@@ -216,120 +398,41 @@ const FlightDetailsPage = () => {
 
               {/* Details */}
               <div className="tw:w-full tw:lg:w-[468px] tw:order-1 tw:lg:order-2 tw:shrink-0">
-                <div className="tw:flex tw:items-end tw:justify-between tw:gap-2 tw:mb-6 tw:~text-[#5D586C]">
+                <div className="tw:flex tw:items-end tw:justify-between tw:gap-2 tw:mb-6 tw:text-[#5D586C]">
                   <div className="tw:flex tw:flex-col tw:gap-2">
                     <h4 className="tw:text-xl tw:font-medium">
                       Flight Details
                     </h4>
-                    <p>
-                      <span className=" tw:font-medium mr-1">Outbound</span>
-                      <span>Wed, 3 Sep 2025</span>
-                    </p>
                   </div>
                   <span className="tw:text-sm tw:text-secondary">
                     All times are local
                   </span>
                 </div>
                 <div className="tw:bg-white tw:p-6 tw:rounded-xl tw:shadow">
-                  {/* Format 1 */}
-                  <div className="tw:flex tw:items-center tw:justify-between tw:flex-col tw:gap-4 tw:md:gap-0 tw:md:flex-row">
-                    {/* Airline Logo, Code */}
-                    <div className="tw:flex tw:flex-col tw:justify-center tw:items-center tw:gap-0.5 tw:text-center">
-                      <img
-                        src="/images/airlines/flyDubai.png"
-                        alt="fdlydubai"
-                        className="tw:w-[120px] tw:object-contain"
+                  {/* Dynamic Flight Segments */}
+                  {flightData.flightOffer.itineraries?.length > 0 ? (
+                    flightData.flightOffer.itineraries.map((segment, index) => (
+                      <UnifiedFlightSegment
+                        key={index}
+                        segment={segment}
+                        tripType={flightData.tripType}
+                        segmentIndex={index}
+                        totalSegments={
+                          flightData.flightOffer.itineraries.length
+                        }
+                        segmentLabel={
+                          flightData.tripType === "multi-city" &&
+                          flightData.routeInfo.segments
+                            ? `${flightData.routeInfo.segments[index]?.from?.city} → ${flightData.routeInfo.segments[index]?.to?.city}`
+                            : undefined
+                        }
                       />
-                      <span className="tw:text-sm tw:text-secondary">
-                        fdlydubai
-                      </span>
-                      <span className="tw:text-sm tw:text-secondary">
-                        FDB - 1982
-                      </span>
+                    ))
+                  ) : (
+                    <div className="tw:text-center tw:py-8 tw:text-secondary">
+                      No flight segments found
                     </div>
-
-                    {/* Time, Stop, Airline */}
-                    <div className="tw:flex tw:items-center tw:gap-6 tw:grow tw:justify-center">
-                      {/* Depart */}
-                      <div className="tw:flex tw:flex-col tw:gap-1 tw:text-right">
-                        <span className="tw:font-semibold tw:text-[20px]">
-                          18:35
-                        </span>
-                        <span className="tw:text-sm tw:text-[#5D586C]">
-                          IST
-                        </span>
-                      </div>
-                      {/* Duration & Stop */}
-                      <div className="tw:flex tw:items-center tw:gap-2">
-                        <div className="tw:flex tw:flex-col tw:text-center tw:gap-1">
-                          <span className="tw:text-sm tw:font-semibold">
-                            4h 30
-                          </span>
-                          <span className="tw:h-px tw:w-[82px] tw:bg-secondary" />
-                          <span className="tw:text-sm tw:text-primary">
-                            Direct
-                          </span>
-                        </div>
-                        <RiPlaneLine
-                          size={24}
-                          className="tw:text-secondary tw:rotate-90"
-                        />
-                      </div>
-                      {/* Arrival */}
-                      <div className="tw:flex tw:flex-col tw:gap-1 tw:text-left">
-                        <span className="tw:font-semibold tw:text-[20px]">
-                          00:05
-                        </span>
-                        <span className="tw:text-sm tw:text-[#5D586C]">
-                          DBX
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Format 2 */}
-                  <hr className="tw:h-px tw:w-full tw:my-6 tw:bg-[#B3B3B3]" />
-                  <div className="tw:flex tw:flex-col">
-                    <div className="tw:flex tw:items-center tw:gap-4 tw:text-center">
-                      <img
-                        src="/images/airlines/flyDubai.png"
-                        alt="fdlydubai"
-                        className="tw:w-[82px] tw:object-contain"
-                      />
-                      <div className="tw:space-x-2">
-                        <span className="tw:text-sm tw:text-secondary">
-                          fdlydubai
-                        </span>
-                        <span className="tw:text-sm tw:text-secondary">
-                          FDB - 1982
-                        </span>
-                      </div>
-                    </div>
-                    <div className="tw:px-4 tw:border-l tw:flex tw:flex-col tw:gap-3 tw:justify-between tw:border-[#B3B3B3]">
-                      <h6 className="tw:text-sm tw:space-x-[19px] tw:!mb-0">
-                        <span>18:35</span>
-                        <span>IST Istanbul</span>
-                      </h6>
-                      <div className="tw:px-[10px] tw:py-2 tw:rounded-md tw:flex tw:flex-col tw:items-center tw:bg-[#F2F2F2] tw:w-fit">
-                        <span className="tw:font-semibold tw:font-sm">
-                          4h 30
-                        </span>
-                        <span className="tw:text-[12px] tw:text-primary">
-                          Direct
-                        </span>
-                      </div>
-                      <h6 className="tw:text-sm tw:space-x-[19px] tw:!mb-0">
-                        <span>00:05</span>
-                        <span>DXB Dubai</span>
-                      </h6>
-                    </div>
-                  </div>
-
-                  {/* Read friendly Time, Duration description */}
-                  <p className="tw:text-sm tw:text-[#A5A2AD] tw:!mt-4">
-                    <span>Arrives: Thu, 4 Sep 2025 |</span>
-                    <span> Journey duration: 4 hours 30 minutes</span>
-                  </p>
+                  )}
                 </div>
               </div>
             </div>

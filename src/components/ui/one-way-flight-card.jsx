@@ -8,8 +8,41 @@ import {
 } from "@/lib/flight-utils";
 import PropTypes from "prop-types";
 
-const OneWayFlightCard = memo(({ itinerary }) => {
+const OneWayFlightCard = memo(({ itinerary, searchContext }) => {
   const navigate = useNavigate();
+
+  const handleFlightSelect = () => {
+    // Store complete flight details in session storage
+    const flightDetailsData = {
+      tripType: "one-way",
+      flightOffer: itinerary,
+      searchParams: searchContext?.searchParams || {},
+      passengerInfo: {
+        adults: searchContext?.adults || 1,
+        children: searchContext?.children || 0,
+        cabin: searchContext?.travelClass || "Economy",
+      },
+      routeInfo: {
+        from: {
+          city: itinerary.flights[0].departure.city || searchContext?.fromCity,
+          airport: itinerary.flights[0].departure.airport,
+          iataCode: itinerary.flights[0].departure.iataCode,
+        },
+        to: {
+          city: itinerary.flights[itinerary.flights.length - 1].arrival.city || searchContext?.toCity,
+          airport: itinerary.flights[itinerary.flights.length - 1].arrival.airport,
+          iataCode: itinerary.flights[itinerary.flights.length - 1].arrival.iataCode,
+        },
+        departureDate: itinerary.flights[0].departure.at,
+      },
+    };
+
+    // Store in session storage
+    sessionStorage.setItem("selected-flight-details", JSON.stringify(flightDetailsData));
+
+    // Navigate to details page
+    navigate("/flight/details");
+  };
 
   return (
     <div
@@ -115,7 +148,7 @@ const OneWayFlightCard = memo(({ itinerary }) => {
       {/* Price Select Button */}
       <div className="tw:w-full tw:md:w-fit tw:py-4 tw:px-6 tw:bg-[#F2FAFF] tw:rounded-xl tw:flex tw:flex-col tw:items-center tw:gap-3 tw:md:ml-4">
         <button
-          onClick={() => navigate("/flight/details")}
+          onClick={handleFlightSelect}
           className="tw:w-full tw:md:w-fit tw:bg-primary tw:py-2 tw:px-[30px] tw:flex tw:flex-col tw:!text-white tw:!rounded-full hover:tw:bg-primary/90 tw:transition-colors"
         >
           <span className="tw:text-sm">Select</span>
@@ -140,6 +173,14 @@ OneWayFlightCard.propTypes = {
     flights: PropTypes.arrayOf(PropTypes.object).isRequired,
     totalDurationMinutes: PropTypes.number.isRequired,
   }).isRequired,
+  searchContext: PropTypes.shape({
+    searchParams: PropTypes.object,
+    adults: PropTypes.number,
+    children: PropTypes.number,
+    travelClass: PropTypes.string,
+    fromCity: PropTypes.string,
+    toCity: PropTypes.string,
+  }),
 };
 
 export default OneWayFlightCard;
