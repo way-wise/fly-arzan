@@ -209,59 +209,88 @@ const FlightDetailsPage = () => {
 
   // Generate dynamic ticket list based on actual flight data
   const getTicketList = () => {
-    const basePrice = flightData.flightOffer.price || 250;
-    const totalPrice = flightData.flightOffer.totalPrice || basePrice;
-
     return [
       {
         id: 1,
-        airline: "AIRLINE DIRECT",
+        airline: "Trip.com",
         totalRating: 556,
         avgRating: 5,
-        price: `$${basePrice}`,
-        totalPrice: `$${totalPrice}`,
-      },
-      {
-        id: 2,
-        airline: "EXPEDIA",
-        totalRating: 738,
-        avgRating: 4,
-        price: `$${basePrice + 5}`,
-        totalPrice: `$${totalPrice + 5}`,
-      },
-      {
-        id: 3,
-        airline: "BOOKING.COM",
-        totalRating: 274,
-        avgRating: 4,
-        price: `$${basePrice + 8}`,
-        totalPrice: `$${totalPrice + 8}`,
-      },
-      {
-        id: 4,
-        airline: "BUDGETAIR",
-        totalRating: 185,
-        avgRating: 5,
-        price: `$${basePrice + 12}`,
-        totalPrice: `$${totalPrice + 12}`,
-      },
-      {
-        id: 5,
-        airline: "EDREAMS",
-        totalRating: 798,
-        avgRating: 4,
-        price: `$${basePrice + 15}`,
-        totalPrice: `$${totalPrice + 15}`,
-      },
-      {
-        id: 6,
-        airline: "GOTOGATE",
-        totalRating: 423,
-        avgRating: 3,
-        price: `$${basePrice + 18}`,
-        totalPrice: `$${totalPrice + 18}`,
+        icon: "/icons/trip.png",
       },
     ];
+  };
+
+  const generateForwardLink = () => {
+    const { tripType, routeInfo, passengerInfo } = flightData;
+
+    const from = routeInfo.from.airport.toUpperCase(); // IATA code
+    const to = routeInfo.to.airport.toUpperCase(); // IATA code
+    const depDate = routeInfo.departureDate;
+    const retDate = routeInfo.returnDate;
+    const adults = passengerInfo?.adults || 1;
+    const children = passengerInfo?.children || 0;
+    const infants = passengerInfo?.infants || 0;
+    const cabin = passengerInfo?.cabin?.toLowerCase() || "economy";
+
+    // Format date to YYYY-MM-DD format
+    const formatDate = (dateStr) => {
+      if (!dateStr) return "";
+      if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+        return dateStr;
+      }
+      const date = new Date(dateStr);
+      return date.toISOString().split("T")[0];
+    };
+
+    // Map cabin to class code
+    const cabinToClass = {
+      economy: "y",
+      premium: "w",
+      business: "c",
+      first: "f",
+    };
+    const classCode = cabinToClass[cabin] || "y";
+
+    // Use showfarefirst for BOTH one-way and round-trip since it worked
+    const params = new URLSearchParams({
+      dcity: from,
+      acity: to,
+      ddate: formatDate(depDate),
+      dairport: from,
+      aairport: to,
+      triptype: tripType === "round-trip" && retDate ? "rt" : "ow",
+      class: classCode,
+      lowpricesource: "searchform",
+      quantity: adults.toString(),
+      searchbox: "arg=t",
+      nonstoponl: "y=off",
+      locale: "en-GB",
+      curr: "GBP",
+    });
+
+    // Add return date ONLY for round trips
+    if (tripType === "round-trip" && retDate) {
+      params.append("rdate", formatDate(retDate));
+    }
+
+    // Add children and infants if present
+    if (children > 0) {
+      params.append("childquantity", children.toString());
+    }
+    if (infants > 0) {
+      params.append("infantquantity", infants.toString());
+    }
+
+    // Always use showfarefirst since it worked
+    const deepLink = `https://uk.trip.com/flights/showfarefirst?${params.toString()}`;
+
+    // The affiliate base URL
+    const affiliateBase =
+      "https://tp.media/r?marker=593963&trs=413727&p=8626&u=";
+    const finalUrl =
+      affiliateBase + encodeURIComponent(deepLink) + "&campaign_id=121";
+
+    return finalUrl;
   };
 
   const ticketList = getTicketList();
@@ -355,44 +384,44 @@ const FlightDetailsPage = () => {
                   {ticketList.map((data) => (
                     <div
                       key={data.id}
-                      className="tw:flex tw:flex-col tw:gap-4 tw:sm:gap-0 tw:sm:flex-row tw:items-center tw:justify-between tw:px-[30px] tw:py-4 tw:bg-white tw:shadow tw:rounded-md"
+                      className="tw:flex tw:flex-col tw:gap-4 tw:sm:gap-0 tw:sm:flex-row tw:items-center tw:justify-between tw:px-5 tw:py-4 tw:bg-white tw:shadow tw:rounded-md"
                     >
-                      <div className="tw:w-full tw:flex tw:flex-col tw:gap-[11px] ">
-                        <h4 className="tw:text-xl">{data.airline}</h4>
-                        <div className="tw:flex tw:items-center tw:gap-2">
-                          {renderStars(data.avgRating)}
-                          <span className="tw:border tw:border-muted tw:px-1.5 tw:rounded-md tw:bg-[#F2F2F2] tw:text-sm">
-                            {data.totalRating}
-                          </span>
+                      <div className="tw:flex tw:gap-4">
+                        <img
+                          src={data.icon}
+                          className="tw:h-[70px] tw:rounded"
+                        />
+                        <div className="tw:w-full tw:flex tw:flex-col tw:gap-[11px]">
+                          <h4 className="tw:text-xl">{data.airline}</h4>
+                          <div className="tw:flex tw:items-center tw:gap-2">
+                            {renderStars(data.avgRating)}
+                            <span className="tw:border tw:border-muted tw:px-1.5 tw:rounded-md tw:bg-[#F2F2F2] tw:text-sm">
+                              {data.totalRating}
+                            </span>
+                          </div>
                         </div>
-                        <p className="tw:text-[#939393] tw:text-[12px]">
-                          24/7 live chat & telephone support
-                        </p>
                       </div>
 
                       <div className="tw:w-full tw:justify-between tw:sm:w-fit tw:px-6 tw:py-5 tw:bg-[#F2FAFF] tw:flex tw:items-center tw:rounded-xl tw:gap-3">
-                        <div className="tw:flex tw:flex-col tw:items-center tw:gap-1">
+                        {/* <div className="tw:flex tw:flex-col tw:items-center tw:gap-1">
                           <span className="tw:font-medium tw:text-xl tw:text-primary">
                             {data.price}
                           </span>
                           <span className="tw:text-sm tw:text-secondary">
                             {data.totalPrice}
                           </span>
-                        </div>
-                        <button
-                          className="tw:bg-[#50ADD8] tw:!text-white tw:!rounded-full tw:px-[30px] tw:py-2 tw:text-sm hover:tw:bg-[#4A9BC4] tw:transition-colors tw:duration-200"
-                          onClick={() => navigate("/loader")}
+                        </div> */}
+                        <a
+                          href={generateForwardLink()}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="tw:!bg-[#50ADD8] tw:!no-underline tw:!text-white tw:!rounded-full tw:!px-[30px] tw:py-2 tw:text-sm hover:tw:!bg-[#4A9BC4] tw:!transition-colors tw:duration-200"
                         >
                           Select
-                        </button>
+                        </a>
                       </div>
                     </div>
                   ))}
-
-                  {/* <button className="tw:flex tw:!mx-auto tw:items-center tw:gap-1.5 tw:hover:bg-primary/90 tw:px-[40px] tw:h-[56px] tw:!text-white tw:font-semibold tw:!rounded-[40px] tw:bg-primary">
-                    <span>Explore More</span>
-                    <ArrowRight size={18} />
-                  </button> */}
                 </div>
               </div>
 
