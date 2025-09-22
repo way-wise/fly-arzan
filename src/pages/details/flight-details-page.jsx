@@ -223,104 +223,106 @@ const FlightDetailsPage = () => {
   const generateForwardLink = () => {
     const { tripType, routeInfo, passengerInfo } = flightData;
 
+    // Common parameters
     const adults = passengerInfo?.adults || 1;
     const children = passengerInfo?.children || 0;
     const cabin = passengerInfo?.cabin?.toLowerCase() || "economy";
 
-    // Format date to YYYY-MM-DD format
+    // Helper functions
     const formatDate = (dateStr) => {
       if (!dateStr) return "";
-      if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
-        return dateStr;
-      }
-      const date = new Date(dateStr);
-      return date.toISOString().split("T")[0];
+      if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return dateStr;
+      return new Date(dateStr).toISOString().split("T")[0];
     };
 
-    // Map cabin to class code
-    const cabinToClass = {
-      economy: "y",
-      premium: "w",
-      business: "c",
-      first: "f",
+    const getCabinClass = (cabin) => {
+      const map = { economy: "y", premium: "w", business: "c", first: "f" };
+      return map[cabin] || "y";
     };
-    const classCode = cabinToClass[cabin] || "y";
 
-    let params;
+    // Build base parameters common to all trip types
+    const baseParams = {
+      class: getCabinClass(cabin),
+      lowpricesource: "searchform",
+      quantity: adults.toString(),
+      locale: "en-GB",
+      curr: "GBP",
+    };
 
-    // Handle multi-city trips differently
-    if (
-      tripType === "multi-city" &&
-      routeInfo.segments &&
-      routeInfo.segments.length > 0
-    ) {
-      params = new URLSearchParams();
+    let params = new URLSearchParams();
 
-      // Add parameters for each segment
-      routeInfo.segments.forEach((segment, index) => {
-        const from = segment.from.airport.toLowerCase();
-        const to = segment.to.airport.toLowerCase();
-        const date = formatDate(segment.departureDate);
-
-        params.append(`multdcity${index}`, from);
-        params.append(`multacity${index}`, to);
-        params.append(`dairport${index}`, from);
-        params.append(`multddate${index}`, date);
-      });
-
-      // Add common parameters for multi-city
-      params.append("triptype", "mt");
-      params.append("class", classCode);
-      params.append("lowpricesource", "searchform");
-      params.append("quantity", adults.toString());
-      params.append("searchboxarg", "t");
-      params.append("nonstoponly", "off");
-      params.append("locale", "en-GB");
-      params.append("curr", "GBP");
-    } else {
-      // Handle one-way and round-trip
-      const from = routeInfo.from.airport.toUpperCase();
-      const to = routeInfo.to.airport.toUpperCase();
-      const depDate = routeInfo.departureDate;
-      const retDate = routeInfo.returnDate;
-
-      params = new URLSearchParams({
-        dcity: from,
-        acity: to,
-        ddate: formatDate(depDate),
-        dairport: from,
-        aairport: to,
-        triptype: tripType === "round-trip" && retDate ? "rt" : "ow",
-        class: classCode,
-        lowpricesource: "searchform",
-        quantity: adults.toString(),
+    // Build URL parameters based on trip type
+    if (tripType === "one-way" && routeInfo?.from && routeInfo?.to) {
+      // One-way trip parameters
+      Object.assign(baseParams, {
+        dcity: routeInfo.from.airport.toUpperCase(),
+        acity: routeInfo.to.airport.toUpperCase(),
+        ddate: formatDate(routeInfo.departureDate),
+        dairport: routeInfo.from.airport.toUpperCase(),
+        aairport: routeInfo.to.airport.toUpperCase(),
+        triptype: "ow",
         searchbox: "arg=t",
         nonstoponl: "y=off",
-        locale: "en-GB",
-        curr: "GBP",
+      });
+      params = new URLSearchParams(baseParams);
+    } else if (
+      tripType === "round-trip" &&
+      routeInfo?.from &&
+      routeInfo?.to &&
+      routeInfo?.returnDate
+    ) {
+      // Round-trip parameters
+      Object.assign(baseParams, {
+        dcity: routeInfo.from.airport.toUpperCase(),
+        acity: routeInfo.to.airport.toUpperCase(),
+        ddate: formatDate(routeInfo.departureDate),
+        rdate: formatDate(routeInfo.returnDate),
+        dairport: routeInfo.from.airport.toUpperCase(),
+        aairport: routeInfo.to.airport.toUpperCase(),
+        triptype: "rt",
+        searchbox: "arg=t",
+        nonstoponl: "y=off",
+      });
+      params = new URLSearchParams(baseParams);
+    } else if (tripType === "multi-city" && routeInfo?.segments?.length > 0) {
+      // Multi-city parameters
+      params = new URLSearchParams();
+
+      // Add each segment
+      routeInfo.segments.forEach((segment, index) => {
+        if (!segment.from?.airport || !segment.to?.airport) {
+          throw new Error(`Invalid segment ${index}: missing airport data`);
+        }
+        params.append(`multdcity${index}`, segment.from.airport.toLowerCase());
+        params.append(`multacity${index}`, segment.to.airport.toLowerCase());
+        params.append(`dairport${index}`, segment.from.airport.toLowerCase());
+        params.append(`multddate${index}`, formatDate(segment.departureDate));
       });
 
-      // Add return date ONLY for round trips
-      if (tripType === "round-trip" && retDate) {
-        params.append("rdate", formatDate(retDate));
-      }
+      // Add multi-city specific params
+      Object.entries({
+        ...baseParams,
+        triptype: "mt",
+        searchboxarg: "t",
+        nonstoponly: "off",
+      }).forEach(([key, value]) => params.append(key, value));
+    } else {
+      // Invalid or unsupported trip configuration
+      console.error("Invalid flight data:", { tripType, routeInfo });
+      throw new Error(`Unsupported trip configuration: ${tripType}`);
     }
 
-    // Add children if present (common for all trip types)
+    // Add children for all trip types
     if (children > 0) {
       params.append("childquantity", children.toString());
     }
 
-    // Deeplink
+    // Build final affiliate URL
     const deepLink = `https://uk.trip.com/flights/showfarefirst?${params.toString()}`;
-
-    // The affiliate base URL
     const affiliateBase =
       "https://tp.media/r?marker=593963&trs=413727&p=8626&u=";
-    const finalUrl =
-      affiliateBase + encodeURIComponent(deepLink) + "&campaign_id=121";
 
-    return finalUrl;
+    return affiliateBase + encodeURIComponent(deepLink) + "&campaign_id=121";
   };
 
   const ticketList = getTicketList();
