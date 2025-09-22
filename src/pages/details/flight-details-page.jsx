@@ -223,13 +223,8 @@ const FlightDetailsPage = () => {
   const generateForwardLink = () => {
     const { tripType, routeInfo, passengerInfo } = flightData;
 
-    const from = routeInfo.from.airport.toUpperCase(); // IATA code
-    const to = routeInfo.to.airport.toUpperCase(); // IATA code
-    const depDate = routeInfo.departureDate;
-    const retDate = routeInfo.returnDate;
     const adults = passengerInfo?.adults || 1;
     const children = passengerInfo?.children || 0;
-    const infants = passengerInfo?.infants || 0;
     const cabin = passengerInfo?.cabin?.toLowerCase() || "economy";
 
     // Format date to YYYY-MM-DD format
@@ -251,37 +246,72 @@ const FlightDetailsPage = () => {
     };
     const classCode = cabinToClass[cabin] || "y";
 
-    // Use showfarefirst for BOTH one-way and round-trip since it worked
-    const params = new URLSearchParams({
-      dcity: from,
-      acity: to,
-      ddate: formatDate(depDate),
-      dairport: from,
-      aairport: to,
-      triptype: tripType === "round-trip" && retDate ? "rt" : "ow",
-      class: classCode,
-      lowpricesource: "searchform",
-      quantity: adults.toString(),
-      searchbox: "arg=t",
-      nonstoponl: "y=off",
-      locale: "en-GB",
-      curr: "GBP",
-    });
+    let params;
 
-    // Add return date ONLY for round trips
-    if (tripType === "round-trip" && retDate) {
-      params.append("rdate", formatDate(retDate));
+    // Handle multi-city trips differently
+    if (
+      tripType === "multi-city" &&
+      routeInfo.segments &&
+      routeInfo.segments.length > 0
+    ) {
+      params = new URLSearchParams();
+
+      // Add parameters for each segment
+      routeInfo.segments.forEach((segment, index) => {
+        const from = segment.from.airport.toLowerCase();
+        const to = segment.to.airport.toLowerCase();
+        const date = formatDate(segment.departureDate);
+
+        params.append(`multdcity${index}`, from);
+        params.append(`multacity${index}`, to);
+        params.append(`dairport${index}`, from);
+        params.append(`multddate${index}`, date);
+      });
+
+      // Add common parameters for multi-city
+      params.append("triptype", "mt");
+      params.append("class", classCode);
+      params.append("lowpricesource", "searchform");
+      params.append("quantity", adults.toString());
+      params.append("searchboxarg", "t");
+      params.append("nonstoponly", "off");
+      params.append("locale", "en-GB");
+      params.append("curr", "GBP");
+    } else {
+      // Handle one-way and round-trip
+      const from = routeInfo.from.airport.toUpperCase();
+      const to = routeInfo.to.airport.toUpperCase();
+      const depDate = routeInfo.departureDate;
+      const retDate = routeInfo.returnDate;
+
+      params = new URLSearchParams({
+        dcity: from,
+        acity: to,
+        ddate: formatDate(depDate),
+        dairport: from,
+        aairport: to,
+        triptype: tripType === "round-trip" && retDate ? "rt" : "ow",
+        class: classCode,
+        lowpricesource: "searchform",
+        quantity: adults.toString(),
+        searchbox: "arg=t",
+        nonstoponl: "y=off",
+        locale: "en-GB",
+        curr: "GBP",
+      });
+
+      // Add return date ONLY for round trips
+      if (tripType === "round-trip" && retDate) {
+        params.append("rdate", formatDate(retDate));
+      }
     }
 
-    // Add children and infants if present
+    // Add children if present (common for all trip types)
     if (children > 0) {
       params.append("childquantity", children.toString());
     }
-    if (infants > 0) {
-      params.append("infantquantity", infants.toString());
-    }
 
-    // Always use showfarefirst since it worked
+    // Deeplink
     const deepLink = `https://uk.trip.com/flights/showfarefirst?${params.toString()}`;
 
     // The affiliate base URL
