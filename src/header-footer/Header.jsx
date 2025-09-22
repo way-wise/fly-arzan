@@ -70,8 +70,18 @@ const Header = () => {
       id: 3,
       heading: "Hotel",
       list: [
-        { id: 1, title: "Main Deals", link: "/Hotels#hotel-main-deals", disabled: true },
-        { id: 2, title: "Articles", link: "/Hotels#hotel-article", disabled: true },
+        {
+          id: 1,
+          title: "Main Deals",
+          link: "/Hotels#hotel-main-deals",
+          disabled: true,
+        },
+        {
+          id: 2,
+          title: "Articles",
+          link: "/Hotels#hotel-article",
+          disabled: true,
+        },
         {
           id: 3,
           title: "Frequently Asked Questions",
@@ -90,9 +100,19 @@ const Header = () => {
       id: 4,
       heading: "Car",
       list: [
-        { id: 1, title: "Main Deals", link: "/Car#car-main-deals", disabled: true },
+        {
+          id: 1,
+          title: "Main Deals",
+          link: "/Car#car-main-deals",
+          disabled: true,
+        },
         { id: 2, title: "Articles", link: "/Car#car-article", disabled: true },
-        { id: 3, title: "Frequently Asked Questions", link: "/Car#car-faq", disabled: true },
+        {
+          id: 3,
+          title: "Frequently Asked Questions",
+          link: "/Car#car-faq",
+          disabled: true,
+        },
         {
           id: 4,
           title: "Begin Your Toad Trip Journey",
@@ -231,7 +251,7 @@ const Header = () => {
                     {heading}
                   </h5>
                   <div className="tw:flex tw:flex-col tw:gap-3">
-                    {list.map(({ id, title, link, disabled }) => (
+                    {list.map(({ id, title, link, disabled }) =>
                       disabled ? (
                         <span
                           key={id}
@@ -249,7 +269,7 @@ const Header = () => {
                           {title}
                         </Link>
                       )
-                    ))}
+                    )}
                   </div>
                 </div>
               ))}
@@ -266,7 +286,7 @@ const Header = () => {
             <LucideX />
           </button>
         </div>
-        <div className="tw:relative tw:w-full tw:overflow-x-hidden">
+        <div className="tw:relative tw:w-full tw:overflow-x-hidden px-1">
           <AnimatePresence initial={false} mode="wait">
             {showLogin ? (
               <motion.div
