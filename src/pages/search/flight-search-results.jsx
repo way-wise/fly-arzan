@@ -30,6 +30,7 @@ import {
   formatDateFromISO,
 } from "@/lib/flight-utils";
 
+
 const FlightSearchResults = ({ flightOffersData, searchContext }) => {
   const navigate = useNavigate();
   const { openMobile, setOpenMobile } = useSidebarFilter();
@@ -232,10 +233,6 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
     return sorted;
   }, [processedFlights, selectedTimeCost, filters]);
 
-  // Regenerate time cost filters whenever the sorted flights change
-  useEffect(() => {
-    generateTimeCostFilters(sortedFlights);
-  }, [sortedFlights]);
 
   // Reset visible count when sorting changes
   useEffect(() => {

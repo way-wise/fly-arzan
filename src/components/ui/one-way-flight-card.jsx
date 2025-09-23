@@ -8,6 +8,7 @@ import {
 } from "@/lib/flight-utils";
 import PropTypes from "prop-types";
 
+
 const OneWayFlightCard = memo(({ itinerary, searchContext }) => {
   const navigate = useNavigate();
 

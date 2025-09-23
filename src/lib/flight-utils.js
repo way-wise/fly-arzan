@@ -59,6 +59,7 @@ export const getAirlineLogoUrl = (carrierCode) => {
   return `/logos/${carrierCode.toUpperCase()}.png`;
 };
 
+
 // Helper to parse duration from ISO format (PT4H25M) or minutes
 export const parseDuration = (duration) => {
   if (typeof duration === "number") return duration;
@@ -115,9 +116,17 @@ export const extractBaggageInfo = (offer) => {
 
   return {
     hasCheckedBaggage: fareDetails.some(
-      (segment) => segment.includedCheckedBags
+      (segment) => segment.includedCheckedBags && (
+        segment.includedCheckedBags.weight > 0 ||
+        segment.includedCheckedBags.quantity > 0 ||
+        Object.keys(segment.includedCheckedBags).length > 0
+      )
     ),
-    hasCabinBaggage: fareDetails.some((segment) => segment.includedCabinBags),
+    hasCabinBaggage: fareDetails.some((segment) => segment.includedCabinBags && (
+        segment.includedCabinBags.weight > 0 ||
+        segment.includedCabinBags.quantity > 0 ||
+        Object.keys(segment.includedCabinBags).length > 0
+      )),
     checkedBagDetails: fareDetails
       .filter((segment) => segment.includedCheckedBags)
       .map((segment) => ({

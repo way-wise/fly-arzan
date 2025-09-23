@@ -78,12 +78,18 @@ const OneWayFilter = ({ flightOffersData }) => {
         offer.travelerPricings.forEach((pricing) => {
           if (pricing.fareDetailsBySegment && pricing.fareDetailsBySegment.length > 0) {
             pricing.fareDetailsBySegment.forEach((segment) => {
-              if (segment.includedCheckedBags &&
-                  (segment.includedCheckedBags.weight > 0 || segment.includedCheckedBags.quantity > 0)) {
+              if (segment.includedCheckedBags && (
+                  segment.includedCheckedBags.weight > 0 ||
+                  segment.includedCheckedBags.quantity > 0 ||
+                  segment.includedCheckedBags
+              )) {
                 baggageTypes.add("checked");
               }
-              if (segment.includedCabinBags &&
-                  (segment.includedCabinBags.weight > 0 || segment.includedCabinBags.quantity > 0)) {
+              if (segment.includedCabinBags && (
+                  segment.includedCabinBags.weight > 0 ||
+                  segment.includedCabinBags.quantity > 0 ||
+                  segment.includedCabinBags
+              )) {
                 baggageTypes.add("cabin");
               }
             });

@@ -8,6 +8,7 @@ import {
 } from "@/lib/flight-utils";
 import PropTypes from "prop-types";
 
+
 const FlightSegment = ({ flights }) => {
   if (!flights || flights.length === 0) return null;
 

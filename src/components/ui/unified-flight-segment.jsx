@@ -7,6 +7,7 @@ import {
 } from "@/lib/flight-utils";
 import PropTypes from "prop-types";
 
+
 const UnifiedFlightSegment = memo(
   ({ segment, tripType, segmentIndex, totalSegments, segmentLabel }) => {
     // Handle different data structures based on trip type
