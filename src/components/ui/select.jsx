@@ -28,7 +28,7 @@ function SelectTrigger({ className, size = "default", children, ...props }) {
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "tw:flex tw:w-full tw:items-center tw:justify-between tw:gap-2 tw:py-2 tw:px-3 tw:!rounded-md tw:border tw:border-muted tw:bg-white tw:text-[15px] tw:font-semibold tw:shadow-xs tw:transition tw:outline-none focus-visible:tw:border-primary focus-visible:tw:ring-0 disabled:tw:cursor-not-allowed tw:select-none disabled:tw:opacity-50 tw:focus-visible:!outline-hidden",
+        "tw:flex tw:w-full tw:items-center tw:justify-between tw:gap-2 tw:py-2 tw:px-3 tw:!rounded-md tw:border tw:border-muted tw:bg-white tw:text-[15px] tw:font-semibold tw:shadow-xs tw:transition tw:outline-none tw:focus-visible:border-primary tw:focus-visible:ring-0 tw:disabled:cursor-not-allowed tw:select-none tw:disabled:opacity-50 tw:focus-visible:!outline-hidden",
         className
       )}
       {...props}
@@ -95,7 +95,7 @@ function SelectItem({ className, children, ...props }) {
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "tw:w-full tw:focus:bg-muted/50 tw:py-2 tw:px-3 tw:rounded-md tw:flex tw:items-center tw:gap-2 tw:truncate tw:cursor-default data-[disabled]:tw:pointer-events-none data-[disabled]:tw:opacity-50",
+        "tw:w-full tw:focus:bg-muted/50 tw:py-2 tw:px-3 tw:rounded-md tw:flex tw:items-center tw:gap-2 tw:truncate tw:cursor-default tw:data-[disabled]:pointer-events-none tw:data-[disabled]:opacity-50",
         className
       )}
       {...props}

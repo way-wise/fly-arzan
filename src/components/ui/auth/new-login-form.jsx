@@ -1,6 +1,6 @@
 import { DialogTitle } from "@headlessui/react";
 import { Checkbox } from "../checkbox";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa6";
 import { useState } from "react";
@@ -13,6 +13,7 @@ import { toast } from "sonner";
 
 const NewLoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -32,6 +33,7 @@ const NewLoginForm = () => {
         } else {
           toast.error("Login failed. Please try again.");
         }
+        navigate("/admin");
       },
       onError: (error) => {
         toast.error(error.message || "Login failed. Please try again.");

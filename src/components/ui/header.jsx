@@ -6,7 +6,7 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
       <div className="tw:flex tw:items-center">
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="tw:text-gray-500 focus:tw:outline-none lg:tw:hidden"
+          className="tw:text-gray-500 tw:focus:outline-none tw:lg:hidden"
         >
           <svg
             className="tw:h-6 tw:w-6"
