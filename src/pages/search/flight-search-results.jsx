@@ -30,7 +30,6 @@ import {
   formatDateFromISO,
 } from "@/lib/flight-utils";
 
-
 const FlightSearchResults = ({ flightOffersData, searchContext }) => {
   const navigate = useNavigate();
   const { openMobile, setOpenMobile } = useSidebarFilter();
@@ -233,7 +232,6 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
     return sorted;
   }, [processedFlights, selectedTimeCost, filters]);
 
-
   // Reset visible count when sorting changes
   useEffect(() => {
     setVisibleCount(14);
@@ -331,6 +329,14 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
             ) {
               // Multi-city flight - handle session storage
               const handleMultiCitySelect = () => {
+                // Get all the airlines
+                const airlinesInfo = itinerary.itineraries
+                  .flatMap((it) => it.flights)
+                  .map((f) => ({
+                    airlineCode: f.operating?.carrierCode || f.airlineCode,
+                    airlineName: f.operating?.airlineName || f.airlineName,
+                  }));
+
                 const flightDetailsData = {
                   tripType: "multi-city",
                   flightOffer: itinerary,
@@ -369,6 +375,7 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                       },
                       departureDate: seg.flights[0].departure.at,
                     })),
+                    airlines: airlinesInfo,
                   },
                 };
 
@@ -376,6 +383,7 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                   "selected-flight-details",
                   JSON.stringify(flightDetailsData)
                 );
+
                 navigate("/flight/details");
               };
 

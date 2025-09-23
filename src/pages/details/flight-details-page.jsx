@@ -311,11 +311,16 @@ const FlightDetailsPage = () => {
       });
 
       // Add multi-city specific params (including airline if present)
+      const airlineCodes = [
+        ...new Set(routeInfo.airlines.map((a) => a.airlineCode)),
+      ].join(",");
+
       Object.entries({
         ...baseParams,
         triptype: "mt",
         searchboxarg: "t",
         nonstoponly: "off",
+        airline: airlineCodes,
       }).forEach(([key, value]) => params.append(key, value));
     } else {
       // Invalid or unsupported trip configuration
@@ -327,8 +332,6 @@ const FlightDetailsPage = () => {
     if (children > 0) {
       params.append("childquantity", children.toString());
     }
-
-    console.log(baseParams);
 
     // Build final affiliate URL
     const deepLink = `https://uk.trip.com/flights/showfarefirst?${params.toString()}`;
