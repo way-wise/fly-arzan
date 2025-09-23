@@ -90,10 +90,6 @@ const FlightDetailsPage = () => {
     ) {
       const firstItinerary = flightOffer.itineraries[0];
       const secondItinerary = flightOffer.itineraries[1];
-      const firstDestination =
-        firstItinerary?.flights?.[firstItinerary.flights.length - 1]?.arrival
-          ?.airport;
-      const secondOrigin = secondItinerary?.flights?.[0]?.departure?.airport;
       const secondDestination =
         secondItinerary?.flights?.[secondItinerary.flights.length - 1]?.arrival
           ?.airport;
@@ -106,21 +102,23 @@ const FlightDetailsPage = () => {
     }
 
     switch (actualTripType) {
-      case "one-way":
+      case "one-way": {
         const fromCity =
           routeInfo.from?.city || routeInfo.from?.iataCode || "Unknown";
         const toCity =
           routeInfo.to?.city || routeInfo.to?.iataCode || "Unknown";
         return `${fromCity} → ${toCity}`;
+      }
 
-      case "round-trip":
+      case "round-trip": {
         const rtFromCity =
           routeInfo.from?.city || routeInfo.from?.iataCode || "Unknown";
         const rtToCity =
           routeInfo.to?.city || routeInfo.to?.iataCode || "Unknown";
         return `${rtFromCity} ⇄ ${rtToCity}`;
+      }
 
-      case "multi-city":
+      case "multi-city": {
         if (routeInfo.segments && routeInfo.segments.length > 0) {
           return routeInfo.segments
             .map((seg) => {
@@ -154,6 +152,7 @@ const FlightDetailsPage = () => {
             .join(" → ");
         }
         return "Multi-city Trip";
+      }
 
       default:
         return "Flight Details";
@@ -186,10 +185,6 @@ const FlightDetailsPage = () => {
     ) {
       const firstItinerary = flightOffer.itineraries[0];
       const secondItinerary = flightOffer.itineraries[1];
-      const firstDestination =
-        firstItinerary?.flights?.[firstItinerary.flights.length - 1]?.arrival
-          ?.airport;
-      const secondOrigin = secondItinerary?.flights?.[0]?.departure?.airport;
       const secondDestination =
         secondItinerary?.flights?.[secondItinerary.flights.length - 1]?.arrival
           ?.airport;
