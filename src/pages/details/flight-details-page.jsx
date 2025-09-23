@@ -250,6 +250,9 @@ const FlightDetailsPage = () => {
     if (tripType === "one-way" && routeInfo?.from && routeInfo?.to) {
       // One-way trip parameters
       Object.assign(baseParams, {
+        airline: routeInfo.flights
+          .map(({ airlineCode }) => airlineCode.toUpperCase())
+          .join(","),
         dcity: routeInfo.from.airport.toUpperCase(),
         acity: routeInfo.to.airport.toUpperCase(),
         ddate: formatDate(routeInfo.departureDate),
@@ -266,8 +269,21 @@ const FlightDetailsPage = () => {
       routeInfo?.to &&
       routeInfo?.returnDate
     ) {
+      // Combine airline codes
+      const outboundAirlines = routeInfo.outboundFlights.map(
+        ({ airlineCode }) => airlineCode.toUpperCase()
+      );
+      const returnAirlines = routeInfo.returnFlights.map(({ airlineCode }) =>
+        airlineCode.toUpperCase()
+      );
+      const combinedAirlines = [...outboundAirlines, ...returnAirlines];
+
+      // Remove duplicates
+      const uniqueAirlines = Array.from(new Set(combinedAirlines));
+
       // Round-trip parameters
       Object.assign(baseParams, {
+        airline: uniqueAirlines.join(","),
         dcity: routeInfo.from.airport.toUpperCase(),
         acity: routeInfo.to.airport.toUpperCase(),
         ddate: formatDate(routeInfo.departureDate),
@@ -294,7 +310,7 @@ const FlightDetailsPage = () => {
         params.append(`multddate${index}`, formatDate(segment.departureDate));
       });
 
-      // Add multi-city specific params
+      // Add multi-city specific params (including airline if present)
       Object.entries({
         ...baseParams,
         triptype: "mt",
@@ -311,6 +327,8 @@ const FlightDetailsPage = () => {
     if (children > 0) {
       params.append("childquantity", children.toString());
     }
+
+    console.log(baseParams);
 
     // Build final affiliate URL
     const deepLink = `https://uk.trip.com/flights/showfarefirst?${params.toString()}`;

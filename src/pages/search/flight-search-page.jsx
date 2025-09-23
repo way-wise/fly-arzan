@@ -11,7 +11,6 @@ import FlightSearchPageHeader from "@/components/ui/FlightSearchPageHeader";
 import MultiCityFlightSearchPageHeader from "@/components/ui/MultiCityFlightSearchPageHeader";
 import FlexibleDates from "@/components/ui/flexible-dates/FlexibleDates";
 import { SidebarFilterProvider } from "@/providers/filter-sidebar-provider";
-import { useLocation } from "react-router-dom";
 import { toast } from "sonner";
 import { useFlightOffers } from "@/hooks/useFlightOffers";
 import { useMulticityFlightOffers } from "@/hooks/useMulticityFlightOffers";
@@ -24,7 +23,6 @@ import OneWayFilter from "@/components/ui/one-way-filter";
 import RoundTripFilter from "@/components/ui/round-trip-filter";
 
 const FlightSearchPage = () => {
-  const location = useLocation();
   const [initialValues, setInitialValues] = useState(null);
   const [multicityValues, setMulticityValues] = useState(null);
   const [multicityResults, setMulticityResults] = useState(null);
@@ -54,8 +52,12 @@ const FlightSearchPage = () => {
             adults: 1,
             children: 0,
           },
-          depart: sessionData.depart ? parseDateFromURL(sessionData.depart) : null,
-          return: sessionData.return ? parseDateFromURL(sessionData.return) : null,
+          depart: sessionData.depart
+            ? parseDateFromURL(sessionData.depart)
+            : null,
+          return: sessionData.return
+            ? parseDateFromURL(sessionData.return)
+            : null,
         });
         setHasInitialized(true);
       } catch (error) {
@@ -132,12 +134,14 @@ const FlightSearchPage = () => {
           if (!hasInitialized) {
             const apiSearchData = {
               currencyCode: "USD",
-              originDestinations: convertedData.originDestinations.map((od) => ({
-                ...od,
-                departureDateTimeRange: {
-                  ...od.departureDateTimeRange,
-                },
-              })),
+              originDestinations: convertedData.originDestinations.map(
+                (od) => ({
+                  ...od,
+                  departureDateTimeRange: {
+                    ...od.departureDateTimeRange,
+                  },
+                })
+              ),
               travelers: convertedData.travelers,
               sources: ["GDS"],
               searchCriteria: {
@@ -147,9 +151,8 @@ const FlightSearchPage = () => {
                     {
                       cabin: travelClass,
                       coverage: "MOST_SEGMENTS",
-                      originDestinationIds: convertedData.originDestinations.map(
-                        (od) => od.id
-                      ),
+                      originDestinationIds:
+                        convertedData.originDestinations.map((od) => od.id),
                     },
                   ],
                 },
@@ -248,7 +251,10 @@ const FlightSearchPage = () => {
       }
     } else if (tripType === "multicity" && multicityValues) {
       // Handle multi-city context
-      context.segments = multicityValues.originalFormData?.segments || multicityValues.segments || [];
+      context.segments =
+        multicityValues.originalFormData?.segments ||
+        multicityValues.segments ||
+        [];
     }
 
     return context;
