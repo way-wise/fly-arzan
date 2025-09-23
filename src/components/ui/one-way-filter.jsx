@@ -73,17 +73,23 @@ const OneWayFilter = ({ flightOffersData }) => {
         });
       });
 
-      // Collect baggage information
-      offer.travelerPricings?.forEach((pricing) => {
-        pricing.fareDetailsBySegment?.forEach((segment) => {
-          if (segment.includedCheckedBags) {
-            baggageTypes.add("checked");
-          }
-          if (segment.includedCabinBags) {
-            baggageTypes.add("cabin");
+      // Collect baggage information from traveler pricings
+      if (offer.travelerPricings && offer.travelerPricings.length > 0) {
+        offer.travelerPricings.forEach((pricing) => {
+          if (pricing.fareDetailsBySegment && pricing.fareDetailsBySegment.length > 0) {
+            pricing.fareDetailsBySegment.forEach((segment) => {
+              if (segment.includedCheckedBags &&
+                  (segment.includedCheckedBags.weight > 0 || segment.includedCheckedBags.quantity > 0)) {
+                baggageTypes.add("checked");
+              }
+              if (segment.includedCabinBags &&
+                  (segment.includedCabinBags.weight > 0 || segment.includedCabinBags.quantity > 0)) {
+                baggageTypes.add("cabin");
+              }
+            });
           }
         });
-      });
+      }
     });
 
     const stopOptions = [0, 1, 2];

@@ -11,7 +11,7 @@ import FlightSearchPageHeader from "@/components/ui/FlightSearchPageHeader";
 import MultiCityFlightSearchPageHeader from "@/components/ui/MultiCityFlightSearchPageHeader";
 import FlexibleDates from "@/components/ui/flexible-dates/FlexibleDates";
 import { SidebarFilterProvider } from "@/providers/filter-sidebar-provider";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { toast } from "sonner";
 import { useFlightOffers } from "@/hooks/useFlightOffers";
 import { useMulticityFlightOffers } from "@/hooks/useMulticityFlightOffers";
@@ -25,74 +25,51 @@ import RoundTripFilter from "@/components/ui/round-trip-filter";
 
 const FlightSearchPage = () => {
   const location = useLocation();
-  const [searchParams] = useSearchParams();
   const [initialValues, setInitialValues] = useState(null);
   const [multicityValues, setMulticityValues] = useState(null);
   const [multicityResults, setMulticityResults] = useState(null);
+  const [hasInitialized, setHasInitialized] = useState(false);
 
-  // Session storage for multi-city form data
-  const [sessionData] = useSessionStorage("multicity-form-data", null);
+  // Session storage for all flight form data
+  const [sessionData] = useSessionStorage("selected-flight", null);
 
-  // Get trip type from URL params, location state, or session storage
-  const urlTripType = searchParams.get("type");
-  const stateTripType = location.state?.type || location.state?.searchType;
-  const sessionTripType = sessionData?.type;
-  const tripType = urlTripType || stateTripType || sessionTripType || "one-way";
+  // Get trip type from session storage or default to one-way
+  const tripType = sessionData?.type || "one-way";
 
   // Reset initialization flag when trip type changes
   useEffect(() => {
     setHasInitialized(false);
   }, [tripType]);
 
-  // Initialize one-way/round-way form data from URL params
+  // Initialize and update one-way/round-way form data from session storage
   useEffect(() => {
-    if (tripType === "one-way" || tripType === "round-way") {
-      // Extract Query Params
-      const fromParam = searchParams.get("from");
-      const toParam = searchParams.get("to");
-      const travellersParam = searchParams.get("travellers");
-      const departParam = searchParams.get("depart");
-      const returnParam = searchParams.get("return");
-
-      // Parse the params
-      const parsedFrom = fromParam
-        ? JSON.parse(decodeURIComponent(fromParam))
-        : {};
-      const parsedTo = toParam ? JSON.parse(decodeURIComponent(toParam)) : {};
-      const parsedTravellers = travellersParam
-        ? JSON.parse(decodeURIComponent(travellersParam))
-        : {};
-
-      // Construct the initialValues with timezone-safe dates
-      setInitialValues({
-        flyingFrom: {
-          city: parsedFrom.city || "",
-          iataCode: parsedFrom.iataCode || "",
-        },
-        flyingTo: {
-          city: parsedTo.city || "",
-          iataCode: parsedTo.iataCode || "",
-        },
-        travellers: {
-          cabin: parsedTravellers.cabin || "economy",
-          adults: parsedTravellers.adults ?? 1,
-          children: parsedTravellers.children ?? 0,
-        },
-        depart: departParam ? parseDateFromURL(departParam) : null,
-        return: returnParam ? parseDateFromURL(returnParam) : null,
-      });
+    if ((tripType === "one-way" || tripType === "round-way") && sessionData) {
+      try {
+        // Construct the initialValues with timezone-safe dates
+        setInitialValues({
+          flyingFrom: sessionData.flyingFrom || { city: "", iataCode: "" },
+          flyingTo: sessionData.flyingTo || { city: "", iataCode: "" },
+          travellers: sessionData.travellers || {
+            cabin: "economy",
+            adults: 1,
+            children: 0,
+          },
+          depart: sessionData.depart ? parseDateFromURL(sessionData.depart) : null,
+          return: sessionData.return ? parseDateFromURL(sessionData.return) : null,
+        });
+        setHasInitialized(true);
+      } catch (error) {
+        console.warn("Failed to parse session flight data:", error);
+      }
     }
-  }, [location.search, searchParams, tripType]);
-
-  // Initialize multi-city form data from sessionStorage
-  const [hasInitialized, setHasInitialized] = useState(false);
+  }, [tripType, sessionData]);
 
   // Multi-city Flight Offers
   const { mutate: searchMulticityFlights, isPending: isMulticityLoading } =
     useMulticityFlightOffers();
 
   useEffect(() => {
-    if (tripType === "multicity" && sessionData && !hasInitialized) {
+    if (tripType === "multicity" && sessionData) {
       try {
         // Extract form data without the type field
         const { ...formData } = sessionData;
@@ -151,49 +128,51 @@ const FlightSearchPage = () => {
           };
           setMulticityValues(convertedData);
 
-          // Trigger automatic search like one-way and round-way forms do
-          const apiSearchData = {
-            currencyCode: "USD",
-            originDestinations: convertedData.originDestinations.map((od) => ({
-              ...od,
-              departureDateTimeRange: {
-                ...od.departureDateTimeRange,
+          // Only trigger automatic search if not yet initialized to avoid repeated searches
+          if (!hasInitialized) {
+            const apiSearchData = {
+              currencyCode: "USD",
+              originDestinations: convertedData.originDestinations.map((od) => ({
+                ...od,
+                departureDateTimeRange: {
+                  ...od.departureDateTimeRange,
+                },
+              })),
+              travelers: convertedData.travelers,
+              sources: ["GDS"],
+              searchCriteria: {
+                maxFlightOffers: 25,
+                flightFilters: {
+                  cabinRestrictions: [
+                    {
+                      cabin: travelClass,
+                      coverage: "MOST_SEGMENTS",
+                      originDestinationIds: convertedData.originDestinations.map(
+                        (od) => od.id
+                      ),
+                    },
+                  ],
+                },
               },
-            })),
-            travelers: convertedData.travelers,
-            sources: ["GDS"],
-            searchCriteria: {
-              maxFlightOffers: 25,
-              flightFilters: {
-                cabinRestrictions: [
-                  {
-                    cabin: travelClass,
-                    coverage: "MOST_SEGMENTS",
-                    originDestinationIds: convertedData.originDestinations.map(
-                      (od) => od.id
-                    ),
-                  },
-                ],
-              },
-            },
-          };
+            };
 
-          searchMulticityFlights(apiSearchData, {
-            onSuccess: (data) => {
-              if (
-                data?.data?.length === 0 &&
-                data?.warnings?.[0]?.title === "IncompleteSearchWarning"
-              ) {
-                toast.warning(
-                  "No complete trips were found for the selected cities and dates. Please try adjusting your search."
-                );
-              }
-              setMulticityResults(data);
-            },
-            onError: (error) => {
-              console.error("Auto multi-city search error:", error);
-            },
-          });
+            searchMulticityFlights(apiSearchData, {
+              onSuccess: (data) => {
+                if (
+                  data?.data?.length === 0 &&
+                  data?.warnings?.[0]?.title === "IncompleteSearchWarning"
+                ) {
+                  toast.warning(
+                    "No complete trips were found for the selected cities and dates. Please try adjusting your search."
+                  );
+                }
+                setMulticityResults(data);
+              },
+              onError: (error) => {
+                console.error("Auto multi-city search error:", error);
+              },
+            });
+          }
 
           setHasInitialized(true);
         } else {
@@ -217,11 +196,11 @@ const FlightSearchPage = () => {
         tripType === "round-way" && initialValues?.return instanceof Date
           ? initialValues.return
           : null,
-      adults: searchParams.get("adults") || 1,
-      children: searchParams.get("children") || 0,
-      travelClass: searchParams.get("travelClass") || "ECONOMY",
+      adults: sessionData?.travellers?.adults || 1,
+      children: sessionData?.travellers?.children || 0,
+      travelClass: sessionData?.travelClass || "ECONOMY",
     }),
-    [initialValues, tripType, searchParams]
+    [initialValues, tripType, sessionData]
   );
 
   // Flight Offers (for one-way and round-way)
@@ -250,10 +229,9 @@ const FlightSearchPage = () => {
   const searchContext = useMemo(() => {
     const context = {
       tripType,
-      searchParams: Object.fromEntries(searchParams.entries()),
-      adults: parseInt(searchParams.get("adults")) || 1,
-      children: parseInt(searchParams.get("children")) || 0,
-      travelClass: searchParams.get("travelClass") || "ECONOMY",
+      adults: sessionData?.travellers?.adults || 1,
+      children: sessionData?.travellers?.children || 0,
+      travelClass: sessionData?.travelClass || "ECONOMY",
     };
 
     // Add route information based on trip type
@@ -274,7 +252,7 @@ const FlightSearchPage = () => {
     }
 
     return context;
-  }, [tripType, searchParams, initialValues, multicityValues]);
+  }, [tripType, sessionData, initialValues, multicityValues]);
 
   return (
     <>

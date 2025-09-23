@@ -469,7 +469,7 @@ const FlightDetailsPage = () => {
                     All times are local
                   </span>
                 </div>
-                <div className="tw:bg-white tw:p-6 tw:rounded-xl tw:shadow">
+                <div className="tw:bg-white tw:p-6 tw:rounded-xl tw:flex tw:flex-col tw:gap-6 tw:shadow">
                   {/* Dynamic Flight Segments */}
                   {flightData.flightOffer.itineraries?.length > 0 ? (
                     flightData.flightOffer.itineraries.map((segment, index) => (

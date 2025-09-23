@@ -296,7 +296,7 @@ const MultiCityForm = ({ initialValues, onSearch }) => {
   const { segments, travellers } = formValues;
 
   // Use session storage to persist form data
-  const [, setSessionData] = useSessionStorage("multicity-form-data", {});
+  const [, setSessionData] = useSessionStorage("selected-flight", {});
 
   // Memoized cabin label mapping
   const cabinLabelMap = useMemo(

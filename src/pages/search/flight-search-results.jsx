@@ -323,10 +323,15 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
           sortedFlights.slice(0, visibleCount).map((itinerary) => {
             // FIRST: Check if this is actually a multi-city based on search context
             // Multi-city flights can have 2+ itineraries but should not be treated as round-trip
-            const isActualMultiCity = searchContext?.tripType === "multicity" ||
-                                    (searchContext?.segments && searchContext.segments.length > 0);
+            const isActualMultiCity =
+              searchContext?.tripType === "multicity" ||
+              (searchContext?.segments && searchContext.segments.length > 0);
 
-            if (isActualMultiCity && itinerary.itineraries && itinerary.itineraries.length > 1) {
+            if (
+              isActualMultiCity &&
+              itinerary.itineraries &&
+              itinerary.itineraries.length > 1
+            ) {
               // Multi-city flight - handle session storage
               const handleMultiCitySelect = () => {
                 const flightDetailsData = {
@@ -342,21 +347,38 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                     segments: itinerary.itineraries.map((seg, index) => ({
                       segmentNumber: index + 1,
                       from: {
-                        city: seg.flights[0].departure.city || seg.flights[0].departure.cityName || searchContext?.segments?.[index]?.from?.city || seg.flights[0].departure.iataCode,
-                        airport: seg.flights[0].departure.airport || seg.flights[0].departure.iataCode,
+                        city:
+                          seg.flights[0].departure.city ||
+                          seg.flights[0].departure.cityName ||
+                          searchContext?.segments?.[index]?.from?.city ||
+                          seg.flights[0].departure.iataCode,
+                        airport:
+                          seg.flights[0].departure.airport ||
+                          seg.flights[0].departure.iataCode,
                         iataCode: seg.flights[0].departure.iataCode,
                       },
                       to: {
-                        city: seg.flights[seg.flights.length - 1].arrival.city || seg.flights[seg.flights.length - 1].arrival.cityName || searchContext?.segments?.[index]?.to?.city || seg.flights[seg.flights.length - 1].arrival.iataCode,
-                        airport: seg.flights[seg.flights.length - 1].arrival.airport || seg.flights[seg.flights.length - 1].arrival.iataCode,
-                        iataCode: seg.flights[seg.flights.length - 1].arrival.iataCode,
+                        city:
+                          seg.flights[seg.flights.length - 1].arrival.city ||
+                          seg.flights[seg.flights.length - 1].arrival
+                            .cityName ||
+                          searchContext?.segments?.[index]?.to?.city ||
+                          seg.flights[seg.flights.length - 1].arrival.iataCode,
+                        airport:
+                          seg.flights[seg.flights.length - 1].arrival.airport ||
+                          seg.flights[seg.flights.length - 1].arrival.iataCode,
+                        iataCode:
+                          seg.flights[seg.flights.length - 1].arrival.iataCode,
                       },
                       departureDate: seg.flights[0].departure.at,
                     })),
                   },
                 };
 
-                sessionStorage.setItem("selected-flight-details", JSON.stringify(flightDetailsData));
+                sessionStorage.setItem(
+                  "selected-flight-details",
+                  JSON.stringify(flightDetailsData)
+                );
                 navigate("/flight/details");
               };
 
@@ -384,7 +406,9 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                             <div className="tw:flex tw:flex-col tw:justify-center tw:items-center tw:gap-0.5 tw:text-center">
                               {getAirlineLogoUrl(firstFlight.airlineCode) ? (
                                 <img
-                                  src={getAirlineLogoUrl(firstFlight.airlineCode)}
+                                  src={getAirlineLogoUrl(
+                                    firstFlight.airlineCode
+                                  )}
                                   alt={firstFlight.airline}
                                   className="tw:w-[120px]"
                                 />
@@ -396,7 +420,8 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                                 </div>
                               )}
                               <span className="tw:text-sm tw:text-secondary">
-                                {firstFlight.airlineCode} - {firstFlight.flightNumber}
+                                {firstFlight.airlineCode} -{" "}
+                                {firstFlight.flightNumber}
                               </span>
                             </div>
 
@@ -418,7 +443,9 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                               <div className="tw:flex tw:items-center tw:gap-2">
                                 <div className="tw:flex tw:flex-col tw:text-center tw:gap-1">
                                   <span className="tw:text-sm tw:font-semibold">
-                                    {formatDurationFromMinutes(totalDurationMinutes)}
+                                    {formatDurationFromMinutes(
+                                      totalDurationMinutes
+                                    )}
                                   </span>
                                   <span className="tw:h-px tw:w-[82px] tw:bg-secondary" />
                                   <span className="tw:text-sm tw:text-primary">
@@ -429,25 +456,37 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                                       }
                                       const stopAirports = flights
                                         .slice(0, stops)
-                                        .map((flight) => flight.arrival.airport);
+                                        .map(
+                                          (flight) => flight.arrival.airport
+                                        );
                                       return (
                                         <>
-                                          {`${stops} Stop${stops > 1 ? "s" : ""}`}{" "}
-                                          {stopAirports.map((airport, airportIndex) => (
-                                            <strong
-                                              key={airportIndex}
-                                              className="tw:text-[#5D586C] tw:!font-normal"
-                                            >
-                                              {airport}
-                                              {airportIndex < stopAirports.length - 1 ? ", " : ""}
-                                            </strong>
-                                          ))}
+                                          {`${stops} Stop${
+                                            stops > 1 ? "s" : ""
+                                          }`}{" "}
+                                          {stopAirports.map(
+                                            (airport, airportIndex) => (
+                                              <strong
+                                                key={airportIndex}
+                                                className="tw:text-[#5D586C] tw:!font-normal"
+                                              >
+                                                {airport}
+                                                {airportIndex <
+                                                stopAirports.length - 1
+                                                  ? ", "
+                                                  : ""}
+                                              </strong>
+                                            )
+                                          )}
                                         </>
                                       );
                                     })()}
                                   </span>
                                 </div>
-                                <RiPlaneLine size={24} className="tw:text-secondary tw:rotate-90" />
+                                <RiPlaneLine
+                                  size={24}
+                                  className="tw:text-secondary tw:rotate-90"
+                                />
                               </div>
                               {/* Arrival */}
                               <div className="tw:flex tw:flex-col tw:gap-1 tw:text-left">
@@ -463,9 +502,6 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                               </div>
                             </div>
                           </div>
-                          {index < itinerary.itineraries.length - 1 && (
-                            <hr className="tw:my-4" />
-                          )}
                         </div>
                       );
                     })}
@@ -478,11 +514,13 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                       className="tw:w-full tw:md:w-fit tw:bg-primary tw:py-2 tw:px-[30px] tw:flex tw:flex-col tw:!text-white tw:!rounded-full hover:tw:bg-primary/90 tw:transition-colors"
                     >
                       <span className="tw:text-sm">Select</span>
-                      <span className="tw:text-xl tw:font-medium">${itinerary.price}</span>
+                      <span className="tw:text-xl tw:font-medium">
+                        ${itinerary.price}
+                      </span>
                     </button>
-                    <span className="tw:text-sm tw:text-[#939393]">
+                    {/* <span className="tw:text-sm tw:text-[#939393]">
                       ${itinerary.totalPrice || itinerary.price} Total
-                    </span>
+                    </span> */}
                   </div>
                 </div>
               );
@@ -491,7 +529,11 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
             // SECOND: Check if this is a round-trip (only if NOT multi-city)
             if (!isActualMultiCity && itinerary.tripType === "round-trip") {
               return (
-                <RoundTripFlightCard key={itinerary.id} itinerary={itinerary} searchContext={searchContext} />
+                <RoundTripFlightCard
+                  key={itinerary.id}
+                  itinerary={itinerary}
+                  searchContext={searchContext}
+                />
               );
             }
 

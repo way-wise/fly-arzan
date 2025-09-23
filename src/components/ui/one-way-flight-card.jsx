@@ -34,6 +34,14 @@ const OneWayFlightCard = memo(({ itinerary, searchContext }) => {
           iataCode: itinerary.flights[itinerary.flights.length - 1].arrival.iataCode,
         },
         departureDate: itinerary.flights[0].departure.at,
+        // Add airline information for each flight segment
+        flights: itinerary.flights.map(flight => ({
+          airlineCode: flight.operating?.carrierCode || flight.airlineCode,
+          airlineName: flight.operating?.airlineName || flight.airlineName,
+          flightNumber: flight.flightNumber,
+          departure: flight.departure,
+          arrival: flight.arrival,
+        })),
       },
     };
 
@@ -154,9 +162,7 @@ const OneWayFlightCard = memo(({ itinerary, searchContext }) => {
           <span className="tw:text-sm">Select</span>
           <span className="tw:text-xl tw:font-medium">${itinerary.price}</span>
         </button>
-        <span className="tw:text-sm tw:text-[#939393]">
-          ${itinerary.totalPrice} Total
-        </span>
+        {/* For one-way flights, no "Total" line needed since it's a single journey */}
       </div>
     </div>
   );

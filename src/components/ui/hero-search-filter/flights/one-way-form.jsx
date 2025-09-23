@@ -26,7 +26,7 @@ import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { OneWayFormSchema } from "@/schema/one-way-schema";
 import { useCityLocation } from "@/hooks/useCityLocation";
-import { useDebounceValue } from "usehooks-ts";
+import { useDebounceValue, useSessionStorage } from "usehooks-ts";
 import { formatDateForURL } from "@/lib/flight-utils";
 import Calendar from "../../calendar";
 import PropTypes from "prop-types";
@@ -100,56 +100,8 @@ const OneWayForm = ({ initialValues }) => {
   const formValues = watch();
   const { flyingFrom, flyingTo, travellers, depart } = formValues;
 
-  const [debouncedFormValues] = useDebounceValue(formValues, 1000);
-  const isInitialMount = useRef(true);
-
-  useEffect(() => {
-    // Skip the effect on the initial render and if the form isn't ready.
-    if (
-      isInitialMount.current ||
-      !debouncedFormValues.depart ||
-      !(debouncedFormValues.depart instanceof Date) ||
-      !debouncedFormValues.flyingFrom?.iataCode ||
-      !debouncedFormValues.flyingTo?.iataCode
-    ) {
-      isInitialMount.current = false;
-      return;
-    }
-
-    const travelClass =
-      debouncedFormValues.travellers.cabin === "premium_economy"
-        ? "PREMIUM_ECONOMY"
-        : debouncedFormValues.travellers.cabin.toUpperCase();
-
-    const queryParams = {
-      from: encodeURIComponent(
-        JSON.stringify({
-          city: debouncedFormValues.flyingFrom.city,
-          iataCode: debouncedFormValues.flyingFrom.iataCode,
-        })
-      ),
-      to: encodeURIComponent(
-        JSON.stringify({
-          city: debouncedFormValues.flyingTo.city,
-          iataCode: debouncedFormValues.flyingTo.iataCode,
-        })
-      ),
-      depart: formatDateForURL(debouncedFormValues.depart),
-      adults: debouncedFormValues.travellers.adults,
-      children: debouncedFormValues.travellers.children,
-      travelClass: travelClass,
-      type: "one-way",
-      travellers: encodeURIComponent(
-        JSON.stringify(debouncedFormValues.travellers)
-      ),
-    };
-
-    const query = new URLSearchParams(queryParams).toString();
-
-    // Replace the URL in the browser's history without triggering a re-render
-    const newUrl = `${window.location.pathname}?${query}`;
-    window.history.replaceState(null, "", newUrl);
-  }, [debouncedFormValues, navigate]);
+  // Use session storage to persist form data
+  const [, setSessionData] = useSessionStorage("selected-flight", {});
 
   // Get City Data
   const { data: cityFromData, isLoading: isLoadingFrom } =
@@ -188,31 +140,20 @@ const OneWayForm = ({ initialValues }) => {
           ? "PREMIUM_ECONOMY"
           : values.travellers.cabin.toUpperCase();
 
-      const query = new URLSearchParams({
-        from: encodeURIComponent(
-          JSON.stringify({
-            city: values.flyingFrom.city,
-            iataCode: values.flyingFrom.iataCode,
-          })
-        ),
-        to: encodeURIComponent(
-          JSON.stringify({
-            city: values.flyingTo.city,
-            iataCode: values.flyingTo.iataCode,
-          })
-        ),
-        depart: formatDateForURL(values.depart),
-        adults: values.travellers.adults,
-        children: values.travellers.children,
-        travelClass: travelClass,
+      // Store the form data for session storage
+      const sessionFormData = {
+        flyingFrom: values.flyingFrom,
+        flyingTo: values.flyingTo,
+        travellers: values.travellers,
+        depart: values.depart ? formatDateForURL(values.depart) : "",
         type: "one-way",
-        // Keep travellers object for pre-filling the form on the next page
-        travellers: encodeURIComponent(JSON.stringify(values.travellers)),
-      }).toString();
+        travelClass,
+      };
 
-      navigate(`/search/flight?${query}`);
+      setSessionData(sessionFormData);
+      navigate("/search/flight");
     },
-    [navigate]
+    [navigate, setSessionData]
   );
 
   return (

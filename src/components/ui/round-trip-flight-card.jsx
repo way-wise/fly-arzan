@@ -133,17 +133,38 @@ const RoundTripFlightCard = ({ itinerary, searchContext }) => {
           iataCode: outboundFlights[0].departure.iataCode,
         },
         to: {
-          city: outboundFlights[outboundFlights.length - 1].arrival.city || searchContext?.toCity,
+          city:
+            outboundFlights[outboundFlights.length - 1].arrival.city ||
+            searchContext?.toCity,
           airport: outboundFlights[outboundFlights.length - 1].arrival.airport,
-          iataCode: outboundFlights[outboundFlights.length - 1].arrival.iataCode,
+          iataCode:
+            outboundFlights[outboundFlights.length - 1].arrival.iataCode,
         },
         departureDate: outboundFlights[0].departure.at,
         returnDate: returnFlights[0].departure.at,
+        // Add airline information for both outbound and return flights
+        outboundFlights: outboundFlights.map((flight) => ({
+          airlineCode: flight.operating?.carrierCode || flight.airlineCode,
+          airlineName: flight.operating?.airlineName || flight.airlineName,
+          flightNumber: flight.flightNumber,
+          departure: flight.departure,
+          arrival: flight.arrival,
+        })),
+        returnFlights: returnFlights.map((flight) => ({
+          airlineCode: flight.operating?.carrierCode || flight.airlineCode,
+          airlineName: flight.operating?.airlineName || flight.airlineName,
+          flightNumber: flight.flightNumber,
+          departure: flight.departure,
+          arrival: flight.arrival,
+        })),
       },
     };
 
     // Store in session storage
-    sessionStorage.setItem("selected-flight-details", JSON.stringify(flightDetailsData));
+    sessionStorage.setItem(
+      "selected-flight-details",
+      JSON.stringify(flightDetailsData)
+    );
 
     // Navigate to details page
     navigate("/flight/details");
@@ -157,7 +178,6 @@ const RoundTripFlightCard = ({ itinerary, searchContext }) => {
       {/* Flight Details Section */}
       <div className="tw:flex tw:flex-col tw:justify-between tw:grow tw:gap-4 tw:px-[30px] tw:mb-8 tw:md:mb-0">
         <FlightSegment flights={outboundFlights} />
-        <hr className="tw:my-4" />
         <FlightSegment flights={returnFlights} />
       </div>
 
@@ -170,9 +190,9 @@ const RoundTripFlightCard = ({ itinerary, searchContext }) => {
           <span className="tw:text-sm">Select</span>
           <span className="tw:text-xl tw:font-medium">${itinerary.price}</span>
         </button>
-        <span className="tw:text-sm tw:text-[#939393]">
+        {/* <span className="tw:text-sm tw:text-[#939393]">
           ${itinerary.totalPrice} Total
-        </span>
+        </span> */}
       </div>
     </div>
   );

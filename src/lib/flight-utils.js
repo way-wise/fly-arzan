@@ -38,11 +38,14 @@ export const formatDateFromISO = (dateTime) => {
 
 // Helper function to calculate total price
 export const calculateTotalPrice = (priceData) => {
-  const base = parseFloat(priceData?.base) || 0;
-  const total = parseFloat(priceData?.grandTotal) || base;
+  // For Amadeus API: price.total is the complete price including all fees
+  const totalPrice = parseFloat(priceData?.total) || parseFloat(priceData?.grandTotal) || 0;
+  const basePrice = parseFloat(priceData?.base) || totalPrice;
+
   return {
-    price: base,
-    totalPrice: total,
+    price: totalPrice, // This is the actual price to charge
+    basePrice: basePrice, // Base fare without taxes/fees
+    totalPrice: totalPrice, // Same as price for consistency
     currency: priceData?.currency || "USD",
   };
 };
@@ -166,15 +169,20 @@ export const processFlightOffer = (offer, index, dictionaries) => {
           return {
             airline: airlineName,
             airlineCode: carrierCode,
+            airlineName: airlineName, // Add explicit airline name
             flightNumber: `${carrierCode}${segment.number}`,
             departure: {
               time: formatTimeFromISO(segment.departure?.at),
               airport: segment.departure?.iataCode || "N/A",
+              iataCode: segment.departure?.iataCode,
+              city: dictionaries?.locations?.[segment.departure?.iataCode]?.cityCode,
               at: segment.departure?.at,
             },
             arrival: {
               time: formatTimeFromISO(segment.arrival?.at),
               airport: segment.arrival?.iataCode || "N/A",
+              iataCode: segment.arrival?.iataCode,
+              city: dictionaries?.locations?.[segment.arrival?.iataCode]?.cityCode,
               at: segment.arrival?.at,
             },
             duration: formatDurationFromMinutes(durationMinutes),
@@ -185,6 +193,11 @@ export const processFlightOffer = (offer, index, dictionaries) => {
                 : `${segment.numberOfStops} Stop${
                     segment.numberOfStops > 1 ? "s" : ""
                   }`,
+            // Add operating airline info for session storage
+            operating: {
+              carrierCode: segment.operating?.carrierCode || segment.carrierCode,
+              airlineName: dictionaries?.carriers?.[segment.operating?.carrierCode || segment.carrierCode] || airlineName,
+            },
           };
         })
         .filter(Boolean) || [];
@@ -208,8 +221,8 @@ export const processFlightOffer = (offer, index, dictionaries) => {
 
   return {
     id: `${index + 1}-${offer.id || Date.now()}`,
-    price: Math.round(price),
-    totalPrice: Math.round(totalPrice * 100) / 100,
+    price: Math.round(price * 100) / 100, // This is the complete price including fees
+    totalPrice: Math.round(totalPrice * 100) / 100, // Same as price for consistency
     currency,
     logo: firstAirlineCode,
     airlineCode: firstAirlineCode,
@@ -226,5 +239,7 @@ export const processFlightOffer = (offer, index, dictionaries) => {
       0
     ),
     tripType: isRoundTrip ? "round-trip" : "one-way",
+    // Add original offer for advanced processing
+    originalOffer: offer,
   };
 };
