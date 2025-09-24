@@ -145,7 +145,7 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
         id: "best",
         title: "Best",
         duration: formatDurationFromMinutes(bestOption.totalDurationMinutes),
-        price: `$${bestOption.price}`,
+        price: `${regionalSettings?.currency?.symbol || "$"}${bestOption.price}`,
         icon: <RiVerifiedBadgeFill size={24} />,
         showInMobile: true,
       },
@@ -155,7 +155,7 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
         duration: formatDurationFromMinutes(
           cheapestOption.totalDurationMinutes
         ),
-        price: `$${cheapestOption.price}`,
+        price: `${regionalSettings?.currency?.symbol || "$"}${cheapestOption.price}`,
         icon: <RiPercentFill size={24} />,
         showInMobile: true,
       },
@@ -163,7 +163,7 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
         id: "fastest",
         title: "Fastest",
         duration: formatDurationFromMinutes(fastestOption.totalDurationMinutes),
-        price: `$${fastestOption.price}`,
+        price: `${regionalSettings?.currency?.symbol || "$"}${fastestOption.price}`,
         icon: <RiFlashlightFill size={24} />,
         showInMobile: true,
       },
@@ -523,11 +523,11 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                     >
                       <span className="tw:text-sm">Select</span>
                       <span className="tw:text-xl tw:font-medium">
-                        ${itinerary.price}
+                        {regionalSettings?.currency?.symbol || "$"}{itinerary.price}
                       </span>
                     </button>
                     {/* <span className="tw:text-sm tw:text-[#939393]">
-                      ${itinerary.totalPrice || itinerary.price} Total
+                      {regionalSettings?.currency?.symbol || "$"}{itinerary.totalPrice || itinerary.price} Total
                     </span> */}
                   </div>
                 </div>

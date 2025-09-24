@@ -164,7 +164,7 @@ const OneWayFlightCard = memo(({ itinerary, searchContext }) => {
           className="tw:w-full tw:md:w-fit tw:bg-primary tw:py-2 tw:px-[30px] tw:flex tw:flex-col tw:!text-white tw:!rounded-full hover:tw:bg-primary/90 tw:transition-colors"
         >
           <span className="tw:text-sm">Select</span>
-          <span className="tw:text-xl tw:font-medium">${itinerary.price}</span>
+          <span className="tw:text-xl tw:font-medium">{regionalSettings?.currency?.symbol || "$"}{itinerary.price}</span>
         </button>
         {/* For one-way flights, no "Total" line needed since it's a single journey */}
       </div>

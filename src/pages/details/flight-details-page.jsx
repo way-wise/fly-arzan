@@ -216,7 +216,7 @@ const FlightDetailsPage = () => {
   };
 
   const generateForwardLink = () => {
-    const { tripType, routeInfo, passengerInfo } = flightData;
+    const { tripType, routeInfo, passengerInfo, regionalSettings } = flightData;
 
     // Common parameters
     const adults = passengerInfo?.adults || 1;
@@ -240,8 +240,8 @@ const FlightDetailsPage = () => {
       class: getCabinClass(cabin),
       lowpricesource: "searchform",
       quantity: adults.toString(),
-      locale: "en-GB",
-      curr: "GBP",
+      locale: regionalSettings?.language?.code || "en-US",
+      curr: regionalSettings?.currency?.curr || "USD",
     };
 
     let params = new URLSearchParams();
