@@ -13,6 +13,7 @@ export const useFlightOffers = (queries) => {
     adults: queries.adults,
     children: queries.children,
     travelClass: queries.travelClass,
+    currencyCode: queries.currencyCode || "USD",
   };
 
   // Conditionally add returnDate if it exists
