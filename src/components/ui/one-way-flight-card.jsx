@@ -6,11 +6,13 @@ import {
   formatDurationFromMinutes,
   formatDateFromISO,
 } from "@/lib/flight-utils";
+import { useRegionalSettings } from "../../context/RegionalSettingsContext";
 import PropTypes from "prop-types";
 
 
 const OneWayFlightCard = memo(({ itinerary, searchContext }) => {
   const navigate = useNavigate();
+  const { regionalSettings } = useRegionalSettings();
 
   const handleFlightSelect = () => {
     // Store complete flight details in session storage
@@ -44,6 +46,7 @@ const OneWayFlightCard = memo(({ itinerary, searchContext }) => {
           arrival: flight.arrival,
         })),
       },
+      regionalSettings: regionalSettings,
     };
 
     // Store in session storage

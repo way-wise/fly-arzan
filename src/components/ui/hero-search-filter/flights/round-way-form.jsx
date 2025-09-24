@@ -28,11 +28,13 @@ import { RoundWayFormSchema } from "@/schema/round-way-schema";
 import { useCityLocation } from "@/hooks/useCityLocation";
 import { useDebounceValue, useSessionStorage } from "usehooks-ts";
 import { formatDateForURL } from "@/lib/flight-utils";
+import { useRegionalSettings } from "../../../../context/RegionalSettingsContext";
 import Calendar from "../../calendar";
 import PropTypes from "prop-types";
 
 const RoundWayForm = ({ initialValues }) => {
   const navigate = useNavigate();
+  const { regionalSettings } = useRegionalSettings();
   const [queryFrom, setQueryFrom] = useDebounceValue("", 600);
   const [queryTo, setQueryTo] = useDebounceValue("", 600);
   const [travellersOpen, setTravellersOpen] = useState(false);
@@ -160,6 +162,7 @@ const RoundWayForm = ({ initialValues }) => {
         return: values.return ? formatDateForURL(values.return) : "",
         type: "round-way",
         travelClass,
+        regionalSettings: regionalSettings,
       };
 
       setSessionData(sessionFormData);

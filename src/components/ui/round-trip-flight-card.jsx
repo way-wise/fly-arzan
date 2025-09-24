@@ -6,6 +6,7 @@ import {
   formatDurationFromMinutes,
   formatDateFromISO,
 } from "@/lib/flight-utils";
+import { useRegionalSettings } from "../../context/RegionalSettingsContext";
 import PropTypes from "prop-types";
 
 
@@ -113,6 +114,7 @@ FlightSegment.propTypes = {
 
 const RoundTripFlightCard = ({ itinerary, searchContext }) => {
   const navigate = useNavigate();
+  const { regionalSettings } = useRegionalSettings();
   const outboundFlights = itinerary.itineraries[0].flights;
   const returnFlights = itinerary.itineraries[1].flights;
 
@@ -159,6 +161,7 @@ const RoundTripFlightCard = ({ itinerary, searchContext }) => {
           arrival: flight.arrival,
         })),
       },
+      regionalSettings: regionalSettings,
     };
 
     // Store in session storage

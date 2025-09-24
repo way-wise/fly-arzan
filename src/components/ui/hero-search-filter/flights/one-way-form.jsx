@@ -28,11 +28,13 @@ import { OneWayFormSchema } from "@/schema/one-way-schema";
 import { useCityLocation } from "@/hooks/useCityLocation";
 import { useDebounceValue, useSessionStorage } from "usehooks-ts";
 import { formatDateForURL } from "@/lib/flight-utils";
+import { useRegionalSettings } from "../../../../context/RegionalSettingsContext";
 import Calendar from "../../calendar";
 import PropTypes from "prop-types";
 
 const OneWayForm = ({ initialValues }) => {
   const navigate = useNavigate();
+  const { regionalSettings } = useRegionalSettings();
   const [queryFrom, setQueryFrom] = useDebounceValue("", 600);
   const [queryTo, setQueryTo] = useDebounceValue("", 600);
   const [travellersOpen, setTravellersOpen] = useState(false);
@@ -148,6 +150,7 @@ const OneWayForm = ({ initialValues }) => {
         depart: values.depart ? formatDateForURL(values.depart) : "",
         type: "one-way",
         travelClass,
+        regionalSettings: regionalSettings,
       };
 
       setSessionData(sessionFormData);

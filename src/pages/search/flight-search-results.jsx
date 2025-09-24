@@ -20,6 +20,7 @@ import { useSidebarFilter } from "@/providers/filter-sidebar-provider";
 import { Skeleton } from "@/components/ui/skeleton";
 import OneWayFlightCard from "@/components/ui/one-way-flight-card";
 import RoundTripFlightCard from "@/components/ui/round-trip-flight-card";
+import { useRegionalSettings } from "../../context/RegionalSettingsContext";
 import PropTypes from "prop-types";
 
 import {
@@ -33,6 +34,7 @@ import {
 const FlightSearchResults = ({ flightOffersData, searchContext }) => {
   const navigate = useNavigate();
   const { openMobile, setOpenMobile } = useSidebarFilter();
+  const { regionalSettings } = useRegionalSettings();
   const [selectedTimeCost, setSelectedTimeCost] = useState("best");
   const [processedFlights, setProcessedFlights] = useState([]);
   const [timeCostFilters, setTimeCostFilters] = useState([
@@ -377,6 +379,7 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                     })),
                     airlines: airlinesInfo,
                   },
+                  regionalSettings: regionalSettings,
                 };
 
                 sessionStorage.setItem(

@@ -28,6 +28,7 @@ import { MultiCityFormSchema } from "@/schema/multi-city-schema";
 import { formatDateForURL } from "@/lib/flight-utils";
 import { useCityLocation } from "@/hooks/useCityLocation";
 import { useDebounceValue, useSessionStorage } from "usehooks-ts";
+import { useRegionalSettings } from "../../../../context/RegionalSettingsContext";
 import PropTypes from "prop-types";
 
 // SegmentRow component moved outside to avoid hook violations
@@ -252,6 +253,7 @@ SegmentRow.displayName = "SegmentRow";
 
 const MultiCityForm = ({ initialValues, onSearch }) => {
   const navigate = useNavigate();
+  const { regionalSettings } = useRegionalSettings();
   const [travellersOpen, setTravellersOpen] = useState(false);
   const [appliedTravellers, setAppliedTravellers] = useState(
     initialValues?.travellers ? { ...initialValues.travellers } : null
@@ -415,6 +417,7 @@ const MultiCityForm = ({ initialValues, onSearch }) => {
         })),
         type: "multicity",
         travelClass,
+        regionalSettings: regionalSettings,
       };
 
       if (onSearch) {
