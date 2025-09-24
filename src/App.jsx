@@ -13,6 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 // import { LOCATION_API_KEY } from "./baseUrl";
 // import getSymbolFromCurrency from "currency-symbol-map";
 import TanstackQueryProvider from "./providers/tanstack-query-prover";
+import { RegionalSettingsProvider } from "./context/RegionalSettingsContext";
 
 function App() {
   // const { setUserLocation } = useLocationContext();
@@ -46,11 +47,13 @@ function App() {
 
   return (
     <TanstackQueryProvider>
-      <BrowserRouter>
-        <Scroll />
-        <Routes />
-        <ToastContainer />
-      </BrowserRouter>
+      <RegionalSettingsProvider>
+        <BrowserRouter>
+          <Scroll />
+          <Routes />
+          <ToastContainer />
+        </BrowserRouter>
+      </RegionalSettingsProvider>
     </TanstackQueryProvider>
   );
 }

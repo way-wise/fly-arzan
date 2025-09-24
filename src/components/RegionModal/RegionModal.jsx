@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { HiLanguage } from "react-icons/hi2";
 import { BiWorld } from "react-icons/bi";
 import { useLocationContext } from "../../context/userLocationContext";
@@ -9,41 +9,54 @@ import axios from "axios";
 import { useTranslation } from "react-i18next";
 import getSymbolFromCurrency from "currency-symbol-map";
 import { useCurrency } from "../../context/CurrencyContext";
+import { useRegionalSettings } from "../../context/RegionalSettingsContext";
 import PropTypes from "prop-types";
 
 function RegionModal({ setModal }) {
   const { userLocation, setUserLocation } = useLocationContext();
   const { setCurrency, selectedLocalCurr, currency } = useCurrency();
-  const selectLocalLang = JSON.parse(localStorage.getItem("selectLang"));
-
-  const selectedLocalCountry = JSON.parse(
-    localStorage.getItem("selectCountry")
-  );
+  const { regionalSettings, updateRegionalSettings, isLoaded } = useRegionalSettings();
 
   const { i18n } = useTranslation();
   const [currencies, setCurrencies] = useState([]);
   const [countriesData, setCountriesData] = useState([]);
   const [selectCurr, setSelectCurr] = useState({
-    curr: selectedLocalCurr?.curr || userLocation?.curr || currency || "",
-    symbol:
-      selectedLocalCurr?.symbol ||
-      userLocation?.symbol ||
-      (currency ? getSymbolFromCurrency(currency) : ""),
+    curr: "",
+    symbol: "",
   });
   const [selectCountry, setSelectCountry] = useState({
-    country: selectedLocalCountry?.country || "",
-    city: selectedLocalCountry?.city || "",
-    countryCode: selectedLocalCountry?.countryCode || "",
+    country: "",
+    countryCode: "",
+    flag: "",
   });
   const [selectLang, setSelectLang] = useState({
-    label: selectLocalLang?.label || "",
-    code: selectLocalLang?.code || "",
+    label: "",
+    code: "",
   });
 
   // Local dropdown open states so we don't rely on external bootstrap JS
   const [openLang, setOpenLang] = useState(false);
   const [openCountry, setOpenCountry] = useState(false);
   const [openCurr, setOpenCurr] = useState(false);
+
+  // Initialize state from context when loaded
+  useEffect(() => {
+    if (isLoaded && regionalSettings) {
+      setSelectCurr({
+        curr: regionalSettings?.currency?.curr || "USD",
+        symbol: regionalSettings?.currency?.symbol || "$",
+      });
+      setSelectCountry({
+        country: regionalSettings?.country?.country || "United States",
+        countryCode: regionalSettings?.country?.countryCode || "US",
+        flag: regionalSettings?.country?.flag || "https://flagcdn.com/w320/us.png",
+      });
+      setSelectLang({
+        label: regionalSettings?.language?.label || "English (USA)",
+        code: regionalSettings?.language?.code || "en-US",
+      });
+    }
+  }, [isLoaded, regionalSettings]);
 
   const allLanguages = [
     { label: "English (UK)", code: "en-GB" },
@@ -74,20 +87,23 @@ function RegionModal({ setModal }) {
   ];
 
   const { data: countries } = useGet(
-    "https://restcountries.com/v3.1/all",
+    "https://restcountries.com/v3.1/all?fields=name,flags,cca2",
     true,
     "",
     false
   );
-  useEffect(() => {
+  const memoizedCountries = useMemo(() => {
     if (Array.isArray(countries) && countries.length > 0) {
-      const sortedCountries = [...countries].sort((a, b) =>
+      return [...countries].sort((a, b) =>
         a.name.common.localeCompare(b.name.common)
       );
-      setCountriesData(sortedCountries);
     }
+    return [];
   }, [countries]);
-  
+
+  useEffect(() => {
+    setCountriesData(memoizedCountries);
+  }, [memoizedCountries]);
 
   useEffect(() => {
     const CURRENCIES_URL = `https://openexchangerates.org/api/currencies.json?app_id=${CURR_API_KEY}`;
@@ -107,16 +123,13 @@ function RegionModal({ setModal }) {
     getCurrencySymbols();
   }, []);
 
-  const handleCountrySelect = (name, city, countryCode, currency) => {
-    const currName = Object.keys(currency)[0];
-    const isSameCountry =
-      name?.toLowerCase() === userLocation?.userCountry?.toLowerCase();
+  const handleCountrySelect = (name, countryCode, flag) => {
     setSelectCountry({
       country: name,
-      city: isSameCountry ? userLocation?.userCity : city,
       countryCode,
+      flag,
     });
-    setSelectCurr({ curr: currName, symbol: currency[currName]?.symbol });
+    setOpenCountry(false);
   };
 
   const handleLanguageChange = (lng) => {
@@ -130,34 +143,40 @@ function RegionModal({ setModal }) {
   };
 
   const handleSubmit = () => {
+    const newRegionalSettings = {
+      language: {
+        label: selectLang?.label || regionalSettings?.language?.label,
+        code: selectLang?.code || regionalSettings?.language?.code
+      },
+      country: {
+        country: selectCountry?.country || regionalSettings?.country?.country,
+        countryCode: selectCountry?.countryCode || regionalSettings?.country?.countryCode,
+        flag: selectCountry?.flag || regionalSettings?.country?.flag
+      },
+      currency: {
+        curr: selectCurr?.curr || regionalSettings?.currency?.curr,
+        symbol: selectCurr?.symbol || regionalSettings?.currency?.symbol
+      }
+    };
+
+    updateRegionalSettings(newRegionalSettings);
+
     if (selectLang?.code) {
-      localStorage.setItem("selectLang", JSON.stringify(selectLang));
       i18n.changeLanguage(selectLang?.code);
-      setSelectLang("");
     }
 
     if (selectCountry?.country) {
-      const isSameCountry =
-        selectCountry?.country?.toLowerCase() ===
-        userLocation?.userCountry?.toLowerCase();
-
       setUserLocation((prev) => ({
         ...prev,
         country_name: selectCountry?.country,
-        city: isSameCountry ? userLocation?.userCity : selectCountry?.city,
         countryCode: selectCountry?.countryCode,
       }));
-      localStorage.setItem("selectCountry", JSON.stringify(selectCountry));
-      setSelectCountry("");
     }
 
     if (selectCurr?.curr) {
       setCurrency(selectCurr?.curr);
-      localStorage.setItem("selectCurr", JSON.stringify(selectCurr));
-      setSelectCurr({ curr: "", symbol: "" });
     }
 
-    // Sab kuch set hone ke baad modal band karo
     setModal(false);
   };
 
@@ -181,7 +200,7 @@ function RegionModal({ setModal }) {
             aria-expanded={openLang}
             onClick={() => setOpenLang((v) => !v)}
           >
-            {selectLang?.label || "English (USA)"}
+            {selectLang?.label || regionalSettings?.language?.label || "Select Language"}
           </button>
 
           {openLang && (
@@ -227,17 +246,31 @@ function RegionModal({ setModal }) {
           information.
         </p>
 
-        <div className="dropdown" style={{ position: "relative" }}>
+        <div
+          className="dropdown"
+          style={{ position: "relative", marginTop: "8px" }}
+        >
           <button
             className="btn btn-secondary dropdown-toggle language-button"
             type="button"
             aria-haspopup="true"
             aria-expanded={openCountry}
             onClick={() => setOpenCountry((v) => !v)}
+            style={{ display: "flex", alignItems: "center", justifyContent: "space-between", textAlign: "left" }}
           >
-            {selectCountry?.country
-              ? selectCountry?.country
-              : userLocation?.country_name}
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              {(selectCountry?.flag || regionalSettings?.country?.flag) && (
+                <img
+                  src={selectCountry?.flag || regionalSettings?.country?.flag}
+                  alt={selectCountry?.country || regionalSettings?.country?.country}
+                  style={{ width: "20px", height: "15px", objectFit: "cover" }}
+                />
+              )}
+              <span>{selectCountry?.country ||
+                regionalSettings?.country?.country ||
+                userLocation?.country_name ||
+                "Select Country"}</span>
+            </div>
           </button>
 
           {openCountry && (
@@ -259,16 +292,30 @@ function RegionModal({ setModal }) {
                   <button
                     key={index}
                     className="dropdown-item"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      justifyContent: "flex-start",
+                      textAlign: "left",
+                    }}
                     onClick={() => {
                       handleCountrySelect(
                         country.name.common,
-                        country.capital?.[0],
                         country.cca2,
-                        country.currencies
+                        country.flags.png
                       );
-                      setOpenCountry(false);
                     }}
                   >
+                    <img
+                      src={country.flags.png}
+                      alt={country.name.common}
+                      style={{
+                        width: "20px",
+                        height: "15px",
+                        objectFit: "cover",
+                      }}
+                    />
                     {country.name.common}
                   </button>
                 ))
@@ -294,11 +341,24 @@ function RegionModal({ setModal }) {
             onClick={() => setOpenCurr((v) => !v)}
           >
             {(() => {
-              const code = selectCurr?.curr || selectedLocalCurr?.curr || userLocation?.curr || currency || "";
-              const name = (code && currencies && currencies[code]) ? currencies[code] : "";
-              const sym = selectCurr?.symbol || selectedLocalCurr?.symbol || getSymbolFromCurrency(code) || userLocation?.symbol || "";
+              const code =
+                selectCurr?.curr ||
+                selectedLocalCurr?.curr ||
+                userLocation?.curr ||
+                currency ||
+                "";
+              const name =
+                code && currencies && currencies[code] ? currencies[code] : "";
+              const sym =
+                selectCurr?.symbol ||
+                selectedLocalCurr?.symbol ||
+                getSymbolFromCurrency(code) ||
+                userLocation?.symbol ||
+                "";
               if (!code && !sym) return "Select currency";
-              return `${code}${name ? ` - ${name}` : sym ? " -" : ""}${sym ? ` (${sym})` : ""}`;
+              return `${code}${name ? ` - ${name}` : sym ? " -" : ""}${
+                sym ? ` (${sym})` : ""
+              }`;
             })()}
           </button>
 

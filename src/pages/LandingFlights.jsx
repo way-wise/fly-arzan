@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 // import HeaderOld2 from "../header-footer/HeaderOld2";
 import Footer from "../header-footer/Footer";
 import FlightSec2 from "../components/Landing_page_1_componets/FlightSec2";
 import FlightSec3 from "../components/Landing_page_1_componets/FlightSec3";
 import FlightSec4 from "../components/Landing_page_1_componets/FlightSec4";
-import FlightHero from "../components/Landing_page_1_componets/FlightHero";
+// import FlightHero from "../components/Landing_page_1_componets/FlightHero";
 import FlightFaq from "../components/Landing_page_1_componets/FlightFaq";
 import FlightSec1 from "../components/Landing_page_1_componets/FlightSec1";
 import { FlightContext } from "../context/FlightContext";
@@ -19,7 +19,7 @@ const LandingFlights = () => {
   const { setContextData } = useContext(FlightContext);
   useEffect(() => {
     setContextData(null);
-  }, []);
+  }, [setContextData]);
 
   const sectionRefs = {
     sec2: useRef(null),
