@@ -15,6 +15,7 @@ import { useMediaQuery } from "usehooks-ts";
 import RegionModal from "@/components/RegionModal/RegionModal";
 import { useCurrency } from "@/context/CurrencyContext";
 import { useLocationContext } from "@/context/userLocationContext";
+import { useRegionalSettings } from "../context/RegionalSettingsContext";
 import { useTranslation } from "react-i18next";
 import getSymbolFromCurrency from "currency-symbol-map";
 import NewLoginForm from "@/components/ui/auth/new-login-form";
@@ -34,12 +35,8 @@ const Header = () => {
 
   const { selectedLocalCurr, currency } = useCurrency();
   const { userLocation } = useLocationContext();
+  const { regionalSettings, isLoaded } = useRegionalSettings();
   const { i18n } = useTranslation();
-
-  const selectLocalLang =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("selectLang"))
-      : null;
 
   const siteNavigation = [
     {
@@ -187,14 +184,14 @@ const Header = () => {
                 >
                   <TfiWorld className="tw:size-5 md:tw:size-6" />
                   <span className="tw:hidden tw:md:block tw:whitespace-nowrap">
-                    {(i18n?.language || selectLocalLang?.code || "en")
-                      .toUpperCase()
-                      .replace(/-.*/, "")}{" "}
-                    -{" "}
-                    {getSymbolFromCurrency(currency) ||
-                      selectedLocalCurr?.symbol ||
-                      userLocation?.symbol ||
-                      "£"}
+                    {!isLoaded ? "Loading..." :
+                      `${(regionalSettings?.language?.code || i18n?.language || "en-US")
+                        .toUpperCase()
+                        .replace(/-.*/, "")} - ${regionalSettings?.currency?.symbol ||
+                        getSymbolFromCurrency(currency) ||
+                        selectedLocalCurr?.symbol ||
+                        userLocation?.symbol ||
+                        "$"}`}
                   </span>
                 </button>
                 <button

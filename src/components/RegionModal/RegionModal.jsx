@@ -47,7 +47,7 @@ function RegionModal({ setModal }) {
         symbol: regionalSettings?.currency?.symbol || "$",
       });
       setSelectCountry({
-        country: regionalSettings?.country?.country || "United States",
+        country: regionalSettings?.country?.name || "United States",
         countryCode: regionalSettings?.country?.countryCode || "US",
         flag: regionalSettings?.country?.flag || "https://flagcdn.com/w320/us.png",
       });
@@ -149,14 +149,20 @@ function RegionModal({ setModal }) {
         code: selectLang?.code || regionalSettings?.language?.code
       },
       country: {
-        country: selectCountry?.country || regionalSettings?.country?.country,
+        name: selectCountry?.country || regionalSettings?.country?.name,
         countryCode: selectCountry?.countryCode || regionalSettings?.country?.countryCode,
         flag: selectCountry?.flag || regionalSettings?.country?.flag
       },
       currency: {
         curr: selectCurr?.curr || regionalSettings?.currency?.curr,
         symbol: selectCurr?.symbol || regionalSettings?.currency?.symbol
-      }
+      },
+      location: regionalSettings?.location || {
+        latitude: null,
+        longitude: null,
+        timezone: "America/New_York"
+      },
+      setBy: "user"
     };
 
     updateRegionalSettings(newRegionalSettings);
@@ -262,12 +268,12 @@ function RegionModal({ setModal }) {
               {(selectCountry?.flag || regionalSettings?.country?.flag) && (
                 <img
                   src={selectCountry?.flag || regionalSettings?.country?.flag}
-                  alt={selectCountry?.country || regionalSettings?.country?.country}
+                  alt={selectCountry?.country || regionalSettings?.country?.name}
                   style={{ width: "20px", height: "15px", objectFit: "cover" }}
                 />
               )}
               <span>{selectCountry?.country ||
-                regionalSettings?.country?.country ||
+                regionalSettings?.country?.name ||
                 userLocation?.country_name ||
                 "Select Country"}</span>
             </div>

@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { initializeRegionalSettings } from "../utils/locationUtils";
 import PropTypes from "prop-types";
 
 const RegionalSettingsContext = createContext();
@@ -15,44 +16,68 @@ export const RegionalSettingsProvider = ({ children }) => {
   const [regionalSettings, setRegionalSettings] = useState({
     language: { label: "English (USA)", code: "en-US" },
     country: {
-      country: "United States",
+      name: "United States",
       countryCode: "US",
       flag: "https://flagcdn.com/w320/us.png"
     },
-    currency: { curr: "USD", symbol: "$" }
+    currency: { curr: "USD", symbol: "$" },
+    location: {
+      latitude: null,
+      longitude: null,
+      timezone: "America/New_York"
+    },
+    setBy: "fallback"
   });
 
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isLocationDetecting, setIsLocationDetecting] = useState(false);
 
-  // Initialize settings from localStorage on app load
+  // Initialize regional settings with smart IP detection and setBy logic
   useEffect(() => {
-    const existingSettings = localStorage.getItem("regionalSettings");
-
-    if (existingSettings) {
-      // Load existing settings
+    const initializeSettings = async () => {
       try {
-        const parsed = JSON.parse(existingSettings);
-        setRegionalSettings(parsed);
-      } catch (error) {
-        console.error("Failed to parse regional settings:", error);
-        // Keep defaults if parsing fails
-      }
-    } else {
-      // Save default settings to localStorage
-      const defaultSettings = {
-        language: { label: "English (USA)", code: "en-US" },
-        country: {
-          country: "United States",
-          countryCode: "US",
-          flag: "https://flagcdn.com/w320/us.png"
-        },
-        currency: { curr: "USD", symbol: "$" }
-      };
-      localStorage.setItem("regionalSettings", JSON.stringify(defaultSettings));
-      setRegionalSettings(defaultSettings);
-    }
+        console.log('🚀 Initializing Regional Settings...');
+        setIsLocationDetecting(true);
 
-    setIsLoaded(true);
+        // This handles the setBy logic internally:
+        // - If setBy === "user", uses existing settings
+        // - If setBy === "ip" or missing, detects from IP
+        const settings = await initializeRegionalSettings();
+
+        setRegionalSettings(settings);
+        setIsLocationDetecting(false);
+        setIsLoaded(true);
+
+        console.log('✅ Regional Settings initialized successfully');
+
+      } catch (error) {
+        console.error('❌ Failed to initialize regional settings:', error);
+
+        // Fallback to defaults on error
+        const fallbackSettings = {
+          language: { label: "English (USA)", code: "en-US" },
+          country: {
+            name: "United States",
+            countryCode: "US",
+            flag: "https://flagcdn.com/w320/us.png"
+          },
+          currency: { curr: "USD", symbol: "$" },
+          location: {
+            latitude: null,
+            longitude: null,
+            timezone: "America/New_York"
+          },
+          setBy: "error-fallback"
+        };
+
+        setRegionalSettings(fallbackSettings);
+        localStorage.setItem("regionalSettings", JSON.stringify(fallbackSettings));
+        setIsLocationDetecting(false);
+        setIsLoaded(true);
+      }
+    };
+
+    initializeSettings();
   }, []);
 
   const updateRegionalSettings = (newSettings) => {
@@ -63,7 +88,8 @@ export const RegionalSettingsProvider = ({ children }) => {
   const value = {
     regionalSettings,
     updateRegionalSettings,
-    isLoaded
+    isLoaded,
+    isLocationDetecting
   };
 
   return (
