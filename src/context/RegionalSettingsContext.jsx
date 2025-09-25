@@ -7,7 +7,9 @@ const RegionalSettingsContext = createContext();
 export const useRegionalSettings = () => {
   const context = useContext(RegionalSettingsContext);
   if (!context) {
-    throw new Error("useRegionalSettings must be used within RegionalSettingsProvider");
+    throw new Error(
+      "useRegionalSettings must be used within RegionalSettingsProvider"
+    );
   }
   return context;
 };
@@ -18,15 +20,15 @@ export const RegionalSettingsProvider = ({ children }) => {
     country: {
       name: "United States",
       countryCode: "US",
-      flag: "https://flagcdn.com/w320/us.png"
+      flag: "https://flagcdn.com/w320/us.png",
     },
     currency: { curr: "USD", symbol: "$" },
     location: {
       latitude: null,
       longitude: null,
-      timezone: "America/New_York"
+      timezone: "America/New_York",
     },
-    setBy: "fallback"
+    setBy: "fallback",
   });
 
   const [isLoaded, setIsLoaded] = useState(false);
@@ -36,7 +38,6 @@ export const RegionalSettingsProvider = ({ children }) => {
   useEffect(() => {
     const initializeSettings = async () => {
       try {
-        console.log('🚀 Initializing Regional Settings...');
         setIsLocationDetecting(true);
 
         // This handles the setBy logic internally:
@@ -47,31 +48,29 @@ export const RegionalSettingsProvider = ({ children }) => {
         setRegionalSettings(settings);
         setIsLocationDetecting(false);
         setIsLoaded(true);
-
-        console.log('✅ Regional Settings initialized successfully');
-
-      } catch (error) {
-        console.error('❌ Failed to initialize regional settings:', error);
-
+      } catch {
         // Fallback to defaults on error
         const fallbackSettings = {
           language: { label: "English (USA)", code: "en-US" },
           country: {
             name: "United States",
             countryCode: "US",
-            flag: "https://flagcdn.com/w320/us.png"
+            flag: "https://flagcdn.com/w320/us.png",
           },
           currency: { curr: "USD", symbol: "$" },
           location: {
             latitude: null,
             longitude: null,
-            timezone: "America/New_York"
+            timezone: "America/New_York",
           },
-          setBy: "error-fallback"
+          setBy: "error-fallback",
         };
 
         setRegionalSettings(fallbackSettings);
-        localStorage.setItem("regionalSettings", JSON.stringify(fallbackSettings));
+        localStorage.setItem(
+          "regionalSettings",
+          JSON.stringify(fallbackSettings)
+        );
         setIsLocationDetecting(false);
         setIsLoaded(true);
       }
@@ -89,7 +88,7 @@ export const RegionalSettingsProvider = ({ children }) => {
     regionalSettings,
     updateRegionalSettings,
     isLoaded,
-    isLocationDetecting
+    isLocationDetecting,
   };
 
   return (
