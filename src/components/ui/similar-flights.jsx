@@ -3,8 +3,68 @@ import {
   getSimilarFlights,
   switchSelectedFlight,
 } from "../../utils/similarFlightsUtils";
+import { generateForwardLink } from "../../utils/forwardLinkUtils";
 import OneWayFlightCard from "./one-way-flight-card";
 import RoundTripFlightCard from "./round-trip-flight-card";
+
+// Helper function to generate route info from flight data
+const generateRouteInfoFromFlight = (flight, tripType) => {
+  if (tripType === "one-way") {
+    const flights = flight.flights || [];
+    return {
+      from: {
+        city: flights[0]?.departure?.city,
+        airport: flights[0]?.departure?.airport,
+        iataCode: flights[0]?.departure?.iataCode,
+      },
+      to: {
+        city: flights[flights.length - 1]?.arrival?.city,
+        airport: flights[flights.length - 1]?.arrival?.airport,
+        iataCode: flights[flights.length - 1]?.arrival?.iataCode,
+      },
+      departureDate: flights[0]?.departure?.at,
+      flights: flights.map(f => ({
+        airlineCode: f.operating?.carrierCode || f.airlineCode,
+        airlineName: f.operating?.airlineName || f.airlineName,
+        flightNumber: f.flightNumber,
+        departure: f.departure,
+        arrival: f.arrival,
+      })),
+    };
+  } else if (tripType === "round-trip") {
+    const outboundFlights = flight.itineraries?.[0]?.flights || [];
+    const returnFlights = flight.itineraries?.[1]?.flights || [];
+    return {
+      from: {
+        city: outboundFlights[0]?.departure?.city,
+        airport: outboundFlights[0]?.departure?.airport,
+        iataCode: outboundFlights[0]?.departure?.iataCode,
+      },
+      to: {
+        city: outboundFlights[outboundFlights.length - 1]?.arrival?.city,
+        airport: outboundFlights[outboundFlights.length - 1]?.arrival?.airport,
+        iataCode: outboundFlights[outboundFlights.length - 1]?.arrival?.iataCode,
+      },
+      departureDate: outboundFlights[0]?.departure?.at,
+      returnDate: returnFlights[0]?.departure?.at,
+      outboundFlights: outboundFlights.map(f => ({
+        airlineCode: f.operating?.carrierCode || f.airlineCode,
+        airlineName: f.operating?.airlineName || f.airlineName,
+        flightNumber: f.flightNumber,
+        departure: f.departure,
+        arrival: f.arrival,
+      })),
+      returnFlights: returnFlights.map(f => ({
+        airlineCode: f.operating?.carrierCode || f.airlineCode,
+        airlineName: f.operating?.airlineName || f.airlineName,
+        flightNumber: f.flightNumber,
+        departure: f.departure,
+        arrival: f.arrival,
+      })),
+    };
+  }
+  return null;
+};
 
 const SimilarFlights = () => {
   const [similarFlights, setSimilarFlights] = useState([]);
@@ -59,11 +119,19 @@ const SimilarFlights = () => {
     const newSelectedFlight = switchSelectedFlight(newSelectedFlightId);
 
     if (newSelectedFlight) {
+      // Generate updated route info based on the new selected flight
+      const updatedRouteInfo = generateRouteInfoFromFlight(newSelectedFlight, selectedFlightDetails.tripType);
+
       // Update the selected flight details in session storage
       const updatedFlightDetails = {
         ...selectedFlightDetails,
         flightOffer: newSelectedFlight,
+        routeInfo: updatedRouteInfo,
       };
+
+      // Regenerate forward URL for the new selected flight
+      const newForwardUrl = generateForwardLink(updatedFlightDetails);
+      updatedFlightDetails.forwardUrl = newForwardUrl;
 
       sessionStorage.setItem(
         "selected-flight-details",

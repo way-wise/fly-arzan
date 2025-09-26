@@ -22,6 +22,7 @@ import OneWayFlightCard from "@/components/ui/one-way-flight-card";
 import RoundTripFlightCard from "@/components/ui/round-trip-flight-card";
 import { useRegionalSettings } from "../../context/RegionalSettingsContext";
 import { generateAndStoreSimilarFlights } from "../../utils/similarFlightsUtils";
+import { generateForwardLink } from "../../utils/forwardLinkUtils";
 import PropTypes from "prop-types";
 
 import {
@@ -382,6 +383,12 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                   },
                   regionalSettings: regionalSettings,
                 };
+
+                // Generate forward URL and add to flight details
+                const forwardUrl = generateForwardLink(flightDetailsData);
+                console.log('🔗 Generated Trip.com URL for multi-city flight:', forwardUrl);
+                console.log('📖 Decoded URL for understanding:', decodeURIComponent(forwardUrl));
+                flightDetailsData.forwardUrl = forwardUrl;
 
                 sessionStorage.setItem(
                   "selected-flight-details",

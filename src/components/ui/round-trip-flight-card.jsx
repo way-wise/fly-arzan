@@ -9,6 +9,7 @@ import {
 } from "@/lib/flight-utils";
 import { useRegionalSettings } from "../../context/RegionalSettingsContext";
 import { generateAndStoreSimilarFlights } from "../../utils/similarFlightsUtils";
+import { generateForwardLink } from "../../utils/forwardLinkUtils";
 import PropTypes from "prop-types";
 
 
@@ -175,6 +176,10 @@ const RoundTripFlightCard = ({ itinerary, searchContext, allAvailableFlights = [
       },
       regionalSettings: regionalSettings,
     };
+
+    // Generate forward URL and add to flight details
+    const forwardUrl = generateForwardLink(flightDetailsData);
+    flightDetailsData.forwardUrl = forwardUrl;
 
     // Store in session storage
     sessionStorage.setItem(
