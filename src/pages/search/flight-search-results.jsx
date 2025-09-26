@@ -21,6 +21,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import OneWayFlightCard from "@/components/ui/one-way-flight-card";
 import RoundTripFlightCard from "@/components/ui/round-trip-flight-card";
 import { useRegionalSettings } from "../../context/RegionalSettingsContext";
+import { generateAndStoreSimilarFlights } from "../../utils/similarFlightsUtils";
 import PropTypes from "prop-types";
 
 import {
@@ -387,6 +388,13 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                   JSON.stringify(flightDetailsData)
                 );
 
+                // Generate and store similar flights
+                try {
+                  generateAndStoreSimilarFlights(itinerary, sortedFlights, 5);
+                } catch (error) {
+                  console.warn('Failed to generate similar flights:', error);
+                }
+
                 navigate("/flight/details");
               };
 
@@ -541,6 +549,7 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                   key={itinerary.id}
                   itinerary={itinerary}
                   searchContext={searchContext}
+                  allAvailableFlights={sortedFlights}
                 />
               );
             }
@@ -560,6 +569,7 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                 key={itinerary.id}
                 itinerary={oneWayItinerary}
                 searchContext={searchContext}
+                allAvailableFlights={sortedFlights}
               />
             );
           })

@@ -1,59 +1,78 @@
 import { useNavigate } from "react-router-dom";
 import { RiPlaneLine } from "react-icons/ri";
-import { memo } from "react";
+import { Loader } from "lucide-react";
+import { memo, useState } from "react";
 import {
   getAirlineLogoUrl,
   formatDurationFromMinutes,
   formatDateFromISO,
 } from "@/lib/flight-utils";
 import { useRegionalSettings } from "../../context/RegionalSettingsContext";
+import { generateAndStoreSimilarFlights } from "../../utils/similarFlightsUtils";
 import PropTypes from "prop-types";
 
 
-const OneWayFlightCard = memo(({ itinerary, searchContext }) => {
+const OneWayFlightCard = memo(({ itinerary, searchContext, allAvailableFlights = [] }) => {
   const navigate = useNavigate();
   const { regionalSettings } = useRegionalSettings();
+  const [isLoadingSimilar, setIsLoadingSimilar] = useState(false);
 
-  const handleFlightSelect = () => {
-    // Store complete flight details in session storage
-    const flightDetailsData = {
-      tripType: "one-way",
-      flightOffer: itinerary,
-      searchParams: searchContext?.searchParams || {},
-      passengerInfo: {
-        adults: searchContext?.adults || 1,
-        children: searchContext?.children || 0,
-        cabin: searchContext?.travelClass || "Economy",
-      },
-      routeInfo: {
-        from: {
-          city: itinerary.flights[0].departure.city || searchContext?.fromCity,
-          airport: itinerary.flights[0].departure.airport,
-          iataCode: itinerary.flights[0].departure.iataCode,
+  const handleFlightSelect = async () => {
+    // If there's a custom onFlightSelect function (for similar flights), use that instead
+    if (searchContext?.onFlightSelect) {
+      searchContext.onFlightSelect();
+      return;
+    }
+
+    setIsLoadingSimilar(true);
+
+    try {
+      // Store complete flight details in session storage
+      const flightDetailsData = {
+        tripType: "one-way",
+        flightOffer: itinerary,
+        searchParams: searchContext?.searchParams || {},
+        passengerInfo: {
+          adults: searchContext?.adults || 1,
+          children: searchContext?.children || 0,
+          cabin: searchContext?.travelClass || "Economy",
         },
-        to: {
-          city: itinerary.flights[itinerary.flights.length - 1].arrival.city || searchContext?.toCity,
-          airport: itinerary.flights[itinerary.flights.length - 1].arrival.airport,
-          iataCode: itinerary.flights[itinerary.flights.length - 1].arrival.iataCode,
+        routeInfo: {
+          from: {
+            city: itinerary.flights?.[0]?.departure?.city || searchContext?.fromCity,
+            airport: itinerary.flights?.[0]?.departure?.airport,
+            iataCode: itinerary.flights?.[0]?.departure?.iataCode,
+          },
+          to: {
+            city: itinerary.flights?.[itinerary.flights?.length - 1]?.arrival?.city || searchContext?.toCity,
+            airport: itinerary.flights?.[itinerary.flights?.length - 1]?.arrival?.airport,
+            iataCode: itinerary.flights?.[itinerary.flights?.length - 1]?.arrival?.iataCode,
+          },
+          departureDate: itinerary.flights?.[0]?.departure?.at,
+          // Add airline information for each flight segment
+          flights: itinerary.flights.map(flight => ({
+            airlineCode: flight.operating?.carrierCode || flight.airlineCode,
+            airlineName: flight.operating?.airlineName || flight.airlineName,
+            flightNumber: flight.flightNumber,
+            departure: flight.departure,
+            arrival: flight.arrival,
+          })),
         },
-        departureDate: itinerary.flights[0].departure.at,
-        // Add airline information for each flight segment
-        flights: itinerary.flights.map(flight => ({
-          airlineCode: flight.operating?.carrierCode || flight.airlineCode,
-          airlineName: flight.operating?.airlineName || flight.airlineName,
-          flightNumber: flight.flightNumber,
-          departure: flight.departure,
-          arrival: flight.arrival,
-        })),
-      },
-      regionalSettings: regionalSettings,
-    };
+        regionalSettings: regionalSettings,
+      };
 
-    // Store in session storage
-    sessionStorage.setItem("selected-flight-details", JSON.stringify(flightDetailsData));
+      // Store in session storage
+      sessionStorage.setItem("selected-flight-details", JSON.stringify(flightDetailsData));
 
-    // Navigate to details page
-    navigate("/flight/details");
+      // Generate and store similar flights using the passed available flights
+      generateAndStoreSimilarFlights(itinerary, allAvailableFlights, 5);
+
+      // Navigate to details page
+      navigate("/flight/details");
+    } catch (error) {
+      console.warn('Failed to process flight selection:', error);
+      setIsLoadingSimilar(false);
+    }
   };
 
   return (
@@ -69,7 +88,7 @@ const OneWayFlightCard = memo(({ itinerary, searchContext }) => {
             {getAirlineLogoUrl(itinerary.airlineCode) ? (
               <img
                 src={getAirlineLogoUrl(itinerary.airlineCode)}
-                alt={itinerary.flights[0].airline}
+                alt={itinerary.flights?.[0]?.airline || itinerary.airlineCode}
                 className="tw:w-[120px]"
               />
             ) : (
@@ -80,7 +99,7 @@ const OneWayFlightCard = memo(({ itinerary, searchContext }) => {
               </div>
             )}
             <span className="tw:text-sm tw:text-secondary">
-              {itinerary.airlineCode} - {itinerary.flights[0].flightNumber}
+              {itinerary.airlineCode} - {itinerary.flights?.[0]?.flightNumber || 'N/A'}
             </span>
           </div>
 
@@ -89,13 +108,13 @@ const OneWayFlightCard = memo(({ itinerary, searchContext }) => {
             {/* Depart */}
             <div className="tw:flex tw:flex-col tw:gap-1 tw:text-right">
               <span className="tw:font-semibold tw:text-[20px]">
-                {itinerary.flights[0].departure.time}
+                {itinerary.flights?.[0]?.departure?.time || 'N/A'}
               </span>
               <span className="tw:text-sm tw:text-[#5D586C]">
-                {itinerary.flights[0].departure.airport}
+                {itinerary.flights?.[0]?.departure?.airport || 'N/A'}
               </span>
               <span className="tw:text-sm tw:text-[#5D586C]">
-                {formatDateFromISO(itinerary.flights[0].departure.at)}
+                {itinerary.flights?.[0]?.departure?.at ? formatDateFromISO(itinerary.flights[0].departure.at) : 'N/A'}
               </span>
             </div>
             {/* Duration & Stop */}
@@ -107,13 +126,14 @@ const OneWayFlightCard = memo(({ itinerary, searchContext }) => {
                 <span className="tw:h-px tw:w-[82px] tw:bg-secondary" />
                 <span className="tw:text-sm tw:text-primary">
                   {(() => {
-                    const stops = itinerary.flights.length - 1;
+                    const stops = (itinerary.flights?.length || 1) - 1;
                     if (stops === 0) {
                       return "Direct";
                     }
                     const stopAirports = itinerary.flights
-                      .slice(0, stops)
-                      .map((flight) => flight.arrival.airport);
+                      ?.slice(0, stops)
+                      ?.map((flight) => flight?.arrival?.airport)
+                      ?.filter(Boolean) || [];
                     return (
                       <>
                         {`${stops} Stop${stops > 1 ? "s" : ""}`}{" "}
@@ -139,18 +159,17 @@ const OneWayFlightCard = memo(({ itinerary, searchContext }) => {
             {/* Arrival */}
             <div className="tw:flex tw:flex-col tw:gap-1 tw:text-left">
               <span className="tw:font-semibold tw:text-[20px]">
-                {itinerary.flights[itinerary.flights.length - 1].arrival.time}
+                {itinerary.flights?.[itinerary.flights?.length - 1]?.arrival?.time || 'N/A'}
               </span>
               <span className="tw:text-sm tw:text-[#5D586C]">
                 {
-                  itinerary.flights[itinerary.flights.length - 1].arrival
-                    .airport
+                  itinerary.flights?.[itinerary.flights?.length - 1]?.arrival?.airport || 'N/A'
                 }
               </span>
               <span className="tw:text-sm tw:text-[#5D586C]">
-                {formatDateFromISO(
-                  itinerary.flights[itinerary.flights.length - 1].arrival.at
-                )}
+                {itinerary.flights?.[itinerary.flights?.length - 1]?.arrival?.at ?
+                  formatDateFromISO(itinerary.flights[itinerary.flights.length - 1].arrival.at) : 'N/A'
+                }
               </span>
             </div>
           </div>
@@ -161,10 +180,17 @@ const OneWayFlightCard = memo(({ itinerary, searchContext }) => {
       <div className="tw:w-full tw:md:w-fit tw:py-4 tw:px-6 tw:bg-[#F2FAFF] tw:rounded-xl tw:flex tw:flex-col tw:items-center tw:gap-3 tw:md:ml-4">
         <button
           onClick={handleFlightSelect}
-          className="tw:w-full tw:md:w-fit tw:bg-primary tw:py-2 tw:px-[30px] tw:flex tw:flex-col tw:!text-white tw:!rounded-full hover:tw:bg-primary/90 tw:transition-colors"
+          disabled={isLoadingSimilar}
+          className="tw:w-full tw:md:w-fit tw:bg-primary tw:py-2 tw:px-[30px] tw:flex tw:flex-col tw:!text-white tw:!rounded-full hover:tw:bg-primary/90 tw:transition-colors disabled:tw:bg-gray-400 disabled:tw:cursor-not-allowed"
         >
-          <span className="tw:text-sm">Select</span>
-          <span className="tw:text-xl tw:font-medium">{regionalSettings?.currency?.symbol || "$"}{itinerary.price}</span>
+          {isLoadingSimilar ? (
+            <Loader className="tw:animate-spin tw:size-4" />
+          ) : (
+            <>
+              <span className="tw:text-sm">Select</span>
+              <span className="tw:text-xl tw:font-medium">{regionalSettings?.currency?.symbol || "$"}{itinerary.price}</span>
+            </>
+          )}
         </button>
         {/* For one-way flights, no "Total" line needed since it's a single journey */}
       </div>
@@ -191,6 +217,7 @@ OneWayFlightCard.propTypes = {
     fromCity: PropTypes.string,
     toCity: PropTypes.string,
   }),
+  allAvailableFlights: PropTypes.array,
 };
 
 export default OneWayFlightCard;

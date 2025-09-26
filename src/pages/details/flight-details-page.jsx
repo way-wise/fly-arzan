@@ -1,6 +1,7 @@
 import Footer from "@/header-footer/Footer";
 import Header from "@/header-footer/Header";
 import UnifiedFlightSegment from "@/components/ui/unified-flight-segment";
+import SimilarFlights from "@/components/ui/similar-flights";
 import { ChevronLeft } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { RiStarFill, RiStarLine } from "react-icons/ri";
@@ -14,22 +15,63 @@ const FlightDetailsPage = () => {
 
   useEffect(() => {
     // Read flight data from session storage
-    const storedData = sessionStorage.getItem("selected-flight-details");
-    if (storedData) {
-      try {
-        const parsedData = JSON.parse(storedData);
-        setFlightData(parsedData);
-      } catch {
-        // Redirect back to search if data is invalid
+    const loadFlightData = () => {
+      const storedData = sessionStorage.getItem("selected-flight-details");
+      if (storedData) {
+        try {
+          const parsedData = JSON.parse(storedData);
+          setFlightData(parsedData);
+        } catch {
+          // Redirect back to search if data is invalid
+          navigate("/search/flight");
+          return;
+        }
+      } else {
+        // No flight data found, redirect to search
         navigate("/search/flight");
         return;
       }
-    } else {
-      // No flight data found, redirect to search
-      navigate("/search/flight");
-      return;
-    }
-    setLoading(false);
+      setLoading(false);
+    };
+
+    loadFlightData();
+
+    // Listen for session storage changes (when user switches flights)
+    const handleStorageChange = (e) => {
+      if (e.key === "selected-flight-details") {
+        const storedData = sessionStorage.getItem("selected-flight-details");
+        if (storedData) {
+          try {
+            const parsedData = JSON.parse(storedData);
+            setFlightData(parsedData);
+          } catch {
+            // Handle invalid data silently
+          }
+        }
+      }
+    };
+
+    // Also listen for a custom event we can dispatch manually
+    const handleFlightSwitch = () => {
+      const storedData = sessionStorage.getItem("selected-flight-details");
+      if (storedData) {
+        try {
+          const parsedData = JSON.parse(storedData);
+          setFlightData(parsedData);
+        } catch {
+          // Handle invalid data silently
+        }
+      }
+    };
+
+    // Listen for both real storage events and custom events
+    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("flightSwitched", handleFlightSwitch);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("flightSwitched", handleFlightSwitch);
+    };
   }, [navigate]);
 
   if (loading) {
@@ -412,7 +454,7 @@ const FlightDetailsPage = () => {
                 </FaqCollapsible>
 
                 {/* Tags */}
-                <div className="tw:flex tw:items-center tw:flex-wrap tw:justify-center tw:sm:justify-start tw:gap-2">
+                {/* <div className="tw:flex tw:items-center tw:flex-wrap tw:justify-center tw:sm:justify-start tw:gap-2">
                   <button className="tw:bg-white tw:!text-sm tw:!rounded-md tw:border tw:border-muted tw:py-[10px] tw:px-4">
                     Extra Services
                   </button>
@@ -425,7 +467,7 @@ const FlightDetailsPage = () => {
                   <button className="tw:bg-white tw:!text-sm tw:!rounded-md tw:border tw:border-muted tw:py-[10px] tw:px-4">
                     Premium
                   </button>
-                </div>
+                </div> */}
 
                 {/* Ticket List */}
                 <div className="tw:flex tw:flex-col tw:gap-6">
@@ -471,11 +513,14 @@ const FlightDetailsPage = () => {
                     </div>
                   ))}
                 </div>
+
+                {/* Similar Flights Section */}
+                <SimilarFlights />
               </div>
 
               {/* Details */}
               <div className="tw:w-full tw:lg:w-[468px] tw:order-1 tw:lg:order-2 tw:shrink-0">
-                <div className="tw:flex tw:items-end tw:justify-between tw:gap-2 tw:mb-6 tw:text-[#5D586C]">
+                <div className="tw:flex tw:items-end tw:justify-between tw:gap-2 tw:mb-6">
                   <div className="tw:flex tw:flex-col tw:gap-2">
                     <h4 className="tw:text-xl tw:font-medium">
                       Flight Details

@@ -1,12 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { RiPlaneLine } from "react-icons/ri";
-import { memo } from "react";
+import { Loader } from "lucide-react";
+import { memo, useState } from "react";
 import {
   getAirlineLogoUrl,
   formatDurationFromMinutes,
   formatDateFromISO,
 } from "@/lib/flight-utils";
 import { useRegionalSettings } from "../../context/RegionalSettingsContext";
+import { generateAndStoreSimilarFlights } from "../../utils/similarFlightsUtils";
 import PropTypes from "prop-types";
 
 
@@ -112,13 +114,23 @@ FlightSegment.propTypes = {
   flights: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-const RoundTripFlightCard = ({ itinerary, searchContext }) => {
+const RoundTripFlightCard = ({ itinerary, searchContext, allAvailableFlights = [] }) => {
   const navigate = useNavigate();
   const { regionalSettings } = useRegionalSettings();
+  const [isLoadingSimilar, setIsLoadingSimilar] = useState(false);
   const outboundFlights = itinerary.itineraries[0].flights;
   const returnFlights = itinerary.itineraries[1].flights;
 
-  const handleFlightSelect = () => {
+  const handleFlightSelect = async () => {
+    // If there's a custom onFlightSelect function (for similar flights), use that instead
+    if (searchContext?.onFlightSelect) {
+      searchContext.onFlightSelect();
+      return;
+    }
+
+    setIsLoadingSimilar(true);
+
+    try {
     // Store complete round-trip flight details in session storage
     const flightDetailsData = {
       tripType: "round-trip",
@@ -170,8 +182,15 @@ const RoundTripFlightCard = ({ itinerary, searchContext }) => {
       JSON.stringify(flightDetailsData)
     );
 
-    // Navigate to details page
-    navigate("/flight/details");
+      // Generate and store similar flights using the passed available flights
+      generateAndStoreSimilarFlights(itinerary, allAvailableFlights, 5);
+
+      // Navigate to details page
+      navigate("/flight/details");
+    } catch (error) {
+      console.warn('Failed to process flight selection:', error);
+      setIsLoadingSimilar(false);
+    }
   };
 
   return (
@@ -189,10 +208,17 @@ const RoundTripFlightCard = ({ itinerary, searchContext }) => {
       <div className="tw:w-full tw:md:w-fit tw:py-4 tw:px-6 tw:bg-[#F2FAFF] tw:rounded-xl tw:flex tw:flex-col tw:items-center tw:gap-3 tw:md:ml-4">
         <button
           onClick={handleFlightSelect}
-          className="tw:w-full tw:md:w-fit tw:bg-primary tw:py-2 tw:px-[30px] tw:flex tw:flex-col tw:!text-white tw:!rounded-full hover:tw:bg-primary/90 tw:transition-colors"
+          disabled={isLoadingSimilar}
+          className="tw:w-full tw:md:w-fit tw:bg-primary tw:py-2 tw:px-[30px] tw:flex tw:flex-col tw:!text-white tw:!rounded-full hover:tw:bg-primary/90 tw:transition-colors disabled:tw:bg-gray-400 disabled:tw:cursor-not-allowed"
         >
-          <span className="tw:text-sm">Select</span>
-          <span className="tw:text-xl tw:font-medium">{regionalSettings?.currency?.symbol || "$"}{itinerary.price}</span>
+          {isLoadingSimilar ? (
+            <Loader className="tw:animate-spin tw:size-4" />
+          ) : (
+            <>
+              <span className="tw:text-sm">Select</span>
+              <span className="tw:text-xl tw:font-medium">{regionalSettings?.currency?.symbol || "$"}{itinerary.price}</span>
+            </>
+          )}
         </button>
         {/* <span className="tw:text-sm tw:text-[#939393]">
           {regionalSettings?.currency?.symbol || "$"}{itinerary.totalPrice} Total
@@ -221,6 +247,7 @@ RoundTripFlightCard.propTypes = {
     fromCity: PropTypes.string,
     toCity: PropTypes.string,
   }),
+  allAvailableFlights: PropTypes.array,
 };
 
 export default memo(RoundTripFlightCard);
