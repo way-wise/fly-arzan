@@ -376,14 +376,12 @@ const FlightDetailsPage = () => {
                             {data.totalPrice}
                           </span>
                         </div> */}
-                        <a
-                          href={flightData?.forwardUrl || "#"}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="tw:!bg-[#50ADD8] tw:!no-underline tw:!text-white tw:!rounded-full tw:!px-[30px] tw:py-2 tw:text-sm hover:tw:!bg-[#4A9BC4] tw:!transition-colors tw:duration-200"
+                        <button
+                          onClick={() => navigate('/loader')}
+                          className="tw:!bg-[#50ADD8] tw:!no-underline tw:!text-white tw:!rounded-full tw:!px-[30px] tw:py-2 tw:text-sm hover:tw:!bg-[#4A9BC4] tw:!transition-colors tw:duration-200 tw:border-0 tw:cursor-pointer"
                         >
                           Select
-                        </a>
+                        </button>
                       </div>
                     </div>
                   ))}
