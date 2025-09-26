@@ -45,7 +45,7 @@ export const CurrencyProvider = ({ children }) => {
   // Convert Function
   const convertPrice = (amount, targetCurrency = currency) => {
     if (!rates[targetCurrency]) {
-      console.warn(`Rate for ${targetCurrency} not found.`);
+      // console.warn(`Rate for ${targetCurrency} not found.`);
       return amount;
     }
     

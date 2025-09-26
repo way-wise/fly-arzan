@@ -105,19 +105,22 @@ export async function getUserLocationFromIP() {
     );
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      // console.error(`HTTP error! status: ${response.status}`);
+      return null; // Return null instead of throwing
     }
 
     const locationData = await response.json();
 
     // Validate response
     if (locationData.status === "fail") {
-      throw new Error(locationData.message || "IP API error");
+      // console.error(locationData.message || "IP API error");
+      return null; // Return null instead of throwing
     }
 
     return locationData;
   } catch (error) {
-    throw new Error(error);
+    // console.error("Failed to get user location from IP:", error);
+    return null; // Return null instead of throwing
   }
 }
 
