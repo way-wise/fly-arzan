@@ -4,7 +4,7 @@ import { useAxios } from "./useAxios";
 export const useGeoCurrency = () => {
   const axios = useAxios();
 
-  const { isLoading, error, data } = useQuery({
+  const { isLoading, error, data, refetch } = useQuery({
     queryKey: ["geoCurrency"],
     queryFn: () => axios.get(`/geo-currency`).then((res) => res.data),
   });
@@ -13,5 +13,6 @@ export const useGeoCurrency = () => {
     isLoading,
     error,
     data,
+    refetch,
   };
 };

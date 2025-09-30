@@ -1,24 +1,19 @@
 import { useEffect, useState, useMemo } from "react";
 import { HiLanguage } from "react-icons/hi2";
 import { BiWorld } from "react-icons/bi";
-import { useLocationContext } from "../../context/userLocationContext";
 import { HiCurrencyDollar } from "react-icons/hi2";
 import { useGet } from "../../utils/ApiMethod";
-import { CURR_API_KEY } from "../../baseUrl";
-import axios from "axios";
 import { useTranslation } from "react-i18next";
 import getSymbolFromCurrency from "currency-symbol-map";
-import { useCurrency } from "../../context/CurrencyContext";
 import { useRegionalSettings } from "../../context/RegionalSettingsContext";
+import { useCurrencies } from "../../hooks/useCurrencies";
 import PropTypes from "prop-types";
 
 function RegionModal({ setModal }) {
-  const { userLocation, setUserLocation } = useLocationContext();
-  const { setCurrency, selectedLocalCurr, currency } = useCurrency();
   const { regionalSettings, updateRegionalSettings, isLoaded } = useRegionalSettings();
+  const { currencies, isLoading: isCurrenciesLoading } = useCurrencies();
 
   const { i18n } = useTranslation();
-  const [currencies, setCurrencies] = useState([]);
   const [countriesData, setCountriesData] = useState([]);
   const [selectCurr, setSelectCurr] = useState({
     curr: "",
@@ -105,24 +100,6 @@ function RegionModal({ setModal }) {
     setCountriesData(memoizedCountries);
   }, [memoizedCountries]);
 
-  useEffect(() => {
-    const CURRENCIES_URL = `https://openexchangerates.org/api/currencies.json?app_id=${CURR_API_KEY}`;
-
-    const getCurrencySymbols = async () => {
-      try {
-        const response = await axios.get(CURRENCIES_URL);
-        const data = response.data;
-
-        setCurrencies(data);
-        // Example: { USD: "United States Dollar", EUR: "Euro", ... }
-      } catch (error) {
-        console.error("Failed to fetch currency symbols:", error.message);
-      }
-    };
-
-    getCurrencySymbols();
-  }, []);
-
   const handleCountrySelect = (name, countryCode, flag) => {
     setSelectCountry({
       country: name,
@@ -162,25 +139,16 @@ function RegionModal({ setModal }) {
         longitude: null,
         timezone: "America/New_York"
       },
+      exchangeRate: regionalSettings?.exchangeRate || { base: "USD", rates: { USD: 1 } },
       setBy: "user"
     };
 
+    // Update regional settings (this will trigger refetch if currency changed)
     updateRegionalSettings(newRegionalSettings);
 
+    // Change language
     if (selectLang?.code) {
       i18n.changeLanguage(selectLang?.code);
-    }
-
-    if (selectCountry?.country) {
-      setUserLocation((prev) => ({
-        ...prev,
-        country_name: selectCountry?.country,
-        countryCode: selectCountry?.countryCode,
-      }));
-    }
-
-    if (selectCurr?.curr) {
-      setCurrency(selectCurr?.curr);
     }
 
     setModal(false);
@@ -274,7 +242,6 @@ function RegionModal({ setModal }) {
               )}
               <span>{selectCountry?.country ||
                 regionalSettings?.country?.name ||
-                userLocation?.country_name ||
                 "Select Country"}</span>
             </div>
           </button>
@@ -349,17 +316,14 @@ function RegionModal({ setModal }) {
             {(() => {
               const code =
                 selectCurr?.curr ||
-                selectedLocalCurr?.curr ||
-                userLocation?.curr ||
-                currency ||
+                regionalSettings?.currency?.curr ||
                 "";
               const name =
                 code && currencies && currencies[code] ? currencies[code] : "";
               const sym =
                 selectCurr?.symbol ||
-                selectedLocalCurr?.symbol ||
+                regionalSettings?.currency?.symbol ||
                 getSymbolFromCurrency(code) ||
-                userLocation?.symbol ||
                 "";
               if (!code && !sym) return "Select currency";
               return `${code}${name ? ` - ${name}` : sym ? " -" : ""}${
@@ -382,7 +346,9 @@ function RegionModal({ setModal }) {
                 overflowY: "auto",
               }}
             >
-              {Object.keys(currencies)?.length > 0 ? (
+              {isCurrenciesLoading ? (
+                <p className="dropdown-item">Loading currencies...</p>
+              ) : Object.keys(currencies)?.length > 0 ? (
                 Object.keys(currencies)
                   .sort((a, b) => a.localeCompare(b))
                   .map((currCode, index) => {
@@ -399,7 +365,7 @@ function RegionModal({ setModal }) {
                     );
                   })
               ) : (
-                <p>Loading currencies...</p>
+                <p className="dropdown-item">No currencies available</p>
               )}
             </div>
           )}

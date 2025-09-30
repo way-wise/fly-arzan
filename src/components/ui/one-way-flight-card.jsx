@@ -15,7 +15,7 @@ import PropTypes from "prop-types";
 
 const OneWayFlightCard = memo(({ itinerary, searchContext, allAvailableFlights = [] }) => {
   const navigate = useNavigate();
-  const { regionalSettings } = useRegionalSettings();
+  const { regionalSettings, convertPrice, selectedCurrencySymbol } = useRegionalSettings();
   const [isLoadingSimilar, setIsLoadingSimilar] = useState(false);
 
   const handleFlightSelect = async () => {
@@ -193,7 +193,7 @@ const OneWayFlightCard = memo(({ itinerary, searchContext, allAvailableFlights =
           ) : (
             <>
               <span className="tw:text-sm">Select</span>
-              <span className="tw:text-xl tw:font-medium">{regionalSettings?.currency?.symbol || "$"}{itinerary.price}</span>
+              <span className="tw:text-xl tw:font-medium">{selectedCurrencySymbol}{convertPrice(itinerary.price)}</span>
             </>
           )}
         </button>

@@ -13,17 +13,13 @@ import { HiMenuAlt3 } from "react-icons/hi";
 import { TfiWorld } from "react-icons/tfi";
 import { useMediaQuery } from "usehooks-ts";
 import RegionModal from "@/components/RegionModal/RegionModal";
-import { useCurrency } from "@/context/CurrencyContext";
-import { useLocationContext } from "@/context/userLocationContext";
 import { useRegionalSettings } from "../context/RegionalSettingsContext";
 import { useTranslation } from "react-i18next";
-import getSymbolFromCurrency from "currency-symbol-map";
 import NewLoginForm from "@/components/ui/auth/new-login-form";
 import NewRegisterForm from "@/components/ui/auth/new-register-form";
 import { motion, AnimatePresence } from "framer-motion";
 import { RiLoginCircleLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { useGeoCurrency } from "@/hooks/useGeoCurrency";
 
 const Header = () => {
   const [openAuthModal, setAuthModal] = useState(false);
@@ -34,13 +30,8 @@ const Header = () => {
   const [openRegionModal, setOpenRegionModal] = useState(false);
   const [showLogin, setShowLogin] = useState(true);
 
-  const { selectedLocalCurr, currency } = useCurrency();
-  const { userLocation } = useLocationContext();
   const { regionalSettings, isLoaded } = useRegionalSettings();
   const { i18n } = useTranslation();
-
-  const { data: geoCurrency } = useGeoCurrency();
-  console.log("GEO CURRENCY", geoCurrency);
 
   const siteNavigation = [
     {
@@ -197,11 +188,7 @@ const Header = () => {
                         )
                           .toUpperCase()
                           .replace(/-.*/, "")} - ${
-                          regionalSettings?.currency?.symbol ||
-                          getSymbolFromCurrency(currency) ||
-                          selectedLocalCurr?.symbol ||
-                          userLocation?.symbol ||
-                          "$"
+                          regionalSettings?.currency?.symbol || "$"
                         }`}
                   </span>
                 </button>

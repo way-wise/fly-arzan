@@ -11,26 +11,20 @@ import "./index.css";
 import { Provider } from "react-redux";
 import { store } from "./Redux/store.js";
 import { CarProvider } from "./context/CarContext.jsx";
-import { LocationProvider } from "./context/userLocationContext.jsx";
 import { HotelProvider } from "./context/HotelContext.jsx";
 import { FlightProvider } from "./context/FlightContext.jsx";
 import "./i18n"; // import here!
-import { CurrencyProvider } from "./context/CurrencyContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   // <StrictMode>
-  <LocationProvider>
-    <CurrencyProvider>
-      <CarProvider>
-        <HotelProvider>
-          <FlightProvider>
-            <Provider store={store}>
-              <App />
-            </Provider>
-          </FlightProvider>
-        </HotelProvider>
-      </CarProvider>
-    </CurrencyProvider>
-  </LocationProvider>
+  <CarProvider>
+    <HotelProvider>
+      <FlightProvider>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </FlightProvider>
+    </HotelProvider>
+  </CarProvider>
   // {/* // </StrictMode/> */}
 );

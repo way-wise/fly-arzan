@@ -1,5 +1,6 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import { initializeRegionalSettings } from "../utils/locationUtils";
+import { createContext, useContext, useState, useEffect, useMemo } from "react";
+import { useGeoCurrency } from "../hooks/useGeoCurrency";
+import { getExchangeRateFromDollar } from "../utils/exchangeRateUtils";
 import PropTypes from "prop-types";
 
 const RegionalSettingsContext = createContext();
@@ -14,82 +15,173 @@ export const useRegionalSettings = () => {
   return context;
 };
 
+const DEFAULT_SETTINGS = {
+  language: { label: "English (USA)", code: "en-US" },
+  country: {
+    name: "United States",
+    countryCode: "US",
+    flag: "https://flagcdn.com/w320/us.png",
+  },
+  currency: { curr: "USD", symbol: "$" },
+  location: {
+    latitude: null,
+    longitude: null,
+    timezone: "America/New_York",
+  },
+  exchangeRate: {
+    base: "USD",
+    rates: { USD: 1 },
+  },
+  setBy: "fallback",
+};
+
 export const RegionalSettingsProvider = ({ children }) => {
-  const [regionalSettings, setRegionalSettings] = useState({
-    language: { label: "English (USA)", code: "en-US" },
-    country: {
-      name: "United States",
-      countryCode: "US",
-      flag: "https://flagcdn.com/w320/us.png",
-    },
-    currency: { curr: "USD", symbol: "$" },
-    location: {
-      latitude: null,
-      longitude: null,
-      timezone: "America/New_York",
-    },
-    setBy: "fallback",
+  const [regionalSettings, setRegionalSettings] = useState(() => {
+    // Initialize from localStorage if available
+    const stored = localStorage.getItem("regionalSettings");
+    return stored ? JSON.parse(stored) : DEFAULT_SETTINGS;
   });
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isLocationDetecting, setIsLocationDetecting] = useState(false);
 
-  // Initialize regional settings with smart IP detection and setBy logic
+  // Fetch geo-currency data (only when setBy is not "user" or on initial load)
+  const shouldFetch = !isLoaded || regionalSettings.setBy !== "user";
+  const { isLoading, data: geoData, refetch } = useGeoCurrency();
+
+  // Map currency symbols
+  const getCurrencySymbol = (code) => {
+    const symbolMap = {
+      USD: "$", EUR: "€", GBP: "£", JPY: "¥", CNY: "¥", INR: "₹",
+      AUD: "A$", CAD: "C$", NZD: "NZ$", CHF: "CHF", SEK: "kr",
+      NOK: "kr", DKK: "kr", PLN: "zł", TRY: "₺", RUB: "₽",
+      BRL: "R$", MXN: "$", ARS: "$", KRW: "₩", SGD: "S$",
+      MYR: "RM", THB: "฿", IDR: "Rp", PHP: "₱", VND: "₫",
+      AED: "د.إ", SAR: "﷼", ZAR: "R", EGP: "£", ILS: "₪",
+      BDT: "৳", PKR: "₨", LKR: "₨", NPR: "₨", MMK: "Ks",
+      KHR: "៛", LAK: "₭",
+    };
+    return symbolMap[code] || code;
+  };
+
+  // Map country to language
+  const getLanguageForCountry = (countryCode) => {
+    const langMap = {
+      US: { label: "English (USA)", code: "en-US" },
+      CA: { label: "English (USA)", code: "en-US" },
+      GB: { label: "English (UK)", code: "en-GB" },
+      AU: { label: "English (USA)", code: "en-US" },
+      DE: { label: "Deutsch (German)", code: "de" },
+      FR: { label: "Français (French)", code: "fr" },
+      ES: { label: "Español (Spanish)", code: "es" },
+      IT: { label: "Italiano (Italian)", code: "it" },
+      NL: { label: "Nederlands (Dutch)", code: "nl" },
+      PT: { label: "Português (Portuguese)", code: "pt-PT" },
+      RU: { label: "Русский (Russian)", code: "ru" },
+      CN: { label: "中文 (Simplified Chinese)", code: "zh-CN" },
+      TW: { label: "中文 (Traditional Chinese)", code: "zh-TW" },
+      JP: { label: "日本語 (Japanese)", code: "ja-JP" },
+      KR: { label: "한국어 (Korean)", code: "ko-KR" },
+      ID: { label: "Bahasa Indonesia (Indonesian)", code: "id" },
+      TR: { label: "Türkçe (Turkish)", code: "tr" },
+      PL: { label: "Polski (Polish)", code: "pl" },
+      SE: { label: "Svenska (Swedish)", code: "sv" },
+      AR: { label: "Español (Spanish)", code: "es" },
+      BR: { label: "Português (Portuguese)", code: "pt-PT" },
+      MX: { label: "Español (Spanish)", code: "es" },
+      AE: { label: "العربية (Arabic)", code: "ar" },
+      SA: { label: "العربية (Arabic)", code: "ar" },
+      EG: { label: "العربية (Arabic)", code: "ar" },
+      GR: { label: "Ελληνικά (Greek)", code: "el" },
+    };
+    return langMap[countryCode] || { label: "English (USA)", code: "en-US" };
+  };
+
+  // Initialize settings on mount or when geoData changes
   useEffect(() => {
-    const initializeSettings = async () => {
-      try {
-        setIsLocationDetecting(true);
+    if (geoData && !isLoaded) {
+      const settings = {
+        language: getLanguageForCountry(geoData.countryCode || "US"),
+        country: {
+          name: geoData.countryName || "United States",
+          countryCode: geoData.countryCode || "US",
+          flag: geoData.countryFlag || "https://flagcdn.com/w320/us.png",
+        },
+        currency: {
+          curr: geoData.currency?.code || "USD",
+          symbol: getCurrencySymbol(geoData.currency?.code || "USD"),
+        },
+        location: {
+          latitude: null,
+          longitude: null,
+          timezone: geoData.timeZone?.id || "America/New_York",
+        },
+        exchangeRate: geoData.exchangeRate || { base: "USD", rates: { USD: 1 } },
+        setBy: "ip",
+        detectedAt: new Date().toISOString(),
+      };
 
-        // This handles the setBy logic internally:
-        // - If setBy === "user", uses existing settings
-        // - If setBy === "ip" or missing, detects from IP
-        const settings = await initializeRegionalSettings();
+      setRegionalSettings(settings);
+      localStorage.setItem("regionalSettings", JSON.stringify(settings));
+      setIsLoaded(true);
+    } else if (!geoData && !isLoading && !isLoaded) {
+      // Fallback to default if geo fetch fails
+      const fallbackSettings = { ...DEFAULT_SETTINGS };
+      setRegionalSettings(fallbackSettings);
+      localStorage.setItem("regionalSettings", JSON.stringify(fallbackSettings));
+      setIsLoaded(true);
+    }
+  }, [geoData, isLoading, isLoaded]);
 
-        setRegionalSettings(settings);
-        setIsLocationDetecting(false);
-        setIsLoaded(true);
-      } catch {
-        // Fallback to defaults on error
-        const fallbackSettings = {
-          language: { label: "English (USA)", code: "en-US" },
-          country: {
-            name: "United States",
-            countryCode: "US",
-            flag: "https://flagcdn.com/w320/us.png",
-          },
-          currency: { curr: "USD", symbol: "$" },
-          location: {
-            latitude: null,
-            longitude: null,
-            timezone: "America/New_York",
-          },
-          setBy: "error-fallback",
-        };
-
-        setRegionalSettings(fallbackSettings);
-        localStorage.setItem(
-          "regionalSettings",
-          JSON.stringify(fallbackSettings)
-        );
-        setIsLocationDetecting(false);
+  // Check localStorage on mount to respect user settings
+  useEffect(() => {
+    const stored = localStorage.getItem("regionalSettings");
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (parsed.setBy === "user") {
+        setRegionalSettings(parsed);
         setIsLoaded(true);
       }
-    };
-
-    initializeSettings();
+    }
   }, []);
 
   const updateRegionalSettings = (newSettings) => {
     setRegionalSettings(newSettings);
     localStorage.setItem("regionalSettings", JSON.stringify(newSettings));
+
+    // If setBy is user, refetch to get latest exchange rates
+    if (newSettings.setBy === "user") {
+      refetch();
+    }
   };
 
-  const value = {
-    regionalSettings,
-    updateRegionalSettings,
-    isLoaded,
-    isLocationDetecting,
+  // Get selected currency from regionalSettings
+  const selectedCurrency = regionalSettings?.currency?.curr || "USD";
+  const selectedCurrencySymbol = regionalSettings?.currency?.symbol || "$";
+
+  // Convert price using exchange rate (from USD to selected currency)
+  const convertPrice = (usdAmount) => {
+    const rates = regionalSettings.exchangeRate?.rates || { USD: 1 };
+    const convertedAmount = getExchangeRateFromDollar(
+      usdAmount,
+      selectedCurrency,
+      rates
+    );
+    return parseFloat(convertedAmount).toFixed(2);
   };
+
+  const value = useMemo(
+    () => ({
+      regionalSettings,
+      updateRegionalSettings,
+      isLoaded,
+      isLocationDetecting: isLoading,
+      selectedCurrency,
+      selectedCurrencySymbol,
+      convertPrice,
+      refetch,
+    }),
+    [regionalSettings, isLoaded, isLoading, refetch]
+  );
 
   return (
     <RegionalSettingsContext.Provider value={value}>

@@ -117,7 +117,7 @@ FlightSegment.propTypes = {
 
 const RoundTripFlightCard = ({ itinerary, searchContext, allAvailableFlights = [] }) => {
   const navigate = useNavigate();
-  const { regionalSettings } = useRegionalSettings();
+  const { regionalSettings, convertPrice, selectedCurrencySymbol } = useRegionalSettings();
   const [isLoadingSimilar, setIsLoadingSimilar] = useState(false);
   const outboundFlights = itinerary.itineraries[0].flights;
   const returnFlights = itinerary.itineraries[1].flights;
@@ -221,7 +221,7 @@ const RoundTripFlightCard = ({ itinerary, searchContext, allAvailableFlights = [
           ) : (
             <>
               <span className="tw:text-sm">Select</span>
-              <span className="tw:text-xl tw:font-medium">{regionalSettings?.currency?.symbol || "$"}{itinerary.price}</span>
+              <span className="tw:text-xl tw:font-medium">{selectedCurrencySymbol}{convertPrice(itinerary.price)}</span>
             </>
           )}
         </button>
