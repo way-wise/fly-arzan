@@ -23,6 +23,7 @@ import NewRegisterForm from "@/components/ui/auth/new-register-form";
 import { motion, AnimatePresence } from "framer-motion";
 import { RiLoginCircleLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import { useGeoCurrency } from "@/hooks/useGeoCurrency";
 
 const Header = () => {
   const [openAuthModal, setAuthModal] = useState(false);
@@ -37,6 +38,9 @@ const Header = () => {
   const { userLocation } = useLocationContext();
   const { regionalSettings, isLoaded } = useRegionalSettings();
   const { i18n } = useTranslation();
+
+  const { data: geoCurrency } = useGeoCurrency();
+  console.log("GEO CURRENCY", geoCurrency);
 
   const siteNavigation = [
     {
@@ -184,14 +188,21 @@ const Header = () => {
                 >
                   <TfiWorld className="tw:size-5 md:tw:size-6" />
                   <span className="tw:hidden tw:md:block tw:whitespace-nowrap">
-                    {!isLoaded ? "Loading..." :
-                      `${(regionalSettings?.language?.code || i18n?.language || "en-US")
-                        .toUpperCase()
-                        .replace(/-.*/, "")} - ${regionalSettings?.currency?.symbol ||
-                        getSymbolFromCurrency(currency) ||
-                        selectedLocalCurr?.symbol ||
-                        userLocation?.symbol ||
-                        "$"}`}
+                    {!isLoaded
+                      ? "Loading..."
+                      : `${(
+                          regionalSettings?.language?.code ||
+                          i18n?.language ||
+                          "en-US"
+                        )
+                          .toUpperCase()
+                          .replace(/-.*/, "")} - ${
+                          regionalSettings?.currency?.symbol ||
+                          getSymbolFromCurrency(currency) ||
+                          selectedLocalCurr?.symbol ||
+                          userLocation?.symbol ||
+                          "$"
+                        }`}
                   </span>
                 </button>
                 <button
