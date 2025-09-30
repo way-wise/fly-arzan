@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 
 const RegionalSettingsContext = createContext();
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useRegionalSettings = () => {
   const context = useContext(RegionalSettingsContext);
   if (!context) {
@@ -43,25 +44,7 @@ export const RegionalSettingsProvider = ({ children }) => {
   });
 
   const [isLoaded, setIsLoaded] = useState(false);
-
-  // Fetch geo-currency data (only when setBy is not "user" or on initial load)
-  const shouldFetch = !isLoaded || regionalSettings.setBy !== "user";
   const { isLoading, data: geoData, refetch } = useGeoCurrency();
-
-  // Map currency symbols
-  const getCurrencySymbol = (code) => {
-    const symbolMap = {
-      USD: "$", EUR: "€", GBP: "£", JPY: "¥", CNY: "¥", INR: "₹",
-      AUD: "A$", CAD: "C$", NZD: "NZ$", CHF: "CHF", SEK: "kr",
-      NOK: "kr", DKK: "kr", PLN: "zł", TRY: "₺", RUB: "₽",
-      BRL: "R$", MXN: "$", ARS: "$", KRW: "₩", SGD: "S$",
-      MYR: "RM", THB: "฿", IDR: "Rp", PHP: "₱", VND: "₫",
-      AED: "د.إ", SAR: "﷼", ZAR: "R", EGP: "£", ILS: "₪",
-      BDT: "৳", PKR: "₨", LKR: "₨", NPR: "₨", MMK: "Ks",
-      KHR: "៛", LAK: "₭",
-    };
-    return symbolMap[code] || code;
-  };
 
   // Map country to language
   const getLanguageForCountry = (countryCode) => {
@@ -108,14 +91,17 @@ export const RegionalSettingsProvider = ({ children }) => {
         },
         currency: {
           curr: geoData.currency?.code || "USD",
-          symbol: getCurrencySymbol(geoData.currency?.code || "USD"),
+          symbol: geoData.currency?.symbol || "$",
         },
         location: {
           latitude: null,
           longitude: null,
           timezone: geoData.timeZone?.id || "America/New_York",
         },
-        exchangeRate: geoData.exchangeRate || { base: "USD", rates: { USD: 1 } },
+        exchangeRate: geoData.exchangeRate || {
+          base: "USD",
+          rates: { USD: 1 },
+        },
         setBy: "ip",
         detectedAt: new Date().toISOString(),
       };
@@ -127,7 +113,10 @@ export const RegionalSettingsProvider = ({ children }) => {
       // Fallback to default if geo fetch fails
       const fallbackSettings = { ...DEFAULT_SETTINGS };
       setRegionalSettings(fallbackSettings);
-      localStorage.setItem("regionalSettings", JSON.stringify(fallbackSettings));
+      localStorage.setItem(
+        "regionalSettings",
+        JSON.stringify(fallbackSettings)
+      );
       setIsLoaded(true);
     }
   }, [geoData, isLoading, isLoaded]);
