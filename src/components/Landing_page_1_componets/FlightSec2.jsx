@@ -10,7 +10,7 @@ import Places7 from "../../assets/Images/Places7.png";
 import Places8 from "../../assets/Images/Places8.png";
 import Places9 from "../../assets/Images/Places9.png";
 import { FlightContext } from "../../context/FlightContext";
-import { useLocationContext } from "../../context/userLocationContext";
+import { useRegionalSettings } from "../../context/RegionalSettingsContext";
 import { useGet } from "../../utils/ApiMethod";
 import { BackendUrl } from "../../baseUrl";
 import FlightCard from "../Flights_cards/FlightCard";
@@ -95,13 +95,13 @@ const cardData = [
 const FlightSec2 = forwardRef((props, ref) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { userLocation } = useLocationContext();
+  const { regionalSettings } = useRegionalSettings();
   const [flightData, setFlightData] = useState([]);
   const [limit, setLimit] = useState(6);
 
   const { data, refetch } = useGet(
-    userLocation?.country_name
-      ? `/flight?page=1&limit=${limit}&country=${userLocation?.country_name}&city=${userLocation?.city}`
+    regionalSettings?.country?.name
+      ? `/flight?page=1&limit=${limit}&country=${regionalSettings.country.name}&city=${regionalSettings.country.name}`
       : null,
     true,
     BackendUrl,
@@ -114,7 +114,7 @@ const FlightSec2 = forwardRef((props, ref) => {
     } else {
       setFlightData([]);
     }
-  }, [data, userLocation]);
+  }, [data, regionalSettings]);
   useEffect(() => {
     refetch();
   }, [limit]);
@@ -124,11 +124,11 @@ const FlightSec2 = forwardRef((props, ref) => {
       <section ref={ref} id="flight-main-deals" className="Sec2-sec">
         <div className="container">
           <div className="main-Sec2">
-            {userLocation?.country_name ? (
+            {regionalSettings?.country?.name ? (
               <div className="Sec2-tital">
                 <h2>
                   {t("flightFaqSection.flightCard.FlightDealsFrom", {
-                    country: userLocation?.country_name || "",
+                    country: regionalSettings.country.name || "",
                   })}
                 </h2>
                 {/* <p>
@@ -138,7 +138,7 @@ const FlightSec2 = forwardRef((props, ref) => {
               </p> */}
                 <p>
                   {t("flightFaqSection.flightCard.Discover_flight_deals")}{" "}
-                  {userLocation?.country_name}{" "}
+                  {regionalSettings.country.name}{" "}
                   {t("flightFaqSection.flightCard.at_the_lowest_prices")}
                 </p>
               </div>

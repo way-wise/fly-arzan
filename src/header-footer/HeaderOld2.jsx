@@ -6,7 +6,6 @@ import { FlightContext } from "../context/FlightContext";
 import { useTranslation } from "react-i18next";
 import RegionModal from "../components/RegionModal/RegionModal";
 import { useCurrency } from "../context/CurrencyContext";
-import { useLocationContext } from "../context/userLocationContext";
 import { HiMenuAlt3 } from "react-icons/hi";
 
 const Header = ({ onNavigate }) => {
@@ -19,7 +18,6 @@ const Header = ({ onNavigate }) => {
 
   const [showPopup, setShowPopup] = useState(false);
   const { setContextData, setFlightBookingData } = useContext(FlightContext);
-  const { userLocation } = useLocationContext();
 
   const [isFixed, setIsFixed] = useState(false);
   const [modal, setModal] = useState(false);
@@ -129,7 +127,7 @@ const Header = ({ onNavigate }) => {
                 <p className="tw:whitespace-nowrap">
                   {selectLocalLang?.code?.toUpperCase()?.replace(/-.*$/, "") ||
                     "EN"}{" "}
-                  - {selectedLocalCurr?.symbol || userLocation?.symbol}
+                  - {selectedLocalCurr?.symbol || "$"}
                 </p>
               </div>
               {!userToken ? (

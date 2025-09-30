@@ -2,17 +2,17 @@ import React, { forwardRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useGet } from "../../utils/ApiMethod";
 import { BackendUrl } from "../../baseUrl";
-import { useLocationContext } from "../../context/userLocationContext";
 import { useEffect } from "react";
+import { useRegionalSettings } from "../../context/RegionalSettingsContext";
 
 const CarsSec4 = forwardRef((props, ref) => {
   const [activeTab, setActiveTab] = useState("Top Car Hire Providers");
-  const { userLocation } = useLocationContext();
+  const { regionalSettings } = useRegionalSettings();
   const selectLocalLang = JSON.parse(localStorage.getItem("selectLang"));
 
   // Fetch data when activeTab changes
-  const endpoint = userLocation?.country_name
-    ? `/category-hotel/${activeTab}/${userLocation?.country_name}`
+  const endpoint = regionalSettings?.country?.name
+    ? `/category-hotel/${activeTab}/${regionalSettings.country.name}`
     : null;
 
   const { data, loading, refetch } = useGet(
@@ -62,7 +62,7 @@ const CarsSec4 = forwardRef((props, ref) => {
   ];
   useEffect(() => {
     refetch();
-  }, [activeTab, userLocation]);
+  }, [activeTab, regionalSettings]);
   const { t } = useTranslation();
   // Update active tab
   const handleTabClick = (tabName) => {

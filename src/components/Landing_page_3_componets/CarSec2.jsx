@@ -11,7 +11,7 @@ import Places8 from "../../assets/Images/Places8.png";
 import Places9 from "../../assets/Images/Places9.png";
 import { useTranslation } from "react-i18next";
 import { useGet } from "../../utils/ApiMethod";
-import { useLocationContext } from "../../context/userLocationContext";
+import { useRegionalSettings } from "../../context/RegionalSettingsContext";
 import { BackendUrl } from "../../baseUrl";
 import FlightCard from "../Flights_cards/FlightCard";
 
@@ -96,11 +96,11 @@ const CarSec2 = forwardRef((props, ref) => {
   const { t } = useTranslation();
   const [limit, setLimit] = useState(6);
 
-  const { userLocation } = useLocationContext();
+  const { regionalSettings } = useRegionalSettings();
 
   const { data, refetch } = useGet(
-    userLocation?.country_name
-      ? `/car?page=1&limit=${limit}&country=${userLocation?.country_name}&city=${userLocation?.city}`
+    regionalSettings?.country?.name
+      ? `/car?page=1&limit=${limit}&country=${regionalSettings.country.name}&city=${regionalSettings.country.name}`
       : null,
     true,
     BackendUrl,
@@ -117,7 +117,7 @@ const CarSec2 = forwardRef((props, ref) => {
             <div className="Sec2-tital">
               <h2>
                 {t("carsection.Find_the_Best", {
-                  country: userLocation?.country_name || "",
+                  country: regionalSettings?.country?.name || "",
                 })}
               </h2>
 
