@@ -348,7 +348,7 @@ const FlightDetailsPage = () => {
                   {ticketList.map((data) => (
                     <div
                       key={data.id}
-                      className="tw:flex tw:flex-col tw:gap-4 tw:sm:gap-0 tw:sm:flex-row tw:items-center tw:justify-between tw:px-4 tw:py-2 tw:bg-white tw:shadow tw:rounded-md"
+                      className="tw:flex tw:gap-4 tw:items-center tw:justify-between tw:px-4 tw:py-2 tw:bg-white tw:shadow tw:rounded-md"
                     >
                       <div className="tw:flex tw:gap-4">
                         <img
@@ -366,7 +366,7 @@ const FlightDetailsPage = () => {
                         </div> */}
                       </div>
 
-                      <div className="tw:w-full tw:justify-between tw:sm:w-fit tw:px-6 tw:py-3 tw:bg-[#F2FAFF] tw:flex tw:items-center tw:rounded-xl tw:gap-3">
+                      <div className="tw:justify-between tw:px-6 tw:py-3 tw:bg-[#F2FAFF] tw:flex tw:items-center tw:rounded-xl tw:gap-3">
                         {/* <div className="tw:flex tw:flex-col tw:items-center tw:gap-1">
                           <span className="tw:font-medium tw:text-xl tw:text-primary">
                             {data.price}

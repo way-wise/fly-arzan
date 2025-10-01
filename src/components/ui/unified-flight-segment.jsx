@@ -67,7 +67,7 @@ const UnifiedFlightSegment = memo(
               <img
                 src={getAirlineLogoUrl(airlineCode)}
                 alt={firstFlight.airline || airlineCode}
-                className="tw:w-[120px] tw:-mt-[35px]"
+                className="tw:w-[120px] tw:-mt-[35px] tw:mr-4"
               />
             ) : (
               <div className="tw:w-[120px] tw:h-[60px] tw:flex tw:items-center tw:justify-center tw:bg-gray-100 tw:rounded">
@@ -76,7 +76,7 @@ const UnifiedFlightSegment = memo(
                 </span>
               </div>
             )}
-            <span className="tw:text-sm tw:text-secondary tw:mb-6">
+            <span className="tw:text-sm tw:text-secondary tw:mb-6 tw:-mt-[25px]">
               {firstFlight.airline || airlineCode}
             </span>
             <span className="tw:text-sm tw:text-secondary tw:-mt-[25px]">
