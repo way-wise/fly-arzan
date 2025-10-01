@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   RiVerifiedBadgeFill,
@@ -36,7 +36,7 @@ import {
 const FlightSearchResults = ({ flightOffersData, searchContext }) => {
   const navigate = useNavigate();
   const { openMobile, setOpenMobile } = useSidebarFilter();
-  const { regionalSettings } = useRegionalSettings();
+  const { regionalSettings, convertPrice, selectedCurrencySymbol } = useRegionalSettings();
   const [selectedTimeCost, setSelectedTimeCost] = useState("best");
   const [processedFlights, setProcessedFlights] = useState([]);
   const [timeCostFilters, setTimeCostFilters] = useState([
@@ -81,20 +81,7 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
     []
   );
 
-  useEffect(() => {
-    // Check if there is valid flight data to process
-    if (flightOffersData?.data && flightOffersData.data.length > 0) {
-      const flights = processAmadeusData(flightOffersData);
-      setProcessedFlights(flights);
-      generateTimeCostFilters(flights);
-    } else {
-      // Handle the case where there are no flight offers
-      setProcessedFlights([]);
-      generateTimeCostFilters([]); // Explicitly call with an empty array
-    }
-  }, [flightOffersData, processAmadeusData]);
-
-  const generateTimeCostFilters = (flights) => {
+  const generateTimeCostFilters = useCallback((flights) => {
     if (flights.length === 0) {
       setTimeCostFilters([
         {
@@ -147,7 +134,7 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
         id: "best",
         title: "Best",
         duration: formatDurationFromMinutes(bestOption.totalDurationMinutes),
-        price: `${regionalSettings?.currency?.symbol || "$"}${bestOption.price}`,
+        price: `${selectedCurrencySymbol}${convertPrice(bestOption.price)}`,
         icon: <RiVerifiedBadgeFill size={24} />,
         showInMobile: true,
       },
@@ -157,7 +144,7 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
         duration: formatDurationFromMinutes(
           cheapestOption.totalDurationMinutes
         ),
-        price: `${regionalSettings?.currency?.symbol || "$"}${cheapestOption.price}`,
+        price: `${selectedCurrencySymbol}${convertPrice(cheapestOption.price)}`,
         icon: <RiPercentFill size={24} />,
         showInMobile: true,
       },
@@ -165,12 +152,25 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
         id: "fastest",
         title: "Fastest",
         duration: formatDurationFromMinutes(fastestOption.totalDurationMinutes),
-        price: `${regionalSettings?.currency?.symbol || "$"}${fastestOption.price}`,
+        price: `${selectedCurrencySymbol}${convertPrice(fastestOption.price)}`,
         icon: <RiFlashlightFill size={24} />,
         showInMobile: true,
       },
     ]);
-  };
+  }, [selectedCurrencySymbol, convertPrice]);
+
+  useEffect(() => {
+    // Check if there is valid flight data to process
+    if (flightOffersData?.data && flightOffersData.data.length > 0) {
+      const flights = processAmadeusData(flightOffersData);
+      setProcessedFlights(flights);
+      generateTimeCostFilters(flights);
+    } else {
+      // Handle the case where there are no flight offers
+      setProcessedFlights([]);
+      generateTimeCostFilters([]); // Explicitly call with an empty array
+    }
+  }, [flightOffersData, processAmadeusData, generateTimeCostFilters]);
 
   const { filters } = useSidebarFilter();
 
