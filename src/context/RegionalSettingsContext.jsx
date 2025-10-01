@@ -1,4 +1,11 @@
-import { createContext, useContext, useState, useEffect, useMemo, useCallback } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+} from "react";
 import { useGeoCurrency } from "../hooks/useGeoCurrency";
 import { getExchangeRateFromDollar } from "../utils/exchangeRateUtils";
 import PropTypes from "prop-types";
@@ -91,7 +98,8 @@ export const RegionalSettingsProvider = ({ children }) => {
         },
         currency: {
           curr: geoData.currency?.code || "USD",
-          symbol: geoData.currency?.symbol_native || geoData.currency?.symbol || "$",
+          symbol:
+            geoData.currency?.symbol_native || geoData.currency?.symbol || "$",
         },
         location: {
           latitude: null,
@@ -133,30 +141,36 @@ export const RegionalSettingsProvider = ({ children }) => {
     }
   }, []);
 
-  const updateRegionalSettings = useCallback((newSettings) => {
-    setRegionalSettings(newSettings);
-    localStorage.setItem("regionalSettings", JSON.stringify(newSettings));
+  const updateRegionalSettings = useCallback(
+    (newSettings) => {
+      setRegionalSettings(newSettings);
+      localStorage.setItem("regionalSettings", JSON.stringify(newSettings));
 
-    // If setBy is user, refetch to get latest exchange rates
-    if (newSettings.setBy === "user") {
-      refetch();
-    }
-  }, [refetch]);
+      // If setBy is user, refetch to get latest exchange rates
+      if (newSettings.setBy === "user") {
+        refetch();
+      }
+    },
+    [refetch]
+  );
 
   // Get selected currency from regionalSettings
   const selectedCurrency = regionalSettings?.currency?.curr || "USD";
   const selectedCurrencySymbol = regionalSettings?.currency?.symbol || "$";
 
   // Convert price using exchange rate (from USD to selected currency)
-  const convertPrice = useCallback((usdAmount) => {
-    const rates = regionalSettings.exchangeRate?.rates || { USD: 1 };
-    const convertedAmount = getExchangeRateFromDollar(
-      usdAmount,
-      selectedCurrency,
-      rates
-    );
-    return parseFloat(convertedAmount).toFixed(2);
-  }, [regionalSettings, selectedCurrency]);
+  const convertPrice = useCallback(
+    (usdAmount) => {
+      const rates = regionalSettings.exchangeRate?.rates || { USD: 1 };
+      const convertedAmount = getExchangeRateFromDollar(
+        usdAmount,
+        selectedCurrency,
+        rates
+      );
+      return parseFloat(convertedAmount).toFixed(2);
+    },
+    [regionalSettings, selectedCurrency]
+  );
 
   const value = useMemo(
     () => ({
@@ -169,7 +183,16 @@ export const RegionalSettingsProvider = ({ children }) => {
       convertPrice,
       refetch,
     }),
-    [regionalSettings, updateRegionalSettings, isLoaded, isLoading, selectedCurrency, selectedCurrencySymbol, convertPrice, refetch]
+    [
+      regionalSettings,
+      updateRegionalSettings,
+      isLoaded,
+      isLoading,
+      selectedCurrency,
+      selectedCurrencySymbol,
+      convertPrice,
+      refetch,
+    ]
   );
 
   return (

@@ -365,7 +365,6 @@ const MultiCityForm = ({ initialValues, onSearch }) => {
 
       // Convert form data to API format for the search function
       const apiFormData = {
-        currencyCode: regionalSettings?.currency?.curr || "USD",
         originDestinations: values.segments.map((segment, index) => ({
           id: (index + 1).toString(),
           originLocationCode: segment.from.iataCode,
@@ -427,7 +426,7 @@ const MultiCityForm = ({ initialValues, onSearch }) => {
         navigate("/search/flight");
       }
     },
-    [navigate, onSearch, setSessionData]
+    [navigate, onSearch, setSessionData, regionalSettings]
   );
 
   return (

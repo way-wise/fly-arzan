@@ -18,13 +18,11 @@ import { useFlexibleDates } from "@/hooks/useFlexibleDates";
 import { useEffect, useState, useMemo } from "react";
 import { parseDateFromURL, formatDateForURL } from "@/lib/flight-utils";
 import { useSessionStorage } from "usehooks-ts";
-import { useRegionalSettings } from "../../context/RegionalSettingsContext";
 
 import OneWayFilter from "@/components/ui/one-way-filter";
 import RoundTripFilter from "@/components/ui/round-trip-filter";
 
 const FlightSearchPage = () => {
-  const { regionalSettings } = useRegionalSettings();
   const [initialValues, setInitialValues] = useState(null);
   const [multicityValues, setMulticityValues] = useState(null);
   const [multicityResults, setMulticityResults] = useState(null);
@@ -135,7 +133,6 @@ const FlightSearchPage = () => {
           // Only trigger automatic search if not yet initialized to avoid repeated searches
           if (!hasInitialized) {
             const apiSearchData = {
-              currencyCode: "USD",
               originDestinations: convertedData.originDestinations.map(
                 (od) => ({
                   ...od,
@@ -204,9 +201,8 @@ const FlightSearchPage = () => {
       adults: sessionData?.travellers?.adults || 1,
       children: sessionData?.travellers?.children || 0,
       travelClass: sessionData?.travelClass || "ECONOMY",
-      currencyCode: regionalSettings?.currency?.curr || "USD",
     }),
-    [initialValues, tripType, sessionData, regionalSettings]
+    [initialValues, tripType, sessionData]
   );
 
   // Flight Offers (for one-way and round-way)
