@@ -76,20 +76,25 @@ const OneWayFilter = ({ flightOffersData }) => {
       // Collect baggage information from traveler pricings
       if (offer.travelerPricings && offer.travelerPricings.length > 0) {
         offer.travelerPricings.forEach((pricing) => {
-          if (pricing.fareDetailsBySegment && pricing.fareDetailsBySegment.length > 0) {
+          if (
+            pricing.fareDetailsBySegment &&
+            pricing.fareDetailsBySegment.length > 0
+          ) {
             pricing.fareDetailsBySegment.forEach((segment) => {
-              if (segment.includedCheckedBags && (
-                  segment.includedCheckedBags.weight > 0 ||
+              if (
+                segment.includedCheckedBags &&
+                (segment.includedCheckedBags.weight > 0 ||
                   segment.includedCheckedBags.quantity > 0 ||
-                  segment.includedCheckedBags
-              )) {
+                  segment.includedCheckedBags)
+              ) {
                 baggageTypes.add("checked");
               }
-              if (segment.includedCabinBags && (
-                  segment.includedCabinBags.weight > 0 ||
+              if (
+                segment.includedCabinBags &&
+                (segment.includedCabinBags.weight > 0 ||
                   segment.includedCabinBags.quantity > 0 ||
-                  segment.includedCabinBags
-              )) {
+                  segment.includedCabinBags)
+              ) {
                 baggageTypes.add("cabin");
               }
             });
@@ -153,7 +158,7 @@ const OneWayFilter = ({ flightOffersData }) => {
   }, [departureTimeRange, journeyDurationRange, setFilters, flightOffersData]);
 
   return (
-    <div className="tw:flex tw:flex-col tw:gap-5">
+    <div className="tw:flex tw:flex-col tw:gap-5 tw:sticky tw:top-28">
       {/* Filter Header */}
       <div className="tw:flex tw:items-center tw:justify-between tw:gap-2 tw:h-7">
         <h4 className="tw:text-[15px] tw:font-medium">Filter</h4>

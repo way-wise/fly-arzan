@@ -36,7 +36,8 @@ import {
 const FlightSearchResults = ({ flightOffersData, searchContext }) => {
   const navigate = useNavigate();
   const { openMobile, setOpenMobile } = useSidebarFilter();
-  const { regionalSettings, convertPrice, selectedCurrencySymbol } = useRegionalSettings();
+  const { regionalSettings, convertPrice, selectedCurrencySymbol } =
+    useRegionalSettings();
   const [selectedTimeCost, setSelectedTimeCost] = useState("best");
   const [processedFlights, setProcessedFlights] = useState([]);
   const [timeCostFilters, setTimeCostFilters] = useState([
@@ -81,83 +82,94 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
     []
   );
 
-  const generateTimeCostFilters = useCallback((flights) => {
-    if (flights.length === 0) {
+  const generateTimeCostFilters = useCallback(
+    (flights) => {
+      if (flights.length === 0) {
+        setTimeCostFilters([
+          {
+            id: "best",
+            title: "Best",
+            duration: "0h 00m",
+            price: "$0",
+            icon: <RiVerifiedBadgeFill size={24} />,
+            showInMobile: true,
+          },
+          {
+            id: "cheapest",
+            title: "Cheapest",
+            duration: "0h 00m",
+            price: "$0",
+            icon: <RiPercentFill size={24} />,
+            showInMobile: true,
+          },
+          {
+            id: "fastest",
+            title: "Fastest",
+            duration: "0h 00m",
+            price: "$0",
+            icon: <RiFlashlightFill size={24} />,
+            showInMobile: true,
+          },
+        ]);
+        return;
+      }
+
+      const cheapestOption = flights.reduce((prev, current) =>
+        prev.price < current.price ? prev : current
+      );
+
+      const fastestOption = flights.reduce((prev, current) =>
+        prev.totalDurationMinutes < current.totalDurationMinutes
+          ? prev
+          : current
+      );
+
+      // A more balanced "best" option: not the absolute cheapest if it's excessively long.
+      // We'll score based on a combination of price and duration.
+      const bestOption = flights.reduce((prev, current) => {
+        // Lower score is better. Penalize long durations more heavily.
+        const prevScore = prev.price + prev.totalDurationMinutes * 0.5; // Adjust multiplier as needed
+        const currentScore = current.price + current.totalDurationMinutes * 0.5;
+        return prevScore < currentScore ? prev : current;
+      });
+
       setTimeCostFilters([
         {
           id: "best",
           title: "Best",
-          duration: "0h 00m",
-          price: "$0",
+          duration: formatDurationFromMinutes(bestOption.totalDurationMinutes),
+          price: `${selectedCurrencySymbol}${convertPrice(bestOption.price)}`,
           icon: <RiVerifiedBadgeFill size={24} />,
           showInMobile: true,
         },
         {
           id: "cheapest",
           title: "Cheapest",
-          duration: "0h 00m",
-          price: "$0",
+          duration: formatDurationFromMinutes(
+            cheapestOption.totalDurationMinutes
+          ),
+          price: `${selectedCurrencySymbol}${convertPrice(
+            cheapestOption.price
+          )}`,
           icon: <RiPercentFill size={24} />,
           showInMobile: true,
         },
         {
           id: "fastest",
           title: "Fastest",
-          duration: "0h 00m",
-          price: "$0",
+          duration: formatDurationFromMinutes(
+            fastestOption.totalDurationMinutes
+          ),
+          price: `${selectedCurrencySymbol}${convertPrice(
+            fastestOption.price
+          )}`,
           icon: <RiFlashlightFill size={24} />,
           showInMobile: true,
         },
       ]);
-      return;
-    }
-
-    const cheapestOption = flights.reduce((prev, current) =>
-      prev.price < current.price ? prev : current
-    );
-
-    const fastestOption = flights.reduce((prev, current) =>
-      prev.totalDurationMinutes < current.totalDurationMinutes ? prev : current
-    );
-
-    // A more balanced "best" option: not the absolute cheapest if it's excessively long.
-    // We'll score based on a combination of price and duration.
-    const bestOption = flights.reduce((prev, current) => {
-      // Lower score is better. Penalize long durations more heavily.
-      const prevScore = prev.price + prev.totalDurationMinutes * 0.5; // Adjust multiplier as needed
-      const currentScore = current.price + current.totalDurationMinutes * 0.5;
-      return prevScore < currentScore ? prev : current;
-    });
-
-    setTimeCostFilters([
-      {
-        id: "best",
-        title: "Best",
-        duration: formatDurationFromMinutes(bestOption.totalDurationMinutes),
-        price: `${selectedCurrencySymbol}${convertPrice(bestOption.price)}`,
-        icon: <RiVerifiedBadgeFill size={24} />,
-        showInMobile: true,
-      },
-      {
-        id: "cheapest",
-        title: "Cheapest",
-        duration: formatDurationFromMinutes(
-          cheapestOption.totalDurationMinutes
-        ),
-        price: `${selectedCurrencySymbol}${convertPrice(cheapestOption.price)}`,
-        icon: <RiPercentFill size={24} />,
-        showInMobile: true,
-      },
-      {
-        id: "fastest",
-        title: "Fastest",
-        duration: formatDurationFromMinutes(fastestOption.totalDurationMinutes),
-        price: `${selectedCurrencySymbol}${convertPrice(fastestOption.price)}`,
-        icon: <RiFlashlightFill size={24} />,
-        showInMobile: true,
-      },
-    ]);
-  }, [selectedCurrencySymbol, convertPrice]);
+    },
+    [selectedCurrencySymbol, convertPrice]
+  );
 
   useEffect(() => {
     // Check if there is valid flight data to process
@@ -386,8 +398,14 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
 
                 // Generate forward URL and add to flight details
                 const forwardUrl = generateForwardLink(flightDetailsData);
-                console.log('🔗 Generated Trip.com URL for multi-city flight:', forwardUrl);
-                console.log('📖 Decoded URL for understanding:', decodeURIComponent(forwardUrl));
+                console.log(
+                  "🔗 Generated Trip.com URL for multi-city flight:",
+                  forwardUrl
+                );
+                console.log(
+                  "📖 Decoded URL for understanding:",
+                  decodeURIComponent(forwardUrl)
+                );
                 flightDetailsData.forwardUrl = forwardUrl;
 
                 sessionStorage.setItem(
@@ -399,7 +417,7 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                 try {
                   generateAndStoreSimilarFlights(itinerary, sortedFlights, 5);
                 } catch (error) {
-                  console.warn('Failed to generate similar flights:', error);
+                  console.warn("Failed to generate similar flights:", error);
                 }
 
                 navigate("/flight/details");
@@ -411,7 +429,7 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                   className="tw:rounded-xl tw:bg-white tw:shadow tw:p-4 tw:flex tw:flex-col tw:md:flex-row tw:items-center tw:justify-between"
                 >
                   {/* Flight Details Section */}
-                  <div className="tw:flex tw:flex-col tw:justify-between tw:grow tw:gap-4 tw:px-[30px] tw:mb-8 tw:md:mb-0">
+                  <div className="tw:flex tw:flex-col tw:justify-between tw:grow tw:gap-4 tw:pl-[10px] tw:mb-8 tw:md:mb-0">
                     {itinerary.itineraries.map((segment, index) => {
                       const flights = segment.flights;
                       const firstFlight = flights[0];
@@ -433,7 +451,7 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                                     firstFlight.airlineCode
                                   )}
                                   alt={firstFlight.airline}
-                                  className="tw:w-[120px]"
+                                  className="tw:w-[120px] tw:-mt-[35px]"
                                 />
                               ) : (
                                 <div className="tw:w-[120px] tw:h-[60px] tw:flex tw:items-center tw:justify-center tw:bg-gray-100 tw:rounded">
@@ -442,7 +460,7 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                                   </span>
                                 </div>
                               )}
-                              <span className="tw:text-sm tw:text-secondary">
+                              <span className="tw:text-sm tw:text-secondary tw:-mt-[25px]">
                                 {firstFlight.airlineCode} -{" "}
                                 {firstFlight.flightNumber}
                               </span>
@@ -538,7 +556,8 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                     >
                       <span className="tw:text-sm">Select</span>
                       <span className="tw:text-xl tw:font-medium">
-                        {regionalSettings?.currency?.symbol || "$"}{itinerary.price}
+                        {regionalSettings?.currency?.symbol || "$"}
+                        {itinerary.price}
                       </span>
                     </button>
                     {/* <span className="tw:text-sm tw:text-[#939393]">

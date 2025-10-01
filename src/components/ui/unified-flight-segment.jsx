@@ -7,7 +7,6 @@ import {
 } from "@/lib/flight-utils";
 import PropTypes from "prop-types";
 
-
 const UnifiedFlightSegment = memo(
   ({ segment, tripType, segmentIndex, totalSegments, segmentLabel }) => {
     // Handle different data structures based on trip type
@@ -68,7 +67,7 @@ const UnifiedFlightSegment = memo(
               <img
                 src={getAirlineLogoUrl(airlineCode)}
                 alt={firstFlight.airline || airlineCode}
-                className="tw:w-[120px] tw:object-contain"
+                className="tw:w-[120px] tw:-mt-[35px]"
               />
             ) : (
               <div className="tw:w-[120px] tw:h-[60px] tw:flex tw:items-center tw:justify-center tw:bg-gray-100 tw:rounded">
@@ -77,10 +76,10 @@ const UnifiedFlightSegment = memo(
                 </span>
               </div>
             )}
-            <span className="tw:text-sm tw:text-secondary">
+            <span className="tw:text-sm tw:text-secondary tw:mb-6">
               {firstFlight.airline || airlineCode}
             </span>
-            <span className="tw:text-sm tw:text-secondary">
+            <span className="tw:text-sm tw:text-secondary tw:-mt-[25px]">
               {airlineCode} - {flightNumber}
             </span>
           </div>

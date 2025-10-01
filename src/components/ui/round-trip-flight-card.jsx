@@ -12,7 +12,6 @@ import { generateAndStoreSimilarFlights } from "../../utils/similarFlightsUtils"
 import { generateForwardLink } from "../../utils/forwardLinkUtils";
 import PropTypes from "prop-types";
 
-
 const FlightSegment = ({ flights }) => {
   if (!flights || flights.length === 0) return null;
 
@@ -31,7 +30,7 @@ const FlightSegment = ({ flights }) => {
           <img
             src={getAirlineLogoUrl(firstFlight.airlineCode)}
             alt={firstFlight.airline}
-            className="tw:w-[120px]"
+            className="tw:w-[120px] tw:-mt-[35px]"
           />
         ) : (
           <div className="tw:w-[120px] tw:h-[60px] tw:flex tw:items-center tw:justify-center tw:bg-gray-100 tw:rounded">
@@ -40,7 +39,7 @@ const FlightSegment = ({ flights }) => {
             </span>
           </div>
         )}
-        <span className="tw:text-sm tw:text-secondary">
+        <span className="tw:text-sm tw:text-secondary tw:-mt-[25px]">
           {firstFlight.airlineCode} - {firstFlight.flightNumber}
         </span>
       </div>
@@ -115,9 +114,14 @@ FlightSegment.propTypes = {
   flights: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-const RoundTripFlightCard = ({ itinerary, searchContext, allAvailableFlights = [] }) => {
+const RoundTripFlightCard = ({
+  itinerary,
+  searchContext,
+  allAvailableFlights = [],
+}) => {
   const navigate = useNavigate();
-  const { regionalSettings, convertPrice, selectedCurrencySymbol } = useRegionalSettings();
+  const { regionalSettings, convertPrice, selectedCurrencySymbol } =
+    useRegionalSettings();
   const [isLoadingSimilar, setIsLoadingSimilar] = useState(false);
   const outboundFlights = itinerary.itineraries[0].flights;
   const returnFlights = itinerary.itineraries[1].flights;
@@ -132,60 +136,61 @@ const RoundTripFlightCard = ({ itinerary, searchContext, allAvailableFlights = [
     setIsLoadingSimilar(true);
 
     try {
-    // Store complete round-trip flight details in session storage
-    const flightDetailsData = {
-      tripType: "round-trip",
-      flightOffer: itinerary,
-      searchParams: searchContext?.searchParams || {},
-      passengerInfo: {
-        adults: searchContext?.adults || 1,
-        children: searchContext?.children || 0,
-        cabin: searchContext?.travelClass || "Economy",
-      },
-      routeInfo: {
-        from: {
-          city: outboundFlights[0].departure.city || searchContext?.fromCity,
-          airport: outboundFlights[0].departure.airport,
-          iataCode: outboundFlights[0].departure.iataCode,
+      // Store complete round-trip flight details in session storage
+      const flightDetailsData = {
+        tripType: "round-trip",
+        flightOffer: itinerary,
+        searchParams: searchContext?.searchParams || {},
+        passengerInfo: {
+          adults: searchContext?.adults || 1,
+          children: searchContext?.children || 0,
+          cabin: searchContext?.travelClass || "Economy",
         },
-        to: {
-          city:
-            outboundFlights[outboundFlights.length - 1].arrival.city ||
-            searchContext?.toCity,
-          airport: outboundFlights[outboundFlights.length - 1].arrival.airport,
-          iataCode:
-            outboundFlights[outboundFlights.length - 1].arrival.iataCode,
+        routeInfo: {
+          from: {
+            city: outboundFlights[0].departure.city || searchContext?.fromCity,
+            airport: outboundFlights[0].departure.airport,
+            iataCode: outboundFlights[0].departure.iataCode,
+          },
+          to: {
+            city:
+              outboundFlights[outboundFlights.length - 1].arrival.city ||
+              searchContext?.toCity,
+            airport:
+              outboundFlights[outboundFlights.length - 1].arrival.airport,
+            iataCode:
+              outboundFlights[outboundFlights.length - 1].arrival.iataCode,
+          },
+          departureDate: outboundFlights[0].departure.at,
+          returnDate: returnFlights[0].departure.at,
+          // Add airline information for both outbound and return flights
+          outboundFlights: outboundFlights.map((flight) => ({
+            airlineCode: flight.operating?.carrierCode || flight.airlineCode,
+            airlineName: flight.operating?.airlineName || flight.airlineName,
+            flightNumber: flight.flightNumber,
+            departure: flight.departure,
+            arrival: flight.arrival,
+          })),
+          returnFlights: returnFlights.map((flight) => ({
+            airlineCode: flight.operating?.carrierCode || flight.airlineCode,
+            airlineName: flight.operating?.airlineName || flight.airlineName,
+            flightNumber: flight.flightNumber,
+            departure: flight.departure,
+            arrival: flight.arrival,
+          })),
         },
-        departureDate: outboundFlights[0].departure.at,
-        returnDate: returnFlights[0].departure.at,
-        // Add airline information for both outbound and return flights
-        outboundFlights: outboundFlights.map((flight) => ({
-          airlineCode: flight.operating?.carrierCode || flight.airlineCode,
-          airlineName: flight.operating?.airlineName || flight.airlineName,
-          flightNumber: flight.flightNumber,
-          departure: flight.departure,
-          arrival: flight.arrival,
-        })),
-        returnFlights: returnFlights.map((flight) => ({
-          airlineCode: flight.operating?.carrierCode || flight.airlineCode,
-          airlineName: flight.operating?.airlineName || flight.airlineName,
-          flightNumber: flight.flightNumber,
-          departure: flight.departure,
-          arrival: flight.arrival,
-        })),
-      },
-      regionalSettings: regionalSettings,
-    };
+        regionalSettings: regionalSettings,
+      };
 
-    // Generate forward URL and add to flight details
-    const forwardUrl = generateForwardLink(flightDetailsData);
-    flightDetailsData.forwardUrl = forwardUrl;
+      // Generate forward URL and add to flight details
+      const forwardUrl = generateForwardLink(flightDetailsData);
+      flightDetailsData.forwardUrl = forwardUrl;
 
-    // Store in session storage
-    sessionStorage.setItem(
-      "selected-flight-details",
-      JSON.stringify(flightDetailsData)
-    );
+      // Store in session storage
+      sessionStorage.setItem(
+        "selected-flight-details",
+        JSON.stringify(flightDetailsData)
+      );
 
       // Generate and store similar flights using the passed available flights
       generateAndStoreSimilarFlights(itinerary, allAvailableFlights, 5);
@@ -193,7 +198,7 @@ const RoundTripFlightCard = ({ itinerary, searchContext, allAvailableFlights = [
       // Navigate to details page
       navigate("/flight/details");
     } catch (error) {
-      console.warn('Failed to process flight selection:', error);
+      console.warn("Failed to process flight selection:", error);
       setIsLoadingSimilar(false);
     }
   };
@@ -204,7 +209,7 @@ const RoundTripFlightCard = ({ itinerary, searchContext, allAvailableFlights = [
       className="tw:rounded-xl tw:bg-white tw:shadow tw:p-4 tw:flex tw:flex-col tw:md:flex-row tw:items-center tw:justify-between"
     >
       {/* Flight Details Section */}
-      <div className="tw:flex tw:flex-col tw:justify-between tw:grow tw:gap-4 tw:px-[30px] tw:mb-8 tw:md:mb-0">
+      <div className="tw:flex tw:flex-col tw:justify-between tw:grow tw:gap-4 tw:pl-[10px] tw:mb-8 tw:md:mb-0">
         <FlightSegment flights={outboundFlights} />
         <FlightSegment flights={returnFlights} />
       </div>
@@ -221,7 +226,10 @@ const RoundTripFlightCard = ({ itinerary, searchContext, allAvailableFlights = [
           ) : (
             <>
               <span className="tw:text-sm">Select</span>
-              <span className="tw:text-xl tw:font-medium">{selectedCurrencySymbol}{convertPrice(itinerary.price)}</span>
+              <span className="tw:text-xl tw:font-medium">
+                {selectedCurrencySymbol}
+                {convertPrice(itinerary.price)}
+              </span>
             </>
           )}
         </button>

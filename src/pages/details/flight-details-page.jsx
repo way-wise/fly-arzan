@@ -13,7 +13,6 @@ const FlightDetailsPage = () => {
   const [flightData, setFlightData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     // Read flight data from session storage
     const loadFlightData = () => {
@@ -253,7 +252,7 @@ const FlightDetailsPage = () => {
         airline: "Trip.com",
         totalRating: 556,
         avgRating: 5,
-        icon: "/icons/trip.png",
+        icon: "/icons/trip.webp",
       },
     ];
   };
@@ -349,14 +348,14 @@ const FlightDetailsPage = () => {
                   {ticketList.map((data) => (
                     <div
                       key={data.id}
-                      className="tw:flex tw:flex-col tw:gap-4 tw:sm:gap-0 tw:sm:flex-row tw:items-center tw:justify-between tw:px-5 tw:py-4 tw:bg-white tw:shadow tw:rounded-md"
+                      className="tw:flex tw:flex-col tw:gap-4 tw:sm:gap-0 tw:sm:flex-row tw:items-center tw:justify-between tw:px-4 tw:py-2 tw:bg-white tw:shadow tw:rounded-md"
                     >
                       <div className="tw:flex tw:gap-4">
                         <img
                           src={data.icon}
-                          className="tw:h-[70px] tw:rounded"
+                          className="tw:h-[30px] tw:rounded"
                         />
-                        <div className="tw:w-full tw:flex tw:flex-col tw:gap-[11px]">
+                        {/* <div className="tw:w-full tw:flex tw:flex-col tw:gap-[11px]">
                           <h4 className="tw:text-xl">{data.airline}</h4>
                           <div className="tw:flex tw:items-center tw:gap-2">
                             {renderStars(data.avgRating)}
@@ -364,10 +363,10 @@ const FlightDetailsPage = () => {
                               {data.totalRating}
                             </span>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
 
-                      <div className="tw:w-full tw:justify-between tw:sm:w-fit tw:px-6 tw:py-5 tw:bg-[#F2FAFF] tw:flex tw:items-center tw:rounded-xl tw:gap-3">
+                      <div className="tw:w-full tw:justify-between tw:sm:w-fit tw:px-6 tw:py-3 tw:bg-[#F2FAFF] tw:flex tw:items-center tw:rounded-xl tw:gap-3">
                         {/* <div className="tw:flex tw:flex-col tw:items-center tw:gap-1">
                           <span className="tw:font-medium tw:text-xl tw:text-primary">
                             {data.price}
@@ -377,7 +376,7 @@ const FlightDetailsPage = () => {
                           </span>
                         </div> */}
                         <button
-                          onClick={() => navigate('/loader')}
+                          onClick={() => navigate("/loader")}
                           className="tw:!bg-[#50ADD8] tw:!no-underline tw:!text-white tw:!rounded-full tw:!px-[30px] tw:py-2 tw:text-sm hover:tw:!bg-[#4A9BC4] tw:!transition-colors tw:duration-200 tw:border-0 tw:cursor-pointer"
                         >
                           Select

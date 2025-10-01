@@ -19,7 +19,7 @@ const Directing = () => {
           // Optionally navigate back or to another page
           window.history.back();
         }
-      }, 5000);
+      }, 3000);
 
       return () => clearTimeout(timer);
     }
@@ -32,12 +32,12 @@ const Directing = () => {
           <div className="Directing-main">
             <div style={{ textAlign: "center", marginBottom: "20px" }}>
               <img
-                src="/icons/trip.png"
+                src="/icons/trip.webp"
                 alt="Trip.com"
-                style={{ width: "120px", marginBottom: "10px" }}
+                style={{ width: "120px" }}
               />
             </div>
-            <h2>{t("BookYourTicket.Directing_To")}</h2>
+            <h3>{t("BookYourTicket.Directing_To")}</h3>
             <p>Trip.com</p>
             <div className="loaderBar"></div>
           </div>
