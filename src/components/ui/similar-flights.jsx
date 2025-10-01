@@ -29,7 +29,7 @@ const generateRouteInfoFromFlight = (flight, tripType) => {
         iataCode: flights[flights.length - 1]?.arrival?.iataCode,
       },
       departureDate: flights[0]?.departure?.at,
-      flights: flights.map(f => ({
+      flights: flights.map((f) => ({
         airlineCode: f.operating?.carrierCode || f.airlineCode,
         airlineName: f.operating?.airlineName || f.airlineName,
         flightNumber: f.flightNumber,
@@ -49,18 +49,19 @@ const generateRouteInfoFromFlight = (flight, tripType) => {
       to: {
         city: outboundFlights[outboundFlights.length - 1]?.arrival?.city,
         airport: outboundFlights[outboundFlights.length - 1]?.arrival?.airport,
-        iataCode: outboundFlights[outboundFlights.length - 1]?.arrival?.iataCode,
+        iataCode:
+          outboundFlights[outboundFlights.length - 1]?.arrival?.iataCode,
       },
       departureDate: outboundFlights[0]?.departure?.at,
       returnDate: returnFlights[0]?.departure?.at,
-      outboundFlights: outboundFlights.map(f => ({
+      outboundFlights: outboundFlights.map((f) => ({
         airlineCode: f.operating?.carrierCode || f.airlineCode,
         airlineName: f.operating?.airlineName || f.airlineName,
         flightNumber: f.flightNumber,
         departure: f.departure,
         arrival: f.arrival,
       })),
-      returnFlights: returnFlights.map(f => ({
+      returnFlights: returnFlights.map((f) => ({
         airlineCode: f.operating?.carrierCode || f.airlineCode,
         airlineName: f.operating?.airlineName || f.airlineName,
         flightNumber: f.flightNumber,
@@ -126,7 +127,10 @@ const SimilarFlights = () => {
 
     if (newSelectedFlight) {
       // Generate updated route info based on the new selected flight
-      const updatedRouteInfo = generateRouteInfoFromFlight(newSelectedFlight, selectedFlightDetails.tripType);
+      const updatedRouteInfo = generateRouteInfoFromFlight(
+        newSelectedFlight,
+        selectedFlightDetails.tripType
+      );
 
       // Update the selected flight details in session storage
       // Preserve original routeInfo if generation returns null
@@ -320,7 +324,7 @@ const SimilarFlights = () => {
                             <span className="tw:text-sm tw:font-semibold">
                               {formatDurationFromMinutes(totalDurationMinutes)}
                             </span>
-                            <span className="tw:h-px tw:w-[82px] tw:bg-secondary" />
+                            <span className="tw:h-px tw:w-full tw:bg-secondary" />
                             <span className="tw:text-sm tw:text-primary">
                               {(() => {
                                 const stops = flights.length - 1;
@@ -333,17 +337,20 @@ const SimilarFlights = () => {
                                 return (
                                   <>
                                     {`${stops} Stop${stops > 1 ? "s" : ""}`}{" "}
-                                    {stopAirports.map((airport, airportIndex) => (
-                                      <strong
-                                        key={airportIndex}
-                                        className="tw:text-[#5D586C] tw:!font-normal"
-                                      >
-                                        {airport}
-                                        {airportIndex < stopAirports.length - 1
-                                          ? ", "
-                                          : ""}
-                                      </strong>
-                                    ))}
+                                    {stopAirports.map(
+                                      (airport, airportIndex) => (
+                                        <strong
+                                          key={airportIndex}
+                                          className="tw:text-[#5D586C] tw:!font-normal"
+                                        >
+                                          {airport}
+                                          {airportIndex <
+                                          stopAirports.length - 1
+                                            ? ", "
+                                            : ""}
+                                        </strong>
+                                      )
+                                    )}
                                   </>
                                 );
                               })()}

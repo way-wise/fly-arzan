@@ -143,7 +143,7 @@ const OneWayFlightCard = memo(
                   <span className="tw:text-sm tw:font-semibold">
                     {formatDurationFromMinutes(itinerary.totalDurationMinutes)}
                   </span>
-                  <span className="tw:h-px tw:w-[82px] tw:bg-secondary" />
+                  <span className="tw:h-px tw:w-full tw:bg-secondary" />
                   <span className="tw:text-sm tw:text-primary">
                     {(() => {
                       const stops = (itinerary.flights?.length || 1) - 1;

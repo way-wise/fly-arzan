@@ -107,7 +107,7 @@ const UnifiedFlightSegment = memo(
                 <span className="tw:text-sm tw:font-semibold">
                   {formatDurationFromMinutes(totalDurationMinutes)}
                 </span>
-                <span className="tw:h-px tw:w-[82px] tw:bg-secondary" />
+                <span className="tw:h-px tw:w-full tw:bg-secondary" />
                 <span className="tw:text-sm tw:text-primary">
                   {(() => {
                     const stops = flights.length - 1;
