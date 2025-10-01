@@ -4,7 +4,7 @@ import { BackendUrl } from "../../baseUrl";
 import { useTranslation } from "react-i18next";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { useCurrency } from "../../context/CurrencyContext";
+import { useRegionalSettings } from "../../context/RegionalSettingsContext";
 
 const Umbrella = () => {
   return (
@@ -124,7 +124,7 @@ function FlightCard({
   onHandleChange,
   navigateTo
 }) {
-  const { convertPrice, currency, selectedLocalCurr } = useCurrency();
+  const { convertPrice, selectedCurrencySymbol } = useRegionalSettings();
 
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -285,7 +285,7 @@ function FlightCard({
                   {card?.price ? (
                     <span>
                       <h2>
-                        {selectedLocalCurr?.symbol || "$"}{" "}
+                        {selectedCurrencySymbol}{" "}
                         {convertPrice(card?.price?.amount)}
                       </h2>
                       /{t(`flightFaqSection.flightCard.${card?.price?.at}`)}{" "}
@@ -293,7 +293,7 @@ function FlightCard({
                   ) : (
                     <span>
                       <h2>
-                        {selectedLocalCurr?.symbol || "$"} {convertPrice(20)}
+                        {selectedCurrencySymbol} {convertPrice(20)}
                       </h2>
                       /{t("flightFaqSection.flightCard.night")}{" "}
                     </span>

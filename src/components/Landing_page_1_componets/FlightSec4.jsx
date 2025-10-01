@@ -3,19 +3,19 @@ import { useGet } from "../../utils/ApiMethod";
 import { BackendUrl } from "../../baseUrl";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useLocationContext } from "../../context/userLocationContext";
+import { useRegionalSettings } from "../../context/RegionalSettingsContext";
 
 const FlightSec4 = forwardRef((props, ref) => {
   const { t } = useTranslation();
-  const { userLocation } = useLocationContext();
+  const { regionalSettings } = useRegionalSettings();
 
   const [activeTab, setActiveTab] = useState("Top Destinations");
   const navigate = useNavigate("");
   const selectLocalLang = JSON.parse(localStorage.getItem("selectLang"));
 
   // Fetch data when activeTab changes
-  const endpoint = userLocation?.country_name
-    ? `/category-flight/${activeTab}/${userLocation?.country_name}`
+  const endpoint = regionalSettings?.country?.name
+    ? `/category-flight/${activeTab}/${regionalSettings.country.name}`
     : null;
 
   const { data, loading, refetch } = useGet(
@@ -28,7 +28,7 @@ const FlightSec4 = forwardRef((props, ref) => {
   //  refetch when tab changes
   useEffect(() => {
     refetch();
-  }, [activeTab, userLocation]);
+  }, [activeTab, regionalSettings]);
 
   // Your tab names
   const tabNames = [

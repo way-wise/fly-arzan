@@ -5,12 +5,12 @@ import Login from "../components/login/Login";
 import { FlightContext } from "../context/FlightContext";
 import { useTranslation } from "react-i18next";
 import RegionModal from "../components/RegionModal/RegionModal";
-import { useCurrency } from "../context/CurrencyContext";
+import { useRegionalSettings } from "../context/RegionalSettingsContext";
 import { HiMenuAlt3 } from "react-icons/hi";
 
 const Header = ({ onNavigate }) => {
   const { t, i18n } = useTranslation();
-  const { selectedLocalCurr } = useCurrency();
+  const { selectedCurrencySymbol } = useRegionalSettings();
 
   const selectCount = JSON.parse(localStorage.getItem("selectCountry"));
   const selectLocalLang = JSON.parse(localStorage.getItem("selectLang"));
@@ -127,7 +127,7 @@ const Header = ({ onNavigate }) => {
                 <p className="tw:whitespace-nowrap">
                   {selectLocalLang?.code?.toUpperCase()?.replace(/-.*$/, "") ||
                     "EN"}{" "}
-                  - {selectedLocalCurr?.symbol || "$"}
+                  - {selectedCurrencySymbol}
                 </p>
               </div>
               {!userToken ? (

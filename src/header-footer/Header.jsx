@@ -126,7 +126,10 @@ const Header = () => {
 
   return (
     <>
-      <header className="tw:!py-0 tw:!w-full tw:!fixed tw:!top-0 tw:z-50">
+      <header
+        className="tw:!py-0 tw:!w-full tw:!fixed tw:!top-0 tw:z-50"
+        inert={openMenu || openAuthModal || openRegionModal ? "" : undefined}
+      >
         {/* Top Bar */}
         {/* <div className="tw:h-[48px] tw:flex tw:items-center tw:bg-[#353978]">
           <div className="container">

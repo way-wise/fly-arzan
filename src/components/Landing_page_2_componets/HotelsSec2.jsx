@@ -10,7 +10,7 @@ import Places8 from "../../assets/Images/Places8.png";
 import Places9 from "../../assets/Images/Places9.png";
 import { useTranslation } from "react-i18next";
 import { BackendUrl } from "../../baseUrl";
-import { useLocationContext } from "../../context/userLocationContext";
+import { useRegionalSettings } from "../../context/RegionalSettingsContext";
 import { useGet } from "../../utils/ApiMethod";
 import FlightCard from "../Flights_cards/FlightCard";
 
@@ -94,11 +94,11 @@ const cardData = [
 const HotelsSec2 = forwardRef((props, ref) => {
   const [limit, setLimit] = useState(6);
   const { t } = useTranslation();
-  const { userLocation } = useLocationContext();
+  const { regionalSettings } = useRegionalSettings();
 
   const { data, refetch } = useGet(
-    userLocation?.country_name
-      ? `/hotel?page=1&limit=${limit}&country=${userLocation?.country_name}&city=${userLocation?.city}`
+    regionalSettings?.country?.name
+      ? `/hotel?page=1&limit=${limit}&country=${regionalSettings.country.name}&city=${regionalSettings.country.name}`
       : null,
     true,
     BackendUrl,
@@ -116,7 +116,7 @@ const HotelsSec2 = forwardRef((props, ref) => {
             <div className="Sec2-tital">
               <h2>
                 {t("hotel_section.Discover_Hotel", {
-                  country: userLocation?.country_name || "",
+                  country: regionalSettings?.country?.name || "",
                 })}
               </h2>
               <p>{t("hotel_section.Explore_hotel_para")}</p>
