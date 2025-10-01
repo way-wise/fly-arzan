@@ -239,6 +239,7 @@ OneWayFlightCard.propTypes = {
     totalDurationMinutes: PropTypes.number.isRequired,
   }).isRequired,
   searchContext: PropTypes.shape({
+    onFlightSelect: PropTypes.func,
     searchParams: PropTypes.object,
     adults: PropTypes.number,
     children: PropTypes.number,
