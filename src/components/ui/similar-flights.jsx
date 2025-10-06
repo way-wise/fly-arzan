@@ -12,19 +12,21 @@ import {
   getAirlineLogoUrl,
   formatDateFromISO,
 } from "@/lib/flight-utils";
+import { useRegionalSettings } from "../../context/RegionalSettingsContext";
 
 // Helper function to generate route info from flight data
 const generateRouteInfoFromFlight = (flight, tripType) => {
   if (tripType === "one-way") {
-    const flights = flight.flights || [];
+    // For one-way flights, check both direct flights array and nested itineraries structure
+    const flights = flight.flights || flight.itineraries?.[0]?.flights || [];
     return {
       from: {
-        city: flights[0]?.departure?.city,
+        city: flights[0]?.departure?.city || flights[0]?.departure?.iataCode,
         airport: flights[0]?.departure?.airport,
         iataCode: flights[0]?.departure?.iataCode,
       },
       to: {
-        city: flights[flights.length - 1]?.arrival?.city,
+        city: flights[flights.length - 1]?.arrival?.city || flights[flights.length - 1]?.arrival?.iataCode,
         airport: flights[flights.length - 1]?.arrival?.airport,
         iataCode: flights[flights.length - 1]?.arrival?.iataCode,
       },
@@ -42,12 +44,12 @@ const generateRouteInfoFromFlight = (flight, tripType) => {
     const returnFlights = flight.itineraries?.[1]?.flights || [];
     return {
       from: {
-        city: outboundFlights[0]?.departure?.city,
+        city: outboundFlights[0]?.departure?.city || outboundFlights[0]?.departure?.iataCode,
         airport: outboundFlights[0]?.departure?.airport,
         iataCode: outboundFlights[0]?.departure?.iataCode,
       },
       to: {
-        city: outboundFlights[outboundFlights.length - 1]?.arrival?.city,
+        city: outboundFlights[outboundFlights.length - 1]?.arrival?.city || outboundFlights[outboundFlights.length - 1]?.arrival?.iataCode,
         airport: outboundFlights[outboundFlights.length - 1]?.arrival?.airport,
         iataCode:
           outboundFlights[outboundFlights.length - 1]?.arrival?.iataCode,
@@ -77,6 +79,7 @@ const SimilarFlights = () => {
   const [similarFlights, setSimilarFlights] = useState([]);
   const [selectedFlightDetails, setSelectedFlightDetails] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { convertPrice, selectedCurrencySymbol } = useRegionalSettings();
 
   const loadSimilarFlights = () => {
     try {
@@ -388,7 +391,8 @@ const SimilarFlights = () => {
               >
                 <span className="tw:text-sm">Select</span>
                 <span className="tw:text-xl tw:font-medium">
-                  ${flight.price}
+                  {selectedCurrencySymbol}
+                  {convertPrice(flight.price)}
                 </span>
               </button>
             </div>

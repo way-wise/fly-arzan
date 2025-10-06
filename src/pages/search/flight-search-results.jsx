@@ -353,6 +353,15 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                     airlineName: f.operating?.airlineName || f.airlineName,
                   }));
 
+                // Debug: Log multi-city pricing info
+                console.log("🔍 Multi-city flight pricing debug:", {
+                  rawPrice: itinerary.price,
+                  currency: itinerary.currency,
+                  totalPrice: itinerary.totalPrice,
+                  itinerariesCount: itinerary.itineraries.length,
+                  originalOffer: itinerary.originalOffer?.price,
+                });
+
                 const flightDetailsData = {
                   tripType: "multi-city",
                   flightOffer: itinerary,
@@ -556,8 +565,8 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                     >
                       <span className="tw:text-sm">Select</span>
                       <span className="tw:text-xl tw:font-medium">
-                        {regionalSettings?.currency?.symbol || "$"}
-                        {itinerary.price}
+                        {selectedCurrencySymbol}
+                        {convertPrice(itinerary.price)}
                       </span>
                     </button>
                     {/* <span className="tw:text-sm tw:text-[#939393]">
