@@ -85,7 +85,7 @@ const UnifiedFlightSegment = memo(
           </div>
 
           {/* Flight Path & Times */}
-          <div className="tw:flex tw:items-center tw:gap-6 tw:grow tw:justify-center">
+          <div className="tw:flex tw:items-center tw:gap-6 tw:grow tw:justify-between tw:w-full">
             {/* Departure */}
             <div className="tw:flex tw:flex-col tw:gap-1 tw:text-right">
               <span className="tw:font-semibold tw:text-[20px]">
@@ -102,8 +102,8 @@ const UnifiedFlightSegment = memo(
             </div>
 
             {/* Duration & Stops */}
-            <div className="tw:flex tw:items-center tw:gap-2">
-              <div className="tw:flex tw:flex-col tw:text-center tw:gap-1">
+            <div className="tw:flex tw:items-center tw:justify-center tw:gap-2 tw:grow">
+              <div className="tw:flex tw:flex-col tw:text-center tw:gap-1 tw:w-full">
                 <span className="tw:text-sm tw:font-semibold">
                   {formatDurationFromMinutes(totalDurationMinutes)}
                 </span>
