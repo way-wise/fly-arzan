@@ -86,14 +86,14 @@ const SegmentRow = memo(
             >
               From
             </label>
-            <ComboboxOptions className="tw:w-[var(--input-width)] tw:2xl:w-72">
+            <ComboboxOptions className="tw:w-[var(--input-width)] tw:sm:w-full tw:sm:!max-w-[400px]">
               {isLoadingFrom && (
-                <div className="tw:p-2 tw:text-center tw:text-sm">
+                <div className="tw:p-2 tw:text-center tw:text-sm tw:w-full">
                   Loading...
                 </div>
               )}
               {!isLoadingFrom && cityFromOptions.length === 0 && (
-                <div className="tw:p-2 tw:text-center tw:text-sm tw:text-secondary">
+                <div className="tw:p-2 tw:text-center tw:text-sm tw:text-secondary tw:w-full">
                   No results found.
                 </div>
               )}
@@ -146,14 +146,14 @@ const SegmentRow = memo(
             >
               To
             </label>
-            <ComboboxOptions className="tw:w-[var(--input-width)] tw:2xl:w-72">
+            <ComboboxOptions className="tw:w-[var(--input-width)] tw:sm:w-full tw:sm:!max-w-[400px]">
               {isLoadingTo && (
-                <div className="tw:p-2 tw:text-center tw:text-sm">
+                <div className="tw:p-2 tw:text-center tw:text-sm tw:w-full">
                   Loading...
                 </div>
               )}
               {!isLoadingTo && cityToOptions.length === 0 && (
-                <div className="tw:p-2 tw:text-center tw:text-sm tw:text-secondary">
+                <div className="tw:p-2 tw:text-center tw:text-sm tw:text-secondary tw:w-full">
                   No results found.
                 </div>
               )}
@@ -482,9 +482,9 @@ const MultiCityForm = ({ initialValues, onSearch }) => {
                   </label>
                 </div>
               </PopoverTrigger>
-              <PopoverContent>
+              <PopoverContent className="tw:w-[300px]">
                 {/* Cabin Selection */}
-                <div className="tw:flex tw:flex-col tw:mb-3">
+                <div className="tw:flex tw:flex-col tw:mb-3 tw:w-full">
                   <label htmlFor="cabin-select" className="tw:font-medium">
                     Cabin Class
                   </label>

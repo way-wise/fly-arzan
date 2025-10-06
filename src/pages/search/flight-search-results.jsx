@@ -476,7 +476,7 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                             </div>
 
                             {/* Time, Stop, Airline */}
-                            <div className="tw:flex tw:items-center tw:gap-6 tw:grow tw:justify-center">
+                            <div className="tw:flex tw:items-center tw:gap-6 tw:grow tw:justify-center tw:px-6 tw:w-full tw:md:w-fit">
                               {/* Depart */}
                               <div className="tw:flex tw:flex-col tw:gap-1 tw:text-right">
                                 <span className="tw:font-semibold tw:text-[20px]">
@@ -485,13 +485,13 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                                 <span className="tw:text-sm tw:text-[#5D586C]">
                                   {firstFlight.departure.airport}
                                 </span>
-                                <span className="tw:text-sm tw:text-[#5D586C]">
+                                <span className="tw:text-sm tw:text-[#5D586C] tw:whitespace-nowrap">
                                   {formatDateFromISO(firstFlight.departure.at)}
                                 </span>
                               </div>
                               {/* Duration & Stop */}
-                              <div className="tw:flex tw:items-center tw:gap-2">
-                                <div className="tw:flex tw:flex-col tw:text-center tw:gap-1">
+                              <div className="tw:flex tw:items-center tw:gap-2 tw:max-w-[300px] tw:w-full">
+                                <div className="tw:flex tw:flex-col tw:text-center tw:gap-1 tw:w-full">
                                   <span className="tw:text-sm tw:font-semibold">
                                     {formatDurationFromMinutes(
                                       totalDurationMinutes
@@ -546,7 +546,7 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                                 <span className="tw:text-sm tw:text-[#5D586C]">
                                   {lastFlight.arrival.airport}
                                 </span>
-                                <span className="tw:text-sm tw:text-[#5D586C]">
+                                <span className="tw:text-sm tw:text-[#5D586C] tw:whitespace-nowrap">
                                   {formatDateFromISO(lastFlight.arrival.at)}
                                 </span>
                               </div>
