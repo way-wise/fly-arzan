@@ -26,7 +26,9 @@ const generateRouteInfoFromFlight = (flight, tripType) => {
         iataCode: flights[0]?.departure?.iataCode,
       },
       to: {
-        city: flights[flights.length - 1]?.arrival?.city || flights[flights.length - 1]?.arrival?.iataCode,
+        city:
+          flights[flights.length - 1]?.arrival?.city ||
+          flights[flights.length - 1]?.arrival?.iataCode,
         airport: flights[flights.length - 1]?.arrival?.airport,
         iataCode: flights[flights.length - 1]?.arrival?.iataCode,
       },
@@ -44,12 +46,16 @@ const generateRouteInfoFromFlight = (flight, tripType) => {
     const returnFlights = flight.itineraries?.[1]?.flights || [];
     return {
       from: {
-        city: outboundFlights[0]?.departure?.city || outboundFlights[0]?.departure?.iataCode,
+        city:
+          outboundFlights[0]?.departure?.city ||
+          outboundFlights[0]?.departure?.iataCode,
         airport: outboundFlights[0]?.departure?.airport,
         iataCode: outboundFlights[0]?.departure?.iataCode,
       },
       to: {
-        city: outboundFlights[outboundFlights.length - 1]?.arrival?.city || outboundFlights[outboundFlights.length - 1]?.arrival?.iataCode,
+        city:
+          outboundFlights[outboundFlights.length - 1]?.arrival?.city ||
+          outboundFlights[outboundFlights.length - 1]?.arrival?.iataCode,
         airport: outboundFlights[outboundFlights.length - 1]?.arrival?.airport,
         iataCode:
           outboundFlights[outboundFlights.length - 1]?.arrival?.iataCode,
@@ -270,10 +276,10 @@ const SimilarFlights = () => {
         return (
           <div
             key={key}
-            className="tw:rounded-xl tw:bg-white tw:shadow tw:p-4 tw:flex tw:flex-col tw:md:flex-row tw:items-center tw:justify-between"
+            className="tw:rounded-xl tw:bg-white tw:shadow tw:p-4 tw:flex tw:flex-col tw:md:flex-row tw:lg:flex-col tw:xl:flex-row tw:items-center tw:justify-between gap-4"
           >
             {/* Flight Details Section */}
-            <div className="tw:flex tw:flex-col tw:justify-between tw:grow tw:gap-4 tw:pl-[10px] tw:mb-8 tw:md:mb-0">
+            <div className="tw:flex tw:flex-col tw:justify-between tw:grow tw:gap-4 tw:pl-[10px] tw:mb-8 tw:md:mb-0 tw:w-full">
               {flight.itineraries.map((segment, segmentIndex) => {
                 const flights = segment.flights;
                 const firstFlight = flights[0];
@@ -293,7 +299,7 @@ const SimilarFlights = () => {
                           <img
                             src={getAirlineLogoUrl(firstFlight.airlineCode)}
                             alt={firstFlight.airline}
-                            className="tw:w-[120px] tw:-mt-[35px]"
+                            className="tw:w-[120px] tw:-mt-[35px] tw:shrink-0"
                           />
                         ) : (
                           <div className="tw:w-[120px] tw:h-[60px] tw:flex tw:items-center tw:justify-center tw:bg-gray-100 tw:rounded">
@@ -308,7 +314,7 @@ const SimilarFlights = () => {
                       </div>
 
                       {/* Time, Stop, Airline */}
-                      <div className="tw:flex tw:items-center tw:gap-6 tw:grow tw:justify-center">
+                      <div className="tw:flex tw:items-center tw:w-full tw:gap-3 tw:grow tw:justify-center tw:md:px-8 tw:px-6">
                         {/* Depart */}
                         <div className="tw:flex tw:flex-col tw:gap-1 tw:text-right">
                           <span className="tw:font-semibold tw:text-[20px]">
@@ -317,14 +323,14 @@ const SimilarFlights = () => {
                           <span className="tw:text-sm tw:text-[#5D586C]">
                             {firstFlight.departure.airport}
                           </span>
-                          <span className="tw:text-sm tw:text-[#5D586C]">
+                          <span className="tw:text-sm tw:text-[#5D586C] tw:whitespace-nowrap">
                             {formatDateFromISO(firstFlight.departure.at)}
                           </span>
                         </div>
                         {/* Duration & Stop */}
-                        <div className="tw:flex tw:items-center tw:gap-2">
-                          <div className="tw:flex tw:flex-col tw:text-center tw:gap-1">
-                            <span className="tw:text-sm tw:font-semibold">
+                        <div className="tw:flex tw:items-center tw:gap-2 tw:w-full tw:max-w-[180px]">
+                          <div className="tw:flex tw:flex-col tw:text-center tw:gap-1 tw:grow">
+                            <span className="tw:text-sm tw:font-semibold tw:whitespace-nowrap">
                               {formatDurationFromMinutes(totalDurationMinutes)}
                             </span>
                             <span className="tw:h-px tw:w-full tw:bg-secondary" />
@@ -372,7 +378,7 @@ const SimilarFlights = () => {
                           <span className="tw:text-sm tw:text-[#5D586C]">
                             {lastFlight.arrival.airport}
                           </span>
-                          <span className="tw:text-sm tw:text-[#5D586C]">
+                          <span className="tw:text-sm tw:text-[#5D586C] tw:whitespace-nowrap">
                             {formatDateFromISO(lastFlight.arrival.at)}
                           </span>
                         </div>
@@ -384,7 +390,7 @@ const SimilarFlights = () => {
             </div>
 
             {/* Price Select Button */}
-            <div className="tw:w-full tw:md:w-fit tw:py-4 tw:px-6 tw:bg-[#F2FAFF] tw:rounded-xl tw:flex tw:flex-col tw:items-center tw:gap-3 tw:md:ml-4">
+            <div className="tw:w-full tw:md:w-fit tw:py-4 tw:px-6 tw:bg-[#F2FAFF] tw:rounded-xl tw:flex tw:flex-col tw:items-center tw:gap-3">
               <button
                 onClick={() => handleFlightSwitch(flight.id)}
                 className="tw:w-full tw:md:w-fit tw:bg-primary tw:py-2 tw:px-[30px] tw:flex tw:flex-col tw:!text-white tw:!rounded-full hover:tw:bg-primary/90 tw:transition-colors tw:border-0 tw:cursor-pointer"
