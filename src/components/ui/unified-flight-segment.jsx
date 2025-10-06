@@ -49,18 +49,18 @@ const UnifiedFlightSegment = memo(
       <div className="tw:flex tw:flex-col tw:gap-4">
         {/* Segment Label */}
         {segmentTypeLabel && (
-          <div className="tw:flex tw:items-center tw:justify-between">
-            <h4 className="tw:text-lg tw:font-semibold tw:text-[#5D586C]">
+          <div className="tw:flex tw:items-center tw:justify-between tw:border tw:rounded-md tw:border-gray-300 tw:py-2 tw:px-4">
+            <h4 className="tw:!text-base tw:font-semibold tw:text-[#5D586C]">
               {segmentTypeLabel}
             </h4>
-            <span className="tw:text-sm tw:text-secondary">
+            <span className="tw:text-sm tw:text-gray-700">
               {formatDateFromISO(firstFlight.departure.at)}
             </span>
           </div>
         )}
 
         {/* Flight Details */}
-        <div className="tw:flex tw:items-center tw:justify-between tw:flex-col tw:gap-4 tw:md:gap-0 tw:md:flex-row">
+        <div className="tw:flex tw:items-center tw:justify-between tw:flex-col tw:gap-4 tw:md:gap-0">
           {/* Airline Logo & Details */}
           <div className="tw:flex tw:flex-col tw:justify-center tw:items-center tw:gap-0.5 tw:text-center">
             {getAirlineLogoUrl(airlineCode) ? (
@@ -163,7 +163,7 @@ const UnifiedFlightSegment = memo(
         </div>
 
         {/* Additional Trip Information */}
-        <div className="tw:text-sm tw:text-[#A5A2AD] tw:space-x-2">
+        <div className="tw:text-sm tw:text-center tw:text-[#A5A2AD] tw:space-x-2">
           <span>
             Journey duration: {formatDurationFromMinutes(totalDurationMinutes)}
           </span>
