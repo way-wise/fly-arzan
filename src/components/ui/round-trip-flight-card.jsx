@@ -219,9 +219,7 @@ const RoundTripFlightCard = ({
       <div className="tw:w-full tw:md:w-fit tw:py-4 tw:px-6 tw:bg-[#F2FAFF] tw:rounded-xl tw:flex tw:flex-col tw:items-center tw:gap-3 tw:md:ml-4">
         {/* Baggage Icons */}
         <BaggageIcons
-          baggageDetails={itinerary.baggageDetails}
-          hasCabinBaggage={itinerary.hasCabinBaggage}
-          hasCheckedBaggage={itinerary.hasCheckedBaggage}
+          travelerPricings={itinerary.originalOffer?.travelerPricings}
         />
 
         <button
@@ -234,7 +232,7 @@ const RoundTripFlightCard = ({
           ) : (
             <>
               <span className="tw:text-sm">Select</span>
-              <span className="tw:text-xl tw:font-medium">
+              <span className="tw:text-base tw:font-medium">
                 {selectedCurrencySymbol}
                 {convertPrice(itinerary.price)}
               </span>

@@ -421,9 +421,7 @@ const FlightDetailsPage = () => {
                             : undefined
                         }
                         baggageInfo={{
-                          hasCabinBaggage: flightData.flightOffer.hasCabinBaggage,
-                          hasCheckedBaggage: flightData.flightOffer.hasCheckedBaggage,
-                          baggageDetails: flightData.flightOffer.baggageDetails,
+                          travelerPricings: flightData.flightOffer.originalOffer?.travelerPricings,
                         }}
                       />
                     ))

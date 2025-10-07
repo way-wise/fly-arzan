@@ -1,25 +1,46 @@
-import * as React from "react"
-import * as TooltipPrimitive from "@radix-ui/react-tooltip"
+import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const TooltipProvider = TooltipPrimitive.Provider
+function TooltipProvider({ delayDuration = 0, ...props }) {
+  return (
+    <TooltipPrimitive.Provider
+      data-slot="tooltip-provider"
+      delayDuration={delayDuration}
+      {...props}
+    />
+  );
+}
 
-const Tooltip = TooltipPrimitive.Root
+function Tooltip({ ...props }) {
+  return (
+    <TooltipProvider>
+      <TooltipPrimitive.Root data-slot="tooltip" {...props} />
+    </TooltipProvider>
+  );
+}
 
-const TooltipTrigger = TooltipPrimitive.Trigger
+function TooltipTrigger({ ...props }) {
+  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
+}
 
-const TooltipContent = React.forwardRef(({ className, sideOffset = 4, ...props }, ref) => (
-  <TooltipPrimitive.Content
-    ref={ref}
-    sideOffset={sideOffset}
-    className={cn(
-      "tw:z-50 tw:overflow-hidden tw:rounded-md tw:border tw:bg-popover tw:px-3 tw:py-1.5 tw:text-sm tw:text-popover-foreground tw:shadow-md tw:animate-in tw:fade-in-0 tw:zoom-in-95 data-[state=closed]:tw:animate-out data-[state=closed]:tw:fade-out-0 data-[state=closed]:tw:zoom-out-95 data-[side=bottom]:tw:slide-in-from-top-2 data-[side=left]:tw:slide-in-from-right-2 data-[side=right]:tw:slide-in-from-left-2 data-[side=top]:tw:slide-in-from-bottom-2",
-      className
-    )}
-    {...props}
-  />
-))
-TooltipContent.displayName = TooltipPrimitive.Content.displayName
+function TooltipContent({ className, sideOffset = 4, children, ...props }) {
+  return (
+    <TooltipPrimitive.Portal>
+      <TooltipPrimitive.Content
+        data-slot="tooltip-content"
+        sideOffset={sideOffset}
+        className={cn(
+          "tw:bg-white tw:animate-in tw:border tw:text-center tw:border-gray-300 tw:shadow-xs tw:fade-in-0 tw:zoom-in-95 tw:z-50 tw:w-fit tw:rounded tw:px-3 tw:py-1.5 tw:text-xs tw:text-balance tw:data-[state=closed]:animate-out tw:data-[state=closed]:fade-out-0 tw:data-[state=closed]:zoom-out-95 tw:data-[side=bottom]:slide-in-from-top-2 tw:data-[side=left]:slide-in-from-right-2 tw:data-[side=right]:slide-in-from-left-2 tw:data-[side=top]:slide-in-from-bottom-2",
+          className
+        )}
+        {...props}
+      >
+        {children}
+        <TooltipPrimitive.Arrow className="tw:bg-white tw:fill-white tw:z-50 tw:size-2 tw:translate-y-[calc(-50%_-_0px)] tw:rotate-45 tw:border-b tw:border-r tw:border-gray-300" />
+      </TooltipPrimitive.Content>
+    </TooltipPrimitive.Portal>
+  );
+}
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };

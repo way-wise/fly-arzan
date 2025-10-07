@@ -111,36 +111,38 @@ export const parseDateFromURL = (dateString) => {
 };
 
 // Optimized function to extract baggage information
+// Simply checks quantity - no weight extraction
 export const extractBaggageInfo = (offer) => {
   const fareDetails = offer.travelerPricings?.[0]?.fareDetailsBySegment || [];
 
+  // Check if baggage info exists at all
+  const hasCheckedBagInfo = fareDetails.some(segment => segment.includedCheckedBags);
+  const hasCabinBagInfo = fareDetails.some(segment => segment.includedCabinBags);
+
+  // Extract checked bag info - just quantity
+  const checkedBagDetails = fareDetails
+    .filter((segment) => segment.includedCheckedBags)
+    .map((segment) => ({
+      quantity: segment.includedCheckedBags.quantity || 0,
+    }));
+
+  // Extract cabin bag info - just quantity
+  const cabinBagDetails = fareDetails
+    .filter((segment) => segment.includedCabinBags)
+    .map((segment) => ({
+      quantity: segment.includedCabinBags.quantity || 0,
+    }));
+
+  const hasCheckedBaggage = checkedBagDetails.some(bag => bag.quantity > 0);
+  const hasCabinBaggage = cabinBagDetails.some(bag => bag.quantity > 0);
+
   return {
-    hasCheckedBaggage: fareDetails.some(
-      (segment) => segment.includedCheckedBags && (
-        segment.includedCheckedBags.weight > 0 ||
-        segment.includedCheckedBags.quantity > 0 ||
-        Object.keys(segment.includedCheckedBags).length > 0
-      )
-    ),
-    hasCabinBaggage: fareDetails.some((segment) => segment.includedCabinBags && (
-        segment.includedCabinBags.weight > 0 ||
-        segment.includedCabinBags.quantity > 0 ||
-        Object.keys(segment.includedCabinBags).length > 0
-      )),
-    checkedBagDetails: fareDetails
-      .filter((segment) => segment.includedCheckedBags)
-      .map((segment) => ({
-        weight: segment.includedCheckedBags.weight,
-        weightUnit: segment.includedCheckedBags.weightUnit,
-        quantity: segment.includedCheckedBags.quantity,
-      })),
-    cabinBagDetails: fareDetails
-      .filter((segment) => segment.includedCabinBags)
-      .map((segment) => ({
-        weight: segment.includedCabinBags.weight,
-        weightUnit: segment.includedCabinBags.weightUnit,
-        quantity: segment.includedCabinBags.quantity,
-      })),
+    hasCheckedBaggage,
+    hasCabinBaggage,
+    hasCheckedBagInfo,  // true if the field exists, false if missing
+    hasCabinBagInfo,    // true if the field exists, false if missing
+    checkedBagDetails,
+    cabinBagDetails,
   };
 };
 

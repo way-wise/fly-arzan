@@ -85,13 +85,9 @@ const UnifiedFlightSegment = memo(
             </span>
 
             {/* Baggage Icons */}
-            {baggageInfo && (
+            {baggageInfo?.travelerPricings && (
               <div className="tw:mt-4">
-                <BaggageIcons
-                  baggageDetails={baggageInfo.baggageDetails}
-                  hasCabinBaggage={baggageInfo.hasCabinBaggage}
-                  hasCheckedBaggage={baggageInfo.hasCheckedBaggage}
-                />
+                <BaggageIcons travelerPricings={baggageInfo.travelerPricings} />
               </div>
             )}
           </div>

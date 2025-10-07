@@ -1,111 +1,98 @@
-import { RiLuggageDepositLine, RiBriefcaseLine, RiCloseCircleLine } from "react-icons/ri";
+import { RiBriefcaseLine, RiSuitcase2Line } from "react-icons/ri";
+import { IoTicketOutline } from "react-icons/io5";
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import PropTypes from "prop-types";
 
-const BaggageIcons = ({ baggageDetails, hasCabinBaggage, hasCheckedBaggage }) => {
-  // Format baggage details for tooltip
-  const formatBaggageInfo = (details) => {
-    if (!details || details.length === 0) return "Not included";
+const BaggageIcons = ({ travelerPricings }) => {
+  // Extract baggage info from travelerPricings
+  const fareDetails = travelerPricings?.[0]?.fareDetailsBySegment || [];
 
-    const info = details[0]; // Taking first segment's info as representative
-    const parts = [];
+  const hasCheckedBagInfo = fareDetails.some(
+    (segment) => segment.includedCheckedBags
+  );
+  const hasCabinBagInfo = fareDetails.some(
+    (segment) => segment.includedCabinBags
+  );
 
-    if (info.quantity > 0) {
-      parts.push(`${info.quantity} piece${info.quantity > 1 ? 's' : ''}`);
-    }
+  const hasCheckedBaggage = fareDetails.some(
+    (segment) => segment.includedCheckedBags?.quantity > 0
+  );
+  const hasCabinBaggage = fareDetails.some(
+    (segment) => segment.includedCabinBags?.quantity > 0
+  );
 
-    if (info.weight > 0) {
-      parts.push(`${info.weight}${info.weightUnit || 'kg'}`);
-    }
-
-    return parts.length > 0 ? parts.join(', ') : "Included";
+  // Tooltip text: "Included", "Not available", or "Info unavailable"
+  const getCabinBagInfo = () => {
+    if (!hasCabinBagInfo) return "Info unavailable";
+    return hasCabinBaggage ? "Included" : "Not Included";
   };
 
-  const cabinBagInfo = formatBaggageInfo(baggageDetails?.cabin);
-  const checkedBagInfo = formatBaggageInfo(baggageDetails?.checked);
+  const getCheckedBagInfo = () => {
+    if (!hasCheckedBagInfo) return "Info unavailable";
+    return hasCheckedBaggage ? "Included" : "Not Included";
+  };
+
+  const cabinBagInfo = getCabinBagInfo();
+  const checkedBagInfo = getCheckedBagInfo();
 
   return (
-    <div className="tw:flex tw:items-center tw:gap-2 tw:justify-center">
-      <TooltipProvider delayDuration={200}>
-        {/* Cabin Bag */}
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <div
-              className={`tw:flex tw:items-center tw:justify-center tw:w-8 tw:h-8 tw:rounded-full ${
-                hasCabinBaggage
-                  ? "tw:bg-green-100 tw:text-green-600"
-                  : "tw:bg-gray-100 tw:text-gray-400"
-              }`}
-            >
-              <RiBriefcaseLine size={18} />
-            </div>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p className="tw:font-medium">Cabin bag</p>
-            <p className="tw:text-xs tw:text-gray-500">{cabinBagInfo}</p>
-          </TooltipContent>
-        </Tooltip>
+    <div className="tw:flex tw:items-center tw:gap-3 tw:justify-center">
+      {/* Cabin Bag */}
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div
+            className={`tw:flex tw:items-center tw:justify-center tw:size-8 tw:bg-white tw:rounded-full tw:border tw:border-muted ${
+              hasCabinBaggage ? "tw:text-emerald-600" : "tw:text-gray-400"
+            }`}
+          >
+            <RiBriefcaseLine size={18} />
+          </div>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p className="tw:font-medium">Cabin bag</p>
+          <p className="tw:text-xs tw:text-gray-500">{cabinBagInfo}</p>
+        </TooltipContent>
+      </Tooltip>
 
-        {/* Checked Bag */}
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <div
-              className={`tw:flex tw:items-center tw:justify-center tw:w-8 tw:h-8 tw:rounded-full ${
-                hasCheckedBaggage
-                  ? "tw:bg-green-100 tw:text-green-600"
-                  : "tw:bg-gray-100 tw:text-gray-400"
-              }`}
-            >
-              <RiLuggageDepositLine size={18} />
-            </div>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p className="tw:font-medium">Checked bag</p>
-            <p className="tw:text-xs tw:text-gray-500">{checkedBagInfo}</p>
-          </TooltipContent>
-        </Tooltip>
+      {/* Checked Bag */}
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div
+            className={`tw:flex tw:items-center tw:justify-center tw:size-8 tw:bg-white tw:rounded-full tw:border tw:border-muted ${
+              hasCheckedBaggage ? "tw:text-emerald-600" : "tw:text-gray-400"
+            }`}
+          >
+            <RiSuitcase2Line size={18} />
+          </div>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p className="tw:font-medium">Checked bag</p>
+          <p className="tw:text-xs tw:text-gray-500">{checkedBagInfo}</p>
+        </TooltipContent>
+      </Tooltip>
 
-        {/* Ticket Change - Always disabled */}
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <div className="tw:flex tw:items-center tw:justify-center tw:w-8 tw:h-8 tw:rounded-full tw:bg-gray-100 tw:text-gray-400">
-              <RiCloseCircleLine size={18} />
-            </div>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p className="tw:font-medium">Ticket change</p>
-            <p className="tw:text-xs tw:text-gray-500">Not available</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      {/* Ticket Change - Always disabled */}
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div className="tw:flex tw:items-center tw:justify-center tw:w-8 tw:h-8 tw:rounded-full tw:bg-white tw:border tw:border-muted tw:text-gray-400">
+            <IoTicketOutline size={18} />
+          </div>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p className="tw:font-medium">Ticket change</p>
+          <p className="tw:text-xs tw:text-gray-500">Info unavailable</p>
+        </TooltipContent>
+      </Tooltip>
     </div>
   );
 };
 
 BaggageIcons.propTypes = {
-  baggageDetails: PropTypes.shape({
-    cabin: PropTypes.arrayOf(
-      PropTypes.shape({
-        weight: PropTypes.number,
-        weightUnit: PropTypes.string,
-        quantity: PropTypes.number,
-      })
-    ),
-    checked: PropTypes.arrayOf(
-      PropTypes.shape({
-        weight: PropTypes.number,
-        weightUnit: PropTypes.string,
-        quantity: PropTypes.number,
-      })
-    ),
-  }),
-  hasCabinBaggage: PropTypes.bool,
-  hasCheckedBaggage: PropTypes.bool,
+  travelerPricings: PropTypes.array,
 };
 
 export default BaggageIcons;
