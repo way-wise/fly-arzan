@@ -420,6 +420,11 @@ const FlightDetailsPage = () => {
                             ? `${flightData.routeInfo.segments[index]?.from?.city} → ${flightData.routeInfo.segments[index]?.to?.city}`
                             : undefined
                         }
+                        baggageInfo={{
+                          hasCabinBaggage: flightData.flightOffer.hasCabinBaggage,
+                          hasCheckedBaggage: flightData.flightOffer.hasCheckedBaggage,
+                          baggageDetails: flightData.flightOffer.baggageDetails,
+                        }}
                       />
                     ))
                   ) : (

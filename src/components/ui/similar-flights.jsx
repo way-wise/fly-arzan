@@ -6,6 +6,7 @@ import {
 import { generateForwardLink } from "../../utils/forwardLinkUtils";
 import OneWayFlightCard from "./one-way-flight-card";
 import RoundTripFlightCard from "./round-trip-flight-card";
+import BaggageIcons from "./baggage-icons";
 import { RiPlaneLine } from "react-icons/ri";
 import {
   formatDurationFromMinutes,
@@ -390,7 +391,14 @@ const SimilarFlights = () => {
             </div>
 
             {/* Price Select Button */}
-            <div className="tw:w-full tw:md:w-fit tw:py-4 tw:px-6 tw:bg-[#F2FAFF] tw:rounded-xl tw:flex tw:flex-col tw:items-center tw:gap-3">
+            <div className="tw:w-full tw:md:w-fit tw:py-4 tw:px-6 tw:bg-[#F2FAFF] tw:rounded-xl tw:flex tw:flex-col tw:items-center tw:gap-3 tw:md:ml-4">
+              {/* Baggage Icons */}
+              <BaggageIcons
+                baggageDetails={flight.baggageDetails}
+                hasCabinBaggage={flight.hasCabinBaggage}
+                hasCheckedBaggage={flight.hasCheckedBaggage}
+              />
+
               <button
                 onClick={() => handleFlightSwitch(flight.id)}
                 className="tw:w-full tw:md:w-fit tw:bg-primary tw:py-2 tw:px-[30px] tw:flex tw:flex-col tw:!text-white tw:!rounded-full hover:tw:bg-primary/90 tw:transition-colors tw:border-0 tw:cursor-pointer"

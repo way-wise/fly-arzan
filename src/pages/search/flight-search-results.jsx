@@ -20,6 +20,7 @@ import { useSidebarFilter } from "@/providers/filter-sidebar-provider";
 import { Skeleton } from "@/components/ui/skeleton";
 import OneWayFlightCard from "@/components/ui/one-way-flight-card";
 import RoundTripFlightCard from "@/components/ui/round-trip-flight-card";
+import BaggageIcons from "@/components/ui/baggage-icons";
 import { useRegionalSettings } from "../../context/RegionalSettingsContext";
 import { generateAndStoreSimilarFlights } from "../../utils/similarFlightsUtils";
 import { generateForwardLink } from "../../utils/forwardLinkUtils";
@@ -551,6 +552,13 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
 
                   {/* Price Select Button */}
                   <div className="tw:w-full tw:md:w-fit tw:py-4 tw:px-6 tw:bg-[#F2FAFF] tw:rounded-xl tw:flex tw:flex-col tw:items-center tw:gap-3 tw:md:ml-4">
+                    {/* Baggage Icons */}
+                    <BaggageIcons
+                      baggageDetails={itinerary.baggageDetails}
+                      hasCabinBaggage={itinerary.hasCabinBaggage}
+                      hasCheckedBaggage={itinerary.hasCheckedBaggage}
+                    />
+
                     <button
                       onClick={handleMultiCitySelect}
                       className="tw:w-full tw:md:w-fit tw:bg-primary tw:py-2 tw:px-[30px] tw:flex tw:flex-col tw:!text-white tw:!rounded-full hover:tw:bg-primary/90 tw:transition-colors"

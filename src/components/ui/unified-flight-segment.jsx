@@ -5,10 +5,11 @@ import {
   formatDurationFromMinutes,
   formatDateFromISO,
 } from "@/lib/flight-utils";
+import BaggageIcons from "./baggage-icons";
 import PropTypes from "prop-types";
 
 const UnifiedFlightSegment = memo(
-  ({ segment, tripType, segmentIndex, totalSegments, segmentLabel }) => {
+  ({ segment, tripType, segmentIndex, totalSegments, segmentLabel, baggageInfo }) => {
     // Handle different data structures based on trip type
     const flights = segment.flights || [];
     if (flights.length === 0) return null;
@@ -82,6 +83,17 @@ const UnifiedFlightSegment = memo(
             <span className="tw:text-sm tw:text-secondary tw:-mt-[25px]">
               {airlineCode} - {flightNumber}
             </span>
+
+            {/* Baggage Icons */}
+            {baggageInfo && (
+              <div className="tw:mt-4">
+                <BaggageIcons
+                  baggageDetails={baggageInfo.baggageDetails}
+                  hasCabinBaggage={baggageInfo.hasCabinBaggage}
+                  hasCheckedBaggage={baggageInfo.hasCheckedBaggage}
+                />
+              </div>
+            )}
           </div>
 
           {/* Flight Path & Times */}
@@ -205,6 +217,14 @@ UnifiedFlightSegment.propTypes = {
   segmentIndex: PropTypes.number.isRequired,
   totalSegments: PropTypes.number.isRequired,
   segmentLabel: PropTypes.string,
+  baggageInfo: PropTypes.shape({
+    hasCabinBaggage: PropTypes.bool,
+    hasCheckedBaggage: PropTypes.bool,
+    baggageDetails: PropTypes.shape({
+      cabin: PropTypes.array,
+      checked: PropTypes.array,
+    }),
+  }),
 };
 
 export default UnifiedFlightSegment;

@@ -10,6 +10,7 @@ import {
 import { useRegionalSettings } from "../../context/RegionalSettingsContext";
 import { generateAndStoreSimilarFlights } from "../../utils/similarFlightsUtils";
 import { generateForwardLink } from "../../utils/forwardLinkUtils";
+import BaggageIcons from "./baggage-icons";
 import PropTypes from "prop-types";
 
 const OneWayFlightCard = memo(
@@ -203,6 +204,13 @@ const OneWayFlightCard = memo(
 
         {/* Price Select Button */}
         <div className="tw:w-full tw:md:w-fit tw:py-4 tw:px-6 tw:bg-[#F2FAFF] tw:rounded-xl tw:flex tw:flex-col tw:items-center tw:gap-3 tw:md:ml-4">
+          {/* Baggage Icons */}
+          <BaggageIcons
+            baggageDetails={itinerary.baggageDetails}
+            hasCabinBaggage={itinerary.hasCabinBaggage}
+            hasCheckedBaggage={itinerary.hasCheckedBaggage}
+          />
+
           <button
             onClick={handleFlightSelect}
             disabled={isLoadingSimilar}
@@ -237,6 +245,12 @@ OneWayFlightCard.propTypes = {
     airlineCode: PropTypes.string.isRequired,
     flights: PropTypes.arrayOf(PropTypes.object).isRequired,
     totalDurationMinutes: PropTypes.number.isRequired,
+    hasCabinBaggage: PropTypes.bool,
+    hasCheckedBaggage: PropTypes.bool,
+    baggageDetails: PropTypes.shape({
+      cabin: PropTypes.array,
+      checked: PropTypes.array,
+    }),
   }).isRequired,
   searchContext: PropTypes.shape({
     onFlightSelect: PropTypes.func,
