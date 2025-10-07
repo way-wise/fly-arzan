@@ -12,12 +12,10 @@ const Directing = () => {
     if (selectedFlightDetails) {
       const parsedDetails = JSON.parse(selectedFlightDetails);
 
-      // Redirect to Trip.com after 5 seconds
+      // Redirect to Trip.com automatically after 3 seconds
       const timer = setTimeout(() => {
         if (parsedDetails.forwardUrl) {
-          window.open(parsedDetails.forwardUrl, "_blank");
-          // Optionally navigate back or to another page
-          window.history.back();
+          window.location.replace(parsedDetails.forwardUrl);
         }
       }, 3000);
 

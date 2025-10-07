@@ -5,7 +5,7 @@
 export function generateForwardLink(flightDetailsData) {
   if (!flightDetailsData) return "#";
 
-  const { tripType, routeInfo, passengerInfo, regionalSettings } = flightDetailsData;
+  const { tripType, routeInfo, passengerInfo } = flightDetailsData;
 
   // Common parameters
   const adults = passengerInfo?.adults || 1;
@@ -29,8 +29,8 @@ export function generateForwardLink(flightDetailsData) {
     class: getCabinClass(cabin),
     lowpricesource: "searchform",
     quantity: adults.toString(),
-    locale: regionalSettings?.language?.code || "en-US",
-    curr: regionalSettings?.currency?.curr || "USD",
+    // locale: regionalSettings?.language?.code || "en-US",
+    // curr: regionalSettings?.currency?.curr || "USD",
   };
 
   let params = new URLSearchParams();
@@ -40,9 +40,10 @@ export function generateForwardLink(flightDetailsData) {
     if (tripType === "one-way" && routeInfo?.from && routeInfo?.to) {
       // One-way trip parameters
       Object.assign(baseParams, {
-        airline: routeInfo.flights
-          ?.map(({ airlineCode }) => airlineCode.toUpperCase())
-          ?.join(",") || "",
+        airline:
+          routeInfo.flights
+            ?.map(({ airlineCode }) => airlineCode.toUpperCase())
+            ?.join(",") || "",
         dcity: routeInfo.from.airport?.toUpperCase() || "",
         acity: routeInfo.to.airport?.toUpperCase() || "",
         ddate: formatDate(routeInfo.departureDate),
@@ -60,12 +61,14 @@ export function generateForwardLink(flightDetailsData) {
       routeInfo?.returnDate
     ) {
       // Combine airline codes
-      const outboundAirlines = routeInfo.outboundFlights?.map(
-        ({ airlineCode }) => airlineCode.toUpperCase()
-      ) || [];
-      const returnAirlines = routeInfo.returnFlights?.map(({ airlineCode }) =>
-        airlineCode.toUpperCase()
-      ) || [];
+      const outboundAirlines =
+        routeInfo.outboundFlights?.map(({ airlineCode }) =>
+          airlineCode.toUpperCase()
+        ) || [];
+      const returnAirlines =
+        routeInfo.returnFlights?.map(({ airlineCode }) =>
+          airlineCode.toUpperCase()
+        ) || [];
       const combinedAirlines = [...outboundAirlines, ...returnAirlines];
 
       // Remove duplicates
@@ -92,7 +95,10 @@ export function generateForwardLink(flightDetailsData) {
       // Add each segment
       routeInfo.segments.forEach((segment, index) => {
         if (segment.from?.airport && segment.to?.airport) {
-          params.append(`multdcity${index}`, segment.from.airport.toLowerCase());
+          params.append(
+            `multdcity${index}`,
+            segment.from.airport.toLowerCase()
+          );
           params.append(`multacity${index}`, segment.to.airport.toLowerCase());
           params.append(`dairport${index}`, segment.from.airport.toLowerCase());
           params.append(`multddate${index}`, formatDate(segment.departureDate));
@@ -127,17 +133,19 @@ export function generateForwardLink(flightDetailsData) {
     }
 
     // Build final affiliate URL
-    const deepLink = `https://uk.trip.com/flights/showfarefirst?${params.toString()}`;
+    const deepLink = `https://trip.com/flights/showfarefirst?${params.toString()}`;
     const affiliateBase =
       "https://tp.media/r?marker=593963&trs=413727&p=8626&u=";
 
     return affiliateBase + encodeURIComponent(deepLink) + "&campaign_id=121";
-  } catch (error) {
+  } catch {
     // Return basic URL if something goes wrong
     const basicParams = new URLSearchParams(baseParams);
-    const basicDeepLink = `https://uk.trip.com/flights/showfarefirst?${basicParams.toString()}`;
+    const basicDeepLink = `https://trip.com/flights/showfarefirst?${basicParams.toString()}`;
     const affiliateBase =
       "https://tp.media/r?marker=593963&trs=413727&p=8626&u=";
-    return affiliateBase + encodeURIComponent(basicDeepLink) + "&campaign_id=121";
+    return (
+      affiliateBase + encodeURIComponent(basicDeepLink) + "&campaign_id=121"
+    );
   }
 }

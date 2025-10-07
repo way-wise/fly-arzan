@@ -407,14 +407,6 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
 
                 // Generate forward URL and add to flight details
                 const forwardUrl = generateForwardLink(flightDetailsData);
-                console.log(
-                  "🔗 Generated Trip.com URL for multi-city flight:",
-                  forwardUrl
-                );
-                console.log(
-                  "📖 Decoded URL for understanding:",
-                  decodeURIComponent(forwardUrl)
-                );
                 flightDetailsData.forwardUrl = forwardUrl;
 
                 sessionStorage.setItem(
