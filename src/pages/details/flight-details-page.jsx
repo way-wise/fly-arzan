@@ -285,6 +285,29 @@ const FlightDetailsPage = () => {
     return stars;
   };
 
+  // Handle Forward Affiliate Link
+  const handleForwardLink = () => {
+    const selectedFlightDetails = sessionStorage.getItem(
+      "selected-flight-details"
+    );
+    if (selectedFlightDetails) {
+      const parsedDetails = JSON.parse(selectedFlightDetails);
+
+      // Optional: fallback if popup blocked
+      const forwardUrl = parsedDetails.forwardUrl;
+
+      const newWindow = window.open(
+        parsedDetails.forwardUrl,
+        "_blank",
+        "noopener,noreferrer"
+      );
+
+      if (newWindow !== null) {
+        window.location.href = forwardUrl;
+      }
+    }
+  };
+
   return (
     <>
       <Header />
@@ -376,7 +399,7 @@ const FlightDetailsPage = () => {
                           </span>
                         </div> */}
                         <button
-                          onClick={() => navigate("/loader")}
+                          onClick={() => handleForwardLink()}
                           className="tw:!bg-[#50ADD8] tw:!no-underline tw:!text-white tw:!rounded-full tw:!px-[30px] tw:py-2 tw:text-sm hover:tw:!bg-[#4A9BC4] tw:!transition-colors tw:duration-200 tw:border-0 tw:cursor-pointer"
                         >
                           Select
@@ -421,7 +444,9 @@ const FlightDetailsPage = () => {
                             : undefined
                         }
                         baggageInfo={{
-                          travelerPricings: flightData.flightOffer.originalOffer?.travelerPricings,
+                          travelerPricings:
+                            flightData.flightOffer.originalOffer
+                              ?.travelerPricings,
                         }}
                       />
                     ))
