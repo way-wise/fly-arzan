@@ -14,8 +14,17 @@ const Directing = () => {
 
       // Redirect to Trip.com automatically after 3 seconds
       const timer = setTimeout(() => {
-        if (parsedDetails.forwardUrl) {
-          window.location.replace(parsedDetails.forwardUrl);
+        // Optional: fallback if popup blocked
+        const forwardUrl = parsedDetails.forwardUrl;
+
+        const newWindow = window.open(
+          parsedDetails.forwardUrl,
+          "_blank",
+          "noopener,noreferrer"
+        );
+
+        if (newWindow !== null) {
+          window.location.href = forwardUrl;
         }
       }, 3000);
 
