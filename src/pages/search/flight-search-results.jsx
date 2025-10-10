@@ -269,11 +269,17 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
     <div className="tw:flex tw:flex-col tw:gap-6">
       {/* List Header */}
       <h4 className="tw:lg:hidden tw:text-[15px] tw:font-medium tw:!mb-2 tw:text-center">
-        {sortedFlights.length} results sorted by {selectedTimeCost}
+        {sortedFlights.length} results sorted by{" "}
+        <span className="tw:uppercase tw:font-semibold">
+          {selectedTimeCost}
+        </span>
       </h4>
       <div className="tw:flex tw:items-center tw:justify-between tw:gap-2 tw:h-7">
         <h4 className="tw:hidden tw:lg:block tw:text-[15px] tw:font-medium">
-          {sortedFlights.length} results sorted by {selectedTimeCost}
+          {sortedFlights.length} results sorted by{" "}
+          <span className="tw:uppercase tw:font-semibold">
+            {selectedTimeCost}
+          </span>
         </h4>
         <button
           onClick={() => setOpenMobile(!openMobile)}

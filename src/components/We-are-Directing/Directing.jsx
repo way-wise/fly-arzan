@@ -26,6 +26,8 @@ const Directing = () => {
         if (newWindow !== null) {
           window.location.href = forwardUrl;
         }
+
+        window.location.href = "/flight/details";
       }, 3000);
 
       return () => clearTimeout(timer);
