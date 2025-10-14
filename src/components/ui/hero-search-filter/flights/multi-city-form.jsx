@@ -467,7 +467,7 @@ const MultiCityForm = ({ initialValues, onSearch }) => {
             type="button"
             aria-label="Add new segment"
             onClick={addSegment}
-            className="tw:justify-self-center tw:lg:justify-self-end tw:md:!w-fit tw:px-5 tw:h-[62px] tw:shrink-0 tw:2xl:px-0 tw:2xl:!w-[62px] tw:lg:bg-primary tw:!text-gray-500 tw:font-medium tw:lg:!text-white tw:hover:bg-primary/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
+            className="tw:justify-self-center tw:lg:justify-self-end tw:md:!w-fit tw:px-5 tw:h-[62px] tw:shrink-0 tw:2xl:px-0 tw:lg:!w-full tw:lg:bg-primary tw:!text-gray-500 tw:font-medium tw:lg:!text-white tw:hover:bg-primary/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
             disabled={isSubmitting}
           >
             <Plus size={24} />
@@ -488,7 +488,7 @@ const MultiCityForm = ({ initialValues, onSearch }) => {
           </button>
         )}
 
-        <div className="tw:flex tw:flex-col tw:md:flex-row tw:items-center tw:lg:justify-end tw:gap-4 tw:w-full tw:mt-6 tw:lg:mt-4">
+        <div className="tw:flex tw:flex-col tw:md:flex-row tw:items-center tw:lg:justify-between tw:gap-4 tw:w-full tw:mt-6 tw:lg:mt-4">
           {/* Travellers & Cabin Class */}
           <div className="tw:w-full tw:lg:w-[350px]">
             <Popover open={travellersOpen} onOpenChange={setTravellersOpen}>
@@ -660,7 +660,7 @@ const MultiCityForm = ({ initialValues, onSearch }) => {
           <button
             type="submit"
             aria-label="Search multi-city flights"
-            className="tw:w-full tw:md:w-fit tw:lg:w-[200px] tw:px-5 tw:h-[62px] tw:shrink-0 tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
+            className="tw:w-full tw:md:w-fit tw:lg:w-[300px] tw:px-5 tw:h-[62px] tw:shrink-0 tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
             disabled={isSubmitting}
           >
             <IoSearchOutline size={28} />
