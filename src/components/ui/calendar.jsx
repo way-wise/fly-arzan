@@ -28,7 +28,7 @@ const Calendar = ({ mode = "range", selected, onSelect, ...props }) => {
       modifiers={{ hoverRange }}
       mode={mode}
       numberOfMonths={2}
-      showOutsideDays
+      showOutsideDays={false}
       fixedWeeks
       navLayout="around"
       captionLayout="label"
@@ -40,25 +40,25 @@ const Calendar = ({ mode = "range", selected, onSelect, ...props }) => {
         caption_label: "tw:font-semibold tw:text-gray-900",
         month_grid: "tw:w-full tw:mt-2",
         month_caption: "tw:text-center",
-        day: "tw:size-10 tw:text-center tw:!border tw:!border-muted/30",
+        day: "tw:size-10 tw:text-center tw:!border-muted/30",
         day_button:
-          "tw:size-full tw:hover:bg-primary tw:hover:!text-white tw:disabled:!text-secondary tw:disabled:!bg-transparent",
-        outside: "tw:text-secondary",
+          "tw:size-full tw:disabled:!text-secondary tw:disabled:!bg-transparent",
+        outside: "tw:invisible tw:pointer-events-none",
+        hidden: "tw:invisible",
         weekday:
           "tw:size-10 tw:text-sm tw:font-normal tw:text-center tw:!text-center",
-        today: "tw:text-white tw:bg-slate-400",
-        selected: "tw:!bg-primary tw:text-white",
-        range_start: "tw:!bg-primary tw:text-white",
-        range_end: "tw:!bg-primary tw:text-white",
-        range_middle: "tw:!bg-primary/20 tw:text-primary",
+        today: "tw:text-white tw:bg-slate-400 tw:rounded-full",
+        selected: "tw:!bg-primary tw:text-white tw:rounded-full",
         button_previous: "tw:absolute tw:left-0 tw:top-1",
         button_next: "tw:absolute tw:right-0 tw:top-1",
       }}
       modifiersClassNames={{
         hoverRange: "tw:!bg-primary/10 tw:!text-primary tw:transition-all",
-        range_middle: "tw:!bg-slate-100 tw:!text-gray-600",
-        range_start: "tw:bg-primary tw:text-white",
-        range_end: "tw:bg-primary tw:text-white",
+        range_start:
+          "tw:!bg-primary tw:!text-white tw:!rounded-l-full tw:!rounded-r-none",
+        range_end:
+          "tw:!bg-primary tw:!text-white tw:!rounded-r-full tw:!rounded-l-none",
+        range_middle: "tw:!bg-slate-100 tw:!text-gray-600 tw:!rounded-none",
       }}
       {...props}
     />
