@@ -47,17 +47,15 @@ const Calendar = ({ mode = "range", selected, onSelect, ...props }) => {
         hidden: "tw:invisible",
         weekday:
           "tw:size-10 tw:text-sm tw:font-normal tw:text-center tw:!text-center",
-        today: "tw:text-white tw:bg-slate-400 tw:rounded-full",
-        selected: "tw:!bg-primary tw:text-white tw:rounded-full",
+        today: "tw:text-white tw:bg-slate-400",
+        selected: "tw:!bg-primary tw:text-white",
         button_previous: "tw:absolute tw:left-0 tw:top-1",
         button_next: "tw:absolute tw:right-0 tw:top-1",
       }}
       modifiersClassNames={{
         hoverRange: "tw:!bg-primary/10 tw:!text-primary tw:transition-all",
-        range_start:
-          "tw:!bg-primary tw:!text-white tw:!rounded-l-full tw:!rounded-r-none",
-        range_end:
-          "tw:!bg-primary tw:!text-white tw:!rounded-r-full tw:!rounded-l-none",
+        range_start: "tw:!bg-primary tw:!text-white",
+        range_end: "tw:!bg-primary tw:!text-white",
         range_middle: "tw:!bg-slate-100 tw:!text-gray-600 tw:!rounded-none",
       }}
       {...props}
