@@ -1,33 +1,36 @@
-import { DayPicker } from "react-day-picker";
 import PropTypes from "prop-types";
-import { useMemo, useState } from "react";
+import { DayPicker } from "react-day-picker";
+import { useState, useLayoutEffect } from "react";
 
 const Calendar = ({ mode = "range", selected, onSelect, ...props }) => {
-  const [hoveredDay, setHoveredDay] = useState(null);
+  const [numberOfMonths, setNumberOfMonths] = useState(1);
 
-  // Compute hover range dynamically for better UX
-  const hoverRange = useMemo(() => {
-    if (
-      mode === "range" &&
-      selected?.from &&
-      !selected?.to &&
-      hoveredDay &&
-      hoveredDay > selected.from
-    ) {
-      return { from: selected.from, to: hoveredDay };
-    }
-    return undefined;
-  }, [mode, selected, hoveredDay]);
+  // Responsive number of months based on screen size
+  useLayoutEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1280) {
+        setNumberOfMonths(2);
+      } else {
+        setNumberOfMonths(1);
+      }
+    };
+
+    // Set initial value
+    handleResize();
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <DayPicker
       selected={selected}
       onSelect={onSelect}
-      onDayMouseEnter={setHoveredDay}
-      onDayMouseLeave={() => setHoveredDay(null)}
-      modifiers={{ hoverRange }}
       mode={mode}
-      numberOfMonths={2}
+      numberOfMonths={numberOfMonths}
       showOutsideDays={false}
       fixedWeeks
       navLayout="around"
@@ -35,7 +38,7 @@ const Calendar = ({ mode = "range", selected, onSelect, ...props }) => {
       disabled={{ before: new Date() }}
       classNames={{
         root: "tw:relative tw:p-1",
-        months: "tw:flex sm:tw:flex-row tw:gap-4",
+        months: "tw:flex tw:flex-col tw:xl:flex-row tw:gap-4",
         month: "tw:space-y-2",
         caption_label: "tw:font-semibold tw:text-gray-900",
         month_grid: "tw:w-full tw:mt-2",
