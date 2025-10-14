@@ -345,8 +345,9 @@ const OneWayForm = ({ initialValues }) => {
               </label>
             </div>
           </PopoverTrigger>
-          <PopoverContent>
+          <PopoverContent align="end">
             <Calendar
+              mode="single"
               selected={depart}
               onSelect={(d) => {
                 setValue("depart", d);

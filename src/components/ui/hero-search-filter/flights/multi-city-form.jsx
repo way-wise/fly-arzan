@@ -214,8 +214,9 @@ const SegmentRow = memo(
                 </label>
               </div>
             </PopoverTrigger>
-            <PopoverContent>
+            <PopoverContent align="end">
               <Calendar
+                mode="single"
                 selected={currentSegment?.depart}
                 onSelect={(d) => {
                   setValue(`segments.${segmentIndex}.depart`, d);

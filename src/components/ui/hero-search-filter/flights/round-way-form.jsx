@@ -38,8 +38,7 @@ const RoundWayForm = ({ initialValues }) => {
   const [queryFrom, setQueryFrom] = useDebounceValue("", 600);
   const [queryTo, setQueryTo] = useDebounceValue("", 600);
   const [travellersOpen, setTravellersOpen] = useState(false);
-  const [departDateOpen, setDepartDateOpen] = useState(false);
-  const [returnDateOpen, setReturnDateOpen] = useState(false);
+  const [dateRangeOpen, setDateRangeOpen] = useState(false);
   const [appliedTravellers, setAppliedTravellers] = useState(
     initialValues?.travellers ? { ...initialValues.travellers } : null
   );
@@ -91,14 +90,6 @@ const RoundWayForm = ({ initialValues }) => {
 
   const handleTravellersClose = useCallback(() => {
     setTravellersOpen(false);
-  }, []);
-
-  const handleDepartDateClose = useCallback(() => {
-    setDepartDateOpen(false);
-  }, []);
-
-  const handleReturnDateClose = useCallback(() => {
-    setReturnDateOpen(false);
   }, []);
 
   useEffect(() => {
@@ -337,74 +328,41 @@ const RoundWayForm = ({ initialValues }) => {
           </Combobox>
         </div>
 
-        {/* Depart */}
-        <Popover open={departDateOpen} onOpenChange={setDepartDateOpen}>
+        {/* Date Range (Depart & Return) */}
+        <Popover open={dateRangeOpen} onOpenChange={setDateRangeOpen}>
           <PopoverTrigger asChild>
-            <div className="tw:relative tw:md:col-span-2">
+            <div className="tw:relative tw:md:col-span-4 tw:lg:col-span-5">
               <input
                 type="text"
-                id="depart"
+                id="dateRange"
                 className="tw:peer tw:py-[10px] tw:ps-5 tw:pe-16 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none"
-                placeholder="Depart"
+                placeholder="Date Range"
                 value={
-                  depart instanceof Date ? depart.toLocaleDateString() : ""
-                }
-                readOnly
-              />
-              <label
-                htmlFor="depart"
-                className="tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
-              >
-                Depart
-              </label>
-            </div>
-          </PopoverTrigger>
-          <PopoverContent>
-            <Calendar
-              mode="single"
-              selected={depart}
-              onSelect={(d) => {
-                setValue("depart", d);
-                handleDepartDateClose();
-              }}
-              disabled={{ before: new Date() }}
-            />
-          </PopoverContent>
-        </Popover>
-
-        {/* Return */}
-        <Popover open={returnDateOpen} onOpenChange={setReturnDateOpen}>
-          <PopoverTrigger asChild>
-            <div className="tw:relative tw:md:col-span-2 tw:lg:col-span-3">
-              <input
-                type="text"
-                id="return"
-                className="tw:peer tw:py-[10px] tw:ps-5 tw:pe-16 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none"
-                placeholder="Return"
-                value={
-                  returnDate instanceof Date
-                    ? returnDate.toLocaleDateString()
+                  depart && returnDate
+                    ? `${depart.toLocaleDateString()} - ${returnDate.toLocaleDateString()}`
+                    : depart
+                    ? depart.toLocaleDateString()
                     : ""
                 }
                 readOnly
               />
               <label
-                htmlFor="return"
+                htmlFor="dateRange"
                 className="tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
               >
-                Return
+                Depart - Return
               </label>
             </div>
           </PopoverTrigger>
-          <PopoverContent>
+          <PopoverContent align="end" className="tw:w-auto">
             <Calendar
-              mode="single"
-              selected={returnDate}
-              onSelect={(d) => {
-                setValue("return", d);
-                handleReturnDateClose();
+              mode="range"
+              selected={{ from: depart, to: returnDate }}
+              onSelect={(range) => {
+                setValue("depart", range.from);
+                setValue("return", range.to);
               }}
-              disabled={{ before: depart || new Date() }}
+              disabled={{ before: new Date() }}
             />
           </PopoverContent>
         </Popover>
