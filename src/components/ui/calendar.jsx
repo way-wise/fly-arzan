@@ -8,7 +8,7 @@ const Calendar = ({ mode = "range", selected, onSelect, ...props }) => {
   // Responsive number of months based on screen size
   useLayoutEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1280) {
+      if (window.innerWidth >= 768) {
         setNumberOfMonths(2);
       } else {
         setNumberOfMonths(1);
@@ -38,7 +38,7 @@ const Calendar = ({ mode = "range", selected, onSelect, ...props }) => {
       disabled={{ before: new Date() }}
       classNames={{
         root: "tw:relative tw:p-1",
-        months: "tw:flex tw:flex-col tw:xl:flex-row tw:gap-4",
+        months: "tw:flex tw:flex-col tw:md:flex-row tw:gap-4",
         month: "tw:space-y-2",
         caption_label: "tw:font-semibold tw:text-gray-900",
         month_grid: "tw:w-full tw:mt-2",

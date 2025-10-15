@@ -43,6 +43,10 @@ const RoundWayForm = ({ initialValues }) => {
     initialValues?.travellers ? { ...initialValues.travellers } : null
   );
   const [isSwapped, setIsSwapped] = useState(false);
+  const [tempDateRange, setTempDateRange] = useState({
+    from: initialValues?.depart || undefined,
+    to: initialValues?.return || undefined,
+  });
 
   const {
     handleSubmit,
@@ -104,6 +108,10 @@ const RoundWayForm = ({ initialValues }) => {
       if (initialValues.travellers) {
         setAppliedTravellers(initialValues.travellers);
       }
+      setTempDateRange({
+        from: initialValues.depart || undefined,
+        to: initialValues.return || undefined,
+      });
     }
   }, [initialValues, reset]);
 
@@ -357,13 +365,39 @@ const RoundWayForm = ({ initialValues }) => {
           <PopoverContent align="end" className="tw:w-auto">
             <Calendar
               mode="range"
-              selected={{ from: depart, to: returnDate }}
+              selected={{ from: tempDateRange.from, to: tempDateRange.to }}
               onSelect={(range) => {
-                setValue("depart", range.from);
-                setValue("return", range.to);
+                setTempDateRange({ from: range?.from, to: range?.to });
               }}
               disabled={{ before: new Date() }}
             />
+            {/* Apply & Reset Button */}
+            <div className="tw:flex tw:items-center tw:gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  const resetRange = {
+                    from: initialValues?.depart || undefined,
+                    to: initialValues?.return || undefined,
+                  };
+                  setTempDateRange(resetRange);
+                }}
+                className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100 tw:font-medium"
+              >
+                Reset
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setValue("depart", tempDateRange.from);
+                  setValue("return", tempDateRange.to);
+                  setDateRangeOpen(false);
+                }}
+                className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:transition tw:!rounded tw:duration-100 tw:font-medium"
+              >
+                Apply
+              </button>
+            </div>
           </PopoverContent>
         </Popover>
 

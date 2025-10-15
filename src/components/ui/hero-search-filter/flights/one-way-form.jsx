@@ -43,6 +43,7 @@ const OneWayForm = ({ initialValues }) => {
     initialValues?.travellers ? { ...initialValues.travellers } : null
   );
   const [isSwapped, setIsSwapped] = useState(false);
+  const [tempDepart, setTempDepart] = useState(initialValues?.depart || undefined);
 
   const {
     handleSubmit,
@@ -95,6 +96,7 @@ const OneWayForm = ({ initialValues }) => {
         travellers: initialValues.travellers,
         depart: initialValues.depart || "",
       });
+      setTempDepart(initialValues.depart || undefined);
     }
   }, [initialValues, reset]);
 
@@ -348,12 +350,31 @@ const OneWayForm = ({ initialValues }) => {
           <PopoverContent align="end">
             <Calendar
               mode="single"
-              selected={depart}
-              onSelect={(d) => {
-                setValue("depart", d);
-                handleDateClose();
-              }}
+              selected={tempDepart}
+              onSelect={(d) => setTempDepart(d)}
             />
+            {/* Apply & Reset Button */}
+            <div className="tw:flex tw:items-center tw:gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setTempDepart(initialValues?.depart || undefined);
+                }}
+                className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100 tw:font-medium"
+              >
+                Reset
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setValue("depart", tempDepart);
+                  handleDateClose();
+                }}
+                className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:transition tw:!rounded tw:duration-100 tw:font-medium"
+              >
+                Apply
+              </button>
+            </div>
           </PopoverContent>
         </Popover>
         {/* Travellers & Cabin Class */}

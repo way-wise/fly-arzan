@@ -45,6 +45,7 @@ const SegmentRow = memo(
     const [queryFrom, setQueryFrom] = useState("");
     const [queryTo, setQueryTo] = useState("");
     const [dateOpen, setDateOpen] = useState(false);
+    const [tempDepart, setTempDepart] = useState(segments[segmentIndex]?.depart || undefined);
 
     const [debouncedQueryFrom] = useDebounceValue(queryFrom, 600);
     const [debouncedQueryTo] = useDebounceValue(queryTo, 600);
@@ -80,7 +81,7 @@ const SegmentRow = memo(
                 displayValue={(data) => data?.city || ""}
                 onChange={(event) => setQueryFrom(event.target.value)}
                 placeholder="From"
-                aria-labelledBy={`from-label-${segmentIndex}`}
+                aria-labelledby={`from-label-${segmentIndex}`}
                 className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0"
               />
               <label
@@ -140,7 +141,7 @@ const SegmentRow = memo(
                 displayValue={(data) => data?.city || ""}
                 onChange={(event) => setQueryTo(event.target.value)}
                 placeholder="To"
-                aria-labelledBy={`to-label-${segmentIndex}`}
+                aria-labelledby={`to-label-${segmentIndex}`}
                 className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0"
               />
               <label
@@ -217,13 +218,32 @@ const SegmentRow = memo(
             <PopoverContent align="end">
               <Calendar
                 mode="single"
-                selected={currentSegment?.depart}
-                onSelect={(d) => {
-                  setValue(`segments.${segmentIndex}.depart`, d);
-                  handleDateClose();
-                }}
+                selected={tempDepart}
+                onSelect={(d) => setTempDepart(d)}
                 disabled={{ before: new Date() }}
               />
+              {/* Apply & Reset Button */}
+              <div className="tw:flex tw:items-center tw:gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setTempDepart(undefined);
+                  }}
+                  className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100 tw:font-medium"
+                >
+                  Reset
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setValue(`segments.${segmentIndex}.depart`, tempDepart);
+                    handleDateClose();
+                  }}
+                  className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:transition tw:!rounded tw:duration-100 tw:font-medium"
+                >
+                  Apply
+                </button>
+              </div>
             </PopoverContent>
           </Popover>
         </div>
