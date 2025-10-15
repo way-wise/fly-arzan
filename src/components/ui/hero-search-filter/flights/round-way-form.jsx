@@ -172,9 +172,9 @@ const RoundWayForm = ({ initialValues }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-      <fieldset className="tw:grid tw:grid-cols-1  tw:md:grid-cols-6 tw:xl:flex tw:items-center tw:gap-4">
+      <fieldset className="tw:grid tw:grid-cols-1 tw:sm:grid-cols-8 tw:xl:flex tw:items-center tw:gap-4">
         {/* From / To Inputs */}
-        <div className="tw:flex tw:flex-col tw:sm:flex-row tw:gap-4 tw:relative tw:grow tw:md:col-span-6 tw:lg:col-span-4">
+        <div className="tw:flex tw:flex-col tw:sm:flex-row tw:gap-4 tw:relative tw:grow tw:sm:col-span-8 tw:lg:col-span-4">
           {/* Flying From */}
           <Combobox
             value={flyingFrom}
@@ -339,7 +339,7 @@ const RoundWayForm = ({ initialValues }) => {
         {/* Date Range (Depart & Return) */}
         <Popover open={dateRangeOpen} onOpenChange={setDateRangeOpen}>
           <PopoverTrigger asChild>
-            <div className="tw:relative tw:md:col-span-4 tw:lg:col-span-5">
+            <div className="tw:relative tw:sm:col-span-4 tw:lg:col-span-2">
               <input
                 type="text"
                 id="dateRange"
@@ -404,7 +404,7 @@ const RoundWayForm = ({ initialValues }) => {
         {/* Travellers & Cabin Class */}
         <Popover open={travellersOpen} onOpenChange={setTravellersOpen}>
           <PopoverTrigger asChild>
-            <div className="tw:relative tw:md:col-span-2 tw:lg:col-span-3 tw:xl:basis-[270px]">
+            <div className="tw:relative tw:sm:col-span-4 tw:lg:col-span-2 tw:xl:basis-[270px]">
               <input
                 type="text"
                 id="travellers"
@@ -550,7 +550,7 @@ const RoundWayForm = ({ initialValues }) => {
         </Popover>
         {/* Search Button */}
         <button
-          className="tw:md:w-fit tw:md:col-span-6 tw:justify-self-end tw:px-5 tw:h-[62px] tw:shrink-0 tw:xl:px-0 tw:xl:!w-[62px] tw:bg-primary tw:!text-white hover:tw:bg-primary/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
+          className="tw:w-full tw:md:w-fit tw:sm:col-span-8 tw:justify-self-end tw:px-5 tw:h-[62px] tw:shrink-0 tw:xl:px-0 tw:xl:!w-[62px] tw:bg-primary tw:!text-white hover:tw:bg-primary/80 tw:!rounded-lg tw:items-center tw:flex tw:justify-center tw:gap-2"
           disabled={isSubmitting}
         >
           <IoSearchOutline size={28} />
