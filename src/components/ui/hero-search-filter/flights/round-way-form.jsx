@@ -339,7 +339,7 @@ const RoundWayForm = ({ initialValues }) => {
         {/* Date Range (Depart & Return) */}
         <Popover open={dateRangeOpen} onOpenChange={setDateRangeOpen}>
           <PopoverTrigger asChild>
-            <div className="tw:relative tw:sm:col-span- tw:grow 4 tw:lg:col-span-2">
+            <div className="tw:relative tw:sm:col-span-4 tw:grow 4 tw:lg:col-span-2">
               <input
                 type="text"
                 id="dateRange"
@@ -356,13 +356,13 @@ const RoundWayForm = ({ initialValues }) => {
               />
               <label
                 htmlFor="dateRange"
-                className="tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary tw:items-center tw:w-full tw:!flex tw:justify-between"
+                className="tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary tw:items-center tw:!w-full tw:!flex tw:justify-between"
               >
-                <span>Depart</span>
-                <span>
+                <span className="tw:grow">Depart</span>
+                <span className="tw:grow tw:inline-flex tw:justify-center">
                   <Minus />
                 </span>
-                <span>Return</span>
+                <span className="tw:grow tw:text-right">Return</span>
               </label>
             </div>
           </PopoverTrigger>
