@@ -43,7 +43,7 @@ const Calendar = ({ mode = "range", selected, onSelect, ...props }) => {
         caption_label: "tw:font-semibold tw:text-gray-900",
         month_grid: "tw:w-full tw:mt-2",
         month_caption: "tw:text-center",
-        day: "tw:size-10 tw:text-center tw:!border-muted/30 tw:!border",
+        day: "tw:size-12 tw:text-center tw:!border-muted/30 tw:rounded-full",
         day_button:
           "tw:size-full tw:disabled:!text-secondary tw:disabled:!bg-transparent",
         outside: "tw:invisible tw:pointer-events-none tw:!border-0",
@@ -59,7 +59,7 @@ const Calendar = ({ mode = "range", selected, onSelect, ...props }) => {
         hoverRange: "tw:!bg-primary/10 tw:!text-primary tw:transition-all",
         range_start: "tw:!bg-primary tw:!text-white",
         range_end: "tw:!bg-primary tw:!text-white",
-        range_middle: "tw:!bg-slate-100 tw:!text-gray-600 tw:!rounded-none",
+        range_middle: "tw:!bg-slate-100 tw:!text-gray-600",
       }}
       {...props}
     />
