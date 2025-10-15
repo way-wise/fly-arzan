@@ -45,7 +45,9 @@ const SegmentRow = memo(
     const [queryFrom, setQueryFrom] = useState("");
     const [queryTo, setQueryTo] = useState("");
     const [dateOpen, setDateOpen] = useState(false);
-    const [tempDepart, setTempDepart] = useState(segments[segmentIndex]?.depart || undefined);
+    const [tempDepart, setTempDepart] = useState(
+      segments[segmentIndex]?.depart || undefined
+    );
 
     const [debouncedQueryFrom] = useDebounceValue(queryFrom, 600);
     const [debouncedQueryTo] = useDebounceValue(queryTo, 600);
@@ -196,7 +198,7 @@ const SegmentRow = memo(
                   id={`depart-${segmentIndex}`}
                   name={`segments.${segmentIndex}.depart`}
                   type="text"
-                  className="tw:peer tw:py-[10px] tw:ps-5 tw:pe-16 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none"
+                  className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none"
                   placeholder="Depart"
                   aria-labelledby={`depart-label-${segmentIndex}`}
                   value={
