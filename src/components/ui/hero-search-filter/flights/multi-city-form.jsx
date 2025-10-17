@@ -191,31 +191,33 @@ const SegmentRow = memo(
           </Combobox>
 
           {/* Date Input */}
-          <Popover open={dateOpen} onOpenChange={setDateOpen}>
+          <Popover
+            open={dateOpen}
+            onOpenChange={setDateOpen}
+            className="tw:w-full tw:lg:mr-0 tw:mb-0 tw:lg:mb-auto"
+          >
             <PopoverTrigger>
-              <div className="tw:relative tw:w-full tw:lg:mr-0 tw:mb-0 tw:lg:mb-auto">
-                <input
-                  id={`depart-${segmentIndex}`}
-                  name={`segments.${segmentIndex}.depart`}
-                  type="text"
-                  className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none"
-                  placeholder="Depart"
-                  aria-labelledby={`depart-label-${segmentIndex}`}
-                  value={
-                    currentSegment?.depart instanceof Date
-                      ? currentSegment.depart.toLocaleDateString()
-                      : ""
-                  }
-                  readOnly
-                />
-                <label
-                  id={`depart-label-${segmentIndex}`}
-                  htmlFor={`depart-${segmentIndex}`}
-                  className="tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
-                >
-                  Depart
-                </label>
-              </div>
+              <input
+                id={`depart-${segmentIndex}`}
+                name={`segments.${segmentIndex}.depart`}
+                type="text"
+                className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none"
+                placeholder="Depart"
+                aria-labelledby={`depart-label-${segmentIndex}`}
+                value={
+                  currentSegment?.depart instanceof Date
+                    ? currentSegment.depart.toLocaleDateString()
+                    : ""
+                }
+                readOnly
+              />
+              <label
+                id={`depart-label-${segmentIndex}`}
+                htmlFor={`depart-${segmentIndex}`}
+                className="tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
+              >
+                Depart
+              </label>
             </PopoverTrigger>
             <PopoverContent>
               <Calendar

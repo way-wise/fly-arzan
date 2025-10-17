@@ -337,51 +337,53 @@ const RoundWayForm = ({ initialValues }) => {
         </div>
 
         {/* Date Range (Depart & Return) */}
-        <Popover open={dateRangeOpen} onOpenChange={setDateRangeOpen}>
+        <Popover
+          open={dateRangeOpen}
+          onOpenChange={setDateRangeOpen}
+          className="tw:sm:col-span-4 tw:grow 4 tw:lg:col-span-2"
+        >
           <PopoverTrigger>
-            <div className="tw:relative tw:sm:col-span-4 tw:grow 4 tw:lg:col-span-2">
-              <input
-                type="text"
-                id="dateRange"
-                className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none tw:caret-transparent"
-                placeholder="Date Range"
-                style={{
-                  color: depart || returnDate ? "transparent" : "inherit",
-                }}
-                value={
-                  depart && returnDate
-                    ? `${depart.toLocaleDateString()} - ${returnDate.toLocaleDateString()}`
-                    : depart
-                    ? depart.toLocaleDateString()
-                    : ""
-                }
-                readOnly
-              />
-              {/* Custom Date Display - Aligned with Labels */}
-              {(depart || returnDate) && (
-                <div className="tw:absolute tw:left-0 tw:right-0 tw:bottom-0 tw:h-[62px] tw:pt-6 tw:pb-2 tw:px-5 tw:flex tw:items-end tw:pointer-events-none">
-                  <div className="tw:flex tw:items-center tw:justify-between tw:w-full tw:text-[15px] tw:font-semibold">
-                    <span className="tw:flex-1 tw:text-left">
-                      {depart ? depart.toLocaleDateString() : ""}
-                    </span>
-                    <span className="tw:flex-1 tw:text-center tw:text-secondary">
-                      —
-                    </span>
-                    <span className="tw:flex-1 tw:text-right">
-                      {returnDate ? returnDate.toLocaleDateString() : ""}
-                    </span>
-                  </div>
+            <input
+              type="text"
+              id="dateRange"
+              className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none tw:caret-transparent"
+              placeholder="Date Range"
+              style={{
+                color: depart || returnDate ? "transparent" : "inherit",
+              }}
+              value={
+                depart && returnDate
+                  ? `${depart.toLocaleDateString()} - ${returnDate.toLocaleDateString()}`
+                  : depart
+                  ? depart.toLocaleDateString()
+                  : ""
+              }
+              readOnly
+            />
+            {/* Custom Date Display - Aligned with Labels */}
+            {(depart || returnDate) && (
+              <div className="tw:absolute tw:left-0 tw:right-0 tw:bottom-0 tw:h-[62px] tw:pt-6 tw:pb-2 tw:px-5 tw:flex tw:items-end tw:pointer-events-none">
+                <div className="tw:flex tw:items-center tw:justify-between tw:w-full tw:text-[15px] tw:font-semibold">
+                  <span className="tw:flex-1 tw:text-left">
+                    {depart ? depart.toLocaleDateString() : ""}
+                  </span>
+                  <span className="tw:flex-1 tw:text-center tw:text-secondary">
+                    —
+                  </span>
+                  <span className="tw:flex-1 tw:text-right">
+                    {returnDate ? returnDate.toLocaleDateString() : ""}
+                  </span>
                 </div>
-              )}
-              <label
-                htmlFor="dateRange"
-                className="tw:absolute tw:top-0 tw:start-0 tw:w-full tw:!px-5 tw:text-secondary tw:pointer-events-none tw:transition-all tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:!flex tw:justify-between tw:text-[20px] tw:h-full tw:items-center tw:peer-not-placeholder-shown:text-base tw:peer-not-placeholder-shown:items-start tw:peer-not-placeholder-shown:pt-[6px]"
-              >
-                <span className="tw:flex-1">Depart</span>
-                <span className="tw:flex-1 tw:text-center">—</span>
-                <span className="tw:flex-1 tw:text-right">Return</span>
-              </label>
-            </div>
+              </div>
+            )}
+            <label
+              htmlFor="dateRange"
+              className="tw:absolute tw:top-0 tw:start-0 tw:w-full tw:!px-5 tw:text-secondary tw:pointer-events-none tw:transition-all tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:!flex tw:justify-between tw:text-[20px] tw:h-full tw:items-center tw:peer-not-placeholder-shown:text-base tw:peer-not-placeholder-shown:items-start tw:peer-not-placeholder-shown:pt-[6px]"
+            >
+              <span className="tw:flex-1">Depart</span>
+              <span className="tw:flex-1 tw:text-center">—</span>
+              <span className="tw:flex-1 tw:text-right">Return</span>
+            </label>
           </PopoverTrigger>
           <PopoverContent className="tw:w-auto">
             <Calendar
@@ -423,24 +425,26 @@ const RoundWayForm = ({ initialValues }) => {
         </Popover>
 
         {/* Travellers & Cabin Class */}
-        <Popover open={travellersOpen} onOpenChange={setTravellersOpen}>
+        <Popover
+          open={travellersOpen}
+          onOpenChange={setTravellersOpen}
+          className="tw:sm:col-span-4 tw:lg:col-span-2 tw:xl:basis-[270px]"
+        >
           <PopoverTrigger>
-            <div className="tw:relative tw:sm:col-span-4 tw:lg:col-span-2 tw:xl:basis-[270px]">
-              <input
-                type="text"
-                id="travellers"
-                className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none"
-                placeholder="Travellers"
-                value={travellersSummary}
-                readOnly
-              />
-              <label
-                htmlFor="travellers"
-                className="tw:max-w-full tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
-              >
-                Travellers & Cabin
-              </label>
-            </div>
+            <input
+              type="text"
+              id="travellers"
+              className="tw:peer tw:py-[10px] tw:px-5 tw:h-[62px] tw:block tw:w-full tw:border tw:!border-muted tw:text-[15px] tw:!font-semibold tw:rounded-lg tw:placeholder:text-transparent tw:focus:border-primary tw:focus-visible:tw:border-primary tw:focus-visible:outline-hidden tw:focus:ring-primary tw:disabled:opacity-50 tw:disabled:pointer-events-none tw:focus:pt-6 tw:focus:pb-2 tw:not-placeholder-shown:pt-6 tw:not-placeholder-shown:pb-2 tw:autofill:pt-6 tw:autofill:pb-2 tw:focus-visible:ring-0 tw:read-only:cursor-default tw:select-none"
+              placeholder="Travellers"
+              value={travellersSummary}
+              readOnly
+            />
+            <label
+              htmlFor="travellers"
+              className="tw:max-w-full tw:absolute tw:top-0 tw:start-0 tw:h-full tw:!p-[14px_20.5px] tw:text-[20px] tw:text-secondary tw:truncate tw:pointer-events-none tw:transition tw:ease-in-out tw:duration-100 tw:border tw:border-transparent tw:origin-[0_0] tw:peer-disabled:opacity-50 tw:peer-disabled:pointer-events-none tw:peer-not-placeholder-shown:scale-80 tw:peer-not-placeholder-shown:translate-x-0.5 tw:peer-not-placeholder-shown:-translate-y-1.5 tw:peer-not-placeholder-shown:text-secondary"
+            >
+              Travellers & Cabin
+            </label>
           </PopoverTrigger>
           <PopoverContent className="tw:w-[300px]">
             {/* Cabin Selection */}

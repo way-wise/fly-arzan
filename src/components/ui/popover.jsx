@@ -3,7 +3,7 @@ import { useOnClickOutside } from "usehooks-ts";
 import { cn } from "@/lib/utils";
 import PropTypes from "prop-types";
 
-function Popover({ open: controlledOpen, onOpenChange, children }) {
+function Popover({ open: controlledOpen, onOpenChange, children, className }) {
   const [internalOpen, setInternalOpen] = useState(false);
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : internalOpen;
@@ -33,10 +33,7 @@ function Popover({ open: controlledOpen, onOpenChange, children }) {
   // Focus on content when it opens
   useEffect(() => {
     if (open && contentRef.current) {
-      // Small delay to ensure the content is rendered
-      setTimeout(() => {
-        contentRef.current.focus();
-      }, 0);
+      contentRef.current.focus();
     }
   }, [open]);
 
@@ -44,7 +41,6 @@ function Popover({ open: controlledOpen, onOpenChange, children }) {
   const childrenWithProps = React.Children.map(children, (child) => {
     if (!React.isValidElement(child)) return child;
 
-    // Use displayName instead of direct component reference for HMR compatibility
     const displayName = child.type.displayName || child.type.name;
 
     if (displayName === "PopoverTrigger") {
@@ -71,7 +67,7 @@ function Popover({ open: controlledOpen, onOpenChange, children }) {
   });
 
   return (
-    <div ref={popoverRef} className="tw:relative">
+    <div ref={popoverRef} className={cn("tw:relative", className)}>
       {childrenWithProps}
     </div>
   );
@@ -81,6 +77,7 @@ Popover.propTypes = {
   open: PropTypes.bool,
   onOpenChange: PropTypes.func,
   children: PropTypes.node,
+  className: PropTypes.string,
 };
 
 // Popover Trigger
@@ -120,7 +117,6 @@ const PopoverContent = React.forwardRef(
         style={{ marginTop: `${sideOffset}px` }}
         className={cn(
           "tw:absolute tw:min-w-[300px] tw:!w-max tw:border tw:border-muted tw:data-[state=open]:animate-in tw:data-[state=closed]:animate-out tw:data-[state=closed]:fade-out-0 tw:data-[state=open]:fade-in-0 tw:data-[state=closed]:zoom-out-95 tw:data-[state=open]:zoom-in-95 tw:data-[side=bottom]:slide-in-from-top-2 tw:data-[side=left]:slide-in-from-right-2 tw:data-[side=right]:slide-in-from-left-2 tw:data-[side=top]:slide-in-from-bottom-2 tw:bg-white tw:shadow-lg tw:rounded-lg tw:z-50 tw:p-3 tw:outline-none",
-          // Positioning based on align prop
           align === "start" && "tw:left-0 tw:origin-top-left",
           align === "center" &&
             "tw:left-1/2 tw:transform tw:-translate-x-1/2 tw:origin-top",
