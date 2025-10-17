@@ -192,7 +192,7 @@ const SegmentRow = memo(
 
           {/* Date Input */}
           <Popover open={dateOpen} onOpenChange={setDateOpen}>
-            <PopoverTrigger asChild>
+            <PopoverTrigger>
               <div className="tw:relative tw:w-full tw:lg:mr-0 tw:mb-0 tw:lg:mb-auto">
                 <input
                   id={`depart-${segmentIndex}`}
@@ -217,7 +217,7 @@ const SegmentRow = memo(
                 </label>
               </div>
             </PopoverTrigger>
-            <PopoverContent align="end">
+            <PopoverContent>
               <Calendar
                 mode="single"
                 selected={tempDepart}
@@ -514,7 +514,7 @@ const MultiCityForm = ({ initialValues, onSearch }) => {
           {/* Travellers & Cabin Class */}
           <div className="tw:w-full tw:lg:w-[350px]">
             <Popover open={travellersOpen} onOpenChange={setTravellersOpen}>
-              <PopoverTrigger asChild>
+              <PopoverTrigger>
                 <div className="tw:relative">
                   <input
                     id="travellers-input"

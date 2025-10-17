@@ -338,7 +338,7 @@ const RoundWayForm = ({ initialValues }) => {
 
         {/* Date Range (Depart & Return) */}
         <Popover open={dateRangeOpen} onOpenChange={setDateRangeOpen}>
-          <PopoverTrigger asChild>
+          <PopoverTrigger>
             <div className="tw:relative tw:sm:col-span-4 tw:grow 4 tw:lg:col-span-2">
               <input
                 type="text"
@@ -383,7 +383,7 @@ const RoundWayForm = ({ initialValues }) => {
               </label>
             </div>
           </PopoverTrigger>
-          <PopoverContent align="end" className="tw:w-auto">
+          <PopoverContent className="tw:w-auto">
             <Calendar
               mode="range"
               selected={{ from: tempDateRange.from, to: tempDateRange.to }}
@@ -424,7 +424,7 @@ const RoundWayForm = ({ initialValues }) => {
 
         {/* Travellers & Cabin Class */}
         <Popover open={travellersOpen} onOpenChange={setTravellersOpen}>
-          <PopoverTrigger asChild>
+          <PopoverTrigger>
             <div className="tw:relative tw:sm:col-span-4 tw:lg:col-span-2 tw:xl:basis-[270px]">
               <input
                 type="text"

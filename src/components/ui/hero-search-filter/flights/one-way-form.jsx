@@ -329,7 +329,7 @@ const OneWayForm = ({ initialValues }) => {
         </div>
         {/* Depart */}
         <Popover open={dateOpen} onOpenChange={setDateOpen}>
-          <PopoverTrigger asChild>
+          <PopoverTrigger>
             <div className="tw:relative tw:grow">
               <input
                 type="text"
@@ -349,7 +349,7 @@ const OneWayForm = ({ initialValues }) => {
               </label>
             </div>
           </PopoverTrigger>
-          <PopoverContent align="end">
+          <PopoverContent>
             <Calendar
               mode="single"
               selected={tempDepart}
@@ -381,7 +381,7 @@ const OneWayForm = ({ initialValues }) => {
         </Popover>
         {/* Travellers & Cabin Class */}
         <Popover open={travellersOpen} onOpenChange={setTravellersOpen}>
-          <PopoverTrigger asChild>
+          <PopoverTrigger>
             <div className="tw:relative tw:grow">
               <input
                 type="text"
