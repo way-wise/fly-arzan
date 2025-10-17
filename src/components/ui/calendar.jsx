@@ -43,7 +43,7 @@ const Calendar = ({ mode = "range", selected, onSelect, ...props }) => {
         caption_label: "tw:font-semibold tw:text-gray-900",
         month_grid: "tw:w-full tw:mt-2",
         month_caption: "tw:text-center",
-        day: "tw:size-12 tw:text-center tw:!border-muted/30 tw:rounded-full",
+        day: "tw:size-12 tw:text-center tw:!border-muted/30 tw:rounded-full tw:font-medium",
         day_button:
           "tw:size-full tw:disabled:!text-secondary tw:disabled:!bg-transparent",
         outside: "tw:invisible tw:pointer-events-none tw:!border-0",

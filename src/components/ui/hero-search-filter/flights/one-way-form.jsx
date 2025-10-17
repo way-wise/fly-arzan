@@ -356,13 +356,13 @@ const OneWayForm = ({ initialValues }) => {
               onSelect={(d) => setTempDepart(d)}
             />
             {/* Apply & Reset Button */}
-            <div className="tw:flex tw:items-center tw:gap-2">
+            <div className="tw:flex tw:items-center tw:justify-center tw:gap-2">
               <button
                 type="button"
                 onClick={() => {
                   setTempDepart(initialValues?.depart || undefined);
                 }}
-                className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100 tw:font-medium"
+                className="tw:px-6 tw:py-2 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100 tw:font-medium"
               >
                 Reset
               </button>
@@ -372,7 +372,7 @@ const OneWayForm = ({ initialValues }) => {
                   setValue("depart", tempDepart);
                   handleDateClose();
                 }}
-                className="tw:px-3 tw:py-2 tw:w-full tw:flex tw:items-center tw:justify-center tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:transition tw:!rounded tw:duration-100 tw:font-medium"
+                className="tw:px-6 tw:py-2 tw:flex tw:items-center tw:justify-center tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:transition tw:!rounded tw:duration-100 tw:font-medium"
               >
                 Apply
               </button>
