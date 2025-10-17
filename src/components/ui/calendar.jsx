@@ -40,7 +40,7 @@ const Calendar = ({ mode = "range", selected, onSelect, ...props }) => {
         root: "tw:relative tw:p-1",
         months: "tw:flex tw:flex-col tw:md:flex-row tw:gap-4",
         month: "tw:space-y-2",
-        caption_label: "tw:font-semibold tw:text-gray-900",
+        caption_label: "tw:font-semibold tw:text-gray-900 tw:text-lg",
         month_grid: "tw:w-full tw:mt-2",
         month_caption: "tw:text-center",
         day: "tw:size-12 tw:text-center tw:!border-muted/30 tw:rounded-full tw:font-medium",
