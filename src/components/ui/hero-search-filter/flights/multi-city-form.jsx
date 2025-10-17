@@ -225,7 +225,7 @@ const SegmentRow = memo(
                 disabled={{ before: new Date() }}
               />
               {/* Apply & Reset Button */}
-              <div className="tw:flex tw:items-center tw:justify-center tw:gap-2">
+              <div className="tw:flex tw:items-center tw:justify-center tw:gap-2 tw:mt-2">
                 <button
                   type="button"
                   onClick={() => {
