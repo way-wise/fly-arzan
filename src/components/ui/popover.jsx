@@ -27,6 +27,15 @@ function Popover({ open: controlledOpen, onOpenChange, children, className }) {
     if (triggerRef.current && triggerRef.current.contains(event.target)) {
       return;
     }
+    // Don't close if clicking inside a portaled Select content
+    // The Select dropdown renders in a Portal with data-slot="select-content"
+    if (
+      event.target &&
+      typeof event.target.closest === "function" &&
+      event.target.closest('[data-slot="select-content"]')
+    ) {
+      return;
+    }
     if (open) setOpen(false);
   });
 
