@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useOnClickOutside } from "usehooks-ts";
+import { useMediaQuery, useOnClickOutside } from "usehooks-ts";
 import { cn } from "@/lib/utils";
 import PropTypes from "prop-types";
+import { X } from "lucide-react";
 
 function Popover({ open: controlledOpen, onOpenChange, children, className }) {
   const [internalOpen, setInternalOpen] = useState(false);
@@ -46,6 +47,7 @@ function Popover({ open: controlledOpen, onOpenChange, children, className }) {
     }
   }, [open]);
 
+
   // Clone children and pass necessary props
   const childrenWithProps = React.Children.map(children, (child) => {
     if (!React.isValidElement(child)) return child;
@@ -68,6 +70,7 @@ function Popover({ open: controlledOpen, onOpenChange, children, className }) {
       return React.cloneElement(child, {
         open,
         ref: contentRef,
+        onClose: () => setOpen(false),
         "data-state": open ? "open" : "closed",
       });
     }
@@ -115,26 +118,194 @@ PopoverTrigger.propTypes = {
 
 // Popover Content
 const PopoverContent = React.forwardRef(
-  ({ className, open, align = "end", sideOffset = 8, ...props }, ref) => {
+  (
+    {
+      className,
+      open,
+      align = "end",
+      sideOffset = 8,
+      // Mobile modal props
+      mobile = true,
+      mobileTitle,
+      footer,
+      mobileBreakpoint = 768, // px
+      onClose,
+      ...props
+    },
+    ref
+  ) => {
+    const isSmallScreen = useMediaQuery(`(max-width: ${mobileBreakpoint}px)`);
+    const isVerySmall = useMediaQuery("(max-width: 480px)");
+    // Local ref to read DOM metrics while still forwarding parent ref
+    const innerRef = React.useRef(null);
+    const setRefs = (node) => {
+      innerRef.current = node;
+      if (typeof ref === "function") ref(node);
+      else if (ref) ref.current = node;
+    };
+    // Desktop popover variant with alignment flipping if overflowing
+    const [desktopAlign, setDesktopAlign] = useState(align);
+    useEffect(() => {
+      if (!open) return;
+      const checkOverflow = () => {
+        if (!innerRef.current) return;
+        const rect = innerRef.current.getBoundingClientRect();
+        const gutter = 4;
+        if (rect.right > window.innerWidth - gutter) {
+          setDesktopAlign("start");
+        } else if (rect.left < gutter) {
+          setDesktopAlign("end");
+        } else {
+          setDesktopAlign(align);
+        }
+      };
+      // Run once after mount and on resize while open
+      setTimeout(checkOverflow, 0);
+      window.addEventListener("resize", checkOverflow);
+      return () => window.removeEventListener("resize", checkOverflow);
+       
+    }, [open, align]);
+
+    // Body scroll lock and focus trap for mobile modal
+    useEffect(() => {
+      if (!(open && mobile && isSmallScreen)) return;
+
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+
+      // Focus trap
+      const getFocusable = () => {
+        if (!innerRef.current) return [];
+        const selectors = [
+          'a[href]',
+          'area[href]',
+          'input:not([disabled])',
+          'select:not([disabled])',
+          'textarea:not([disabled])',
+          'button:not([disabled])',
+          'iframe',
+          'object',
+          'embed',
+          '[contenteditable]',
+          '[tabindex]:not([tabindex="-1"])',
+        ].join(',');
+        return Array.from(innerRef.current.querySelectorAll(selectors));
+      };
+
+      // Initial focus
+      const previouslyFocused = document.activeElement;
+      const focusables = getFocusable();
+      if (focusables.length) {
+        focusables[0].focus();
+      } else if (innerRef.current) {
+        innerRef.current.setAttribute('tabindex', '-1');
+        innerRef.current.focus();
+      }
+
+      const onKeyDown = (e) => {
+        if (e.key !== 'Tab') return;
+        const items = getFocusable();
+        if (items.length === 0) return;
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      };
+
+      innerRef.current?.addEventListener('keydown', onKeyDown);
+
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        innerRef.current?.removeEventListener('keydown', onKeyDown);
+        if (previouslyFocused && previouslyFocused instanceof HTMLElement) {
+          previouslyFocused.focus();
+        }
+      };
+    }, [open, mobile, isSmallScreen]);
     if (!open) return null;
+
+    // Mobile modal variant
+    if (mobile && isSmallScreen) {
+      return (
+        <div
+          data-slot="popover-mobile-root"
+          className={cn(
+            "tw:fixed tw:inset-0 tw:z-[60] tw:flex tw:items-end tw:justify-center tw:pointer-events-auto"
+          )}
+        >
+          <div
+            data-slot="popover-overlay"
+            className={cn(
+              "tw:absolute tw:inset-0 tw:bg-black/40 tw:transition-opacity tw:duration-200 tw:ease-out tw:animate-in tw:fade-in-0"
+            )}
+            onClick={onClose}
+          />
+          <div
+            ref={setRefs}
+            data-slot="popover-content"
+            role="dialog"
+            aria-modal="true"
+            tabIndex={-1}
+            className={cn(
+              "tw:relative tw:w-full tw:bg-white tw:rounded-t-2xl tw:shadow-2xl tw:transition tw:duration-200 tw:ease-out tw:animate-in tw:slide-in-from-bottom-6 tw:flex tw:flex-col",
+              isVerySmall ? "tw:h-[100vh]" : "tw:max-h-[85vh]"
+            )}
+          >
+            <div className="tw:sticky tw:top-0 tw:z-10 tw:bg-white tw:border-b tw:border-muted tw:px-4 tw:py-3 tw:flex tw:items-center tw:justify-between">
+              <div className="tw:text-base tw:font-semibold">
+                {mobileTitle}
+              </div>
+              <button
+                type="button"
+                aria-label="Close"
+                onClick={onClose}
+                className="tw:p-2 tw:rounded-md hover:tw:bg-muted/50 tw:transition"
+              >
+                <X className="tw:size-5" />
+              </button>
+            </div>
+            <div className="tw:overflow-y-auto tw:px-4 tw:py-3">{props.children}</div>
+            {footer ? (
+              <div className="tw:sticky tw:bottom-0 tw:z-10 tw:bg-white tw:border-t tw:border-muted tw:px-4 tw:py-3">
+                {footer}
+              </div>
+            ) : null}
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div
-        ref={ref}
+        ref={setRefs}
         data-slot="popover-content"
         tabIndex={-1}
         style={{ marginTop: `${sideOffset}px` }}
         className={cn(
           "tw:absolute tw:min-w-[300px] tw:!w-max tw:border tw:border-muted tw:data-[state=open]:animate-in tw:data-[state=closed]:animate-out tw:data-[state=closed]:fade-out-0 tw:data-[state=open]:fade-in-0 tw:data-[state=closed]:zoom-out-95 tw:data-[state=open]:zoom-in-95 tw:data-[side=bottom]:slide-in-from-top-2 tw:data-[side=left]:slide-in-from-right-2 tw:data-[side=right]:slide-in-from-left-2 tw:data-[side=top]:slide-in-from-bottom-2 tw:bg-white tw:shadow-lg tw:rounded-lg tw:z-50 tw:p-3 tw:outline-none",
-          align === "start" && "tw:left-0 tw:origin-top-left",
-          align === "center" &&
+          (desktopAlign || align) === "start" && "tw:left-0 tw:origin-top-left",
+          (desktopAlign || align) === "center" &&
             "tw:left-1/2 tw:transform tw:-translate-x-1/2 tw:origin-top",
-          align === "end" && "tw:right-0 tw:origin-top-right",
+          (desktopAlign || align) === "end" && "tw:right-0 tw:origin-top-right",
           className
         )}
         {...props}
       >
         {props.children}
+        {footer ? (
+          <div className="tw:flex tw:items-center tw:justify-center tw:gap-2 tw:mt-2">
+            {footer}
+          </div>
+        ) : null}
       </div>
     );
   }
@@ -148,6 +319,11 @@ PopoverContent.propTypes = {
   align: PropTypes.oneOf(["start", "center", "end"]),
   sideOffset: PropTypes.number,
   children: PropTypes.node,
+  mobile: PropTypes.bool,
+  mobileTitle: PropTypes.node,
+  footer: PropTypes.node,
+  mobileBreakpoint: PropTypes.number,
+  onClose: PropTypes.func,
 };
 
 export { Popover, PopoverContent, PopoverTrigger };

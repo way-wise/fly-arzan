@@ -385,7 +385,38 @@ const RoundWayForm = ({ initialValues }) => {
               <span className="tw:flex-1 tw:text-right">Return</span>
             </label>
           </PopoverTrigger>
-          <PopoverContent className="tw:w-auto">
+          <PopoverContent
+            className="tw:w-auto"
+            mobileTitle="Select dates"
+            footer={
+              <div className="tw:grid tw:grid-cols-2 tw:gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const resetRange = {
+                      from: initialValues?.depart || undefined,
+                      to: initialValues?.return || undefined,
+                    };
+                    setTempDateRange(resetRange);
+                  }}
+                  className="tw:w-full tw:px-6 tw:py-2 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 hover:tw:bg-muted tw:transition tw:!rounded tw:duration-100 tw:font-medium"
+                >
+                  Reset
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setValue("depart", tempDateRange.from);
+                    setValue("return", tempDateRange.to);
+                    setDateRangeOpen(false);
+                  }}
+                  className="tw:w-full tw:px-6 tw:py-2 tw:flex tw:items-center tw:justify-center tw:bg-primary tw:!text-white hover:tw:bg-primary/80 tw:transition tw:!rounded tw:duration-100 tw:font-medium"
+                >
+                  Apply
+                </button>
+              </div>
+            }
+          >
             <Calendar
               mode="range"
               selected={{ from: tempDateRange.from, to: tempDateRange.to }}
@@ -394,33 +425,6 @@ const RoundWayForm = ({ initialValues }) => {
               }}
               disabled={{ before: new Date() }}
             />
-            {/* Apply & Reset Button */}
-            <div className="tw:flex tw:items-center tw:justify-center tw:gap-2 tw:mt-2">
-              <button
-                type="button"
-                onClick={() => {
-                  const resetRange = {
-                    from: initialValues?.depart || undefined,
-                    to: initialValues?.return || undefined,
-                  };
-                  setTempDateRange(resetRange);
-                }}
-                className="tw:px-6 tw:py-2 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100 tw:font-medium"
-              >
-                Reset
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setValue("depart", tempDateRange.from);
-                  setValue("return", tempDateRange.to);
-                  setDateRangeOpen(false);
-                }}
-                className="tw:px-6 tw:py-2 tw:flex tw:items-center tw:justify-center tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:transition tw:!rounded tw:duration-100 tw:font-medium"
-              >
-                Apply
-              </button>
-            </div>
           </PopoverContent>
         </Popover>
 

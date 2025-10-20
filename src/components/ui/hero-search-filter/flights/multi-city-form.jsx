@@ -219,15 +219,40 @@ const SegmentRow = memo(
                 Depart
               </label>
             </PopoverTrigger>
-            <PopoverContent>
+            <PopoverContent
+              mobileTitle="Select date"
+              footer={
+                <div className="tw:grid tw:grid-cols-2 md:tw:grid-cols-none md:tw:flex md:tw:justify-center tw:gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setTempDepart(undefined);
+                    }}
+                    className="tw:w-full md:tw:w-auto tw:px-6 tw:py-2 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 tw:hover:bg-muted tw:transition tw:!rounded tw:duration-100 tw:font-medium"
+                  >
+                    Reset
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setValue(`segments.${segmentIndex}.depart`, tempDepart);
+                      handleDateClose();
+                    }}
+                    className="tw:w-full md:tw:w-auto tw:px-6 tw:py-2 tw:flex tw:items-center tw:justify-center tw:bg-primary tw:!text-white tw:hover:bg-primary/80 tw:transition tw:!rounded tw:duration-100 tw:font-medium"
+                  >
+                    Apply
+                  </button>
+                </div>
+              }
+            >
               <Calendar
                 mode="single"
                 selected={tempDepart}
                 onSelect={(d) => setTempDepart(d)}
                 disabled={{ before: new Date() }}
               />
-              {/* Apply & Reset Button */}
-              <div className="tw:flex tw:items-center tw:justify-center tw:gap-2 tw:mt-2">
+              {/* Apply & Reset Button (desktop only) */}
+              <div className="tw:hidden md:tw:flex tw:items-center tw:justify-center tw:gap-2 tw:mt-2">
                 <button
                   type="button"
                   onClick={() => {
