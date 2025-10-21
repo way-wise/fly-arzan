@@ -28,12 +28,12 @@ function Popover({ open: controlledOpen, onOpenChange, children, className }) {
     if (triggerRef.current && triggerRef.current.contains(event.target)) {
       return;
     }
-    // Don't close if clicking inside a portaled Select content
-    // The Select dropdown renders in a Portal with data-slot="select-content"
+    // Don't close if interacting with Select components (trigger or portaled content)
     if (
       event.target &&
       typeof event.target.closest === "function" &&
-      event.target.closest('[data-slot="select-content"]')
+      (event.target.closest('[data-slot="select-content"]') ||
+        event.target.closest('[data-slot^="select-"]'))
     ) {
       return;
     }
@@ -128,14 +128,14 @@ const PopoverContent = React.forwardRef(
       mobile = true,
       mobileTitle,
       footer,
-      mobileBreakpoint = 768, // px
+      mobileBreakpoint = 1024, // eslint-disable-line no-unused-vars -- Kept for backward compatibility
       onClose,
       ...props
     },
     ref
   ) => {
-    const isSmallScreen = useMediaQuery(`(max-width: ${mobileBreakpoint}px)`);
-    const isVerySmall = useMediaQuery("(max-width: 480px)");
+    const isMobile = useMediaQuery("(max-width: 767px)");
+    const isTablet = useMediaQuery("(min-width: 768px) and (max-width: 1279px)");
     // Local ref to read DOM metrics while still forwarding parent ref
     const innerRef = React.useRef(null);
     const setRefs = (node) => {
@@ -168,7 +168,7 @@ const PopoverContent = React.forwardRef(
 
     // Body scroll lock and focus trap for mobile modal
     useEffect(() => {
-      if (!(open && mobile && isSmallScreen)) return;
+      if (!(open && mobile && (isMobile || isTablet))) return;
 
       const originalOverflow = document.body.style.overflow;
       document.body.style.overflow = "hidden";
@@ -230,11 +230,11 @@ const PopoverContent = React.forwardRef(
           previouslyFocused.focus();
         }
       };
-    }, [open, mobile, isSmallScreen]);
+    }, [open, mobile, isMobile, isTablet]);
     if (!open) return null;
 
-    // Mobile modal variant
-    if (mobile && isSmallScreen) {
+    // Mobile modal variant (<768px) - Bottom sheet with expanding middle
+    if (mobile && isMobile) {
       return (
         <div
           data-slot="popover-mobile-root"
@@ -256,11 +256,11 @@ const PopoverContent = React.forwardRef(
             aria-modal="true"
             tabIndex={-1}
             className={cn(
-              "tw:relative tw:w-full tw:bg-white tw:rounded-t-2xl tw:shadow-2xl tw:transition tw:duration-200 tw:ease-out tw:animate-in tw:slide-in-from-bottom-6 tw:flex tw:flex-col",
-              isVerySmall ? "tw:h-[100vh]" : "tw:max-h-[85vh]"
+              "tw:relative tw:w-full tw:max-h-[calc(100vh-64px)] tw:bg-white tw:rounded-t-2xl tw:shadow-2xl tw:transition tw:duration-200 tw:ease-out tw:animate-in tw:slide-in-from-bottom-6 tw:flex tw:flex-col"
             )}
           >
-            <div className="tw:sticky tw:top-0 tw:z-10 tw:bg-white tw:border-b tw:border-muted tw:px-4 tw:py-3 tw:flex tw:items-center tw:justify-between">
+            {/* Header - fixed */}
+            <div className="tw:flex-shrink-0 tw:bg-white tw:border-b tw:border-muted tw:px-4 tw:py-3 tw:flex tw:items-center tw:mb-4 tw:md:mb-0 tw:justify-between tw:md:rounded-t-2xl">
               <div className="tw:text-base tw:font-semibold">
                 {mobileTitle}
               </div>
@@ -273,9 +273,13 @@ const PopoverContent = React.forwardRef(
                 <X className="tw:size-5" />
               </button>
             </div>
-            <div className="tw:overflow-y-auto tw:px-4 tw:py-3">{props.children}</div>
+            {/* Middle - expands to fill available space */}
+            <div className="tw:flex-1 tw:overflow-y-auto tw:px-4 tw:py-3 tw:min-h-0">
+              {props.children}
+            </div>
+            {/* Footer - fixed */}
             {footer ? (
-              <div className="tw:sticky tw:bottom-0 tw:z-10 tw:bg-white tw:border-t tw:border-muted tw:px-4 tw:py-3">
+              <div className="tw:flex-shrink-0 tw:bg-white tw:border-t tw:border-muted tw:px-4 tw:py-3">
                 {footer}
               </div>
             ) : null}
@@ -284,6 +288,62 @@ const PopoverContent = React.forwardRef(
       );
     }
 
+    // Tablet modal variant (768px-1280px) - Centered modal with zoom effect
+    if (mobile && isTablet) {
+      return (
+        <div
+          data-slot="popover-modal-root"
+          className={cn(
+            "tw:fixed tw:inset-0 tw:z-[60] tw:flex tw:items-center tw:justify-center tw:pointer-events-auto tw:p-4"
+          )}
+        >
+          <div
+            data-slot="popover-overlay"
+            className={cn(
+              "tw:absolute tw:inset-0 tw:bg-black/40 tw:transition-opacity tw:duration-200 tw:ease-out tw:animate-in tw:fade-in-0"
+            )}
+            onClick={onClose}
+          />
+          <div
+            ref={setRefs}
+            data-slot="popover-content"
+            role="dialog"
+            aria-modal="true"
+            tabIndex={-1}
+            className={cn(
+              "tw:relative tw:w-auto tw:max-w-[95vw] tw:bg-white tw:rounded-2xl tw:shadow-2xl tw:transition tw:duration-200 tw:ease-out tw:animate-in tw:zoom-in-95 tw:fade-in-0 tw:flex tw:flex-col"
+            )}
+          >
+            {/* Header */}
+            <div className="tw:flex-shrink-0 tw:bg-white tw:border-b tw:border-muted tw:px-4 tw:py-2 tw:flex tw:items-center tw:justify-between tw:rounded-t-2xl">
+              <div className="tw:text-base tw:font-semibold">
+                {mobileTitle}
+              </div>
+              <button
+                type="button"
+                aria-label="Close"
+                onClick={onClose}
+                className="tw:p-2 tw:rounded-md hover:tw:bg-muted/50 tw:transition"
+              >
+                <X className="tw:size-5" />
+              </button>
+            </div>
+            {/* Middle - scrollable with auto height */}
+            <div className="tw:flex-1 tw:overflow-y-auto tw:px-4 tw:py-4 tw:min-h-0 tw:min-w-[320px]">
+              {props.children}
+            </div>
+            {/* Footer */}
+            {footer ? (
+              <div className="tw:flex-shrink-0 tw:bg-white tw:border-t tw:border-muted tw:px-4 tw:py-3 tw:rounded-b-2xl">
+                {footer}
+              </div>
+            ) : null}
+          </div>
+        </div>
+      );
+    }
+
+    // Desktop popover variant (≥1280px) - unchanged
     return (
       <div
         ref={setRefs}
@@ -291,7 +351,7 @@ const PopoverContent = React.forwardRef(
         tabIndex={-1}
         style={{ marginTop: `${sideOffset}px` }}
         className={cn(
-          "tw:absolute tw:min-w-[300px] tw:!w-max tw:border tw:border-muted tw:data-[state=open]:animate-in tw:data-[state=closed]:animate-out tw:data-[state=closed]:fade-out-0 tw:data-[state=open]:fade-in-0 tw:data-[state=closed]:zoom-out-95 tw:data-[state=open]:zoom-in-95 tw:data-[side=bottom]:slide-in-from-top-2 tw:data-[side=left]:slide-in-from-right-2 tw:data-[side=right]:slide-in-from-left-2 tw:data-[side=top]:slide-in-from-bottom-2 tw:bg-white tw:shadow-lg tw:rounded-lg tw:z-50 tw:p-3 tw:outline-none",
+          "tw:absolute tw:min-w-[320px] tw:!w-max tw:border tw:border-muted tw:data-[state=open]:animate-in tw:data-[state=closed]:animate-out tw:data-[state=closed]:fade-out-0 tw:data-[state=open]:fade-in-0 tw:data-[state=closed]:zoom-out-95 tw:data-[state=open]:zoom-in-95 tw:data-[side=bottom]:slide-in-from-top-2 tw:data-[side=left]:slide-in-from-right-2 tw:data-[side=right]:slide-in-from-left-2 tw:data-[side=top]:slide-in-from-bottom-2 tw:bg-white tw:shadow-lg tw:rounded-lg tw:z-50 tw:p-3 tw:outline-none",
           (desktopAlign || align) === "start" && "tw:left-0 tw:origin-top-left",
           (desktopAlign || align) === "center" &&
             "tw:left-1/2 tw:transform tw:-translate-x-1/2 tw:origin-top",

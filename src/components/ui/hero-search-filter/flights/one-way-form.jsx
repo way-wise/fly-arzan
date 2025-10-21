@@ -348,7 +348,7 @@ const OneWayForm = ({ initialValues }) => {
           <PopoverContent
             mobileTitle="Select date"
             footer={
-              <div className="tw:grid tw:grid-cols-2 md:tw:grid-cols-none md:tw:flex md:tw:justify-center tw:gap-2">
+              <div className="tw:grid tw:grid-cols-2 tw:gap-2 md:tw:flex md:tw:justify-center">
                 <button
                   type="button"
                   onClick={() => {
@@ -400,7 +400,7 @@ const OneWayForm = ({ initialValues }) => {
               Travellers & Cabin Class
             </label>
           </PopoverTrigger>
-          <PopoverContent className="tw:w-[300px]">
+          <PopoverContent mobileTitle="Select Cabin" className="tw:w-[300px]">
             {/* Cabin Selection */}
             <div className="tw:flex tw:flex-col tw:mb-3 tw:w-full">
               <label htmlFor="cabin" className="tw:font-medium">

@@ -389,7 +389,7 @@ const RoundWayForm = ({ initialValues }) => {
             className="tw:w-auto"
             mobileTitle="Select dates"
             footer={
-              <div className="tw:grid tw:grid-cols-2 tw:gap-2">
+              <div className="tw:grid tw:grid-cols-2 tw:gap-2 md:tw:flex md:tw:justify-center">
                 <button
                   type="button"
                   onClick={() => {
@@ -399,7 +399,7 @@ const RoundWayForm = ({ initialValues }) => {
                     };
                     setTempDateRange(resetRange);
                   }}
-                  className="tw:w-full tw:px-6 tw:py-2 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 hover:tw:bg-muted tw:transition tw:!rounded tw:duration-100 tw:font-medium"
+                  className="tw:w-full md:tw:w-auto tw:px-6 tw:py-2 tw:flex tw:items-center tw:justify-center tw:bg-muted/50 hover:tw:bg-muted tw:transition tw:!rounded tw:duration-100 tw:font-medium"
                 >
                   Reset
                 </button>
@@ -410,7 +410,7 @@ const RoundWayForm = ({ initialValues }) => {
                     setValue("return", tempDateRange.to);
                     setDateRangeOpen(false);
                   }}
-                  className="tw:w-full tw:px-6 tw:py-2 tw:flex tw:items-center tw:justify-center tw:bg-primary tw:!text-white hover:tw:bg-primary/80 tw:transition tw:!rounded tw:duration-100 tw:font-medium"
+                  className="tw:w-full md:tw:w-auto tw:px-6 tw:py-2 tw:flex tw:items-center tw:justify-center tw:bg-primary tw:!text-white hover:tw:bg-primary/80 tw:transition tw:!rounded tw:duration-100 tw:font-medium"
                 >
                   Apply
                 </button>
@@ -450,7 +450,7 @@ const RoundWayForm = ({ initialValues }) => {
               Travellers & Cabin
             </label>
           </PopoverTrigger>
-          <PopoverContent className="tw:w-[300px]">
+          <PopoverContent  mobileTitle="Select Cabin" className="tw:w-[300px]">
             {/* Cabin Selection */}
             <div className="tw:flex tw:flex-col tw:mb-3 tw:w-full">
               <label htmlFor="cabin" className="tw:font-medium">

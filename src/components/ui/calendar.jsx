@@ -8,7 +8,7 @@ const Calendar = ({ mode = "range", selected, onSelect, ...props }) => {
   // Responsive number of months based on screen size
   useLayoutEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024) {
+      if (window.innerWidth >= 768) {
         setNumberOfMonths(2);
       } else {
         setNumberOfMonths(12);
@@ -37,17 +37,17 @@ const Calendar = ({ mode = "range", selected, onSelect, ...props }) => {
       captionLayout="label"
       disabled={{ before: new Date() }}
       classNames={{
-        root: "tw:relative tw:p-1",
-        months: "tw:flex tw:flex-col tw:lg:flex-row tw:gap-4",
-        month: "tw:space-y-2",
+        root: "tw:relative tw:p-1 tw:w-max tw:mx-auto",
+        months: "tw:grid tw:sm:grid-cols-2 tw:divide-y tw:divide-gray-200 tw:md:divide-y-0 tw:md:grid-cols-2 tw:gap-4",
+        month: "tw:space-y-4",
         caption_label: "tw:font-semibold tw:text-gray-900 tw:text-lg",
-        month_grid: "tw:w-full tw:mt-2",
+        month_grid: "tw:w-full tw:my-2 tw:md:my-0",
         month_caption: "tw:text-center",
-        day: "tw:size-12 tw:text-center tw:!border-muted/30 tw:rounded-full tw:font-medium",
+        day: "tw:size-10 tw:md:size-12 tw:text-center tw:!border-muted/30 tw:rounded-full tw:font-medium",
         day_button:
           "tw:size-full tw:disabled:!text-secondary tw:disabled:!bg-transparent",
-        outside: "tw:invisible tw:pointer-events-none tw:!border-0",
-        hidden: "tw:invisible",
+        outside: "tw:hidden tw:pointer-events-none tw:!border-0",
+        hidden: "tw:hidden",
         weekday:
           "tw:size-10 tw:text-sm tw:font-normal tw:text-center tw:!text-center",
         today: "tw:text-white tw:bg-slate-400",
