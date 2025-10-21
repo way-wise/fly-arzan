@@ -256,7 +256,7 @@ const PopoverContent = React.forwardRef(
             aria-modal="true"
             tabIndex={-1}
             className={cn(
-              "tw:relative tw:w-full tw:h-full tw:bg-white tw:rounded-t-2xl tw:shadow-2xl tw:transition tw:duration-200 tw:ease-out tw:animate-in tw:slide-in-from-bottom-6 tw:flex tw:flex-col"
+              "tw:relative tw:w-full tw:max-h-full tw:bg-white tw:rounded-t-2xl tw:shadow-2xl tw:transition tw:duration-200 tw:ease-out tw:animate-in tw:slide-in-from-bottom-6 tw:flex tw:flex-col"
             )}
           >
             {/* Header - fixed */}
