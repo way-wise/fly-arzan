@@ -53,7 +53,7 @@ function SelectContent({ className, children, position = "popper", ...props }) {
       <SelectPrimitive.Content
         data-slot="select-content"
         className={cn(
-          "tw:data-[state=open]:animate-in tw:data-[state=closed]:animate-out tw:data-[state=closed]:fade-out-0 tw:data-[state=open]:fade-in-0 tw:data-[state=closed]:zoom-out-95 tw:data-[state=open]:zoom-in-95 tw:data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 tw:data-[side=right]:slide-in-from-left-2 tw:data-[side=top]:slide-in-from-bottom-2 tw:w-[var(--radix-select-trigger-width)] tw:mt-2 tw:border tw:border-muted tw:transition tw:duration-200 tw:ease-out tw:empty:invisible tw:data-[state=closed]:scale-95 tw:data-[state=closed]:opacity-0 tw:bg-white tw:shadow-lg tw:rounded-lg tw:!z-50 tw:overflow-hidden tw:!p-2",
+          "tw:data-[state=open]:animate-in tw:data-[state=closed]:animate-out tw:data-[state=closed]:fade-out-0 tw:data-[state=open]:fade-in-0 tw:data-[state=closed]:zoom-out-95 tw:data-[state=open]:zoom-in-95 tw:data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 tw:data-[side=right]:slide-in-from-left-2 tw:data-[side=top]:slide-in-from-bottom-2 tw:w-[var(--radix-select-trigger-width)] tw:mt-2 tw:border tw:border-muted tw:transition tw:duration-200 tw:ease-out tw:empty:invisible tw:data-[state=closed]:scale-95 tw:data-[state=closed]:opacity-0 tw:bg-white tw:shadow-lg tw:rounded-lg tw:!z-[70] tw:overflow-hidden tw:!p-2",
           className
         )}
         position={position}
