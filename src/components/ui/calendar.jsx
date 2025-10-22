@@ -36,6 +36,7 @@ const Calendar = ({ mode = "range", selected, onSelect, ...props }) => {
       navLayout="around"
       captionLayout="label"
       disabled={{ before: new Date() }}
+      startMonth={new Date()}
       classNames={{
         root: "tw:relative tw:p-1 tw:w-max tw:mx-auto",
         months: "tw:grid tw:sm:grid-cols-2 tw:divide-y tw:divide-gray-200 tw:md:divide-y-0 tw:md:grid-cols-2 tw:gap-4",
@@ -52,7 +53,7 @@ const Calendar = ({ mode = "range", selected, onSelect, ...props }) => {
           "tw:size-10 tw:text-sm tw:font-normal tw:text-center tw:!text-center",
         today: "tw:text-white tw:bg-slate-400",
         selected: "tw:!bg-primary tw:text-white",
-        button_previous: "tw:absolute tw:left-0 tw:top-1",
+        button_previous: "tw:absolute tw:left-0 tw:top-1 tw:aria-disabled:opacity-40",
         button_next: "tw:absolute tw:right-0 tw:top-1",
       }}
       modifiersClassNames={{
