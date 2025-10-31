@@ -8,6 +8,7 @@ import {
   BarChart3,
   MessageSquare,
   User,
+  FileText,
 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import {
@@ -21,6 +22,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 
 const menuItems = [
   { name: "Dashboard", icon: BarChart3, href: "/admin" },
+  { name: "Analytics Logs", icon: FileText, href: "/admin/logs" },
   { name: "Users", icon: Users, href: "/admin/users" },
   { name: "Feedback", icon: MessageSquare, href: "/admin/feedback" },
   { name: "Settings", icon: Settings, href: "/admin/settings" },

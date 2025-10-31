@@ -31,6 +31,7 @@ import { useDebounceValue, useSessionStorage } from "usehooks-ts";
 import { useRegionalSettings } from "../../../../context/RegionalSettingsContext";
 import PropTypes from "prop-types";
 import { cn } from "@/lib/utils";
+import { logSearchEvent } from "@/lib/analytics";
 
 // SegmentRow component moved outside to avoid hook violations
 const SegmentRow = memo(
@@ -484,6 +485,18 @@ const MultiCityForm = ({ initialValues, onSearch }) => {
         travelClass,
         regionalSettings: regionalSettings,
       };
+
+      // Log search event (fire-and-forget) - use first segment for origin/destination
+      if (values.segments.length > 0) {
+        logSearchEvent({
+          origin: values.segments[0].from.iataCode,
+          destination: values.segments[values.segments.length - 1].to.iataCode,
+          tripType: "multi-city",
+          travelClass: values.travellers.cabin,
+          adults: values.travellers.adults,
+          children: values.travellers.children,
+        });
+      }
 
       if (onSearch) {
         onSearch(apiFormData);

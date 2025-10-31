@@ -31,6 +31,7 @@ import { formatDateForURL } from "@/lib/flight-utils";
 import { useRegionalSettings } from "../../../../context/RegionalSettingsContext";
 import Calendar from "../../calendar";
 import PropTypes from "prop-types";
+import { logSearchEvent } from "@/lib/analytics";
 
 const RoundWayForm = ({ initialValues }) => {
   const navigate = useNavigate();
@@ -165,6 +166,17 @@ const RoundWayForm = ({ initialValues }) => {
       };
 
       setSessionData(sessionFormData);
+
+      // Log search event (fire-and-forget)
+      logSearchEvent({
+        origin: values.flyingFrom.iataCode,
+        destination: values.flyingTo.iataCode,
+        tripType: "round-trip",
+        travelClass: values.travellers.cabin,
+        adults: values.travellers.adults,
+        children: values.travellers.children,
+      });
+
       navigate("/search/flight");
     },
     [navigate, setSessionData, regionalSettings]

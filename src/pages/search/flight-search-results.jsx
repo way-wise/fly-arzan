@@ -25,6 +25,7 @@ import { useRegionalSettings } from "../../context/RegionalSettingsContext";
 import { generateAndStoreSimilarFlights } from "../../utils/similarFlightsUtils";
 import { generateForwardLink } from "../../utils/forwardLinkUtils";
 import PropTypes from "prop-types";
+import { logClickOutEvent } from "@/lib/analytics";
 
 import {
   timeToMinutes,
@@ -417,6 +418,18 @@ const FlightSearchResults = ({ flightOffersData, searchContext }) => {
                   generateAndStoreSimilarFlights(itinerary, sortedFlights, 5);
                 } catch (error) {
                   console.warn("Failed to generate similar flights:", error);
+                }
+
+                // Log click-out event (fire-and-forget)
+                if (itinerary.itineraries.length > 0) {
+                  const firstSeg = itinerary.itineraries[0];
+                  const lastSeg = itinerary.itineraries[itinerary.itineraries.length - 1];
+                  logClickOutEvent({
+                    origin: firstSeg.flights[0].departure.iataCode,
+                    destination: lastSeg.flights[lastSeg.flights.length - 1].arrival.iataCode,
+                    tripType: "multi-city",
+                    partner: airlinesInfo[0]?.airlineCode,
+                  });
                 }
 
                 navigate("/flight/details");

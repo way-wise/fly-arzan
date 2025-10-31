@@ -25,7 +25,7 @@ import VisaRequirements from "../header-footer/VisaRequirements";
 import Airport from "../header-footer/Airport";
 import FlightSearchPage from "../pages/search/flight-search-page";
 import FlightDetailsPage from "@/pages/details/flight-details-page";
-import { AdminLayout, Dashboard as AdminDashboard, Users, UserDetails, Settings, Feedback } from "../pages/admin";
+import { AdminLayout, Dashboard as AdminDashboard, Users, UserDetails, Settings, Feedback, AnalyticsLogs } from "../pages/admin";
 
 const Routes = () => {
   return useRoutes([
@@ -36,6 +36,7 @@ const Routes = () => {
       element: <AdminLayout />,
       children: [
         { index: true, element: <AdminDashboard /> },
+        { path: "logs", element: <AnalyticsLogs /> },
         { path: "users", element: <Users /> },
         { path: "settings", element: <Settings /> },
         { path: "feedback", element: <Feedback /> },

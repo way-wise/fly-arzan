@@ -12,6 +12,7 @@ import { generateAndStoreSimilarFlights } from "../../utils/similarFlightsUtils"
 import { generateForwardLink } from "../../utils/forwardLinkUtils";
 import BaggageIcons from "./baggage-icons";
 import PropTypes from "prop-types";
+import { logClickOutEvent } from "@/lib/analytics";
 
 const OneWayFlightCard = memo(
   ({ itinerary, searchContext, allAvailableFlights = [] }) => {
@@ -84,6 +85,14 @@ const OneWayFlightCard = memo(
 
         // Generate and store similar flights using the passed available flights
         generateAndStoreSimilarFlights(itinerary, allAvailableFlights, 5);
+
+        // Log click-out event (fire-and-forget)
+        logClickOutEvent({
+          origin: itinerary.flights?.[0]?.departure?.iataCode,
+          destination: itinerary.flights?.[itinerary.flights?.length - 1]?.arrival?.iataCode,
+          tripType: "one-way",
+          partner: itinerary.flights?.[0]?.operating?.carrierCode || itinerary.flights?.[0]?.airlineCode,
+        });
 
         // Navigate to details page
         navigate("/flight/details");
