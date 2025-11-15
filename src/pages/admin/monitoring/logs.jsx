@@ -186,10 +186,10 @@ export default function SystemLogs() {
         }}
       >
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 700, color: "#e5e7eb" }}>
+          <Typography variant="h5" sx={{ fontWeight: 700, color: "#FFFFFF", fontFamily: "Inter, sans-serif" }}>
             System logs
           </Typography>
-          <Typography variant="body2" sx={{ color: "#9ca3af", mt: 0.5 }}>
+          <Typography variant="body2" sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter, sans-serif" }}>
             Explore backend and infrastructure logs for debugging and audits.
           </Typography>
         </Box>
@@ -210,7 +210,7 @@ export default function SystemLogs() {
       {/* Statistics row */}
       <Grid container spacing={2.5}>
         <Grid item xs={12} md={3} sx={{ minWidth: 0 }}>
-          <Card sx={{ borderRadius: 3, bgcolor: "#151515", border: "1px solid #262626" }}>
+          <Card sx={{ borderRadius: 2, bgcolor: "#1A1D23", background: "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)", border: "1px solid rgba(255, 255, 255, 0.08)", boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)" }}>
             <CardHeader
               title={
                 <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Total logs (24h)</Typography>
@@ -225,7 +225,7 @@ export default function SystemLogs() {
           </Card>
         </Grid>
         <Grid item xs={12} md={3} sx={{ minWidth: 0 }}>
-          <Card sx={{ borderRadius: 3, bgcolor: "#151515", border: "1px solid #262626" }}>
+          <Card sx={{ borderRadius: 2, bgcolor: "#1A1D23", background: "linear-gradient(135deg, rgba(251, 113, 133, 0.05) 0%, rgba(251, 113, 133, 0.02) 100%)", border: "1px solid rgba(255, 255, 255, 0.08)", boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)" }}>
             <CardHeader
               title={<Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Errors</Typography>}
               sx={{ px: 2.25, pt: 2.25, pb: 0.75 }}
@@ -241,7 +241,7 @@ export default function SystemLogs() {
           </Card>
         </Grid>
         <Grid item xs={12} md={3} sx={{ minWidth: 0 }}>
-          <Card sx={{ borderRadius: 3, bgcolor: "#151515", border: "1px solid #262626" }}>
+          <Card sx={{ borderRadius: 2, bgcolor: "#1A1D23", background: "linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, rgba(245, 158, 11, 0.02) 100%)", border: "1px solid rgba(255, 255, 255, 0.08)", boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)" }}>
             <CardHeader
               title={<Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Warnings</Typography>}
               sx={{ px: 2.25, pt: 2.25, pb: 0.75 }}
@@ -257,7 +257,7 @@ export default function SystemLogs() {
           </Card>
         </Grid>
         <Grid item xs={12} md={3} sx={{ minWidth: 0 }}>
-          <Card sx={{ borderRadius: 3, bgcolor: "#151515", border: "1px solid #262626" }}>
+          <Card sx={{ borderRadius: 2, bgcolor: "#1A1D23", background: "linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.02) 100%)", border: "1px solid rgba(255, 255, 255, 0.08)", boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)" }}>
             <CardHeader
               title={<Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Info</Typography>}
               sx={{ px: 2.25, pt: 2.25, pb: 0.75 }}
@@ -275,7 +275,7 @@ export default function SystemLogs() {
       </Grid>
 
       {/* Filters + list */}
-      <Card sx={{ borderRadius: 3, bgcolor: "#151515", border: "1px solid #262626" }}>
+      <Card sx={{ borderRadius: 2, bgcolor: "#1A1D23", background: "linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(147, 51, 234, 0.02) 100%)", border: "1px solid rgba(255, 255, 255, 0.08)", boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)" }}>
         <CardHeader
           title={
             <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>Log entries</Typography>
@@ -301,10 +301,13 @@ export default function SystemLogs() {
                   InputProps={{
                     startAdornment: <SearchIcon sx={{ fontSize: 18, color: "#6b7280", mr: 1 }} />,
                     sx: {
-                      bgcolor: "#101010",
+                      bgcolor: "#0B0F16",
                       borderRadius: 999,
                       fontSize: 13,
-                      color: "#e5e7eb",
+                      color: "#FFFFFF",
+                      fontFamily: "Inter, sans-serif",
+                      border: "1px solid rgba(255, 255, 255, 0.08)",
+                      '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
                     },
                   }}
                 />
@@ -317,9 +320,13 @@ export default function SystemLogs() {
                   displayEmpty
                   sx={{
                     minWidth: 140,
-                    bgcolor: "#101010",
-                    color: "#e5e7eb",
+                    bgcolor: "#0B0F16",
+                    color: "#FFFFFF",
                     fontSize: 13,
+                    fontFamily: "Inter, sans-serif",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    borderRadius: 1,
+                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
                   }}
                 >
                   <MenuItem value="today">Today</MenuItem>
@@ -334,9 +341,13 @@ export default function SystemLogs() {
                   displayEmpty
                   sx={{
                     minWidth: 120,
-                    bgcolor: "#101010",
-                    color: "#e5e7eb",
+                    bgcolor: "#0B0F16",
+                    color: "#FFFFFF",
                     fontSize: 13,
+                    fontFamily: "Inter, sans-serif",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    borderRadius: 1,
+                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
                   }}
                 >
                   <MenuItem value="all">All levels</MenuItem>
@@ -351,9 +362,13 @@ export default function SystemLogs() {
                   displayEmpty
                   sx={{
                     minWidth: 150,
-                    bgcolor: "#101010",
-                    color: "#e5e7eb",
+                    bgcolor: "#0B0F16",
+                    color: "#FFFFFF",
                     fontSize: 13,
+                    fontFamily: "Inter, sans-serif",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    borderRadius: 1,
+                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
                   }}
                 >
                   <MenuItem value="all">All services</MenuItem>
@@ -446,7 +461,7 @@ export default function SystemLogs() {
       </Card>
 
       {/* Quick actions */}
-      <Card sx={{ borderRadius: 3, bgcolor: "#151515", border: "1px solid #262626" }}>
+      <Card sx={{ borderRadius: 2, bgcolor: "#1A1D23", background: "linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(168, 85, 247, 0.02) 100%)", border: "1px solid rgba(255, 255, 255, 0.08)", boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)" }}>
         <CardHeader
           title={
             <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>Quick actions</Typography>

@@ -98,10 +98,10 @@ export default function Dashboard() {
         }}
       >
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 700, color: "#e5e7eb" }}>
+          <Typography variant="h5" sx={{ fontWeight: 600, color: "#FFFFFF", fontFamily: "Inter" }}>
             Flight Analytics Overview
           </Typography>
-          <Typography variant="body2" sx={{ color: "#9ca3af", mt: 0.5 }}>
+          <Typography variant="body2" sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter" }}>
             High-level snapshot of user behavior, route performance, and API health.
           </Typography>
         </Box>
@@ -110,18 +110,24 @@ export default function Dashboard() {
             size="small"
             label={range}
             sx={{
-              bgcolor: "rgba(15,118,255,0.18)",
-              color: "#bfdbfe",
-              borderRadius: 999,
+              bgcolor: "rgba(59, 130, 246, 0.1)",
+              color: "#3B82F6",
+              border: "1px solid rgba(59, 130, 246, 0.2)",
+              borderRadius: 2,
+              fontFamily: "Inter",
+              fontSize: "0.75rem"
             }}
           />
           <Chip
             size="small"
             label="Realtime preview"
             sx={{
-              bgcolor: "rgba(8,47,73,0.9)",
-              color: "#38bdf8",
-              borderRadius: 999,
+              bgcolor: "rgba(16, 185, 129, 0.1)",
+              color: "#10B981",
+              border: "1px solid rgba(16, 185, 129, 0.2)",
+              borderRadius: 2,
+              fontFamily: "Inter",
+              fontSize: "0.75rem"
             }}
           />
         </Stack>
@@ -133,24 +139,24 @@ export default function Dashboard() {
           <Card
             sx={{
               height: "100%",
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.9)",
-              border: "1px solid rgba(56,189,248,0.25)",
-              boxShadow: "0 18px 40px rgba(15,23,42,0.65)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 2.5 }}>
               <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
                 <Box>
-                  <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter", fontSize: "0.75rem" }}>
                     Total Searches
                   </Typography>
-                  <Typography variant="h5" sx={{ color: "#e5e7eb", fontWeight: 700, mt: 0.5 }}>
+                  <Typography variant="h5" sx={{ color: "#FFFFFF", fontWeight: 600, mt: 0.5, fontFamily: "Inter" }}>
                     {kpiData.totalSearches.value.toLocaleString()}
                   </Typography>
                   <Stack direction="row" spacing={0.5} alignItems="center" sx={{ mt: 0.5 }}>
                     <TrendingUp sx={{ fontSize: 16, color: "#4ade80" }} />
-                    <Typography variant="caption" sx={{ color: "#4ade80" }}>
+                    <Typography variant="caption" sx={{ color: "#10B981", fontFamily: "Inter", fontSize: "0.75rem" }}>
                       +{kpiData.totalSearches.change}% vs last period
                     </Typography>
                   </Stack>
@@ -160,7 +166,7 @@ export default function Dashboard() {
                     width: 40,
                     height: 40,
                     borderRadius: 2,
-                    bgcolor: "rgba(37,99,235,0.18)",
+                    bgcolor: "rgba(59, 130, 246, 0.1)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -177,24 +183,24 @@ export default function Dashboard() {
           <Card
             sx={{
               height: "100%",
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.9)",
-              border: "1px solid rgba(74,222,128,0.25)",
-              boxShadow: "0 18px 40px rgba(15,23,42,0.65)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 2.5 }}>
               <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
                 <Box>
-                  <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter", fontSize: "0.75rem" }}>
                     Clickout Rate
                   </Typography>
-                  <Typography variant="h5" sx={{ color: "#e5e7eb", fontWeight: 700, mt: 0.5 }}>
+                  <Typography variant="h5" sx={{ color: "#FFFFFF", fontWeight: 600, mt: 0.5, fontFamily: "Inter" }}>
                     {kpiData.clickoutRate.value}%
                   </Typography>
                   <Stack direction="row" spacing={0.5} alignItems="center" sx={{ mt: 0.5 }}>
                     <TrendingUp sx={{ fontSize: 16, color: "#4ade80" }} />
-                    <Typography variant="caption" sx={{ color: "#4ade80" }}>
+                    <Typography variant="caption" sx={{ color: "#10B981", fontFamily: "Inter", fontSize: "0.75rem" }}>
                       +{kpiData.clickoutRate.change}% vs last period
                     </Typography>
                   </Stack>
@@ -221,19 +227,19 @@ export default function Dashboard() {
           <Card
             sx={{
               height: "100%",
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.9)",
-              border: "1px solid rgba(96,165,250,0.25)",
-              boxShadow: "0 18px 40px rgba(15,23,42,0.65)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 2.5 }}>
               <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
                 <Box>
-                  <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter", fontSize: "0.75rem" }}>
                     Unique Visitors (IP)
                   </Typography>
-                  <Typography variant="h5" sx={{ color: "#e5e7eb", fontWeight: 700, mt: 0.5 }}>
+                  <Typography variant="h5" sx={{ color: "#FFFFFF", fontWeight: 600, mt: 0.5, fontFamily: "Inter" }}>
                     {kpiData.uniqueVisitors.value.toLocaleString()}
                   </Typography>
                   <Stack direction="row" spacing={0.5} alignItems="center" sx={{ mt: 0.5 }}>
@@ -265,22 +271,22 @@ export default function Dashboard() {
           <Card
             sx={{
               height: "100%",
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.9)",
-              border: "1px solid rgba(248,250,252,0.16)",
-              boxShadow: "0 18px 40px rgba(15,23,42,0.65)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 2.5 }}>
               <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
                 <Box>
-                  <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter", fontSize: "0.75rem" }}>
                     API Health
                   </Typography>
-                  <Typography variant="h5" sx={{ color: "#e5e7eb", fontWeight: 700, mt: 0.5 }}>
+                  <Typography variant="h5" sx={{ color: "#FFFFFF", fontWeight: 600, mt: 0.5, fontFamily: "Inter" }}>
                     {kpiData.healthyServices.value}/{kpiData.healthyServices.total}
                   </Typography>
-                  <Typography variant="caption" sx={{ color: "#9ca3af", mt: 0.5 }}>
+                  <Typography variant="caption" sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter", fontSize: "0.75rem" }}>
                     Core services operational
                   </Typography>
                 </Box>
@@ -311,18 +317,19 @@ export default function Dashboard() {
           <Card
             sx={{
               height: "100%",
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.95)",
-              border: "1px solid rgba(51,65,85,0.9)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 2.5 }}>
               <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
                 <Box>
-                  <Typography variant="subtitle1" sx={{ color: "#e5e7eb", fontWeight: 600 }}>
+                  <Typography variant="subtitle1" sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter" }}>
                     Searches vs Clickouts
                   </Typography>
-                  <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
                     Activity over the selected time window
                   </Typography>
                 </Box>
@@ -373,18 +380,19 @@ export default function Dashboard() {
           <Card
             sx={{
               height: "100%",
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.95)",
-              border: "1px solid rgba(51,65,85,0.9)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 2.5 }}>
               <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
                 <Box>
-                  <Typography variant="subtitle1" sx={{ color: "#e5e7eb", fontWeight: 600 }}>
+                  <Typography variant="subtitle1" sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter" }}>
                     Top Routes by Searches
                   </Typography>
-                  <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
                     With clickout volume overlay
                   </Typography>
                 </Box>
@@ -414,18 +422,19 @@ export default function Dashboard() {
           <Card
             sx={{
               height: "100%",
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.95)",
-              border: "1px solid rgba(51,65,85,0.9)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 2.5 }}>
               <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
                 <Box>
-                  <Typography variant="subtitle1" sx={{ color: "#e5e7eb", fontWeight: 600 }}>
+                  <Typography variant="subtitle1" sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter" }}>
                     Device Mix
                   </Typography>
-                  <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
                     Desktop vs mobile vs tablet
                   </Typography>
                 </Box>
@@ -461,18 +470,19 @@ export default function Dashboard() {
           <Card
             sx={{
               height: "100%",
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.95)",
-              border: "1px solid rgba(51,65,85,0.9)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 2.5 }}>
               <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
                 <Box>
-                  <Typography variant="subtitle1" sx={{ color: "#e5e7eb", fontWeight: 600 }}>
+                  <Typography variant="subtitle1" sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter" }}>
                     Visitors by Country
                   </Typography>
-                  <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
                     Top geo sources by unique IP
                   </Typography>
                 </Box>
@@ -516,18 +526,19 @@ export default function Dashboard() {
           <Card
             sx={{
               height: "100%",
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.95)",
-              border: "1px solid rgba(51,65,85,0.9)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 2.5 }}>
               <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
                 <Box>
-                  <Typography variant="subtitle1" sx={{ color: "#e5e7eb", fontWeight: 600 }}>
+                  <Typography variant="subtitle1" sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter" }}>
                     API Latency (p95)
                   </Typography>
-                  <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
                     Key integration response times
                   </Typography>
                 </Box>

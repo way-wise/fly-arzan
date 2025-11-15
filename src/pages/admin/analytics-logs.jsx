@@ -13,6 +13,12 @@ import {
   Button,
   IconButton,
   Skeleton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
 } from "@mui/material";
 import DownloadIcon from "@mui/icons-material/Download";
 import RefreshIcon from "@mui/icons-material/Refresh";
@@ -191,10 +197,10 @@ export default function AnalyticsLogs() {
         }}
       >
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 700, color: "#e5e7eb" }}>
+          <Typography variant="h5" sx={{ fontWeight: 600, color: "#FFFFFF", fontFamily: "Inter" }}>
             Search analytics logs
           </Typography>
-          <Typography variant="body2" sx={{ color: "#9ca3af", mt: 0.5 }}>
+          <Typography variant="body2" sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter" }}>
             Detailed flight search logs with device, geo and passenger breakdown.
           </Typography>
         </Box>
@@ -236,19 +242,20 @@ export default function AnalyticsLogs() {
 
       <Card
         sx={{
-          borderRadius: 3,
-          bgcolor: "#151515",
-          border: "1px solid #262626",
+          borderRadius: 2,
+          bgcolor: "#1A1D23",
+          border: "1px solid rgba(255, 255, 255, 0.08)",
+          boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)"
         }}
       >
         <CardHeader
           title={
-            <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>
+            <Typography sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter" }}>
               Search logs ({pagination?.total || 0} total)
             </Typography>
           }
           subheader={
-            <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+            <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
               Combine quick route search with advanced filters to narrow down logs.
             </Typography>
           }
@@ -267,9 +274,13 @@ export default function AnalyticsLogs() {
                   onChange={(e) => handleFilterChange("searchType", e.target.value)}
                   displayEmpty
                   sx={{
-                    bgcolor: "rgba(15,23,42,0.9)",
-                    color: "#e5e7eb",
+                    bgcolor: "#0B0F16",
+                    color: "#FFFFFF",
                     fontSize: 13,
+                    fontFamily: "Inter, sans-serif",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    borderRadius: 1,
+                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
                   }}
                 >
                   <MenuItem value="all">All</MenuItem>
@@ -295,9 +306,12 @@ export default function AnalyticsLogs() {
                     }
                   }}
                   sx={{
-                    bgcolor: "#101010",
+                    bgcolor: "#0B0F16",
                     borderRadius: 999,
-                    "& .MuiInputBase-input": { fontSize: 13, color: "#e5e7eb" },
+                    fontFamily: "Inter, sans-serif",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
+                    "& .MuiInputBase-input": { fontSize: 13, color: "#FFFFFF", fontFamily: "Inter, sans-serif" },
                   }}
                 />
               </Box>
@@ -309,9 +323,13 @@ export default function AnalyticsLogs() {
                   onChange={(e) => handleFilterChange("tripType", e.target.value)}
                   displayEmpty
                   sx={{
-                    bgcolor: "#101010",
-                    color: "#e5e7eb",
+                    bgcolor: "#0B0F16",
+                    color: "#FFFFFF",
                     fontSize: 13,
+                    fontFamily: "Inter, sans-serif",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    borderRadius: 1,
+                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
                   }}
                 >
                   <MenuItem value="">Trip type</MenuItem>
@@ -328,9 +346,12 @@ export default function AnalyticsLogs() {
                   value={filters.startDate}
                   onChange={(e) => handleFilterChange("startDate", e.target.value)}
                   sx={{
-                    bgcolor: "#101010",
+                    bgcolor: "#0B0F16",
                     borderRadius: 1,
-                    "& .MuiInputBase-input": { fontSize: 13, color: "#e5e7eb" },
+                    fontFamily: "Inter, sans-serif",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
+                    "& .MuiInputBase-input": { fontSize: 13, color: "#FFFFFF", fontFamily: "Inter, sans-serif" },
                   }}
                 />
               </Box>
@@ -342,9 +363,12 @@ export default function AnalyticsLogs() {
                   value={filters.endDate}
                   onChange={(e) => handleFilterChange("endDate", e.target.value)}
                   sx={{
-                    bgcolor: "#101010",
+                    bgcolor: "#0B0F16",
                     borderRadius: 1,
-                    "& .MuiInputBase-input": { fontSize: 13, color: "#e5e7eb" },
+                    fontFamily: "Inter, sans-serif",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
+                    "& .MuiInputBase-input": { fontSize: 13, color: "#FFFFFF", fontFamily: "Inter, sans-serif" },
                   }}
                 />
               </Box>
@@ -360,9 +384,13 @@ export default function AnalyticsLogs() {
                   onChange={(e) => handleFilterChange("os", e.target.value)}
                   displayEmpty
                   sx={{
-                    bgcolor: "#101010",
-                    color: "#e5e7eb",
+                    bgcolor: "#0B0F16",
+                    color: "#FFFFFF",
                     fontSize: 13,
+                    fontFamily: "Inter, sans-serif",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    borderRadius: 1,
+                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
                   }}
                 >
                   <MenuItem value="">OS</MenuItem>
@@ -381,9 +409,13 @@ export default function AnalyticsLogs() {
                   onChange={(e) => handleFilterChange("browser", e.target.value)}
                   displayEmpty
                   sx={{
-                    bgcolor: "#101010",
-                    color: "#e5e7eb",
+                    bgcolor: "#0B0F16",
+                    color: "#FFFFFF",
                     fontSize: 13,
+                    fontFamily: "Inter, sans-serif",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    borderRadius: 1,
+                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
                   }}
                 >
                   <MenuItem value="">Browser</MenuItem>
@@ -402,9 +434,13 @@ export default function AnalyticsLogs() {
                   onChange={(e) => handleFilterChange("deviceType", e.target.value)}
                   displayEmpty
                   sx={{
-                    bgcolor: "#101010",
-                    color: "#e5e7eb",
+                    bgcolor: "#0B0F16",
+                    color: "#FFFFFF",
                     fontSize: 13,
+                    fontFamily: "Inter, sans-serif",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    borderRadius: 1,
+                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
                   }}
                 >
                   <MenuItem value="">Device</MenuItem>
@@ -423,9 +459,13 @@ export default function AnalyticsLogs() {
                   onChange={(e) => handleFilterChange("travelClass", e.target.value)}
                   displayEmpty
                   sx={{
-                    bgcolor: "#101010",
-                    color: "#e5e7eb",
+                    bgcolor: "#0B0F16",
+                    color: "#FFFFFF",
                     fontSize: 13,
+                    fontFamily: "Inter, sans-serif",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    borderRadius: 1,
+                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
                   }}
                 >
                   <MenuItem value="">Class</MenuItem>
@@ -445,9 +485,13 @@ export default function AnalyticsLogs() {
                     onChange={(e) => handleFilterChange("country", e.target.value)}
                     displayEmpty
                     sx={{
-                      bgcolor: "#101010",
-                      color: "#e5e7eb",
+                      bgcolor: "#0B0F16",
+                      color: "#FFFFFF",
                       fontSize: 13,
+                      fontFamily: "Inter, sans-serif",
+                      border: "1px solid rgba(255, 255, 255, 0.08)",
+                      borderRadius: 1,
+                      '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
                     }}
                   >
                     <MenuItem value="">Country</MenuItem>
@@ -467,7 +511,7 @@ export default function AnalyticsLogs() {
                   onClick={clearFilters}
                   startIcon={<ClearIcon sx={{ fontSize: 16 }} />}
                   sx={{
-                    borderColor: "#30363d",
+                    borderColor: "rgba(60, 66, 72, 0.4)",
                     color: "#e5e7eb",
                     textTransform: "none",
                   }}
@@ -496,78 +540,79 @@ export default function AnalyticsLogs() {
             </Typography>
           ) : (
             <>
-              <Box sx={{ overflowX: "auto" }}>
-                <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
-                  <thead>
-                    <tr>
-                      <th style={{ padding: "8px", textAlign: "left", color: "#9ca3af" }}>Timestamp</th>
-                      <th style={{ padding: "8px", textAlign: "left", color: "#9ca3af" }}>Route</th>
-                      <th style={{ padding: "8px", textAlign: "left", color: "#9ca3af" }}>Trip type</th>
-                      <th style={{ padding: "8px", textAlign: "left", color: "#9ca3af" }}>Passengers</th>
-                      <th style={{ padding: "8px", textAlign: "left", color: "#9ca3af" }}>Class</th>
-                      <th style={{ padding: "8px", textAlign: "left", color: "#9ca3af" }}>Device</th>
-                      <th style={{ padding: "8px", textAlign: "left", color: "#9ca3af" }}>Browser</th>
-                      <th style={{ padding: "8px", textAlign: "left", color: "#9ca3af" }}>OS</th>
-                      <th style={{ padding: "8px", textAlign: "left", color: "#9ca3af" }}>Location</th>
-                    </tr>
-                  </thead>
-                  <tbody>
+              <TableContainer sx={{ overflowX: "auto" }}>
+                <Table sx={{ minWidth: 650 }}>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell sx={{ color: "#71717A", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em", fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>Timestamp</TableCell>
+                      <TableCell sx={{ color: "#71717A", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em", fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>Route</TableCell>
+                      <TableCell sx={{ color: "#71717A", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em", fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>Trip type</TableCell>
+                      <TableCell sx={{ color: "#71717A", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em", fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>Passengers</TableCell>
+                      <TableCell sx={{ color: "#71717A", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em", fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>Class</TableCell>
+                      <TableCell sx={{ color: "#71717A", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em", fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>Device</TableCell>
+                      <TableCell sx={{ color: "#71717A", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em", fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>Browser</TableCell>
+                      <TableCell sx={{ color: "#71717A", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em", fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>OS</TableCell>
+                      <TableCell sx={{ color: "#71717A", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em", fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>Location</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
                     {logs.map((log) => (
-                      <tr key={log.id} style={{ borderTop: "1px solid #020617" }}>
-                        <td style={{ padding: "8px", color: "#9ca3af", fontSize: 12 }}>
+                      <TableRow key={log.id} sx={{ '&:hover': { bgcolor: "rgba(255, 255, 255, 0.02)" } }}>
+                        <TableCell sx={{ color: "#71717A", fontSize: 12, fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>
                           {new Date(log.createdAt).toLocaleString()}
-                        </td>
-                        <td style={{ padding: "8px", color: "#e5e7eb" }}>
+                        </TableCell>
+                        <TableCell sx={{ color: "#FFFFFF", fontSize: 13, fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>
                           {log.origin} → {log.destination}
-                        </td>
-                        <td style={{ padding: "8px" }}>
+                        </TableCell>
+                        <TableCell sx={{ borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>
                           <Chip
                             size="small"
                             label={log.tripType}
                             sx={{
                               bgcolor: "rgba(59,130,246,0.15)",
-                              color: "#bfdbfe",
+                              color: "#93c5fd",
                               borderRadius: 999,
                               fontSize: 11,
+                              fontFamily: "Inter, sans-serif",
                             }}
                           />
-                        </td>
-                        <td style={{ padding: "8px", color: "#e5e7eb" }}>
+                        </TableCell>
+                        <TableCell sx={{ color: "#FFFFFF", fontSize: 13, fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>
                           {log.adults}A
                           {log.children > 0 && `, ${log.children}C`}
-                        </td>
-                        <td style={{ padding: "8px", color: "#e5e7eb" }}>
+                        </TableCell>
+                        <TableCell sx={{ color: "#FFFFFF", fontSize: 13, fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>
                           {log.travelClass || "Unknown"}
-                        </td>
-                        <td style={{ padding: "8px", color: "#e5e7eb" }}>
+                        </TableCell>
+                        <TableCell sx={{ color: "#FFFFFF", fontSize: 13, fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>
                           {log.deviceType || "Unknown"}
-                        </td>
-                        <td style={{ padding: "8px", color: "#e5e7eb" }}>
+                        </TableCell>
+                        <TableCell sx={{ color: "#FFFFFF", fontSize: 13, fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>
                           {log.browser
                             ? `${log.browser} ${(log.browserVersion || "").trim()}`.trim()
                             : "Unknown"}
-                        </td>
-                        <td style={{ padding: "8px", color: "#e5e7eb" }}>
+                        </TableCell>
+                        <TableCell sx={{ color: "#FFFFFF", fontSize: 13, fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>
                           {log.os
                             ? `${log.os} ${(log.osVersion || "").trim()}`.trim()
                             : "Unknown"}
-                        </td>
-                        <td style={{ padding: "8px", color: "#e5e7eb" }}>
+                        </TableCell>
+                        <TableCell sx={{ color: "#FFFFFF", fontSize: 13, fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>
                           {log.country || log.region
                             ? `${log.country || ""} ${log.region || ""}`.trim()
                             : "Unknown"}
-                        </td>
-                      </tr>
+                        </TableCell>
+                      </TableRow>
                     ))}
-                  </tbody>
-                </table>
-              </Box>
+                  </TableBody>
+                </Table>
+              </TableContainer>
 
               <Box
                 sx={{
                   mt: 3,
                   pt: 2,
-                  borderTop: "1px solid rgba(31,41,55,0.9)",
+                  borderTop: "1px solid rgba(60, 66, 72, 0.3)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",

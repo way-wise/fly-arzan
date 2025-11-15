@@ -31,29 +31,31 @@ export default function Feedback() {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
       <Box>
-        <Typography variant="h5" sx={{ fontWeight: 700, color: "#e5e7eb" }}>
+        <Typography variant="h5" sx={{ fontWeight: 700, color: "#FFFFFF", fontFamily: "Inter, sans-serif" }}>
           Feedback
         </Typography>
-        <Typography variant="body2" sx={{ color: "#9ca3af", mt: 0.5 }}>
+        <Typography variant="body2" sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter, sans-serif" }}>
           Qualitative feedback from users about the flight search experience.
         </Typography>
       </Box>
 
       <Card
         sx={{
-          borderRadius: 3,
-          bgcolor: "rgba(15,23,42,0.95)",
-          border: "1px solid rgba(51,65,85,0.9)",
+          borderRadius: 2,
+          bgcolor: "#1A1D23",
+          background: "linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(147, 51, 234, 0.02) 100%)",
+          border: "1px solid rgba(255, 255, 255, 0.08)",
+          boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
         }}
       >
         <CardHeader
           title={
-            <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>
+            <Typography sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter, sans-serif" }}>
               Recent feedback
             </Typography>
           }
           subheader={
-            <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+            <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter, sans-serif" }}>
               This is placeholder data — connect it to a real feedback source later.
             </Typography>
           }
@@ -65,10 +67,12 @@ export default function Feedback() {
               <Box
                 key={item.id}
                 sx={{
-                  p: 1.75,
+                  p: 2.5,
                   borderRadius: 2,
-                  bgcolor: "rgba(15,23,42,1)",
-                  border: "1px solid rgba(31,41,55,0.9)",
+                  bgcolor: "#0B0F16",
+                  background: "linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0.03) 100%)",
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                  boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
                 }}
               >
                 <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 0.5 }}>

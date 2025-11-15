@@ -119,10 +119,10 @@ export default function Users() {
         }}
       >
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 700, color: "#e5e7eb" }}>
+          <Typography variant="h5" sx={{ fontWeight: 600, color: "#FFFFFF", fontFamily: "Inter" }}>
             Users
           </Typography>
-          <Typography variant="body2" sx={{ color: "#9ca3af", mt: 0.5 }}>
+          <Typography variant="body2" sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter" }}>
             Manage admin users and inspect their flight search behavior.
           </Typography>
         </Box>
@@ -130,32 +130,40 @@ export default function Users() {
           <Chip
             size="small"
             label={`${mockUsers.length} total users`}
-            sx={{ bgcolor: "rgba(15,23,42,0.9)", color: "#e5e7eb", borderRadius: 999 }}
+            sx={{ 
+              bgcolor: "rgba(59, 130, 246, 0.1)", 
+              color: "#3B82F6", 
+              border: "1px solid rgba(59, 130, 246, 0.2)", 
+              borderRadius: 2,
+              fontFamily: "Inter",
+              fontSize: "0.75rem"
+            }}
           />
         </Stack>
       </Box>
 
       <Card
         sx={{
-          borderRadius: 3,
-          bgcolor: "rgba(15,23,42,0.95)",
-          border: "1px solid rgba(51,65,85,0.9)",
+          borderRadius: 2,
+          bgcolor: "#1A1D23",
+          border: "1px solid rgba(255, 255, 255, 0.08)",
+          boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)"
         }}
       >
         <CardHeader
           title={
-            <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>
+            <Typography sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter" }}>
               User directory
             </Typography>
           }
           subheader={
-            <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+            <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
               Search by name, email or location. Click a user to open a detailed profile.
             </Typography>
           }
-          sx={{ px: 2.5, pt: 2.25, pb: 1.5 }}
+          sx={{ px: 3, pt: 3, pb: 2 }}
         />
-        <CardContent sx={{ px: 2.5, pb: 2.5 }}>
+        <CardContent sx={{ px: 3, pb: 3 }}>
           <Box sx={{ mb: 2 }}>
             <TextField
               size="small"
@@ -170,24 +178,83 @@ export default function Users() {
                   </InputAdornment>
                 ),
                 sx: {
-                  bgcolor: "rgba(15,23,42,0.9)",
-                  borderRadius: 999,
-                  fontSize: 13,
+                  bgcolor: "#0B0F16",
+                  borderRadius: 2,
+                  fontSize: 14,
+                  fontFamily: "Inter",
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    border: "none"
+                  }
                 },
               }}
             />
           </Box>
 
           <Box sx={{ overflowX: "auto" }}>
-            <Table size="small">
+            <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell sx={{ color: "#9ca3af", borderColor: "#111827" }}>User</TableCell>
-                  <TableCell sx={{ color: "#9ca3af", borderColor: "#111827" }}>Role</TableCell>
-                  <TableCell sx={{ color: "#9ca3af", borderColor: "#111827" }}>Location</TableCell>
-                  <TableCell sx={{ color: "#9ca3af", borderColor: "#111827" }}>Last seen</TableCell>
-                  <TableCell sx={{ color: "#9ca3af", borderColor: "#111827" }}>Searches</TableCell>
-                  <TableCell align="right" sx={{ color: "#9ca3af", borderColor: "#111827" }}>
+                  <TableCell sx={{ 
+                    color: "#71717A", 
+                    borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                    fontSize: "0.75rem",
+                    fontFamily: "Inter",
+                    fontWeight: 500,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                    py: 2
+                  }}>User</TableCell>
+                  <TableCell sx={{ 
+                    color: "#71717A", 
+                    borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                    fontSize: "0.75rem",
+                    fontFamily: "Inter",
+                    fontWeight: 500,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                    py: 2
+                  }}>Role</TableCell>
+                  <TableCell sx={{ 
+                    color: "#71717A", 
+                    borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                    fontSize: "0.75rem",
+                    fontFamily: "Inter",
+                    fontWeight: 500,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                    py: 2
+                  }}>Location</TableCell>
+                  <TableCell sx={{ 
+                    color: "#71717A", 
+                    borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                    fontSize: "0.75rem",
+                    fontFamily: "Inter",
+                    fontWeight: 500,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                    py: 2
+                  }}>Last seen</TableCell>
+                  <TableCell sx={{ 
+                    color: "#71717A", 
+                    borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                    fontSize: "0.75rem",
+                    fontFamily: "Inter",
+                    fontWeight: 500,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                    py: 2
+                  }}>Searches</TableCell>
+                  <TableCell align="right" sx={{ 
+                    color: "#71717A", 
+                    borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                    fontSize: "0.75rem",
+                    fontFamily: "Inter",
+                    fontWeight: 500,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                    py: 2
+                  }}>
                     Actions
                   </TableCell>
                 </TableRow>
@@ -197,10 +264,18 @@ export default function Users() {
                   <TableRow
                     key={user.id}
                     hover
-                    sx={{ cursor: "pointer" }}
+                    sx={{ 
+                      cursor: "pointer",
+                      "&:hover": {
+                        bgcolor: "rgba(255, 255, 255, 0.02)"
+                      }
+                    }}
                     onClick={() => navigate(`/admin/users/${user.id}`)}
                   >
-                    <TableCell sx={{ borderColor: "#111827" }}>
+                    <TableCell sx={{ 
+                      borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
+                      py: 2.5
+                    }}>
                       <Stack direction="row" spacing={1.5} alignItems="center">
                         <Avatar
                           sx={{
@@ -217,37 +292,65 @@ export default function Users() {
                             .join("")}
                         </Avatar>
                         <Box>
-                          <Typography sx={{ color: "#e5e7eb", fontSize: 14, fontWeight: 500 }}>
+                          <Typography sx={{ color: "#FFFFFF", fontSize: 14, fontWeight: 500, fontFamily: "Inter" }}>
                             {user.name}
                           </Typography>
-                          <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>
+                          <Typography sx={{ color: "#71717A", fontSize: 12, fontFamily: "Inter" }}>
                             {user.email}
                           </Typography>
                         </Box>
                       </Stack>
                     </TableCell>
-                    <TableCell sx={{ borderColor: "#111827" }}>
+                    <TableCell sx={{ 
+                      borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
+                      py: 2.5
+                    }}>
                       <Chip
                         size="small"
                         label={user.role}
                         sx={{
-                          bgcolor: "rgba(59,130,246,0.15)",
-                          color: "#bfdbfe",
-                          borderRadius: 999,
+                          bgcolor: "rgba(59, 130, 246, 0.1)",
+                          color: "#3B82F6",
+                          border: "1px solid rgba(59, 130, 246, 0.2)",
+                          borderRadius: 2,
                           fontSize: 11,
+                          fontFamily: "Inter",
+                          fontWeight: 500
                         }}
                       />
                     </TableCell>
-                    <TableCell sx={{ borderColor: "#111827", color: "#e5e7eb", fontSize: 13 }}>
+                    <TableCell sx={{ 
+                      borderBottom: "1px solid rgba(255, 255, 255, 0.05)", 
+                      color: "#FFFFFF", 
+                      fontSize: 13,
+                      fontFamily: "Inter",
+                      py: 2.5
+                    }}>
                       {user.city}, {user.country}
                     </TableCell>
-                    <TableCell sx={{ borderColor: "#111827", color: "#9ca3af", fontSize: 13 }}>
+                    <TableCell sx={{ 
+                      borderBottom: "1px solid rgba(255, 255, 255, 0.05)", 
+                      color: "#71717A", 
+                      fontSize: 13,
+                      fontFamily: "Inter",
+                      py: 2.5
+                    }}>
                       {user.lastSeen}
                     </TableCell>
-                    <TableCell sx={{ borderColor: "#111827", color: "#e5e7eb", fontSize: 13 }}>
+                    <TableCell sx={{ 
+                      borderBottom: "1px solid rgba(255, 255, 255, 0.05)", 
+                      color: "#FFFFFF", 
+                      fontSize: 13,
+                      fontFamily: "Inter",
+                      fontWeight: 500,
+                      py: 2.5
+                    }}>
                       {user.totalSearches}
                     </TableCell>
-                    <TableCell align="right" sx={{ borderColor: "#111827" }}>
+                    <TableCell align="right" sx={{ 
+                      borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
+                      py: 2.5
+                    }}>
                       <IconButton
                         size="small"
                         onClick={(e) => {
@@ -275,10 +378,17 @@ export default function Users() {
         PaperProps={{
           sx: {
             mt: 1,
-            bgcolor: "#020617",
-            color: "#e5e7eb",
+            bgcolor: "#1A1D23",
+            color: "#FFFFFF",
             minWidth: 200,
-            border: "1px solid rgba(31,41,55,0.9)",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            borderRadius: 2,
+            boxShadow: "0 10px 25px rgba(0, 0, 0, 0.5)",
+            "& .MuiMenuItem-root": {
+              fontFamily: "Inter",
+              fontSize: "0.875rem",
+              py: 1.5
+            }
           },
         }}
       >

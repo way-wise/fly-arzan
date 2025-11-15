@@ -12,6 +12,9 @@ import {
   Select,
   MenuItem,
   Button,
+  ToggleButtonGroup,
+  ToggleButton,
+  InputAdornment,
 } from "@mui/material";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import ErrorIcon from "@mui/icons-material/Error";
@@ -168,7 +171,7 @@ export default function Alerts() {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-      {/* Header */}
+      {/* Header with Toggle */}
       <Box
         sx={{
           display: "flex",
@@ -179,91 +182,130 @@ export default function Alerts() {
         }}
       >
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 700, color: "#e5e7eb" }}>
-            System alerts
+          <Typography variant="h5" sx={{ fontWeight: 600, color: "#FFFFFF", fontFamily: "Inter" }}>
+            System Alerts
           </Typography>
-          <Typography variant="body2" sx={{ color: "#9ca3af", mt: 0.5 }}>
+          <Typography variant="body2" sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter" }}>
             Monitor alert volume and quickly triage critical issues.
           </Typography>
         </Box>
-        <Button
-          variant="contained"
-          size="small"
-          sx={{
-            textTransform: "none",
-            bgcolor: "#2563eb",
-            "&:hover": { bgcolor: "#1d4ed8" },
-          }}
-        >
-          <NotificationsActiveIcon sx={{ fontSize: 18, mr: 1 }} /> Configure alerts
-        </Button>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <ToggleButtonGroup
+            size="small"
+            value="all"
+            exclusive
+            sx={{
+              bgcolor: "transparent",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              borderRadius: 2,
+              "& .MuiToggleButton-root": {
+                border: "none",
+                color: "#A1A1AA",
+                textTransform: "none",
+                fontSize: 13,
+                fontFamily: "Inter",
+                px: 2,
+                py: 1,
+                "&.Mui-selected": {
+                  bgcolor: "rgba(59, 130, 246, 0.1)",
+                  color: "#3B82F6",
+                  "&:hover": { bgcolor: "rgba(59, 130, 246, 0.15)" },
+                },
+              },
+            }}
+          >
+            <ToggleButton value="all">All Alerts</ToggleButton>
+            <ToggleButton value="active">Active</ToggleButton>
+            <ToggleButton value="resolved">Resolved</ToggleButton>
+          </ToggleButtonGroup>
+          <Button
+            variant="contained"
+            size="small"
+            sx={{
+              textTransform: "none",
+              bgcolor: "#3B82F6",
+              fontFamily: "Inter",
+              "&:hover": { bgcolor: "#2563eb" },
+            }}
+          >
+            <NotificationsActiveIcon sx={{ fontSize: 16, mr: 1 }} /> Configure
+          </Button>
+        </Stack>
       </Box>
 
       {/* Summary row */}
       <Grid container spacing={2.5}>
         <Grid item xs={12} md={3} sx={{ minWidth: 0 }}>
-          <Card sx={{ height: "100%", borderRadius: 3, bgcolor: "#151515", border: "1px solid #262626" }}>
-            <CardHeader
-              title={
-                <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Active alerts</Typography>
-              }
-              sx={{ px: 2.25, pt: 2.25, pb: 0.75 }}
-            />
-            <CardContent sx={{ px: 2.25, pb: 2.25 }}>
-              <Typography sx={{ color: "#e5e7eb", fontSize: 24, fontWeight: 700 }}>{activeCount}</Typography>
-              <Typography sx={{ color: "#f97316", fontSize: 11, mt: 0.5 }}>
+          <Card sx={{ 
+            height: "100%", 
+            borderRadius: 2, 
+            bgcolor: "#1A1D23",
+            backgroundImage: "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)"
+          }}>
+            <CardContent sx={{ p: 3 }}>
+              <Typography sx={{ color: "#71717A", fontSize: 12, fontFamily: "Inter", textTransform: "uppercase", letterSpacing: "0.05em" }}>Active alerts</Typography>
+              <Typography sx={{ color: "#FFFFFF", fontSize: 28, fontWeight: 600, fontFamily: "Inter", mt: 1 }}>{activeCount}</Typography>
+              <Typography sx={{ color: "#F97316", fontSize: 12, mt: 0.5, fontFamily: "Inter" }}>
                 Requires attention
               </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={3} sx={{ minWidth: 0 }}>
-          <Card sx={{ height: "100%", borderRadius: 3, bgcolor: "#151515", border: "1px solid #262626" }}>
-            <CardHeader
-              title={
-                <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Critical</Typography>
-              }
-              sx={{ px: 2.25, pt: 2.25, pb: 0.75 }}
-            />
-            <CardContent sx={{ px: 2.25, pb: 2.25 }}>
-              <Typography sx={{ color: "#e5e7eb", fontSize: 24, fontWeight: 700 }}>{criticalCount}</Typography>
-              <Typography sx={{ color: "#f97316", fontSize: 11, mt: 0.5 }}>
+          <Card sx={{ 
+            height: "100%", 
+            borderRadius: 2, 
+            bgcolor: "#1A1D23",
+            backgroundImage: "linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, rgba(239, 68, 68, 0.02) 100%)",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)"
+          }}>
+            <CardContent sx={{ p: 3 }}>
+              <Typography sx={{ color: "#71717A", fontSize: 12, fontFamily: "Inter", textTransform: "uppercase", letterSpacing: "0.05em" }}>Critical</Typography>
+              <Typography sx={{ color: "#FFFFFF", fontSize: 28, fontWeight: 600, fontFamily: "Inter", mt: 1 }}>{criticalCount}</Typography>
+              <Typography sx={{ color: "#EF4444", fontSize: 12, mt: 0.5, fontFamily: "Inter" }}>
                 Immediate action needed
               </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={3} sx={{ minWidth: 0 }}>
-          <Card sx={{ height: "100%", borderRadius: 3, bgcolor: "#151515", border: "1px solid #262626" }}>
-            <CardHeader
-              title={
-                <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Acknowledged</Typography>
-              }
-              sx={{ px: 2.25, pt: 2.25, pb: 0.75 }}
-            />
-            <CardContent sx={{ px: 2.25, pb: 2.25 }}>
-              <Typography sx={{ color: "#e5e7eb", fontSize: 24, fontWeight: 700 }}>
+          <Card sx={{ 
+            height: "100%", 
+            borderRadius: 2, 
+            bgcolor: "#1A1D23",
+            backgroundImage: "linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, rgba(245, 158, 11, 0.02) 100%)",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)"
+          }}>
+            <CardContent sx={{ p: 3 }}>
+              <Typography sx={{ color: "#71717A", fontSize: 12, fontFamily: "Inter", textTransform: "uppercase", letterSpacing: "0.05em" }}>Acknowledged</Typography>
+              <Typography sx={{ color: "#FFFFFF", fontSize: 28, fontWeight: 600, fontFamily: "Inter", mt: 1 }}>
                 {mockAlerts.filter((a) => a.status === "acknowledged").length}
               </Typography>
-              <Typography sx={{ color: "#fde68a", fontSize: 11, mt: 0.5 }}>
+              <Typography sx={{ color: "#F59E0B", fontSize: 12, mt: 0.5, fontFamily: "Inter" }}>
                 Being investigated
               </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={3} sx={{ minWidth: 0 }}>
-          <Card sx={{ height: "100%", borderRadius: 3, bgcolor: "#151515", border: "1px solid #262626" }}>
-            <CardHeader
-              title={
-                <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Resolved today</Typography>
-              }
-              sx={{ px: 2.25, pt: 2.25, pb: 0.75 }}
-            />
-            <CardContent sx={{ px: 2.25, pb: 2.25 }}>
-              <Typography sx={{ color: "#e5e7eb", fontSize: 24, fontWeight: 700 }}>
+          <Card sx={{ 
+            height: "100%", 
+            borderRadius: 2, 
+            bgcolor: "#1A1D23",
+            backgroundImage: "linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(16, 185, 129, 0.02) 100%)",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)"
+          }}>
+            <CardContent sx={{ p: 3 }}>
+              <Typography sx={{ color: "#71717A", fontSize: 12, fontFamily: "Inter", textTransform: "uppercase", letterSpacing: "0.05em" }}>Resolved today</Typography>
+              <Typography sx={{ color: "#FFFFFF", fontSize: 28, fontWeight: 600, fontFamily: "Inter", mt: 1 }}>
                 {mockAlerts.filter((a) => a.status === "resolved").length}
               </Typography>
-              <Typography sx={{ color: "#4ade80", fontSize: 11, mt: 0.5 }}>
+              <Typography sx={{ color: "#10B981", fontSize: 12, mt: 0.5, fontFamily: "Inter" }}>
                 Successfully resolved
               </Typography>
             </CardContent>
@@ -274,19 +316,26 @@ export default function Alerts() {
       {/* Charts row */}
       <Grid container spacing={2.5}>
         <Grid item xs={12} md={7} sx={{ minWidth: 0 }}>
-          <Card sx={{ height: "100%", borderRadius: 3, bgcolor: "#151515", border: "1px solid #262626" }}>
+          <Card sx={{ 
+            height: "100%", 
+            borderRadius: 2, 
+            bgcolor: "#1A1D23",
+            backgroundImage: "linear-gradient(135deg, rgba(59, 130, 246, 0.03) 0%, rgba(16, 185, 129, 0.02) 100%)",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)"
+          }}>
             <CardHeader
               title={
-                <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>
+                <Typography sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter" }}>
                   Alert trends (7d)
                 </Typography>
               }
               subheader={
-                <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+                <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
                   Volume by severity across the last week.
                 </Typography>
               }
-              sx={{ px: 2.5, pt: 2.25, pb: 1.5 }}
+              sx={{ px: 3, pt: 3, pb: 2 }}
             />
             <CardContent sx={{ px: 2.5, pb: 2.5 }}>
               <Box sx={{ height: 260 }}>
@@ -307,19 +356,26 @@ export default function Alerts() {
         </Grid>
 
         <Grid item xs={12} md={5} sx={{ minWidth: 0 }}>
-          <Card sx={{ height: "100%", borderRadius: 3, bgcolor: "#151515", border: "1px solid #262626" }}>
+          <Card sx={{ 
+            height: "100%", 
+            borderRadius: 2, 
+            bgcolor: "#1A1D23",
+            backgroundImage: "linear-gradient(135deg, rgba(245, 158, 11, 0.03) 0%, rgba(239, 68, 68, 0.02) 100%)",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)"
+          }}>
             <CardHeader
               title={
-                <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>
+                <Typography sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter" }}>
                   Response time (24h)
                 </Typography>
               }
               subheader={
-                <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+                <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
                   API latency with threshold overlay.
                 </Typography>
               }
-              sx={{ px: 2.5, pt: 2.25, pb: 1.5 }}
+              sx={{ px: 3, pt: 3, pb: 2 }}
             />
             <CardContent sx={{ px: 2.5, pb: 2.5 }}>
               <Box sx={{ height: 260 }}>
@@ -354,19 +410,25 @@ export default function Alerts() {
       </Grid>
 
       {/* Filters + alerts list */}
-      <Card sx={{ borderRadius: 3, bgcolor: "#151515", border: "1px solid #262626" }}>
+      <Card sx={{ 
+        borderRadius: 2, 
+        bgcolor: "#1A1D23",
+        backgroundImage: "linear-gradient(135deg, rgba(59, 130, 246, 0.02) 0%, rgba(168, 85, 247, 0.02) 100%)",
+        border: "1px solid rgba(255, 255, 255, 0.08)",
+        boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)"
+      }}>
         <CardHeader
           title={
-            <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>All alerts</Typography>
+            <Typography sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter" }}>All alerts</Typography>
           }
           subheader={
-            <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+            <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
               Filter and search through current and historical alerts.
             </Typography>
           }
-          sx={{ px: 2.5, pt: 2.25, pb: 1.5 }}
+          sx={{ px: 3, pt: 3, pb: 2 }}
         />
-        <CardContent sx={{ px: 2.5, pb: 2.5 }}>
+        <CardContent sx={{ px: 3, pb: 3 }}>
           <Stack spacing={2} sx={{ mb: 2 }}>
             <Stack direction={{ xs: "column", md: "row" }} spacing={1.5} alignItems="center">
               <Box sx={{ flex: 1, width: "100%" }}>
@@ -378,13 +440,20 @@ export default function Alerts() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   InputProps={{
                     startAdornment: (
-                      <SearchIcon sx={{ fontSize: 18, color: "#6b7280", mr: 1 }} />
+                      <InputAdornment position="start">
+                        <SearchIcon sx={{ fontSize: 18, color: "#71717A" }} />
+                      </InputAdornment>
                     ),
                     sx: {
-                      bgcolor: "#101010",
-                      borderRadius: 999,
-                      fontSize: 13,
-                      color: "#e5e7eb",
+                      bgcolor: "#0B0F16",
+                      borderRadius: 2,
+                      fontSize: 14,
+                      fontFamily: "Inter",
+                      color: "#FFFFFF",
+                      border: "1px solid rgba(255, 255, 255, 0.08)",
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        border: "none"
+                      }
                     },
                   }}
                 />
@@ -397,9 +466,15 @@ export default function Alerts() {
                   displayEmpty
                   sx={{
                     minWidth: 140,
-                    bgcolor: "#101010",
-                    color: "#e5e7eb",
-                    fontSize: 13,
+                    bgcolor: "#0B0F16",
+                    color: "#FFFFFF",
+                    fontSize: 14,
+                    fontFamily: "Inter",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    borderRadius: 2,
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      border: "none"
+                    }
                   }}
                 >
                   <MenuItem value="all">All severity</MenuItem>
@@ -414,9 +489,15 @@ export default function Alerts() {
                   displayEmpty
                   sx={{
                     minWidth: 140,
-                    bgcolor: "#101010",
-                    color: "#e5e7eb",
-                    fontSize: 13,
+                    bgcolor: "#0B0F16",
+                    color: "#FFFFFF",
+                    fontSize: 14,
+                    fontFamily: "Inter",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    borderRadius: 2,
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      border: "none"
+                    }
                   }}
                 >
                   <MenuItem value="all">All status</MenuItem>
@@ -549,21 +630,27 @@ export default function Alerts() {
       </Card>
 
       {/* Notification channels */}
-      <Card sx={{ borderRadius: 3, bgcolor: "#151515", border: "1px solid #262626" }}>
+      <Card sx={{ 
+        borderRadius: 2, 
+        bgcolor: "#1A1D23",
+        backgroundImage: "linear-gradient(135deg, rgba(16, 185, 129, 0.03) 0%, rgba(59, 130, 246, 0.02) 100%)",
+        border: "1px solid rgba(255, 255, 255, 0.08)",
+        boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)"
+      }}>
         <CardHeader
           title={
-            <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>
+            <Typography sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter" }}>
               Notification channels
             </Typography>
           }
           subheader={
-            <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+            <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
               Configure how your team receives alerts.
             </Typography>
           }
-          sx={{ px: 2.5, pt: 2.25, pb: 1.5 }}
+          sx={{ px: 3, pt: 3, pb: 2 }}
         />
-        <CardContent sx={{ px: 2.5, pb: 2.5 }}>
+        <CardContent sx={{ px: 3, pb: 3 }}>
           <Grid container spacing={2.5}>
             {mockNotificationChannels.map((channel) => (
               <Grid item xs={12} md={3} key={channel.name} sx={{ minWidth: 0 }}>

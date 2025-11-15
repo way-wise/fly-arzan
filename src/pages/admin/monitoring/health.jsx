@@ -175,10 +175,10 @@ export default function APIHealth() {
         }}
       >
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 700, color: "#e5e7eb" }}>
+          <Typography variant="h5" sx={{ fontWeight: 700, color: "#FFFFFF", fontFamily: "Inter, sans-serif" }}>
             API health
           </Typography>
-          <Typography variant="body2" sx={{ color: "#9ca3af", mt: 0.5 }}>
+          <Typography variant="body2" sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter, sans-serif" }}>
             Real-time status of backend, Amadeus and infrastructure services.
           </Typography>
         </Box>
@@ -210,16 +210,18 @@ export default function APIHealth() {
           <Card
             sx={{
               height: "100%",
-              borderRadius: 3,
-              bgcolor: "#151515",
-              border: "1px solid #262626",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              background: "linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.02) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
               title={
                 <Stack direction="row" spacing={1.5} alignItems="center">
                   <CheckCircleIcon sx={{ fontSize: 24, color: "#4ade80" }} />
-                  <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>
+                  <Typography sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter, sans-serif" }}>
                     All systems operational
                   </Typography>
                 </Stack>
@@ -229,20 +231,20 @@ export default function APIHealth() {
             <CardContent sx={{ px: 2.5, pb: 2.5 }}>
               <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
                 <Box>
-                  <Typography sx={{ color: "#9ca3af", fontSize: 13 }}>Healthy services</Typography>
-                  <Typography sx={{ color: "#e5e7eb", fontSize: 26, fontWeight: 700, mt: 0.5 }}>
+                    <Typography sx={{ color: "#71717A", fontSize: 13, fontFamily: "Inter, sans-serif" }}>Healthy services</Typography>
+                  <Typography sx={{ color: "#FFFFFF", fontSize: 26, fontWeight: 600, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
                     {operationalCount}/{totalServices}
                   </Typography>
-                  <Typography sx={{ color: "#9ca3af", fontSize: 12, mt: 0.5 }}>
+                  <Typography sx={{ color: "#71717A", fontSize: 12, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
                     Backend, Amadeus, DB, cache and integrations
                   </Typography>
                 </Box>
                 <Box sx={{ textAlign: "right" }}>
-                  <Typography sx={{ color: "#9ca3af", fontSize: 13 }}>Overall uptime (7d)</Typography>
-                  <Typography sx={{ color: "#4ade80", fontSize: 26, fontWeight: 700, mt: 0.5 }}>
+                  <Typography sx={{ color: "#71717A", fontSize: 13, fontFamily: "Inter, sans-serif" }}>Overall uptime (7d)</Typography>
+                  <Typography sx={{ color: "#4ade80", fontSize: 26, fontWeight: 600, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
                     99.98%
                   </Typography>
-                  <Typography sx={{ color: "#9ca3af", fontSize: 12, mt: 0.5 }}>
+                  <Typography sx={{ color: "#71717A", fontSize: 12, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
                     SLA target: 99.95%
                   </Typography>
                 </Box>
@@ -257,19 +259,21 @@ export default function APIHealth() {
               <Card
                 sx={{
                   height: "100%",
-                  borderRadius: 3,
-                  bgcolor: "#151515",
-                  border: "1px solid #262626",
+                  borderRadius: 2,
+                  bgcolor: "#1A1D23",
+                  background: "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                  boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
                 }}
               >
-                <CardContent sx={{ p: 2.25 }}>
+                <CardContent sx={{ p: 3 }}>
                   <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
                     <Box>
-                      <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Avg response time</Typography>
-                      <Typography sx={{ color: "#e5e7eb", fontSize: 20, fontWeight: 600, mt: 0.5 }}>
+                      <Typography sx={{ color: "#71717A", fontSize: 12, fontFamily: "Inter, sans-serif", textTransform: "uppercase", letterSpacing: "0.05em" }}>Avg response time</Typography>
+                      <Typography sx={{ color: "#FFFFFF", fontSize: 20, fontWeight: 600, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
                         178 ms
                       </Typography>
-                      <Typography sx={{ color: "#4ade80", fontSize: 11, mt: 0.5 }}>
+                      <Typography sx={{ color: "#4ade80", fontSize: 11, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
                         -12 ms vs yesterday
                       </Typography>
                     </Box>
@@ -282,19 +286,21 @@ export default function APIHealth() {
               <Card
                 sx={{
                   height: "100%",
-                  borderRadius: 3,
-                  bgcolor: "#151515",
-                  border: "1px solid #262626",
+                  borderRadius: 2,
+                  bgcolor: "#1A1D23",
+                  background: "linear-gradient(135deg, rgba(251, 113, 133, 0.05) 0%, rgba(251, 113, 133, 0.02) 100%)",
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                  boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
                 }}
               >
-                <CardContent sx={{ p: 2.25 }}>
+                <CardContent sx={{ p: 3 }}>
                   <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
                     <Box>
-                      <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Active incidents</Typography>
-                      <Typography sx={{ color: "#e5e7eb", fontSize: 20, fontWeight: 600, mt: 0.5 }}>
+                      <Typography sx={{ color: "#71717A", fontSize: 12, fontFamily: "Inter, sans-serif", textTransform: "uppercase", letterSpacing: "0.05em" }}>Active incidents</Typography>
+                      <Typography sx={{ color: "#FFFFFF", fontSize: 20, fontWeight: 600, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
                         1
                       </Typography>
-                      <Typography sx={{ color: "#facc15", fontSize: 11, mt: 0.5 }}>
+                      <Typography sx={{ color: "#facc15", fontSize: 11, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
                         Under investigation
                       </Typography>
                     </Box>
@@ -307,19 +313,21 @@ export default function APIHealth() {
               <Card
                 sx={{
                   height: "100%",
-                  borderRadius: 3,
-                  bgcolor: "#151515",
-                  border: "1px solid #262626",
+                  borderRadius: 2,
+                  bgcolor: "#1A1D23",
+                  background: "linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(147, 51, 234, 0.02) 100%)",
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                  boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
                 }}
               >
-                <CardContent sx={{ p: 2.25 }}>
+                <CardContent sx={{ p: 3 }}>
                   <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
                     <Box>
-                      <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Error rate</Typography>
-                      <Typography sx={{ color: "#e5e7eb", fontSize: 20, fontWeight: 600, mt: 0.5 }}>
+                      <Typography sx={{ color: "#71717A", fontSize: 12, fontFamily: "Inter, sans-serif", textTransform: "uppercase", letterSpacing: "0.05em" }}>Error rate</Typography>
+                      <Typography sx={{ color: "#FFFFFF", fontSize: 20, fontWeight: 600, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
                         0.02%
                       </Typography>
-                      <Typography sx={{ color: "#4ade80", fontSize: 11, mt: 0.5 }}>
+                      <Typography sx={{ color: "#4ade80", fontSize: 11, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
                         -0.01% vs yesterday
                       </Typography>
                     </Box>
@@ -338,9 +346,11 @@ export default function APIHealth() {
           <Card
             sx={{
               height: "100%",
-              borderRadius: 3,
-              bgcolor: "#151515",
-              border: "1px solid #262626",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              background: "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
@@ -381,9 +391,11 @@ export default function APIHealth() {
           <Card
             sx={{
               height: "100%",
-              borderRadius: 3,
-              bgcolor: "#151515",
-              border: "1px solid #262626",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              background: "linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.02) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
@@ -434,9 +446,11 @@ export default function APIHealth() {
       {/* Services status list */}
       <Card
         sx={{
-          borderRadius: 3,
-          bgcolor: "#151515",
-          border: "1px solid #262626",
+          borderRadius: 2,
+          bgcolor: "#1A1D23",
+          background: "linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(147, 51, 234, 0.02) 100%)",
+          border: "1px solid rgba(255, 255, 255, 0.08)",
+          boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
         }}
       >
         <CardHeader
@@ -525,9 +539,11 @@ export default function APIHealth() {
       {/* Recent incidents */}
       <Card
         sx={{
-          borderRadius: 3,
-          bgcolor: "#151515",
-          border: "1px solid #262626",
+          borderRadius: 2,
+          bgcolor: "#1A1D23",
+          background: "linear-gradient(135deg, rgba(251, 113, 133, 0.05) 0%, rgba(251, 113, 133, 0.02) 100%)",
+          border: "1px solid rgba(255, 255, 255, 0.08)",
+          boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
         }}
       >
         <CardHeader

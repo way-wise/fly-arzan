@@ -86,10 +86,10 @@ export default function EngagementMetrics() {
         }}
       >
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 700, color: "#e5e7eb" }}>
+          <Typography variant="h5" sx={{ fontWeight: 700, color: "#FFFFFF", fontFamily: "Inter, sans-serif" }}>
             Search Analytics
           </Typography>
-          <Typography variant="body2" sx={{ color: "#9ca3af", mt: 0.5 }}>
+          <Typography variant="body2" sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter, sans-serif" }}>
             Understand how users search for flights and interact with results.
           </Typography>
         </Box>
@@ -146,18 +146,20 @@ export default function EngagementMetrics() {
         <Grid item xs={12} md={3}>
           <Card
             sx={{
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.9)",
-              border: "1px solid rgba(59,130,246,0.35)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              background: "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
-            <CardContent sx={{ p: 2.25 }}>
+            <CardContent sx={{ p: 3 }}>
               <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
                 <Box>
-                  <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter, sans-serif", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                     Total sessions
                   </Typography>
-                  <Typography variant="h6" sx={{ color: "#e5e7eb", fontWeight: 700, mt: 0.5 }}>
+                  <Typography variant="h6" sx={{ color: "#FFFFFF", fontWeight: 600, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
                     {kpis.sessions.value.toLocaleString()}
                   </Typography>
                   <Stack direction="row" spacing={0.5} sx={{ mt: 0.5 }} alignItems="center">
@@ -188,18 +190,20 @@ export default function EngagementMetrics() {
         <Grid item xs={12} md={3}>
           <Card
             sx={{
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.9)",
-              border: "1px solid rgba(147,51,234,0.35)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              background: "linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(147, 51, 234, 0.02) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
-            <CardContent sx={{ p: 2.25 }}>
+            <CardContent sx={{ p: 3 }}>
               <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
                 <Box>
-                  <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter, sans-serif", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                     Avg session duration
                   </Typography>
-                  <Typography variant="h6" sx={{ color: "#e5e7eb", fontWeight: 700, mt: 0.5 }}>
+                  <Typography variant="h6" sx={{ color: "#FFFFFF", fontWeight: 600, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
                     {kpis.avgDuration.value}
                   </Typography>
                   <Stack direction="row" spacing={0.5} sx={{ mt: 0.5 }} alignItems="center">
@@ -230,18 +234,20 @@ export default function EngagementMetrics() {
         <Grid item xs={12} md={3}>
           <Card
             sx={{
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.9)",
-              border: "1px solid rgba(34,197,94,0.35)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              background: "linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.02) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
-            <CardContent sx={{ p: 2.25 }}>
+            <CardContent sx={{ p: 3 }}>
               <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
                 <Box>
-                  <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter, sans-serif", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                     Click-through rate
                   </Typography>
-                  <Typography variant="h6" sx={{ color: "#e5e7eb", fontWeight: 700, mt: 0.5 }}>
+                  <Typography variant="h6" sx={{ color: "#FFFFFF", fontWeight: 600, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
                     {kpis.ctr.value}%
                   </Typography>
                   <Stack direction="row" spacing={0.5} sx={{ mt: 0.5 }} alignItems="center">
@@ -272,18 +278,20 @@ export default function EngagementMetrics() {
         <Grid item xs={12} md={3}>
           <Card
             sx={{
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.9)",
-              border: "1px solid rgba(248,250,252,0.16)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              background: "linear-gradient(135deg, rgba(75, 85, 99, 0.05) 0%, rgba(75, 85, 99, 0.02) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
-            <CardContent sx={{ p: 2.25 }}>
+            <CardContent sx={{ p: 3 }}>
               <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
                 <Box>
-                  <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter, sans-serif", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                     Bounce rate
                   </Typography>
-                  <Typography variant="h6" sx={{ color: "#e5e7eb", fontWeight: 700, mt: 0.5 }}>
+                  <Typography variant="h6" sx={{ color: "#FFFFFF", fontWeight: 600, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
                     {kpis.bounceRate.value}%
                   </Typography>
                   <Typography variant="caption" sx={{ color: "#a3e635", mt: 0.5 }}>
@@ -302,9 +310,11 @@ export default function EngagementMetrics() {
           <Card
             sx={{
               height: "100%",
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.95)",
-              border: "1px solid rgba(51,65,85,0.9)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              background: "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
@@ -366,9 +376,11 @@ export default function EngagementMetrics() {
           <Card
             sx={{
               height: "100%",
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.95)",
-              border: "1px solid rgba(51,65,85,0.9)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              background: "linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.02) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
@@ -407,9 +419,11 @@ export default function EngagementMetrics() {
           <Card
             sx={{
               height: "100%",
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.95)",
-              border: "1px solid rgba(51,65,85,0.9)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              background: "linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(147, 51, 234, 0.02) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
@@ -462,9 +476,11 @@ export default function EngagementMetrics() {
           <Card
             sx={{
               height: "100%",
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.95)",
-              border: "1px solid rgba(51,65,85,0.9)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              background: "linear-gradient(135deg, rgba(251, 113, 133, 0.05) 0%, rgba(251, 113, 133, 0.02) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader

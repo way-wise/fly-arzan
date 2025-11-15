@@ -118,10 +118,10 @@ export default function TrendCharts() {
         }}
       >
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 700, color: "#e5e7eb" }}>
+          <Typography variant="h5" sx={{ fontWeight: 700, color: "#FFFFFF", fontFamily: "Inter, sans-serif" }}>
             Trend charts
           </Typography>
-          <Typography variant="body2" sx={{ color: "#9ca3af", mt: 0.5 }}>
+          <Typography variant="body2" sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter, sans-serif" }}>
             Long-term evolution of searches, prices, users and conversion.
           </Typography>
         </Box>
@@ -133,7 +133,7 @@ export default function TrendCharts() {
             onChange={(_, value) => value && setTimeRange(value)}
             sx={{
               bgcolor: "transparent",
-              border: "1px solid #262626",
+              border: "1px solid rgba(60, 66, 72, 0.3)",
               borderRadius: 2,
               p: 0.25,
               "& .MuiToggleButton-root": {
@@ -184,31 +184,28 @@ export default function TrendCharts() {
           <Grid item xs={12} md={3} key={metric.title} sx={{ minWidth: 0 }}>
             <Card
               sx={{
-                borderRadius: 3,
-                bgcolor: "rgba(15,23,42,0.9)",
-                border: "1px solid rgba(51,65,85,0.9)",
+                borderRadius: 2,
+                bgcolor: "#1A1D23",
+                backgroundImage: `linear-gradient(135deg, rgba(${index === 0 ? '59, 130, 246' : index === 1 ? '245, 158, 11' : index === 2 ? '16, 185, 129' : '168, 85, 247'}, 0.05) 0%, rgba(${index === 0 ? '59, 130, 246' : index === 1 ? '245, 158, 11' : index === 2 ? '16, 185, 129' : '168, 85, 247'}, 0.02) 100%)`,
+                border: "1px solid rgba(255, 255, 255, 0.08)",
+                boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)"
               }}
             >
-              <CardHeader
-                title={
-                  <Typography sx={{ fontSize: 13, color: "#9ca3af" }}>
-                    {metric.title}
-                  </Typography>
-                }
-                sx={{ px: 2.25, pt: 2.25, pb: 0.5 }}
-              />
-              <CardContent sx={{ px: 2.25, pb: 2.25 }}>
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <Typography sx={{ fontSize: 22, fontWeight: 600, color: "#e5e7eb" }}>
+              <CardContent sx={{ p: 3 }}>
+                <Typography sx={{ fontSize: 12, color: "#71717A", fontFamily: "Inter", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                  {metric.title}
+                </Typography>
+                <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: 1 }}>
+                  <Typography sx={{ fontSize: 28, fontWeight: 600, color: "#FFFFFF", fontFamily: "Inter" }}>
                     {metric.value}
                   </Typography>
                   {metric.trend === "up" ? (
-                    <TrendingUpIcon sx={{ fontSize: 18, color: "#4ade80" }} />
+                    <TrendingUpIcon sx={{ fontSize: 18, color: "#10B981" }} />
                   ) : (
-                    <TrendingDownIcon sx={{ fontSize: 18, color: "#f97316" }} />
+                    <TrendingDownIcon sx={{ fontSize: 18, color: "#F97316" }} />
                   )}
                 </Stack>
-                <Typography sx={{ fontSize: 11, color: "#9ca3af", mt: 0.5 }}>
+                <Typography sx={{ fontSize: 12, color: "#71717A", mt: 0.5, fontFamily: "Inter" }}>
                   {metric.description}
                 </Typography>
               </CardContent>
@@ -222,9 +219,11 @@ export default function TrendCharts() {
           <Card
             sx={{
               height: "100%",
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.95)",
-              border: "1px solid rgba(51,65,85,0.9)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              background: "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
@@ -282,9 +281,11 @@ export default function TrendCharts() {
           <Card
             sx={{
               height: "100%",
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.95)",
-              border: "1px solid rgba(51,65,85,0.9)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              background: "linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.02) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
@@ -345,9 +346,11 @@ export default function TrendCharts() {
           <Card
             sx={{
               height: "100%",
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.95)",
-              border: "1px solid rgba(51,65,85,0.9)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              backgroundImage: "linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)"
             }}
           >
             <CardHeader
@@ -385,9 +388,11 @@ export default function TrendCharts() {
           <Card
             sx={{
               height: "100%",
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.95)",
-              border: "1px solid rgba(51,65,85,0.9)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              backgroundImage: "linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(245, 158, 11, 0.02) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)"
             }}
           >
             <CardHeader
@@ -435,9 +440,11 @@ export default function TrendCharts() {
 
       <Card
         sx={{
-          borderRadius: 3,
-          bgcolor: "rgba(15,23,42,1)",
-          border: "1px solid rgba(51,65,85,0.9)",
+          borderRadius: 2,
+          bgcolor: "#1A1D23",
+          background: "linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(147, 51, 234, 0.02) 100%)",
+          border: "1px solid rgba(255, 255, 255, 0.08)",
+          boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
         }}
       >
         <CardHeader
@@ -456,16 +463,18 @@ export default function TrendCharts() {
             <Grid item xs={12} md={6}>
               <Box
                 sx={{
-                  p: 2,
+                  p: 3,
                   borderRadius: 2,
-                  bgcolor: "rgba(15,23,42,0.95)",
-                  border: "1px solid rgba(31,41,55,0.9)",
+                  bgcolor: "#0B0F16",
+                  background: "linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0.03) 100%)",
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                  boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
                 }}
               >
-                <Typography sx={{ fontWeight: 600, color: "#e5e7eb", mb: 0.5, fontSize: 14 }}>
+                <Typography sx={{ fontWeight: 600, color: "#FFFFFF", mb: 0.5, fontSize: 14, fontFamily: "Inter, sans-serif" }}>
                   Peak season
                 </Typography>
-                <Typography sx={{ fontSize: 13, color: "#9ca3af" }}>
+                <Typography sx={{ fontSize: 13, color: "#71717A", fontFamily: "Inter, sans-serif" }}>
                   July shows the highest search volume with 24,560 searches — peak travel season.
                 </Typography>
               </Box>
@@ -473,16 +482,18 @@ export default function TrendCharts() {
             <Grid item xs={12} md={6}>
               <Box
                 sx={{
-                  p: 2,
+                  p: 3,
                   borderRadius: 2,
-                  bgcolor: "rgba(15,23,42,0.95)",
-                  border: "1px solid rgba(31,41,55,0.9)",
+                  bgcolor: "#0B0F16",
+                  background: "linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(34, 197, 94, 0.03) 100%)",
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                  boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
                 }}
               >
-                <Typography sx={{ fontWeight: 600, color: "#e5e7eb", mb: 0.5, fontSize: 14 }}>
+                <Typography sx={{ fontWeight: 600, color: "#FFFFFF", mb: 0.5, fontSize: 14, fontFamily: "Inter, sans-serif" }}>
                   Price volatility
                 </Typography>
-                <Typography sx={{ fontSize: 13, color: "#9ca3af" }}>
+                <Typography sx={{ fontSize: 13, color: "#71717A", fontFamily: "Inter, sans-serif" }}>
                   Summer months (Jun–Aug) show ~35% higher average prices compared to winter.
                 </Typography>
               </Box>
@@ -490,16 +501,18 @@ export default function TrendCharts() {
             <Grid item xs={12} md={6}>
               <Box
                 sx={{
-                  p: 2,
+                  p: 3,
                   borderRadius: 2,
-                  bgcolor: "rgba(15,23,42,0.95)",
-                  border: "1px solid rgba(31,41,55,0.9)",
+                  bgcolor: "#0B0F16",
+                  background: "linear-gradient(135deg, rgba(251, 113, 133, 0.08) 0%, rgba(251, 113, 133, 0.03) 100%)",
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                  boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
                 }}
               >
-                <Typography sx={{ fontWeight: 600, color: "#e5e7eb", mb: 0.5, fontSize: 14 }}>
+                <Typography sx={{ fontWeight: 600, color: "#FFFFFF", mb: 0.5, fontSize: 14, fontFamily: "Inter, sans-serif" }}>
                   User retention
                 </Typography>
-                <Typography sx={{ fontSize: 13, color: "#9ca3af" }}>
+                <Typography sx={{ fontSize: 13, color: "#71717A", fontFamily: "Inter, sans-serif" }}>
                   Returning users consistently outnumber new users by ~4:1, indicating strong loyalty.
                 </Typography>
               </Box>
@@ -507,16 +520,18 @@ export default function TrendCharts() {
             <Grid item xs={12} md={6}>
               <Box
                 sx={{
-                  p: 2,
+                  p: 3,
                   borderRadius: 2,
-                  bgcolor: "rgba(15,23,42,0.95)",
-                  border: "1px solid rgba(31,41,55,0.9)",
+                  bgcolor: "#0B0F16",
+                  background: "linear-gradient(135deg, rgba(147, 51, 234, 0.08) 0%, rgba(147, 51, 234, 0.03) 100%)",
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                  boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
                 }}
               >
-                <Typography sx={{ fontWeight: 600, color: "#e5e7eb", mb: 0.5, fontSize: 14 }}>
+                <Typography sx={{ fontWeight: 600, color: "#FFFFFF", mb: 0.5, fontSize: 14, fontFamily: "Inter, sans-serif" }}>
                   Conversion improvement
                 </Typography>
-                <Typography sx={{ fontSize: 13, color: "#9ca3af" }}>
+                <Typography sx={{ fontSize: 13, color: "#71717A", fontFamily: "Inter, sans-serif" }}>
                   Conversion rate improved from 7.2% to 8.0% over the year (~11% uplift).
                 </Typography>
               </Box>

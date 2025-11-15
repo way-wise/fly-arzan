@@ -147,7 +147,14 @@ const AdminLayout = () => {
   const drawer = <AdminLayoutDrawer onItemClick={() => setMobileOpen(false)} />;
 
   return (
-    <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "#0A0A0A" }}>
+    <Box 
+      sx={{ 
+        display: "flex", 
+        minHeight: "100vh", 
+        bgcolor: "#0B0F16",
+        fontFamily: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+      }}
+    >
       <CssBaseline />
 
       <AppBar
@@ -156,12 +163,14 @@ const AdminLayout = () => {
         sx={{
           ml: { md: `${drawerWidth}px` },
           width: { md: `calc(100% - ${drawerWidth}px)` },
-          bgcolor: "#0A0A0A",
-          backdropFilter: "blur(18px)",
-          borderBottom: "1px solid #262626",
+          bgcolor: "#1A1D23",
+          backgroundImage: "none",
+          backdropFilter: "none",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+          boxShadow: "none",
         }}
       >
-        <Toolbar sx={{ minHeight: 72, px: 3 }}>
+        <Toolbar sx={{ minHeight: 64, px: 3 }}>
           <Stack direction="row" alignItems="center" spacing={2} sx={{ flex: 1 }}>
             <IconButton
               color="inherit"
@@ -173,10 +182,10 @@ const AdminLayout = () => {
             </IconButton>
 
             <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <Typography variant="h6" sx={{ fontWeight: 600 }}>
+              <Typography variant="h6" sx={{ fontWeight: 600, color: "#FFFFFF", fontFamily: "Inter" }}>
                 Fly Arzan Admin
               </Typography>
-              <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+              <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
                 Control center for analytics, monitoring and users
               </Typography>
             </Box>
@@ -185,10 +194,10 @@ const AdminLayout = () => {
           <Stack direction="row" spacing={2} alignItems="center">
             <Stack direction="row" spacing={1.5} alignItems="center">
               <Box sx={{ textAlign: "right" }}>
-                <Typography variant="body2" sx={{ color: "#e5e7eb", fontWeight: 500 }}>
+                <Typography variant="body2" sx={{ color: "#FFFFFF", fontWeight: 500, fontFamily: "Inter" }}>
                   Admin User
                 </Typography>
-                <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+                <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
                   admin@flyarzan.com
                 </Typography>
               </Box>
@@ -216,9 +225,11 @@ const AdminLayout = () => {
                 sx: {
                   mt: 1,
                   minWidth: 260,
-                  bgcolor: "#0A0A0A",
-                  color: "#e5e7eb",
-                  border: "1px solid #262626",
+                  bgcolor: "#1A1D23",
+                  color: "#FFFFFF",
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                  borderRadius: 2,
+                  boxShadow: "0 10px 25px rgba(0, 0, 0, 0.5)",
                 },
               }}
             >
@@ -258,8 +269,9 @@ const AdminLayout = () => {
             "& .MuiDrawer-paper": {
               width: drawerWidth,
               boxSizing: "border-box",
-              borderRight: "1px solid #262626",
-              bgcolor: "#0A0A0A",
+              borderRight: "1px solid rgba(255, 255, 255, 0.08)",
+              bgcolor: "#1A1D23",
+              backgroundImage: "none",
             },
           }}
         >
@@ -272,8 +284,9 @@ const AdminLayout = () => {
         sx={{
           flexGrow: 1,
           p: 3,
-          pt: 12,
-          bgcolor: "#0A0A0A",
+          pt: 10,
+          bgcolor: "#000000",
+          backgroundImage: "radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.03) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.02) 0%, transparent 50%)",
         }}
       >
         <Outlet />
@@ -298,8 +311,8 @@ const AdminLayoutDrawer = ({ onItemClick = () => {} }) => {
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        bgcolor: "#0A0A0A",
-        color: "#e5e7eb",
+        bgcolor: "#1A1D23",
+        color: "#FFFFFF",
       }}
     >
       <Box
@@ -307,9 +320,9 @@ const AdminLayoutDrawer = ({ onItemClick = () => {} }) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          height: 72,
+          height: 64,
           px: 2,
-          borderBottom: "1px solid #262626",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
         }}
       >
         <Link to="/admin" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
@@ -332,7 +345,8 @@ const AdminLayoutDrawer = ({ onItemClick = () => {} }) => {
                 display: "block",
                 textTransform: "uppercase",
                 letterSpacing: 0.8,
-                color: "#64748b",
+                color: "#71717A",
+                fontFamily: "Inter",
               }}
             >
               {section.title}
@@ -347,35 +361,48 @@ const AdminLayoutDrawer = ({ onItemClick = () => {} }) => {
                     component={Link}
                     to={item.path}
                     sx={{
-                      mx: 1.5,
+                      mx: 2,
                       mb: 0.5,
                       borderRadius: 1.5,
-                      px: 1.75,
-                      py: 1,
-                      background: active
-                        ? "linear-gradient(90deg, rgba(30,64,175,0.95), rgba(15,23,42,0.95))"
+                      px: 2,
+                      py: 1.25,
+                      background: active 
+                        ? "linear-gradient(90deg, rgba(59, 130, 246, 0.15), rgba(59, 130, 246, 0.05))" 
                         : "transparent",
-                      "& .MuiListItemIcon-root": { color: active ? "#60a5fa" : "#6b7280" },
-                      "& .MuiTypography-root": { color: active ? "#e5e7eb" : "#9ca3af", fontWeight: active ? 600 : 500 },
-                      "&:hover": {
-                        background: active
-                          ? "linear-gradient(90deg, rgba(30,64,175,0.95), rgba(15,23,42,0.95))"
-                          : "transparent",
+                      "& .MuiListItemIcon-root": { 
+                        color: active ? "#3B82F6" : "#71717A",
+                        minWidth: 20,
+                        mr: 1.5
                       },
-                      "&:hover .MuiTypography-root": { color: active ? "#e5e7eb" : "#60a5fa" },
-                      "&:hover .MuiListItemIcon-root": { color: "#60a5fa" },
+                      "& .MuiTypography-root": { 
+                        color: active ? "#FFFFFF" : "#A1A1AA", 
+                        fontWeight: active ? 500 : 400,
+                        fontFamily: "Inter",
+                        fontSize: "0.875rem"
+                      },
+                      "&:hover": {
+                        background: active 
+                          ? "linear-gradient(90deg, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.08))" 
+                          : "rgba(255, 255, 255, 0.05)",
+                      },
+                      "&:hover .MuiTypography-root": { color: "#FFFFFF" },
+                      "&:hover .MuiListItemIcon-root": { color: "#3B82F6" },
+                      transition: "all 0.2s ease-in-out",
                     }}
                     onClick={onItemClick}
                   >
-                    <ListItemIcon sx={{ minWidth: 36, color: active ? "#60a5fa" : "#6b7280" }}>
+                    <ListItemIcon>
                       <Icon fontSize="small" />
                     </ListItemIcon>
                     <ListItemText
-                      primary={
-                        <Typography variant="body2" sx={{ fontWeight: active ? 600 : 500 }}>
-                          {item.label}
-                        </Typography>
-                      }
+                      primary={item.label}
+                      sx={{
+                        "& .MuiTypography-root": {
+                          fontFamily: "Inter",
+                          fontSize: "0.875rem",
+                          fontWeight: active ? 500 : 400
+                        }
+                      }}
                     />
                   </ListItemButton>
                 );

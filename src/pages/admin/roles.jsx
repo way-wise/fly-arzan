@@ -96,10 +96,10 @@ export default function Roles() {
         }}
       >
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 700, color: "#e5e7eb" }}>
+          <Typography variant="h5" sx={{ fontWeight: 700, color: "#FFFFFF", fontFamily: "Inter, sans-serif" }}>
             Roles & Permissions
           </Typography>
-          <Typography variant="body2" sx={{ color: "#9ca3af", mt: 0.5 }}>
+          <Typography variant="body2" sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter, sans-serif" }}>
             Design how different teams can access analytics, monitoring and user data.
           </Typography>
         </Box>
@@ -108,7 +108,7 @@ export default function Roles() {
             icon={<Security sx={{ fontSize: 16 }} />}
             label="RBAC Preview"
             size="small"
-            sx={{ bgcolor: "rgba(15,23,42,0.9)", color: "#e5e7eb", borderRadius: 999 }}
+            sx={{ bgcolor: "#1A1D23", color: "#FFFFFF", borderRadius: 999, fontFamily: "Inter, sans-serif" }}
           />
         </Stack>
       </Box>
@@ -117,16 +117,18 @@ export default function Roles() {
         <Grid item xs={12} md={5} sx={{ minWidth: 0 }}>
           <Card
             sx={{
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.95)",
-              border: "1px solid rgba(51,65,85,0.9)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              background: "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
               title={
                 <Stack direction="row" spacing={1} alignItems="center">
                   <Security sx={{ fontSize: 20, color: "#60a5fa" }} />
-                  <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>
+                  <Typography sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter, sans-serif" }}>
                     Role Overview
                   </Typography>
                 </Stack>
@@ -147,14 +149,14 @@ export default function Roles() {
                         justifyContent: "space-between",
                         p: 1.5,
                         borderRadius: 2,
-                        bgcolor: selected ? "rgba(15,23,42,1)" : "rgba(15,23,42,0.9)",
+                        bgcolor: selected ? "#0f131a" : "#1a1d20",
                         border: selected
                           ? "1px solid rgba(59,130,246,0.9)"
-                          : "1px solid rgba(31,41,55,0.9)",
+                          : "1px solid rgba(60, 66, 72, 0.3)",
                         cursor: "pointer",
                         transition: "background 0.15s ease, border-color 0.15s ease",
                         "&:hover": {
-                          bgcolor: "rgba(15,23,42,1)",
+                          bgcolor: "#0f131a",
                         },
                       }}
                     >
@@ -193,9 +195,11 @@ export default function Roles() {
         <Grid item xs={12} md={7} sx={{ minWidth: 0 }}>
           <Card
             sx={{
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.95)",
-              border: "1px solid rgba(51,65,85,0.9)",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              background: "linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(147, 51, 234, 0.02) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
