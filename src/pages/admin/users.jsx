@@ -1,186 +1,299 @@
-import { useState } from "react";
-import { MoreVertical, Mail, Send, User } from "lucide-react";
-import { Button } from "../../components/ui/button";
+import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSeparator,
-} from "../../components/ui/dropdown-menu";
-import {
+  Box,
   Card,
-  CardContent,
-  CardDescription,
   CardHeader,
-  CardTitle,
-} from "../../components/ui/card";
-import {
+  CardContent,
+  Typography,
+  Stack,
+  Chip,
+  TextField,
+  InputAdornment,
+  IconButton,
+  Avatar,
   Table,
-  TableBody,
-  TableCell,
   TableHead,
-  TableHeader,
   TableRow,
-} from "../../components/ui/table";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "../../components/ui/dialog";
-import { Input } from "../../components/ui/input";
-import { Label } from "../../components/ui/label";
-import { Textarea } from "../../components/ui/textarea";
-import { Link, useNavigate } from "react-router-dom";
+  TableCell,
+  TableBody,
+  Menu,
+  MenuItem,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import PersonIcon from "@mui/icons-material/Person";
 
-// Mock data for users
-const users = [
-  { id: 1, name: "John Doe", email: "john@example.com" },
-  { id: 2, name: "Jane Smith", email: "jane@example.com" },
-  { id: 3, name: "Mike Johnson", email: "mike@example.com" },
-  { id: 4, name: "Sarah Wilson", email: "sarah@example.com" },
+const mockUsers = [
+  {
+    id: 1,
+    name: "John Doe",
+    email: "john@example.com",
+    role: "Admin",
+    status: "Active",
+    country: "Kazakhstan",
+    city: "Almaty",
+    lastSeen: "2h ago",
+    totalSearches: 124,
+  },
+  {
+    id: 2,
+    name: "Jane Smith",
+    email: "jane@example.com",
+    role: "Analyst",
+    status: "Active",
+    country: "Kazakhstan",
+    city: "Astana",
+    lastSeen: "12h ago",
+    totalSearches: 87,
+  },
+  {
+    id: 3,
+    name: "Mike Johnson",
+    email: "mike@example.com",
+    role: "Support",
+    status: "Invited",
+    country: "Turkey",
+    city: "Istanbul",
+    lastSeen: "—",
+    totalSearches: 0,
+  },
+  {
+    id: 4,
+    name: "Sarah Wilson",
+    email: "sarah@example.com",
+    role: "Admin",
+    status: "Active",
+    country: "UAE",
+    city: "Dubai",
+    lastSeen: "5m ago",
+    totalSearches: 203,
+  },
 ];
 
 export default function Users() {
-  const [emailOpen, setEmailOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [emailSubject, setEmailSubject] = useState("");
-  const [emailMessage, setEmailMessage] = useState("");
   const navigate = useNavigate();
+  const [query, setQuery] = useState("");
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [menuUserId, setMenuUserId] = useState(null);
 
-  const handleMailClick = (user) => {
-    setSelectedUser(user);
-    setEmailOpen(true);
+  const filteredUsers = useMemo(() => {
+    const q = query.toLowerCase();
+    return mockUsers.filter(
+      (u) =>
+        u.name.toLowerCase().includes(q) ||
+        u.email.toLowerCase().includes(q) ||
+        u.country.toLowerCase().includes(q) ||
+        u.city.toLowerCase().includes(q)
+    );
+  }, [query]);
+
+  const handleMenuOpen = (event, userId) => {
+    setAnchorEl(event.currentTarget);
+    setMenuUserId(userId);
   };
 
-  const handleSendEmail = () => {
-    if (selectedUser) {
-      const mailtoLink = `mailto:${
-        selectedUser.email
-      }?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(
-        emailMessage
-      )}`;
-      window.location.href = mailtoLink;
-      setEmailOpen(false);
-      // Reset form
-      setEmailSubject("");
-      setEmailMessage("");
-      setSelectedUser(null);
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    setMenuUserId(null);
+  };
+
+  const handleViewProfile = () => {
+    if (menuUserId != null) {
+      navigate(`/admin/users/${menuUserId}`);
+      handleMenuClose();
     }
   };
 
   return (
-    <>
-      <Card>
-        <CardHeader>
-          <CardTitle>Users Management</CardTitle>
-          <CardDescription>
-            Manage your users and their accounts
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead className="tw:text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {users.map((user) => (
-                <TableRow key={user.id}>
-                  <TableCell className="tw:font-medium">{user.name}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell className="tw:text-right">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button
-                          variant="ghost"
-                          className="tw:h-8 tw:w-8 tw:p-0"
-                        >
-                          <MoreVertical className="tw:h-4 tw:w-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem
-                          onClick={() => navigate(`/admin/users/${user.id}`)}
-                        >
-                          <User className="tw:h-4 tw:w-4 tw:mr-2" />
-                          Details
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleMailClick(user)}>
-                          <Mail className="tw:h-4 tw:w-4 tw:mr-2" />
-                          Mail
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem className="tw:text-red-600 tw:focus:text-red-600 tw:focus:bg-red-50">
-                          Delete
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          justifyContent: "space-between",
+          alignItems: { xs: "flex-start", md: "center" },
+          gap: 2,
+        }}
+      >
+        <Box>
+          <Typography variant="h5" sx={{ fontWeight: 700, color: "#e5e7eb" }}>
+            Users
+          </Typography>
+          <Typography variant="body2" sx={{ color: "#9ca3af", mt: 0.5 }}>
+            Manage admin users and inspect their flight search behavior.
+          </Typography>
+        </Box>
+        <Stack direction="row" spacing={1.5} alignItems="center">
+          <Chip
+            size="small"
+            label={`${mockUsers.length} total users`}
+            sx={{ bgcolor: "rgba(15,23,42,0.9)", color: "#e5e7eb", borderRadius: 999 }}
+          />
+        </Stack>
+      </Box>
+
+      <Card
+        sx={{
+          borderRadius: 3,
+          bgcolor: "rgba(15,23,42,0.95)",
+          border: "1px solid rgba(51,65,85,0.9)",
+        }}
+      >
+        <CardHeader
+          title={
+            <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>
+              User directory
+            </Typography>
+          }
+          subheader={
+            <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+              Search by name, email or location. Click a user to open a detailed profile.
+            </Typography>
+          }
+          sx={{ px: 2.5, pt: 2.25, pb: 1.5 }}
+        />
+        <CardContent sx={{ px: 2.5, pb: 2.5 }}>
+          <Box sx={{ mb: 2 }}>
+            <TextField
+              size="small"
+              fullWidth
+              placeholder="Search users by name, email or location"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon sx={{ fontSize: 18, color: "#6b7280" }} />
+                  </InputAdornment>
+                ),
+                sx: {
+                  bgcolor: "rgba(15,23,42,0.9)",
+                  borderRadius: 999,
+                  fontSize: 13,
+                },
+              }}
+            />
+          </Box>
+
+          <Box sx={{ overflowX: "auto" }}>
+            <Table size="small">
+              <TableHead>
+                <TableRow>
+                  <TableCell sx={{ color: "#9ca3af", borderColor: "#111827" }}>User</TableCell>
+                  <TableCell sx={{ color: "#9ca3af", borderColor: "#111827" }}>Role</TableCell>
+                  <TableCell sx={{ color: "#9ca3af", borderColor: "#111827" }}>Location</TableCell>
+                  <TableCell sx={{ color: "#9ca3af", borderColor: "#111827" }}>Last seen</TableCell>
+                  <TableCell sx={{ color: "#9ca3af", borderColor: "#111827" }}>Searches</TableCell>
+                  <TableCell align="right" sx={{ color: "#9ca3af", borderColor: "#111827" }}>
+                    Actions
                   </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHead>
+              <TableBody>
+                {filteredUsers.map((user) => (
+                  <TableRow
+                    key={user.id}
+                    hover
+                    sx={{ cursor: "pointer" }}
+                    onClick={() => navigate(`/admin/users/${user.id}`)}
+                  >
+                    <TableCell sx={{ borderColor: "#111827" }}>
+                      <Stack direction="row" spacing={1.5} alignItems="center">
+                        <Avatar
+                          sx={{
+                            width: 32,
+                            height: 32,
+                            bgcolor: "#1f2937",
+                            fontSize: 13,
+                            fontWeight: 600,
+                          }}
+                        >
+                          {user.name
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")}
+                        </Avatar>
+                        <Box>
+                          <Typography sx={{ color: "#e5e7eb", fontSize: 14, fontWeight: 500 }}>
+                            {user.name}
+                          </Typography>
+                          <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>
+                            {user.email}
+                          </Typography>
+                        </Box>
+                      </Stack>
+                    </TableCell>
+                    <TableCell sx={{ borderColor: "#111827" }}>
+                      <Chip
+                        size="small"
+                        label={user.role}
+                        sx={{
+                          bgcolor: "rgba(59,130,246,0.15)",
+                          color: "#bfdbfe",
+                          borderRadius: 999,
+                          fontSize: 11,
+                        }}
+                      />
+                    </TableCell>
+                    <TableCell sx={{ borderColor: "#111827", color: "#e5e7eb", fontSize: 13 }}>
+                      {user.city}, {user.country}
+                    </TableCell>
+                    <TableCell sx={{ borderColor: "#111827", color: "#9ca3af", fontSize: 13 }}>
+                      {user.lastSeen}
+                    </TableCell>
+                    <TableCell sx={{ borderColor: "#111827", color: "#e5e7eb", fontSize: 13 }}>
+                      {user.totalSearches}
+                    </TableCell>
+                    <TableCell align="right" sx={{ borderColor: "#111827" }}>
+                      <IconButton
+                        size="small"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleMenuOpen(e, user.id);
+                        }}
+                      >
+                        <MoreVertIcon sx={{ fontSize: 18, color: "#9ca3af" }} />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Box>
         </CardContent>
       </Card>
 
-      <Dialog open={emailOpen} onOpenChange={setEmailOpen}>
-        <DialogContent className="sm:tw:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Send Email to {selectedUser?.name}</DialogTitle>
-            <DialogDescription>
-              Compose an email message to be sent to {selectedUser?.email}
-            </DialogDescription>
-          </DialogHeader>
-          <div className="tw:space-y-4">
-            <div className="tw:space-y-2">
-              <Label htmlFor="email-to">To</Label>
-              <Input
-                id="email-to"
-                value={selectedUser?.email || ""}
-                disabled
-                className="tw:bg-gray-100"
-              />
-            </div>
-            <div className="tw:space-y-2">
-              <Label htmlFor="email-subject">Subject</Label>
-              <Input
-                id="email-subject"
-                placeholder="Enter email subject..."
-                value={emailSubject}
-                onChange={(e) => setEmailSubject(e.target.value)}
-              />
-            </div>
-            <div className="tw:space-y-2">
-              <Label htmlFor="email-message">Message</Label>
-              <Textarea
-                id="email-message"
-                placeholder="Type your message here..."
-                className="tw:min-h-32"
-                value={emailMessage}
-                onChange={(e) => setEmailMessage(e.target.value)}
-              />
-            </div>
-            <div className="tw:flex tw:justify-end tw:gap-2">
-              <Button variant="outline" onClick={() => setEmailOpen(false)}>
-                Cancel
-              </Button>
-              <Button
-                onClick={handleSendEmail}
-                disabled={!emailSubject.trim() || !emailMessage.trim()}
-              >
-                <Send className="tw:h-4 tw:w-4 tw:mr-2" />
-                Send Email
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-    </>
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        PaperProps={{
+          sx: {
+            mt: 1,
+            bgcolor: "#020617",
+            color: "#e5e7eb",
+            minWidth: 200,
+            border: "1px solid rgba(31,41,55,0.9)",
+          },
+        }}
+      >
+        <MenuItem onClick={handleViewProfile}>
+          <PersonIcon sx={{ fontSize: 18, mr: 1 }} /> View profile
+        </MenuItem>
+        <MenuItem onClick={handleMenuClose}>
+          <MailOutlineIcon sx={{ fontSize: 18, mr: 1 }} />
+          Send email
+        </MenuItem>
+        <MenuItem onClick={handleMenuClose}>
+          <ArrowForwardIcon sx={{ fontSize: 18, mr: 1 }} />
+          Impersonate (mock)
+        </MenuItem>
+      </Menu>
+    </Box>
   );
 }

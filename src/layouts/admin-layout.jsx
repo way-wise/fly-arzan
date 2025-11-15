@@ -1,145 +1,391 @@
-import React, { useState } from "react";
-import { useLocation, Link, Outlet } from "react-router-dom";
+import { useState } from "react";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import {
-  Users,
-  Settings,
+  AppBar,
+  Toolbar,
+  Box,
+  CssBaseline,
+  Drawer,
+  IconButton,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+  Typography,
+  Avatar,
   Menu,
-  X,
-  BarChart3,
-  MessageSquare,
-  User,
-  FileText,
-} from "lucide-react";
-import { Button } from "../components/ui/button";
+  MenuItem,
+  Chip,
+  Stack,
+  Tooltip,
+} from "@mui/material";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSeparator,
-} from "../components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
+  Menu as MenuIcon,
+  Dashboard as DashboardIcon,
+  QueryStats as QueryStatsIcon,
+  BarChart as BarChartIcon,
+  Timeline as TimelineIcon,
+  ListAlt as ListAltIcon,
+  MonitorHeart as MonitorHeartIcon,
+  WarningAmber as WarningAmberIcon,
+  BugReport as BugReportIcon,
+  People as PeopleIcon,
+  Security as SecurityIcon,
+  Settings as SettingsIcon,
+  Feedback as FeedbackIcon,
+} from "@mui/icons-material";
 
-const menuItems = [
-  { name: "Dashboard", icon: BarChart3, href: "/admin" },
-  { name: "Analytics Logs", icon: FileText, href: "/admin/logs" },
-  { name: "Users", icon: Users, href: "/admin/users" },
-  { name: "Feedback", icon: MessageSquare, href: "/admin/feedback" },
-  { name: "Settings", icon: Settings, href: "/admin/settings" },
+const drawerWidth = 280;
+
+const navSections = [
+  {
+    title: "Overview",
+    items: [
+      {
+        label: "Dashboard",
+        icon: DashboardIcon,
+        path: "/admin",
+      },
+    ],
+  },
+  {
+    title: "Analytics",
+    items: [
+      {
+        label: "Search Analytics",
+        icon: QueryStatsIcon,
+        path: "/admin/analytics/engagement",
+      },
+      {
+        label: "Routes Analytics",
+        icon: BarChartIcon,
+        path: "/admin/analytics/routes",
+      },
+      {
+        label: "Trend Charts",
+        icon: TimelineIcon,
+        path: "/admin/analytics/trends",
+      },
+      {
+        label: "Search Logs",
+        icon: ListAltIcon,
+        path: "/admin/logs",
+      },
+    ],
+  },
+  {
+    title: "Monitoring",
+    items: [
+      {
+        label: "API Health",
+        icon: MonitorHeartIcon,
+        path: "/admin/monitoring/health",
+      },
+      {
+        label: "Alerts",
+        icon: WarningAmberIcon,
+        path: "/admin/monitoring/alerts",
+      },
+      {
+        label: "System Logs",
+        icon: BugReportIcon,
+        path: "/admin/monitoring/logs",
+      },
+    ],
+  },
+  {
+    title: "Users & Access",
+    items: [
+      {
+        label: "Users",
+        icon: PeopleIcon,
+        path: "/admin/users",
+      },
+      {
+        label: "Roles & Permissions",
+        icon: SecurityIcon,
+        path: "/admin/roles",
+      },
+    ],
+  },
+  {
+    title: "Other",
+    items: [
+      {
+        label: "Feedback",
+        icon: FeedbackIcon,
+        path: "/admin/feedback",
+      },
+      {
+        label: "Settings",
+        icon: SettingsIcon,
+        path: "/admin/settings",
+      },
+    ],
+  },
 ];
 
-const getPageTitle = (pathname) => {
-  const item = menuItems.find((item) => item.href === pathname);
-  return item ? item.name : "Dashboard";
-};
+const shellBackground = "radial-gradient(circle at top, rgba(17,24,39,1), rgba(15,23,42,1))";
 
 const AdminLayout = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const location = useLocation();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [profileAnchorEl, setProfileAnchorEl] = useState(null);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen((prev) => !prev);
+  };
+
+  const handleProfileMenuOpen = (event) => {
+    setProfileAnchorEl(event.currentTarget);
+  };
+
+  const handleProfileMenuClose = () => {
+    setProfileAnchorEl(null);
+  };
+
+  const drawer = <AdminLayoutDrawer onItemClick={() => setMobileOpen(false)} />;
 
   return (
-    <div className="tw:flex tw:h-screen tw:bg-gray-50">
-      {/* Mobile sidebar overlay */}
-      {sidebarOpen && (
-        <div
-          className="tw:fixed tw:inset-0 tw:z-40 tw:bg-black/50 tw:lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
+    <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "#0A0A0A" }}>
+      <CssBaseline />
 
-      {/* Sidebar */}
-      <div
-        className={`
-          tw:fixed tw:inset-y-0 tw:left-0 tw:z-50 tw:w-64 tw:bg-white tw:border-r tw:border-gray-200 tw:transform tw:transition-transform tw:duration-300 tw:ease-in-out
-          tw:lg:static tw:lg:translate-x-0
-          ${sidebarOpen ? "tw:translate-x-0" : "tw:-translate-x-full"}
-        `}
+      <AppBar
+        position="fixed"
+        elevation={0}
+        sx={{
+          ml: { md: `${drawerWidth}px` },
+          width: { md: `calc(100% - ${drawerWidth}px)` },
+          bgcolor: "#0A0A0A",
+          backdropFilter: "blur(18px)",
+          borderBottom: "1px solid #262626",
+        }}
       >
-        <div className="tw:flex tw:items-center tw:justify-between tw:h-16 tw:px-4 tw:border-b tw:border-gray-200">
-          <Link to="/admin" className="tw:lg:mx-auto">
-            <img src="/logo.png" className="tw:!w-[140px]" />
-          </Link>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="tw:lg:hidden tw:text-gray-600 tw:hover:bg-gray-100"
-            onClick={() => setSidebarOpen(false)}
-          >
-            <X className="tw:h-5 tw:w-5" />
-          </Button>
-        </div>
+        <Toolbar sx={{ minHeight: 72, px: 3 }}>
+          <Stack direction="row" alignItems="center" spacing={2} sx={{ flex: 1 }}>
+            <IconButton
+              color="inherit"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ display: { md: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
 
-        <nav className="tw:mt-6 tw:px-4">
-          <ul className="tw:space-y-2 tw:!p-0">
-            {menuItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = location.pathname === item.href;
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                Fly Arzan Admin
+              </Typography>
+              <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+                Control center for analytics, monitoring and users
+              </Typography>
+            </Box>
+          </Stack>
 
-              return (
-                <li key={item.name}>
-                  <Link
-                    to={item.href}
-                    onClick={() => setSidebarOpen(false)}
-                    className={`
-                      tw:w-full tw:flex tw:items-center tw:px-4 tw:py-2.5 tw:text-sm tw:font-medium tw:rounded tw:transition-colors tw:duration-200 tw:!no-underline
-                      ${
-                        isActive
-                          ? "tw:!bg-primary tw:!text-white tw:shadow-sm"
-                          : "tw:!text-gray-700 tw:hover:!bg-gray-100 tw:hover:!text-gray-900"
-                      }
-                    `}
-                  >
-                    <Icon className="tw:mr-2 tw:size-5 tw:flex-shrink-0" />
-                    {item.name}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-      </div>
-
-      {/* Main content */}
-      <div className="tw:flex-1 tw:flex tw:flex-col tw:overflow-hidden">
-        {/* Top bar */}
-        <header className="tw:h-16 tw:bg-white tw:border-b tw:border-gray-200 tw:px-6 tw:!flex tw:items-center tw:lg:justify-end tw:justify-between">
-          <Button
-            variant="secondary"
-            size="icon"
-            className="tw:lg:hidden"
-            onClick={() => setSidebarOpen(true)}
-          >
-            <Menu className="tw:size-5" />
-          </Button>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="tw:!size-8 tw:!rounded-full">
-                <Avatar className="tw:size-10">
-                  <AvatarImage src="/avatars/01.png" alt="@user" />
-                  <AvatarFallback>U</AvatarFallback>
+          <Stack direction="row" spacing={2} alignItems="center">
+            <Stack direction="row" spacing={1.5} alignItems="center">
+              <Box sx={{ textAlign: "right" }}>
+                <Typography variant="body2" sx={{ color: "#e5e7eb", fontWeight: 500 }}>
+                  Admin User
+                </Typography>
+                <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+                  admin@flyarzan.com
+                </Typography>
+              </Box>
+              <IconButton color="inherit" onClick={handleProfileMenuOpen} sx={{ ml: 0.5 }}>
+                <Avatar
+                  sx={{
+                    width: 36,
+                    height: 36,
+                    bgcolor: "#1f2937",
+                    fontSize: 14,
+                    fontWeight: 600,
+                  }}
+                >
+                  AD
                 </Avatar>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="tw:w-56 tw:mt-2" align="end">
-              <DropdownMenuItem>
-                <User className="tw:mr-2 tw:size-4" />
-                <span>Profile</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Settings className="tw:mr-2 tw:size-4" />
-                <span>Settings</span>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Log out</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </header>
-        {/* Main content area */}
-        <main className="tw:flex-1 tw:overflow-auto tw:bg-gray-50 tw:p-6">
-          <Outlet />
-        </main>
-      </div>
-    </div>
+              </IconButton>
+            </Stack>
+            <Menu
+              anchorEl={profileAnchorEl}
+              open={Boolean(profileAnchorEl)}
+              onClose={handleProfileMenuClose}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              transformOrigin={{ vertical: "top", horizontal: "right" }}
+              PaperProps={{
+                sx: {
+                  mt: 1,
+                  minWidth: 260,
+                  bgcolor: "#0A0A0A",
+                  color: "#e5e7eb",
+                  border: "1px solid #262626",
+                },
+              }}
+            >
+              <MenuItem onClick={handleProfileMenuClose}>Profile</MenuItem>
+              <MenuItem onClick={handleProfileMenuClose}>Settings</MenuItem>
+              <Divider sx={{ borderColor: "rgba(31,41,55,0.9)" }} />
+              <MenuItem onClick={handleProfileMenuClose}>Log out</MenuItem>
+            </Menu>
+          </Stack>
+        </Toolbar>
+      </AppBar>
+
+      <Box component="nav" sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}>
+        {/* Mobile drawer */}
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{ keepMounted: true }}
+          sx={{
+            display: { xs: "block", md: "none" },
+            "& .MuiDrawer-paper": {
+              width: drawerWidth,
+              boxSizing: "border-box",
+            },
+          }}
+        >
+          {drawer}
+        </Drawer>
+
+        {/* Desktop drawer */}
+        <Drawer
+          variant="permanent"
+          open
+          sx={{
+            display: { xs: "none", md: "block" },
+            "& .MuiDrawer-paper": {
+              width: drawerWidth,
+              boxSizing: "border-box",
+              borderRight: "1px solid #262626",
+              bgcolor: "#0A0A0A",
+            },
+          }}
+        >
+          {drawer}
+        </Drawer>
+      </Box>
+
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          pt: 12,
+          bgcolor: "#0A0A0A",
+        }}
+      >
+        <Outlet />
+      </Box>
+    </Box>
+  );
+};
+
+const AdminLayoutDrawer = ({ onItemClick = () => {} }) => {
+  const location = useLocation();
+
+  const isActivePath = (path) => {
+    if (path === "/admin") {
+      return location.pathname === "/admin" || location.pathname === "/admin/dashboard";
+    }
+    return location.pathname.startsWith(path);
+  };
+
+  return (
+    <Box
+      sx={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        bgcolor: "#0A0A0A",
+        color: "#e5e7eb",
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: 72,
+          px: 2,
+          borderBottom: "1px solid #262626",
+        }}
+      >
+        <Link to="/admin" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+          <img
+            src="/logo.png"
+            alt="Logo"
+            style={{ height: 32 }}
+          />
+        </Link>
+      </Box>
+
+      <Box sx={{ flex: 1, overflowY: "auto", py: 2 }}>
+        {navSections.map((section) => (
+          <Box key={section.title} sx={{ mb: 2 }}>
+            <Typography
+              variant="caption"
+              sx={{
+                px: 3,
+                mb: 0.5,
+                display: "block",
+                textTransform: "uppercase",
+                letterSpacing: 0.8,
+                color: "#64748b",
+              }}
+            >
+              {section.title}
+            </Typography>
+            <List disablePadding>
+              {section.items.map((item) => {
+                const Icon = item.icon;
+                const active = isActivePath(item.path);
+                return (
+                  <ListItemButton
+                    key={item.path}
+                    component={Link}
+                    to={item.path}
+                    sx={{
+                      mx: 1.5,
+                      mb: 0.5,
+                      borderRadius: 1.5,
+                      px: 1.75,
+                      py: 1,
+                      background: active
+                        ? "linear-gradient(90deg, rgba(30,64,175,0.95), rgba(15,23,42,0.95))"
+                        : "transparent",
+                      "& .MuiListItemIcon-root": { color: active ? "#60a5fa" : "#6b7280" },
+                      "& .MuiTypography-root": { color: active ? "#e5e7eb" : "#9ca3af", fontWeight: active ? 600 : 500 },
+                      "&:hover": {
+                        background: active
+                          ? "linear-gradient(90deg, rgba(30,64,175,0.95), rgba(15,23,42,0.95))"
+                          : "transparent",
+                      },
+                      "&:hover .MuiTypography-root": { color: active ? "#e5e7eb" : "#60a5fa" },
+                      "&:hover .MuiListItemIcon-root": { color: "#60a5fa" },
+                    }}
+                    onClick={onItemClick}
+                  >
+                    <ListItemIcon sx={{ minWidth: 36, color: active ? "#60a5fa" : "#6b7280" }}>
+                      <Icon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={
+                        <Typography variant="body2" sx={{ fontWeight: active ? 600 : 500 }}>
+                          {item.label}
+                        </Typography>
+                      }
+                    />
+                  </ListItemButton>
+                );
+              })}
+            </List>
+          </Box>
+        ))}
+      </Box>
+
+    </Box>
   );
 };
 

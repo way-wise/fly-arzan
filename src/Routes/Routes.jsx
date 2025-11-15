@@ -1,6 +1,4 @@
 import { useRoutes } from "react-router-dom";
-
-import Dashboard from "../pages/Dashboard";
 import Login from "../components/login/Login";
 import Singup from "../components/login/Singup";
 import LandingFlights from "../pages/LandingFlights";
@@ -26,6 +24,20 @@ import Airport from "../header-footer/Airport";
 import FlightSearchPage from "../pages/search/flight-search-page";
 import FlightDetailsPage from "@/pages/details/flight-details-page";
 import { AdminLayout, Dashboard as AdminDashboard, Users, UserDetails, Settings, Feedback, AnalyticsLogs } from "../pages/admin";
+import Roles from "../pages/admin/roles";
+
+// Analytics Pages
+import EngagementMetrics from "../pages/admin/analytics/engagement";
+import SearchRoutes from "../pages/admin/analytics/routes";
+import TrendCharts from "../pages/admin/analytics/trends";
+
+// Monitoring Pages
+import APIHealth from "../pages/admin/monitoring/health";
+import SystemAlerts from "../pages/admin/monitoring/alerts";
+import SystemLogs from "../pages/admin/monitoring/logs";
+
+// Auth Pages
+import Sessions from "../pages/admin/auth/sessions";
 
 const Routes = () => {
   return useRoutes([
@@ -36,11 +48,30 @@ const Routes = () => {
       element: <AdminLayout />,
       children: [
         { index: true, element: <AdminDashboard /> },
+        { path: "dashboard", element: <AdminDashboard /> },
+        
+        // Analytics Routes
         { path: "logs", element: <AnalyticsLogs /> },
+        { path: "analytics/engagement", element: <EngagementMetrics /> },
+        { path: "analytics/routes", element: <SearchRoutes /> },
+        { path: "analytics/trends", element: <TrendCharts /> },
+        
+        // Monitoring Routes
+        { path: "monitoring/health", element: <APIHealth /> },
+        { path: "monitoring/alerts", element: <SystemAlerts /> },
+        { path: "monitoring/logs", element: <SystemLogs /> },
+        
+        // Auth Routes
+        { path: "auth/sessions", element: <Sessions /> },
+        
+        // User Management
         { path: "users", element: <Users /> },
+        { path: "users/:id", element: <UserDetails /> },
+        { path: "roles", element: <Roles /> },
+        
+        // Settings & Feedback
         { path: "settings", element: <Settings /> },
         { path: "feedback", element: <Feedback /> },
-        { path: "users/:id", element: <UserDetails /> },
       ],
     },
 
@@ -79,8 +110,6 @@ const Routes = () => {
     { path: "/Singup", element: <Singup /> },
 
     { path: "/loader", element: <WeDirecting /> },
-
-    { path: "/Dashboard/*", element: <Dashboard /> },
 
     { path: "/FlightsBooking", element: <Booking_StepFormmain /> },
     { path: "/flight-search", element: <FilterFlights /> },

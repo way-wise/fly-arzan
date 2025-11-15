@@ -1,14 +1,27 @@
-import React from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Mail, Phone, MapPin, Calendar } from "lucide-react";
+import { useMemo } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import {
+  Box,
+  Grid,
   Card,
-  CardContent,
-  CardDescription,
   CardHeader,
-  CardTitle,
-} from "../../components/ui/card";
-import { Button } from "../../components/ui/button";
+  CardContent,
+  Typography,
+  Stack,
+  Chip,
+  Avatar,
+  IconButton,
+  Divider,
+} from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import MailIcon from "@mui/icons-material/Mail";
+import PhoneIcon from "@mui/icons-material/Phone";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import EventIcon from "@mui/icons-material/Event";
+import DevicesIcon from "@mui/icons-material/Devices";
+import QueryStatsIcon from "@mui/icons-material/QueryStats";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import RouteIcon from "@mui/icons-material/Route";
 
 // Mock user data
 const getUserById = (id) => {
@@ -63,140 +76,317 @@ const getUserById = (id) => {
 
 export default function UserDetails() {
   const { id } = useParams();
-  const user = getUserById(id);
   const navigate = useNavigate();
+  const user = getUserById(id);
+
+  const sessions = useMemo(
+    () =>
+      user
+        ? [
+            {
+              id: 1,
+              startedAt: "Today 09:24",
+              device: "Desktop · Chrome",
+              location: "Almaty, KZ",
+              searches: 7,
+              lastRoute: "ALA → IST",
+              duration: "12m",
+            },
+            {
+              id: 2,
+              startedAt: "Yesterday 21:03",
+              device: "Mobile · Safari",
+              location: "Almaty, KZ",
+              searches: 3,
+              lastRoute: "ALA → DXB",
+              duration: "5m",
+            },
+          ]
+        : [],
+    [user]
+  );
 
   if (!user) {
     return (
-      <div className="tw:space-y-6">
-        <div className="tw:flex tw:items-center tw:gap-4">
-          <Link to="/admin/users">
-            <Button variant="outline" size="sm">
-              <ArrowLeft className="tw:h-4 tw:w-4 tw:mr-2" />
-              Back to Users
-            </Button>
-          </Link>
-        </div>
-        <Card>
-          <CardContent className="tw:p-6">
-            <p className="tw:text-gray-500">User not found.</p>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+        <IconButton
+          size="small"
+          onClick={() => navigate("/admin/users")}
+          sx={{ alignSelf: "flex-start", color: "#e5e7eb" }}
+        >
+          <ArrowBackIcon sx={{ fontSize: 18 }} />
+        </IconButton>
+        <Card
+          sx={{
+            borderRadius: 3,
+            bgcolor: "rgba(15,23,42,0.95)",
+            border: "1px solid rgba(51,65,85,0.9)",
+          }}
+        >
+          <CardContent sx={{ p: 3 }}>
+            <Typography sx={{ color: "#9ca3af" }}>User not found.</Typography>
           </CardContent>
         </Card>
-      </div>
+      </Box>
     );
   }
 
+  const initials = user.name
+    .split(" ")
+    .map((n) => n[0])
+    .join("");
+
   return (
-    <div className="tw:space-y-6">
-      <div className="tw:flex tw:items-center tw:justify-between tw:gap-4">
-        <div>
-          <h1 className="tw:text-2xl tw:font-bold tw:text-gray-900">
-            {user.name}
-          </h1>
-          <p className="tw:text-gray-500">User Details</p>
-        </div>
-        <Button variant="outline" size="sm" onClick={() => navigate(-1)}>
-          <ArrowLeft className="tw:size-4" />
-          Back
-        </Button>
-      </div>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={2}>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <IconButton
+            size="small"
+            onClick={() => navigate(-1)}
+            sx={{ color: "#e5e7eb", mr: 0.5 }}
+          >
+            <ArrowBackIcon sx={{ fontSize: 20 }} />
+          </IconButton>
+          <Box>
+            <Typography variant="h5" sx={{ fontWeight: 700, color: "#e5e7eb" }}>
+              {user.name}
+            </Typography>
+            <Typography variant="body2" sx={{ color: "#9ca3af" }}>
+              User profile & behavior
+            </Typography>
+          </Box>
+        </Stack>
+        <Chip
+          size="small"
+          label={`Role: ${user.role || "Admin"}`}
+          sx={{ bgcolor: "rgba(15,23,42,0.9)", color: "#e5e7eb", borderRadius: 999 }}
+        />
+      </Stack>
 
-      <div className="tw:grid tw:grid-cols-1 tw:lg:grid-cols-3 tw:gap-6">
-        {/* User Info Card */}
-        <Card className="tw:lg:col-span-2">
-          <CardHeader>
-            <CardTitle>User Information</CardTitle>
-            <CardDescription>
-              Personal details and contact information
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="tw:space-y-4">
-            <div className="tw:flex tw:items-center tw:gap-4">
-              <div className="tw:w-16 tw:h-16 tw:bg-gray-200 tw:rounded-full tw:flex tw:items-center tw:justify-center">
-                <span className="tw:text-xl tw:font-semibold tw:text-gray-600">
-                  {user.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
-                </span>
-              </div>
-              <div>
-                <h3 className="tw:text-lg tw:font-semibold">{user.name}</h3>
-                <p className="tw:text-gray-500">
-                  Customer since {user.joinDate}
-                </p>
-              </div>
-            </div>
+      <Grid container spacing={2.5}>
+        <Grid item xs={12} md={8} sx={{ minWidth: 0 }}>
+          <Card
+            sx={{
+              borderRadius: 3,
+              bgcolor: "rgba(15,23,42,0.95)",
+              border: "1px solid rgba(51,65,85,0.9)",
+            }}
+          >
+            <CardHeader
+              title={
+                <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>
+                  User information
+                </Typography>
+              }
+              subheader={
+                <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+                  Identity, contact details and geography.
+                </Typography>
+              }
+              sx={{ px: 2.5, pt: 2.25, pb: 1.5 }}
+            />
+            <CardContent sx={{ px: 2.5, pb: 2.5 }}>
+              <Stack direction="row" spacing={2.5} alignItems="center" sx={{ mb: 3 }}>
+                <Avatar
+                  sx={{
+                    width: 56,
+                    height: 56,
+                    bgcolor: "#1f2937",
+                    fontSize: 20,
+                    fontWeight: 600,
+                  }}
+                >
+                  {initials}
+                </Avatar>
+                <Box>
+                  <Typography sx={{ color: "#e5e7eb", fontWeight: 600, fontSize: 18 }}>
+                    {user.name}
+                  </Typography>
+                  <Typography sx={{ color: "#9ca3af", fontSize: 13 }}>
+                    Customer since {user.joinDate}
+                  </Typography>
+                </Box>
+              </Stack>
 
-            <div className="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:gap-4">
-              <div className="tw:flex tw:items-center tw:gap-3">
-                <Mail className="tw:h-4 tw:w-4 tw:text-gray-400" />
-                <div>
-                  <p className="tw:text-sm tw:font-medium">Email</p>
-                  <p className="tw:text-sm tw:text-gray-600">{user.email}</p>
-                </div>
-              </div>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <Stack direction="row" spacing={1.5} alignItems="center">
+                    <MailIcon sx={{ fontSize: 18, color: "#9ca3af" }} />
+                    <Box>
+                      <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Email</Typography>
+                      <Typography sx={{ color: "#e5e7eb", fontSize: 13 }}>{user.email}</Typography>
+                    </Box>
+                  </Stack>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Stack direction="row" spacing={1.5} alignItems="center">
+                    <PhoneIcon sx={{ fontSize: 18, color: "#9ca3af" }} />
+                    <Box>
+                      <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Phone</Typography>
+                      <Typography sx={{ color: "#e5e7eb", fontSize: 13 }}>{user.phone}</Typography>
+                    </Box>
+                  </Stack>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Stack direction="row" spacing={1.5} alignItems="center">
+                    <LocationOnIcon sx={{ fontSize: 18, color: "#9ca3af" }} />
+                    <Box>
+                      <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Location</Typography>
+                      <Typography sx={{ color: "#e5e7eb", fontSize: 13 }}>
+                        {user.location}
+                      </Typography>
+                    </Box>
+                  </Stack>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Stack direction="row" spacing={1.5} alignItems="center">
+                    <EventIcon sx={{ fontSize: 18, color: "#9ca3af" }} />
+                    <Box>
+                      <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Join date</Typography>
+                      <Typography sx={{ color: "#e5e7eb", fontSize: 13 }}>{user.joinDate}</Typography>
+                    </Box>
+                  </Stack>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+        </Grid>
 
-              <div className="tw:flex tw:items-center tw:gap-3">
-                <Phone className="tw:h-4 tw:w-4 tw:text-gray-400" />
-                <div>
-                  <p className="tw:text-sm tw:font-medium">Phone</p>
-                  <p className="tw:text-sm tw:text-gray-600">{user.phone}</p>
-                </div>
-              </div>
+        <Grid item xs={12} md={4} sx={{ minWidth: 0 }}>
+          <Card
+            sx={{
+              borderRadius: 3,
+              bgcolor: "rgba(15,23,42,0.95)",
+              border: "1px solid rgba(51,65,85,0.9)",
+            }}
+          >
+            <CardHeader
+              title={
+                <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>
+                  Flight activity
+                </Typography>
+              }
+              subheader={
+                <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+                  High-level metrics for this user.
+                </Typography>
+              }
+              sx={{ px: 2.5, pt: 2.25, pb: 1.5 }}
+            />
+            <CardContent sx={{ px: 2.5, pb: 2.5 }}>
+              <Stack spacing={1.75}>
+                <Stack direction="row" justifyContent="space-between" alignItems="center">
+                  <Stack direction="row" spacing={1.2} alignItems="center">
+                    <QueryStatsIcon sx={{ fontSize: 20, color: "#60a5fa" }} />
+                    <Box>
+                      <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Total searches</Typography>
+                      <Typography sx={{ color: "#e5e7eb", fontSize: 16, fontWeight: 600 }}>
+                        {user.totalBookings}
+                      </Typography>
+                    </Box>
+                  </Stack>
+                </Stack>
+                <Stack direction="row" spacing={1.2} alignItems="center">
+                  <DevicesIcon sx={{ fontSize: 20, color: "#a5b4fc" }} />
+                  <Box>
+                    <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Preferred device</Typography>
+                    <Typography sx={{ color: "#e5e7eb", fontSize: 13 }}>Desktop / Chrome</Typography>
+                  </Box>
+                </Stack>
+                <Stack direction="row" spacing={1.2} alignItems="center">
+                  <AccessTimeIcon sx={{ fontSize: 20, color: "#f97316" }} />
+                  <Box>
+                    <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Last seen</Typography>
+                    <Typography sx={{ color: "#e5e7eb", fontSize: 13 }}>Today, 09:24</Typography>
+                  </Box>
+                </Stack>
+              </Stack>
+              <Divider sx={{ my: 2, borderColor: "#111827" }} />
+              <Typography sx={{ color: "#9ca3af", fontSize: 12, mb: 0.5 }}>
+                Top routes searched
+              </Typography>
+              <Stack spacing={0.5}>
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <RouteIcon sx={{ fontSize: 16, color: "#60a5fa" }} />
+                  <Typography sx={{ color: "#e5e7eb", fontSize: 13 }}>ALA → IST</Typography>
+                </Stack>
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <RouteIcon sx={{ fontSize: 16, color: "#60a5fa" }} />
+                  <Typography sx={{ color: "#e5e7eb", fontSize: 13 }}>ALA → DXB</Typography>
+                </Stack>
+              </Stack>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
 
-              <div className="tw:flex tw:items-center tw:gap-3">
-                <MapPin className="tw:h-4 tw:w-4 tw:text-gray-400" />
-                <div>
-                  <p className="tw:text-sm tw:font-medium">Location</p>
-                  <p className="tw:text-sm tw:text-gray-600">{user.location}</p>
-                </div>
-              </div>
-
-              <div className="tw:flex tw:items-center tw:gap-3">
-                <Calendar className="tw:h-4 tw:w-4 tw:text-gray-400" />
-                <div>
-                  <p className="tw:text-sm tw:font-medium">Join Date</p>
-                  <p className="tw:text-sm tw:text-gray-600">{user.joinDate}</p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Stats Card */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Statistics</CardTitle>
-            <CardDescription>User activity overview</CardDescription>
-          </CardHeader>
-          <CardContent className="tw:space-y-4">
-            <div className="tw:text-center tw:p-4 tw:bg-blue-50 tw:rounded-lg">
-              <p className="tw:text-2xl tw:font-bold tw:text-blue-600">
-                {user.totalBookings}
-              </p>
-              <p className="tw:text-sm tw:text-gray-600">Total Bookings</p>
-            </div>
-            <div className="tw:text-center tw:p-4 tw:bg-green-50 tw:rounded-lg">
-              <p className="tw:text-2xl tw:font-bold tw:text-green-600">
-                {user.totalSpent}
-              </p>
-              <p className="tw:text-sm tw:text-gray-600">Total Spent</p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Recent Activity */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Recent Activity</CardTitle>
-          <CardDescription>Latest bookings and transactions</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p className="tw:text-gray-500">No recent activity available.</p>
+      <Card
+        sx={{
+          borderRadius: 3,
+          bgcolor: "rgba(15,23,42,0.95)",
+          border: "1px solid rgba(51,65,85,0.9)",
+        }}
+      >
+        <CardHeader
+          title={
+            <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>
+              Recent sessions
+            </Typography>
+          }
+          subheader={
+            <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+              Flight search sessions with device, location and last route.
+            </Typography>
+          }
+          sx={{ px: 2.5, pt: 2.25, pb: 1.5 }}
+        />
+        <CardContent sx={{ px: 2.5, pb: 2.5 }}>
+          {sessions.length === 0 ? (
+            <Typography sx={{ color: "#9ca3af", fontSize: 13 }}>
+              No recent sessions available.
+            </Typography>
+          ) : (
+            <Box sx={{ overflowX: "auto" }}>
+              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <thead>
+                  <tr>
+                    <th style={{ textAlign: "left", padding: "8px", color: "#9ca3af", fontSize: 12 }}>
+                      Started at
+                    </th>
+                    <th style={{ textAlign: "left", padding: "8px", color: "#9ca3af", fontSize: 12 }}>
+                      Device
+                    </th>
+                    <th style={{ textAlign: "left", padding: "8px", color: "#9ca3af", fontSize: 12 }}>
+                      Location
+                    </th>
+                    <th style={{ textAlign: "left", padding: "8px", color: "#9ca3af", fontSize: 12 }}>
+                      Searches
+                    </th>
+                    <th style={{ textAlign: "left", padding: "8px", color: "#9ca3af", fontSize: 12 }}>
+                      Last route
+                    </th>
+                    <th style={{ textAlign: "left", padding: "8px", color: "#9ca3af", fontSize: 12 }}>
+                      Duration
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {sessions.map((s) => (
+                    <tr key={s.id} style={{ borderTop: "1px solid #020617" }}>
+                      <td style={{ padding: "8px", fontSize: 13, color: "#e5e7eb" }}>{s.startedAt}</td>
+                      <td style={{ padding: "8px", fontSize: 13, color: "#9ca3af" }}>{s.device}</td>
+                      <td style={{ padding: "8px", fontSize: 13, color: "#9ca3af" }}>{s.location}</td>
+                      <td style={{ padding: "8px", fontSize: 13, color: "#e5e7eb" }}>{s.searches}</td>
+                      <td style={{ padding: "8px", fontSize: 13, color: "#e5e7eb" }}>{s.lastRoute}</td>
+                      <td style={{ padding: "8px", fontSize: 13, color: "#9ca3af" }}>{s.duration}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </Box>
+          )}
         </CardContent>
       </Card>
-    </div>
+    </Box>
   );
 }
