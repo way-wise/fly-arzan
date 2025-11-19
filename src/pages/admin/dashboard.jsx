@@ -8,7 +8,10 @@ import {
   Chip,
   Stack,
   LinearProgress,
-  Divider,
+  Button,
+  Select,
+  MenuItem,
+  FormControl,
 } from "@mui/material";
 import {
   FlightTakeoff,
@@ -18,15 +21,14 @@ import {
   Timeline as TimelineIcon,
   Route as RouteIcon,
   Speed,
-  People,
   TravelExplore,
+  Download,
+  CheckCircle,
 } from "@mui/icons-material";
 import {
   ResponsiveContainer,
   AreaChart,
   Area,
-  BarChart,
-  Bar,
   PieChart,
   Pie,
   Cell,
@@ -37,12 +39,12 @@ import {
   CartesianGrid,
 } from "recharts";
 
-// ===== Mock data tailored for flight analytics & monitoring =====
+// Mock data
 const kpiData = {
   totalSearches: { value: 48237, change: 12.4 },
   clickoutRate: { value: 34.2, change: 5.1 },
   uniqueVisitors: { value: 18740, change: 7.8 },
-  healthyServices: { value: 5, total: 6 },
+  apiHealth: { value: 99.8, change: 0.2 },
 };
 
 const searchTimeseries = [
@@ -52,14 +54,15 @@ const searchTimeseries = [
   { label: "12:00", searches: 3180, clickouts: 1120 },
   { label: "16:00", searches: 2890, clickouts: 970 },
   { label: "20:00", searches: 2140, clickouts: 720 },
+  { label: "23:59", searches: 1650, clickouts: 550 },
 ];
 
-const routePerformance = [
-  { route: "ALA → IST", searches: 9560, clickouts: 3420 },
-  { route: "ALA → DXB", searches: 8123, clickouts: 2851 },
-  { route: "ALA → SAW", searches: 6890, clickouts: 2075 },
-  { route: "ALA → KUL", searches: 5321, clickouts: 1423 },
-  { route: "TSE → IST", searches: 4210, clickouts: 1267 },
+const topRoutes = [
+  { route: "ALA → IST", searches: 9560, clickouts: 3420, conversion: 35.8 },
+  { route: "ALA → DXB", searches: 8123, clickouts: 2851, conversion: 35.1 },
+  { route: "ALA → SAW", searches: 6890, clickouts: 2075, conversion: 30.1 },
+  { route: "ALA → KUL", searches: 5321, clickouts: 1423, conversion: 26.7 },
+  { route: "TSE → IST", searches: 4210, clickouts: 1267, conversion: 30.1 },
 ];
 
 const deviceShare = [
@@ -69,21 +72,26 @@ const deviceShare = [
 ];
 
 const geoDistribution = [
-  { country: "KZ", label: "Kazakhstan", visitors: 12450 },
-  { country: "TR", label: "Turkey", visitors: 7421 },
-  { country: "AE", label: "UAE", visitors: 5320 },
-  { country: "RU", label: "Russia", visitors: 3895 },
-  { country: "DE", label: "Germany", visitors: 2144 },
+  { country: "Kazakhstan", code: "KZ", visitors: 12450, percentage: 40 },
+  { country: "Turkey", code: "TR", visitors: 7421, percentage: 24 },
+  { country: "UAE", code: "AE", visitors: 5320, percentage: 17 },
+  { country: "Russia", code: "RU", visitors: 3895, percentage: 13 },
+  { country: "Germany", code: "DE", visitors: 2144, percentage: 6 },
 ];
 
-const apiLatency = [
-  { service: "Backend", p95: 180 },
-  { service: "Amadeus", p95: 340 },
-  { service: "Geo IP", p95: 120 },
+const apiServices = [
+  { name: "Backend API", status: "operational", latency: 145, uptime: 99.98 },
+  { name: "Amadeus API", status: "operational", latency: 234, uptime: 99.95 },
+  { name: "Database", status: "operational", latency: 12, uptime: 99.99 },
+  { name: "Redis Cache", status: "operational", latency: 3, uptime: 99.97 },
 ];
 
 export default function Dashboard() {
-  const [range] = useState("Last 7 days");
+  const [timeRange, setTimeRange] = useState("7days");
+
+  const handleExport = () => {
+    console.log("Exporting dashboard data");
+  };
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
@@ -98,42 +106,64 @@ export default function Dashboard() {
         }}
       >
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 600, color: "#FFFFFF", fontFamily: "Inter" }}>
-            Flight Analytics Overview
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: 600, color: "#FFFFFF", fontFamily: "Inter" }}
+          >
+            Dashboard Overview
           </Typography>
-          <Typography variant="body2" sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter" }}>
-            High-level snapshot of user behavior, route performance, and API health.
+          <Typography
+            variant="body2"
+            sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter" }}
+          >
+            Real-time analytics, user behavior, and system health monitoring
           </Typography>
         </Box>
         <Stack direction="row" spacing={1.5} alignItems="center">
-          <Chip
+          <FormControl size="small">
+            <Select
+              value={timeRange}
+              onChange={(e) => setTimeRange(e.target.value)}
+              sx={{
+                bgcolor: "rgba(59, 130, 246, 0.1)",
+                color: "#3B82F6",
+                border: "1px solid rgba(59, 130, 246, 0.2)",
+                borderRadius: 2,
+                fontFamily: "Inter",
+                fontSize: "0.875rem",
+                minWidth: 140,
+                "& .MuiOutline-notchedOutline": { border: "none" },
+                "& .MuiSelect-icon": { color: "#3B82F6" },
+              }}
+            >
+              <MenuItem value="24h">Last 24 Hours</MenuItem>
+              <MenuItem value="7days">Last 7 Days</MenuItem>
+              <MenuItem value="30days">Last 30 Days</MenuItem>
+              <MenuItem value="90days">Last 90 Days</MenuItem>
+            </Select>
+          </FormControl>
+          <Button
+            variant="outlined"
             size="small"
-            label={range}
+            startIcon={<Download />}
+            onClick={handleExport}
             sx={{
-              bgcolor: "rgba(59, 130, 246, 0.1)",
+              borderColor: "rgba(59, 130, 246, 0.3)",
               color: "#3B82F6",
-              border: "1px solid rgba(59, 130, 246, 0.2)",
-              borderRadius: 2,
               fontFamily: "Inter",
-              fontSize: "0.75rem"
+              textTransform: "none",
+              "&:hover": {
+                borderColor: "#3B82F6",
+                bgcolor: "rgba(59, 130, 246, 0.1)",
+              },
             }}
-          />
-          <Chip
-            size="small"
-            label="Realtime preview"
-            sx={{
-              bgcolor: "rgba(16, 185, 129, 0.1)",
-              color: "#10B981",
-              border: "1px solid rgba(16, 185, 129, 0.2)",
-              borderRadius: 2,
-              fontFamily: "Inter",
-              fontSize: "0.75rem"
-            }}
-          />
+          >
+            Export
+          </Button>
         </Stack>
       </Box>
 
-      {/* KPI row */}
+      {/* KPI Cards */}
       <Grid container spacing={2.5}>
         <Grid item xs={12} md={3}>
           <Card
@@ -142,22 +172,53 @@ export default function Dashboard() {
               borderRadius: 2,
               bgcolor: "#1A1D23",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 2.5 }}>
-              <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="flex-start"
+              >
                 <Box>
-                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter", fontSize: "0.75rem" }}>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: "#71717A",
+                      fontFamily: "Inter",
+                      fontSize: "0.75rem",
+                    }}
+                  >
                     Total Searches
                   </Typography>
-                  <Typography variant="h5" sx={{ color: "#FFFFFF", fontWeight: 600, mt: 0.5, fontFamily: "Inter" }}>
+                  <Typography
+                    variant="h5"
+                    sx={{
+                      color: "#FFFFFF",
+                      fontWeight: 600,
+                      mt: 0.5,
+                      fontFamily: "Inter",
+                    }}
+                  >
                     {kpiData.totalSearches.value.toLocaleString()}
                   </Typography>
-                  <Stack direction="row" spacing={0.5} alignItems="center" sx={{ mt: 0.5 }}>
+                  <Stack
+                    direction="row"
+                    spacing={0.5}
+                    alignItems="center"
+                    sx={{ mt: 0.5 }}
+                  >
                     <TrendingUp sx={{ fontSize: 16, color: "#4ade80" }} />
-                    <Typography variant="caption" sx={{ color: "#10B981", fontFamily: "Inter", fontSize: "0.75rem" }}>
-                      +{kpiData.totalSearches.change}% vs last period
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: "#10B981",
+                        fontFamily: "Inter",
+                        fontSize: "0.75rem",
+                      }}
+                    >
+                      +{kpiData.totalSearches.change}% from last period
                     </Typography>
                   </Stack>
                 </Box>
@@ -186,22 +247,53 @@ export default function Dashboard() {
               borderRadius: 2,
               bgcolor: "#1A1D23",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 2.5 }}>
-              <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="flex-start"
+              >
                 <Box>
-                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter", fontSize: "0.75rem" }}>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: "#71717A",
+                      fontFamily: "Inter",
+                      fontSize: "0.75rem",
+                    }}
+                  >
                     Clickout Rate
                   </Typography>
-                  <Typography variant="h5" sx={{ color: "#FFFFFF", fontWeight: 600, mt: 0.5, fontFamily: "Inter" }}>
+                  <Typography
+                    variant="h5"
+                    sx={{
+                      color: "#FFFFFF",
+                      fontWeight: 600,
+                      mt: 0.5,
+                      fontFamily: "Inter",
+                    }}
+                  >
                     {kpiData.clickoutRate.value}%
                   </Typography>
-                  <Stack direction="row" spacing={0.5} alignItems="center" sx={{ mt: 0.5 }}>
+                  <Stack
+                    direction="row"
+                    spacing={0.5}
+                    alignItems="center"
+                    sx={{ mt: 0.5 }}
+                  >
                     <TrendingUp sx={{ fontSize: 16, color: "#4ade80" }} />
-                    <Typography variant="caption" sx={{ color: "#10B981", fontFamily: "Inter", fontSize: "0.75rem" }}>
-                      +{kpiData.clickoutRate.change}% vs last period
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: "#10B981",
+                        fontFamily: "Inter",
+                        fontSize: "0.75rem",
+                      }}
+                    >
+                      +{kpiData.clickoutRate.change}% from last period
                     </Typography>
                   </Stack>
                 </Box>
@@ -230,22 +322,53 @@ export default function Dashboard() {
               borderRadius: 2,
               bgcolor: "#1A1D23",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 2.5 }}>
-              <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="flex-start"
+              >
                 <Box>
-                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter", fontSize: "0.75rem" }}>
-                    Unique Visitors (IP)
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: "#71717A",
+                      fontFamily: "Inter",
+                      fontSize: "0.75rem",
+                    }}
+                  >
+                    Unique Visitors
                   </Typography>
-                  <Typography variant="h5" sx={{ color: "#FFFFFF", fontWeight: 600, mt: 0.5, fontFamily: "Inter" }}>
+                  <Typography
+                    variant="h5"
+                    sx={{
+                      color: "#FFFFFF",
+                      fontWeight: 600,
+                      mt: 0.5,
+                      fontFamily: "Inter",
+                    }}
+                  >
                     {kpiData.uniqueVisitors.value.toLocaleString()}
                   </Typography>
-                  <Stack direction="row" spacing={0.5} alignItems="center" sx={{ mt: 0.5 }}>
+                  <Stack
+                    direction="row"
+                    spacing={0.5}
+                    alignItems="center"
+                    sx={{ mt: 0.5 }}
+                  >
                     <TrendingUp sx={{ fontSize: 16, color: "#38bdf8" }} />
-                    <Typography variant="caption" sx={{ color: "#38bdf8" }}>
-                      +{kpiData.uniqueVisitors.change}% vs last period
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: "#38bdf8",
+                        fontFamily: "Inter",
+                        fontSize: "0.75rem",
+                      }}
+                    >
+                      +{kpiData.uniqueVisitors.change}% from last period
                     </Typography>
                   </Stack>
                 </Box>
@@ -274,36 +397,68 @@ export default function Dashboard() {
               borderRadius: 2,
               bgcolor: "#1A1D23",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 2.5 }}>
-              <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="flex-start"
+              >
                 <Box>
-                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter", fontSize: "0.75rem" }}>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: "#71717A",
+                      fontFamily: "Inter",
+                      fontSize: "0.75rem",
+                    }}
+                  >
                     API Health
                   </Typography>
-                  <Typography variant="h5" sx={{ color: "#FFFFFF", fontWeight: 600, mt: 0.5, fontFamily: "Inter" }}>
-                    {kpiData.healthyServices.value}/{kpiData.healthyServices.total}
-                  </Typography>
-                  <Typography variant="caption" sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter", fontSize: "0.75rem" }}>
-                    Core services operational
-                  </Typography>
-                </Box>
-                <Box sx={{ minWidth: 80, mt: 0.5 }}>
-                  <LinearProgress
-                    variant="determinate"
-                    value={(kpiData.healthyServices.value / kpiData.healthyServices.total) * 100}
+                  <Typography
+                    variant="h5"
                     sx={{
-                      height: 6,
-                      borderRadius: 999,
-                      bgcolor: "rgba(15,23,42,1)",
-                      "& .MuiLinearProgress-bar": {
-                        borderRadius: 999,
-                        bgcolor: "#4ade80",
-                      },
+                      color: "#FFFFFF",
+                      fontWeight: 600,
+                      mt: 0.5,
+                      fontFamily: "Inter",
                     }}
-                  />
+                  >
+                    {kpiData.apiHealth.value}%
+                  </Typography>
+                  <Stack
+                    direction="row"
+                    spacing={0.5}
+                    alignItems="center"
+                    sx={{ mt: 0.5 }}
+                  >
+                    <CheckCircle sx={{ fontSize: 16, color: "#4ade80" }} />
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: "#10B981",
+                        fontFamily: "Inter",
+                        fontSize: "0.75rem",
+                      }}
+                    >
+                      All systems operational
+                    </Typography>
+                  </Stack>
+                </Box>
+                <Box
+                  sx={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 2,
+                    bgcolor: "rgba(22,163,74,0.18)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Speed sx={{ fontSize: 22, color: "#6ee7b7" }} />
                 </Box>
               </Stack>
             </CardContent>
@@ -311,47 +466,96 @@ export default function Dashboard() {
         </Grid>
       </Grid>
 
-      {/* Charts row */}
+      {/* Charts Row */}
       <Grid container spacing={2.5}>
-        <Grid item xs={12} md={7} sx={{ minWidth: 0 }}>
+        <Grid item xs={12} md={7}>
           <Card
             sx={{
               height: "100%",
               borderRadius: 2,
               bgcolor: "#1A1D23",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 2.5 }}>
-              <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                sx={{ mb: 2 }}
+              >
                 <Box>
-                  <Typography variant="subtitle1" sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter" }}>
-                    Searches vs Clickouts
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      color: "#FFFFFF",
+                      fontWeight: 600,
+                      fontFamily: "Inter",
+                    }}
+                  >
+                    Search Activity
                   </Typography>
-                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
-                    Activity over the selected time window
+                  <Typography
+                    variant="caption"
+                    sx={{ color: "#71717A", fontFamily: "Inter" }}
+                  >
+                    Searches and clickouts over time
                   </Typography>
                 </Box>
                 <TimelineIcon sx={{ fontSize: 20, color: "#93c5fd" }} />
               </Stack>
-              <Box sx={{ height: 260 }}>
+              <Box sx={{ width: "100%", height: 280 }}>
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={searchTimeseries}>
                     <defs>
-                      <linearGradient id="colorSearches" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.35} />
-                        <stop offset="95%" stopColor="#0f172a" stopOpacity={0} />
+                      <linearGradient
+                        id="colorSearches"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop
+                          offset="5%"
+                          stopColor="#3b82f6"
+                          stopOpacity={0.35}
+                        />
+                        <stop
+                          offset="95%"
+                          stopColor="#0f172a"
+                          stopOpacity={0}
+                        />
                       </linearGradient>
-                      <linearGradient id="colorClickouts" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#22c55e" stopOpacity={0.3} />
-                        <stop offset="95%" stopColor="#0f172a" stopOpacity={0} />
+                      <linearGradient
+                        id="colorClickouts"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop
+                          offset="5%"
+                          stopColor="#22c55e"
+                          stopOpacity={0.3}
+                        />
+                        <stop
+                          offset="95%"
+                          stopColor="#0f172a"
+                          stopOpacity={0}
+                        />
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
                     <XAxis dataKey="label" stroke="#6b7280" fontSize={11} />
                     <YAxis stroke="#6b7280" fontSize={11} />
-                    <Tooltip contentStyle={{ backgroundColor: "#020617", border: "1px solid #1f2937" }} />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: "#020617",
+                        border: "1px solid #1f2937",
+                        fontFamily: "Inter",
+                      }}
+                    />
                     <Legend />
                     <Area
                       type="monotone"
@@ -376,71 +580,44 @@ export default function Dashboard() {
           </Card>
         </Grid>
 
-        <Grid item xs={12} md={5} sx={{ minWidth: 0 }}>
+        <Grid item xs={12} md={5}>
           <Card
             sx={{
               height: "100%",
               borderRadius: 2,
               bgcolor: "#1A1D23",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 2.5 }}>
-              <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                sx={{ mb: 2 }}
+              >
                 <Box>
-                  <Typography variant="subtitle1" sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter" }}>
-                    Top Routes by Searches
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      color: "#FFFFFF",
+                      fontWeight: 600,
+                      fontFamily: "Inter",
+                    }}
+                  >
+                    Device Distribution
                   </Typography>
-                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
-                    With clickout volume overlay
-                  </Typography>
-                </Box>
-                <RouteIcon sx={{ fontSize: 20, color: "#f97316" }} />
-              </Stack>
-              <Box sx={{ height: 260 }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={routePerformance} layout="vertical" stackOffset="none">
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
-                    <XAxis type="number" stroke="#6b7280" fontSize={11} />
-                    <YAxis dataKey="route" type="category" stroke="#9ca3af" fontSize={11} width={90} />
-                    <Tooltip contentStyle={{ backgroundColor: "#020617", border: "1px solid #1f2937" }} />
-                    <Legend />
-                    <Bar dataKey="searches" fill="#60a5fa" radius={[0, 8, 8, 0]} name="Searches" />
-                    <Bar dataKey="clickouts" fill="#4ade80" radius={[0, 8, 8, 0]} name="Clickouts" />
-                  </BarChart>
-                </ResponsiveContainer>
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
-
-      {/* Bottom analytics row */}
-      <Grid container spacing={2.5}>
-        <Grid item xs={12} md={4} sx={{ minWidth: 0 }}>
-          <Card
-            sx={{
-              height: "100%",
-              borderRadius: 2,
-              bgcolor: "#1A1D23",
-              border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
-            }}
-          >
-            <CardContent sx={{ p: 2.5 }}>
-              <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
-                <Box>
-                  <Typography variant="subtitle1" sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter" }}>
-                    Device Mix
-                  </Typography>
-                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
-                    Desktop vs mobile vs tablet
+                  <Typography
+                    variant="caption"
+                    sx={{ color: "#71717A", fontFamily: "Inter" }}
+                  >
+                    User devices breakdown
                   </Typography>
                 </Box>
                 <Speed sx={{ fontSize: 20, color: "#facc15" }} />
               </Stack>
-              <Box sx={{ height: 220 }}>
+              <Box sx={{ width: "100%", height: 280 }}>
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
@@ -449,8 +626,8 @@ export default function Dashboard() {
                       nameKey="name"
                       cx="50%"
                       cy="50%"
-                      innerRadius={45}
-                      outerRadius={75}
+                      innerRadius={50}
+                      outerRadius={90}
                       paddingAngle={3}
                       label={({ name, value }) => `${name} ${value}%`}
                     >
@@ -458,115 +635,246 @@ export default function Dashboard() {
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
                     </Pie>
-                    <Tooltip contentStyle={{ backgroundColor: "#020617", border: "1px solid #1f2937" }} />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: "#020617",
+                        border: "1px solid #1f2937",
+                        fontFamily: "Inter",
+                      }}
+                    />
                   </PieChart>
                 </ResponsiveContainer>
               </Box>
             </CardContent>
           </Card>
         </Grid>
+      </Grid>
 
-        <Grid item xs={12} md={4} sx={{ minWidth: 0 }}>
+      {/* Top Routes Table */}
+      <Card
+        sx={{
+          borderRadius: 2,
+          bgcolor: "#1A1D23",
+          border: "1px solid rgba(255, 255, 255, 0.08)",
+          boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <CardContent sx={{ p: 2.5 }}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            sx={{ mb: 2 }}
+          >
+            <Box>
+              <Typography
+                variant="subtitle1"
+                sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter" }}
+              >
+                Top Search Routes
+              </Typography>
+              <Typography
+                variant="caption"
+                sx={{ color: "#71717A", fontFamily: "Inter" }}
+              >
+                Most searched flight routes with conversion rates
+              </Typography>
+            </Box>
+            <RouteIcon sx={{ fontSize: 20, color: "#f97316" }} />
+          </Stack>
+          <Box sx={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <thead>
+                <tr
+                  style={{
+                    borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                  }}
+                >
+                  <th
+                    style={{
+                      textAlign: "left",
+                      padding: "12px 16px",
+                      fontFamily: "Inter",
+                      fontSize: "0.875rem",
+                      fontWeight: 600,
+                      color: "#9ca3af",
+                    }}
+                  >
+                    Route
+                  </th>
+                  <th
+                    style={{
+                      textAlign: "left",
+                      padding: "12px 16px",
+                      fontFamily: "Inter",
+                      fontSize: "0.875rem",
+                      fontWeight: 600,
+                      color: "#9ca3af",
+                    }}
+                  >
+                    Searches
+                  </th>
+                  <th
+                    style={{
+                      textAlign: "left",
+                      padding: "12px 16px",
+                      fontFamily: "Inter",
+                      fontSize: "0.875rem",
+                      fontWeight: 600,
+                      color: "#9ca3af",
+                    }}
+                  >
+                    Clickouts
+                  </th>
+                  <th
+                    style={{
+                      textAlign: "left",
+                      padding: "12px 16px",
+                      fontFamily: "Inter",
+                      fontSize: "0.875rem",
+                      fontWeight: 600,
+                      color: "#9ca3af",
+                    }}
+                  >
+                    Conversion
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {topRoutes.map((route, index) => (
+                  <tr
+                    key={index}
+                    style={{
+                      borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
+                    }}
+                  >
+                    <td
+                      style={{
+                        padding: "12px 16px",
+                        fontFamily: "Inter",
+                        fontSize: "0.875rem",
+                        fontWeight: 500,
+                        color: "#e5e7eb",
+                      }}
+                    >
+                      {route.route}
+                    </td>
+                    <td
+                      style={{
+                        padding: "12px 16px",
+                        fontFamily: "Inter",
+                        fontSize: "0.875rem",
+                        color: "#9ca3af",
+                      }}
+                    >
+                      {route.searches.toLocaleString()}
+                    </td>
+                    <td
+                      style={{
+                        padding: "12px 16px",
+                        fontFamily: "Inter",
+                        fontSize: "0.875rem",
+                        color: "#9ca3af",
+                      }}
+                    >
+                      {route.clickouts.toLocaleString()}
+                    </td>
+                    <td style={{ padding: "12px 16px" }}>
+                      <Chip
+                        label={`${route.conversion}%`}
+                        size="small"
+                        sx={{
+                          bgcolor: "rgba(34, 197, 94, 0.1)",
+                          color: "#22c55e",
+                          fontFamily: "Inter",
+                          fontSize: "0.75rem",
+                          fontWeight: 500,
+                        }}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Box>
+        </CardContent>
+      </Card>
+
+      {/* Bottom Row */}
+      <Grid container spacing={2.5}>
+        <Grid item xs={12} md={6}>
           <Card
             sx={{
               height: "100%",
               borderRadius: 2,
               bgcolor: "#1A1D23",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 2.5 }}>
-              <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                sx={{ mb: 2 }}
+              >
                 <Box>
-                  <Typography variant="subtitle1" sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter" }}>
-                    Visitors by Country
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      color: "#FFFFFF",
+                      fontWeight: 600,
+                      fontFamily: "Inter",
+                    }}
+                  >
+                    Geographic Distribution
                   </Typography>
-                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
-                    Top geo sources by unique IP
+                  <Typography
+                    variant="caption"
+                    sx={{ color: "#71717A", fontFamily: "Inter" }}
+                  >
+                    Visitors by country
                   </Typography>
                 </Box>
                 <TravelExplore sx={{ fontSize: 20, color: "#22c55e" }} />
               </Stack>
-              <Stack spacing={1.25}>
-                {geoDistribution.map((row) => (
-                  <Box key={row.country} sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                    <Box
-                      sx={{
-                        width: 28,
-                        height: 28,
-                        borderRadius: 1,
-                        bgcolor: "rgba(15,23,42,1)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: 11,
-                        fontWeight: 600,
-                        color: "#e5e7eb",
-                      }}
-                    >
-                      {row.country}
-                    </Box>
-                    <Box sx={{ flex: 1 }}>
-                      <Typography variant="body2" sx={{ color: "#e5e7eb" }}>
-                        {row.label}
-                      </Typography>
-                      <Typography variant="caption" sx={{ color: "#9ca3af" }}>
-                        {row.visitors.toLocaleString()} visitors
-                      </Typography>
-                    </Box>
-                  </Box>
-                ))}
-              </Stack>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        <Grid item xs={12} md={4} sx={{ minWidth: 0 }}>
-          <Card
-            sx={{
-              height: "100%",
-              borderRadius: 2,
-              bgcolor: "#1A1D23",
-              border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
-            }}
-          >
-            <CardContent sx={{ p: 2.5 }}>
-              <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
-                <Box>
-                  <Typography variant="subtitle1" sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter" }}>
-                    API Latency (p95)
-                  </Typography>
-                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
-                    Key integration response times
-                  </Typography>
-                </Box>
-                <Speed sx={{ fontSize: 20, color: "#38bdf8" }} />
-              </Stack>
               <Stack spacing={1.5}>
-                {apiLatency.map((row) => (
-                  <Box key={row.service}>
-                    <Stack direction="row" justifyContent="space-between" alignItems="center">
-                      <Typography variant="body2" sx={{ color: "#e5e7eb" }}>
-                        {row.service}
+                {geoDistribution.map((geo, index) => (
+                  <Box key={index}>
+                    <Stack
+                      direction="row"
+                      justifyContent="space-between"
+                      alignItems="center"
+                      sx={{ mb: 0.5 }}
+                    >
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: "#e5e7eb",
+                          fontFamily: "Inter",
+                          fontSize: "0.875rem",
+                        }}
+                      >
+                        {geo.country}
                       </Typography>
-                      <Typography variant="caption" sx={{ color: "#9ca3af" }}>
-                        {row.p95} ms
+                      <Typography
+                        variant="caption"
+                        sx={{ color: "#9ca3af", fontFamily: "Inter" }}
+                      >
+                        {geo.visitors.toLocaleString()}
                       </Typography>
                     </Stack>
                     <LinearProgress
                       variant="determinate"
-                      value={Math.min(row.p95 / 5, 100)}
+                      value={geo.percentage}
                       sx={{
-                        mt: 0.5,
                         height: 6,
                         borderRadius: 999,
                         bgcolor: "rgba(15,23,42,1)",
                         "& .MuiLinearProgress-bar": {
                           borderRadius: 999,
-                          bgcolor:
-                            row.service === "Amadeus" ? "#f97316" : row.service === "Backend" ? "#4ade80" : "#38bdf8",
+                          bgcolor: "#60a5fa",
                         },
                       }}
                     />
@@ -576,27 +884,94 @@ export default function Dashboard() {
             </CardContent>
           </Card>
         </Grid>
-      </Grid>
 
-      {/* Footer strip */}
-      <Box sx={{ mt: 1 }}>
-        <Divider sx={{ borderColor: "rgba(15,23,42,0.9)" }} />
-        <Stack
-          direction={{ xs: "column", sm: "row" }}
-          justifyContent="space-between"
-          alignItems={{ xs: "flex-start", sm: "center" }}
-          sx={{ mt: 1.5, color: "#6b7280" }}
-          spacing={1}
-        >
-          <Typography variant="caption">
-            Data is illustrative only – wire this dashboard to your new analytics and monitoring APIs.
-          </Typography>
-          <Stack direction="row" spacing={1} alignItems="center">
-            <People sx={{ fontSize: 14 }} />
-            <Typography variant="caption">Admin workspace · Flight & user intelligence</Typography>
-          </Stack>
-        </Stack>
-      </Box>
+        <Grid item xs={12} md={6}>
+          <Card
+            sx={{
+              height: "100%",
+              borderRadius: 2,
+              bgcolor: "#1A1D23",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            <CardContent sx={{ p: 2.5 }}>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                sx={{ mb: 2 }}
+              >
+                <Box>
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      color: "#FFFFFF",
+                      fontWeight: 600,
+                      fontFamily: "Inter",
+                    }}
+                  >
+                    API Services Status
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    sx={{ color: "#71717A", fontFamily: "Inter" }}
+                  >
+                    Real-time service health monitoring
+                  </Typography>
+                </Box>
+                <Speed sx={{ fontSize: 20, color: "#38bdf8" }} />
+              </Stack>
+              <Stack spacing={1.5}>
+                {apiServices.map((service, index) => (
+                  <Box
+                    key={index}
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      p: 1.5,
+                      bgcolor: "rgba(15,23,42,0.5)",
+                      borderRadius: 2,
+                    }}
+                  >
+                    <Box>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: "#e5e7eb",
+                          fontFamily: "Inter",
+                          fontSize: "0.875rem",
+                          fontWeight: 500,
+                        }}
+                      >
+                        {service.name}
+                      </Typography>
+                      <Typography
+                        variant="caption"
+                        sx={{ color: "#9ca3af", fontFamily: "Inter" }}
+                      >
+                        {service.latency}ms · {service.uptime}% uptime
+                      </Typography>
+                    </Box>
+                    <Chip
+                      label={service.status}
+                      size="small"
+                      sx={{
+                        bgcolor: "rgba(34, 197, 94, 0.1)",
+                        color: "#22c55e",
+                        fontFamily: "Inter",
+                        fontSize: "0.75rem",
+                        textTransform: "capitalize",
+                      }}
+                    />
+                  </Box>
+                ))}
+              </Stack>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
     </Box>
   );
 }

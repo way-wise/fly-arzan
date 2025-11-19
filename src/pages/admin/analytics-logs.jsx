@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Box,
   Card,
@@ -11,8 +11,6 @@ import {
   MenuItem,
   TextField,
   Button,
-  IconButton,
-  Skeleton,
   Table,
   TableBody,
   TableCell,
@@ -23,295 +21,304 @@ import {
 import DownloadIcon from "@mui/icons-material/Download";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import ClearIcon from "@mui/icons-material/Clear";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import SearchIcon from "@mui/icons-material/Search";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL;
+// Mock data
+const mockLogs = [
+  {
+    id: 1,
+    timestamp: "10/23/2025, 9:33:03 PM",
+    origin: "DXB",
+    destination: "JED",
+    tripType: "one-way",
+    passengers: "1A",
+    class: "economy",
+    device: "desktop",
+    browser: "Chrome 141.0.0",
+    os: "Windows 10/11",
+    location: "Unknown",
+  },
+  {
+    id: 2,
+    timestamp: "10/23/2025, 8:15:22 PM",
+    origin: "ALA",
+    destination: "IST",
+    tripType: "round-trip",
+    passengers: "2A",
+    class: "business",
+    device: "mobile",
+    browser: "Safari 17.2",
+    os: "iOS 17",
+    location: "Kazakhstan",
+  },
+  {
+    id: 3,
+    timestamp: "10/23/2025, 7:42:11 PM",
+    origin: "TSE",
+    destination: "DXB",
+    tripType: "one-way",
+    passengers: "1A, 1C",
+    class: "economy",
+    device: "desktop",
+    browser: "Firefox 120",
+    os: "macOS",
+    location: "Kazakhstan",
+  },
+  {
+    id: 4,
+    timestamp: "10/23/2025, 6:28:45 PM",
+    origin: "ALA",
+    destination: "SAW",
+    tripType: "round-trip",
+    passengers: "3A",
+    class: "economy",
+    device: "tablet",
+    browser: "Chrome 141.0.0",
+    os: "Android 14",
+    location: "Turkey",
+  },
+  {
+    id: 5,
+    timestamp: "10/23/2025, 5:55:33 PM",
+    origin: "DXB",
+    destination: "LHR",
+    tripType: "one-way",
+    passengers: "1A",
+    class: "first",
+    device: "desktop",
+    browser: "Edge 120",
+    os: "Windows 10/11",
+    location: "UAE",
+  },
+];
+
+// Consistent styling
+const selectStyles = {
+  bgcolor: "rgba(59, 130, 246, 0.1)",
+  color: "#3B82F6",
+  fontSize: "0.875rem",
+  fontFamily: "Inter",
+  border: "1px solid rgba(59, 130, 246, 0.2)",
+  borderRadius: 2,
+  height: 36,
+  "& .MuiOutlinedInput-notchedOutline": { border: "none" },
+  "& .MuiSelect-icon": { color: "#3B82F6" },
+};
+
+const selectMenuProps = {
+  PaperProps: {
+    sx: {
+      bgcolor: "#1A1D23",
+      border: "1px solid rgba(255, 255, 255, 0.08)",
+      "& .MuiMenuItem-root": {
+        color: "#e5e7eb",
+        fontFamily: "Inter",
+        fontSize: "0.875rem",
+        "&:hover": { bgcolor: "rgba(59, 130, 246, 0.1)" },
+        "&.Mui-selected": {
+          bgcolor: "rgba(59, 130, 246, 0.2)",
+          "&:hover": { bgcolor: "rgba(59, 130, 246, 0.3)" },
+        },
+      },
+    },
+  },
+};
 
 export default function AnalyticsLogs() {
-  const [logs, setLogs] = useState([]);
-  const [filterOptions, setFilterOptions] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [refreshing, setRefreshing] = useState(false);
-  const [pagination, setPagination] = useState({
-    page: 1,
-    limit: 50,
-    total: 0,
-    totalPages: 0,
-  });
-
-  // Filter state
   const [filters, setFilters] = useState({
-    startDate: "",
-    endDate: "",
-    tripType: "",
-    searchType: "origin",
     searchQuery: "",
-    os: "",
-    browser: "",
-    deviceType: "",
-    country: "",
+    tripType: "",
     travelClass: "",
+    device: "",
+    browser: "",
   });
 
-  // Filters panel removed; inline controls over table
-
-  const fetchLogs = async (page = 1) => {
-    try {
-      setRefreshing(true);
-      const base = {
-        page: page.toString(),
-        limit: pagination.limit.toString(),
-      };
-      const mapped = { ...base };
-      // Map search field to origin/destination
-      if (filters.searchQuery && (filters.searchType || "origin") !== "all") {
-        if ((filters.searchType || "origin") === "origin")
-          mapped.origin = filters.searchQuery;
-        else mapped.destination = filters.searchQuery;
-      }
-      // Pass other filters if set
-      [
-        "startDate",
-        "endDate",
-        "tripType",
-        "os",
-        "browser",
-        "deviceType",
-        "country",
-        "travelClass",
-      ].forEach((k) => {
-        const v = filters[k];
-        if (v) mapped[k] = v;
-      });
-      const params = new URLSearchParams(mapped);
-
-      const response = await fetch(
-        `${API_BASE_URL}/api/admin/logs/search-logs?${params}`
-      );
-      const data = await response.json();
-
-      setLogs(data.logs || []);
-      setPagination(data.pagination);
-    } catch (error) {
-      console.error("Failed to fetch logs:", error);
-    } finally {
-      setLoading(false);
-      setRefreshing(false);
-    }
+  const handleFilterChange = (field, value) => {
+    setFilters((prev) => ({ ...prev, [field]: value }));
   };
 
-  const fetchFilterOptions = async () => {
-    try {
-      const response = await fetch(
-        `${API_BASE_URL}/api/admin/logs/filter-options`
-      );
-      const data = await response.json();
-      setFilterOptions(data);
-    } catch (error) {
-      console.error("Failed to fetch filter options:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchLogs();
-    fetchFilterOptions();
-  }, []);
-
-  const handleFilterChange = (key, value) => {
-    setFilters((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const applyFilters = () => {
-    setPagination((prev) => ({ ...prev, page: 1 }));
-    fetchLogs(1);
-  };
-
-  const clearFilters = () => {
+  const handleClearFilters = () => {
     setFilters({
-      startDate: "",
-      endDate: "",
-      tripType: "",
-      searchType: "origin",
       searchQuery: "",
-      os: "",
-      browser: "",
-      deviceType: "",
-      country: "",
+      tripType: "",
       travelClass: "",
+      device: "",
+      browser: "",
     });
-    setPagination((prev) => ({ ...prev, page: 1 }));
-    setTimeout(() => fetchLogs(1), 100);
   };
 
   const handleExport = () => {
-    const mapped = {};
-    if (filters.searchQuery) {
-      if ((filters.searchType || "origin") === "origin")
-        mapped.origin = filters.searchQuery;
-      else mapped.destination = filters.searchQuery;
-    }
-    [
-      "startDate",
-      "endDate",
-      "tripType",
-      "os",
-      "browser",
-      "deviceType",
-      "country",
-      "travelClass",
-    ].forEach((k) => {
-      const v = filters[k];
-      if (v) mapped[k] = v;
-    });
-    const params = new URLSearchParams(mapped);
-    window.open(
-      `${API_BASE_URL}/api/admin/logs/search-logs/export?${params}`,
-      "_blank"
-    );
+    console.log("Exporting logs as CSV");
   };
 
-  const handlePageChange = (newPage) => {
-    setPagination((prev) => ({ ...prev, page: newPage }));
-    fetchLogs(newPage);
-  };
-
-  if (loading) {
+  const filteredLogs = mockLogs.filter((log) => {
+    const matchesSearch =
+      !filters.searchQuery ||
+      log.origin.toLowerCase().includes(filters.searchQuery.toLowerCase()) ||
+      log.destination.toLowerCase().includes(filters.searchQuery.toLowerCase());
+    const matchesTripType =
+      !filters.tripType || log.tripType === filters.tripType;
+    const matchesClass =
+      !filters.travelClass || log.class === filters.travelClass;
+    const matchesDevice = !filters.device || log.device === filters.device;
+    const matchesBrowser =
+      !filters.browser ||
+      log.browser.toLowerCase().includes(filters.browser.toLowerCase());
     return (
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        <Skeleton variant="rounded" height={48} />
-        <Skeleton variant="rounded" height={320} />
-      </Box>
+      matchesSearch &&
+      matchesTripType &&
+      matchesClass &&
+      matchesDevice &&
+      matchesBrowser
     );
-  }
+  });
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+      {/* Header */}
       <Box
         sx={{
           display: "flex",
+          flexDirection: { xs: "column", md: "row" },
           justifyContent: "space-between",
           alignItems: { xs: "flex-start", md: "center" },
-          flexDirection: { xs: "column", md: "row" },
           gap: 2,
         }}
       >
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 600, color: "#FFFFFF", fontFamily: "Inter" }}>
-            Search analytics logs
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: 600, color: "#FFFFFF", fontFamily: "Inter" }}
+          >
+            Search Analytics Logs
           </Typography>
-          <Typography variant="body2" sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter" }}>
-            Detailed flight search logs with device, geo and passenger breakdown.
+          <Typography
+            variant="body2"
+            sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter" }}
+          >
+            Detailed flight search logs with device, geo and passenger breakdown
           </Typography>
         </Box>
-        <Stack direction="row" spacing={1.5} alignItems="center">
+        <Stack direction="row" spacing={1.5}>
           <Button
             variant="outlined"
             size="small"
+            startIcon={<DownloadIcon />}
             onClick={handleExport}
             sx={{
-              borderColor: "rgba(55,65,81,0.9)",
-              color: "#e5e7eb",
+              borderColor: "rgba(59, 130, 246, 0.3)",
+              color: "#3B82F6",
+              fontFamily: "Inter",
               textTransform: "none",
+              height: 36,
+              "&:hover": {
+                borderColor: "#3B82F6",
+                bgcolor: "rgba(59, 130, 246, 0.1)",
+              },
             }}
           >
-            <DownloadIcon sx={{ fontSize: 18, mr: 1 }} /> CSV
+            CSV
           </Button>
           <Button
             variant="outlined"
             size="small"
-            onClick={() => fetchLogs(pagination.page)}
-            disabled={refreshing}
+            startIcon={<RefreshIcon />}
             sx={{
-              borderColor: "rgba(55,65,81,0.9)",
-              color: "#e5e7eb",
+              borderColor: "rgba(59, 130, 246, 0.3)",
+              color: "#3B82F6",
+              fontFamily: "Inter",
               textTransform: "none",
+              height: 36,
+              "&:hover": {
+                borderColor: "#3B82F6",
+                bgcolor: "rgba(59, 130, 246, 0.1)",
+              },
             }}
           >
-            <RefreshIcon
-              sx={{
-                fontSize: 18,
-                mr: 1,
-                animation: refreshing ? "spin 1s linear infinite" : "none",
-              }}
-            />
             Refresh
           </Button>
         </Stack>
       </Box>
 
+      {/* Filters Card */}
       <Card
         sx={{
           borderRadius: 2,
           bgcolor: "#1A1D23",
           border: "1px solid rgba(255, 255, 255, 0.08)",
-          boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)"
+          boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
         }}
       >
         <CardHeader
           title={
-            <Typography sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter" }}>
-              Search logs ({pagination?.total || 0} total)
+            <Typography
+              sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter" }}
+            >
+              Search Logs ({filteredLogs.length} total)
             </Typography>
           }
           subheader={
-            <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
-              Combine quick route search with advanced filters to narrow down logs.
+            <Typography
+              variant="caption"
+              sx={{ color: "#71717A", fontFamily: "Inter" }}
+            >
+              Combine quick route search with advanced filters to narrow down
+              logs
             </Typography>
           }
-          sx={{ px: 2.5, pt: 2.25, pb: 1.5 }}
+          sx={{ px: 2.5, pt: 2.5, pb: 1.5 }}
         />
         <CardContent sx={{ px: 2.5, pb: 2.5 }}>
-          {/* Filters */}
-          <Stack spacing={2} sx={{ mb: 2.5 }}>
-            {/* Primary search row */}
-            <Stack direction={{ xs: "column", md: "row" }} spacing={1.5} alignItems="center">
-              <Box sx={{ width: 140 }}>
-                <Select
-                  fullWidth
-                  size="small"
-                  value={filters.searchType}
-                  onChange={(e) => handleFilterChange("searchType", e.target.value)}
-                  displayEmpty
-                  sx={{
-                    bgcolor: "#0B0F16",
-                    color: "#FFFFFF",
-                    fontSize: 13,
-                    fontFamily: "Inter, sans-serif",
-                    border: "1px solid rgba(255, 255, 255, 0.08)",
-                    borderRadius: 1,
-                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
-                  }}
-                >
-                  <MenuItem value="all">All</MenuItem>
-                  <MenuItem value="origin">Origin</MenuItem>
-                  <MenuItem value="destination">Destination</MenuItem>
-                </Select>
-              </Box>
+          {/* Filter Controls */}
+          <Stack spacing={2} sx={{ mb: 3 }}>
+            <Stack direction={{ xs: "column", md: "row" }} spacing={1.5}>
               <Box sx={{ flex: 1, minWidth: 220 }}>
                 <TextField
                   fullWidth
                   size="small"
-                  placeholder={
-                    filters.searchType === "destination"
-                      ? "Search destination (e.g., LHR or London)"
-                      : "Search origin (e.g., DXB or Dubai)"
-                  }
+                  placeholder="Search origin (e.g., DXB or Dubai)"
                   value={filters.searchQuery}
-                  onChange={(e) => handleFilterChange("searchQuery", e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      setPagination((prev) => ({ ...prev, page: 1 }));
-                      fetchLogs(1);
-                    }
+                  onChange={(e) =>
+                    handleFilterChange("searchQuery", e.target.value)
+                  }
+                  InputProps={{
+                    startAdornment: (
+                      <SearchIcon
+                        sx={{
+                          color: "#71717A",
+                          mr: 1.5,
+                          ml: 0.5,
+                          fontSize: 20,
+                        }}
+                      />
+                    ),
                   }}
                   sx={{
-                    bgcolor: "#0B0F16",
-                    borderRadius: 999,
-                    fontFamily: "Inter, sans-serif",
+                    bgcolor: "rgba(59, 130, 246, 0.05)",
+                    borderRadius: 2,
+                    fontFamily: "Inter",
                     border: "1px solid rgba(255, 255, 255, 0.08)",
-                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
-                    "& .MuiInputBase-input": { fontSize: 13, color: "#FFFFFF", fontFamily: "Inter, sans-serif" },
+                    transition: "all 0.2s ease",
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": { border: "none" },
+                      "&:hover": {
+                        bgcolor: "rgba(59, 130, 246, 0.08)",
+                        border: "1px solid rgba(59, 130, 246, 0.2)",
+                      },
+                      "&.Mui-focused": {
+                        bgcolor: "rgba(59, 130, 246, 0.08)",
+                        border: "1px solid rgba(59, 130, 246, 0.3)",
+                        boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.1)",
+                      },
+                    },
+                    "& .MuiInputBase-input": {
+                      fontSize: "0.875rem",
+                      color: "#FFFFFF",
+                      fontFamily: "Inter",
+                      height: "20px",
+                      paddingLeft: "4px",
+                      "&::placeholder": { color: "#71717A", opacity: 1 },
+                    },
                   }}
                 />
               </Box>
@@ -320,332 +327,316 @@ export default function AnalyticsLogs() {
                   fullWidth
                   size="small"
                   value={filters.tripType}
-                  onChange={(e) => handleFilterChange("tripType", e.target.value)}
+                  onChange={(e) =>
+                    handleFilterChange("tripType", e.target.value)
+                  }
                   displayEmpty
-                  sx={{
-                    bgcolor: "#0B0F16",
-                    color: "#FFFFFF",
-                    fontSize: 13,
-                    fontFamily: "Inter, sans-serif",
-                    border: "1px solid rgba(255, 255, 255, 0.08)",
-                    borderRadius: 1,
-                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
-                  }}
+                  sx={selectStyles}
+                  MenuProps={selectMenuProps}
                 >
                   <MenuItem value="">Trip type</MenuItem>
-                  <MenuItem value="one-way">one-way</MenuItem>
-                  <MenuItem value="round-trip">round-trip</MenuItem>
-                  <MenuItem value="multi-city">multi-city</MenuItem>
+                  <MenuItem value="one-way">One-way</MenuItem>
+                  <MenuItem value="round-trip">Round-trip</MenuItem>
+                  <MenuItem value="multi-city">Multi-city</MenuItem>
                 </Select>
               </Box>
-              <Box sx={{ width: 160 }}>
-                <TextField
-                  type="date"
-                  size="small"
-                  fullWidth
-                  value={filters.startDate}
-                  onChange={(e) => handleFilterChange("startDate", e.target.value)}
-                  sx={{
-                    bgcolor: "#0B0F16",
-                    borderRadius: 1,
-                    fontFamily: "Inter, sans-serif",
-                    border: "1px solid rgba(255, 255, 255, 0.08)",
-                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
-                    "& .MuiInputBase-input": { fontSize: 13, color: "#FFFFFF", fontFamily: "Inter, sans-serif" },
-                  }}
-                />
-              </Box>
-              <Box sx={{ width: 160 }}>
-                <TextField
-                  type="date"
-                  size="small"
-                  fullWidth
-                  value={filters.endDate}
-                  onChange={(e) => handleFilterChange("endDate", e.target.value)}
-                  sx={{
-                    bgcolor: "#0B0F16",
-                    borderRadius: 1,
-                    fontFamily: "Inter, sans-serif",
-                    border: "1px solid rgba(255, 255, 255, 0.08)",
-                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
-                    "& .MuiInputBase-input": { fontSize: 13, color: "#FFFFFF", fontFamily: "Inter, sans-serif" },
-                  }}
-                />
-              </Box>
-            </Stack>
-
-            {/* Advanced filters */}
-            <Stack direction="row" spacing={1.5} flexWrap="wrap" alignItems="center">
-              <Box sx={{ width: 160 }}>
-                <Select
-                  fullWidth
-                  size="small"
-                  value={filters.os}
-                  onChange={(e) => handleFilterChange("os", e.target.value)}
-                  displayEmpty
-                  sx={{
-                    bgcolor: "#0B0F16",
-                    color: "#FFFFFF",
-                    fontSize: 13,
-                    fontFamily: "Inter, sans-serif",
-                    border: "1px solid rgba(255, 255, 255, 0.08)",
-                    borderRadius: 1,
-                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
-                  }}
-                >
-                  <MenuItem value="">OS</MenuItem>
-                  {filterOptions?.oses?.map((os) => (
-                    <MenuItem key={os} value={os}>
-                      {os}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </Box>
-              <Box sx={{ width: 180 }}>
-                <Select
-                  fullWidth
-                  size="small"
-                  value={filters.browser}
-                  onChange={(e) => handleFilterChange("browser", e.target.value)}
-                  displayEmpty
-                  sx={{
-                    bgcolor: "#0B0F16",
-                    color: "#FFFFFF",
-                    fontSize: 13,
-                    fontFamily: "Inter, sans-serif",
-                    border: "1px solid rgba(255, 255, 255, 0.08)",
-                    borderRadius: 1,
-                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
-                  }}
-                >
-                  <MenuItem value="">Browser</MenuItem>
-                  {filterOptions?.browsers?.map((b) => (
-                    <MenuItem key={b} value={b}>
-                      {b}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </Box>
-              <Box sx={{ width: 160 }}>
-                <Select
-                  fullWidth
-                  size="small"
-                  value={filters.deviceType}
-                  onChange={(e) => handleFilterChange("deviceType", e.target.value)}
-                  displayEmpty
-                  sx={{
-                    bgcolor: "#0B0F16",
-                    color: "#FFFFFF",
-                    fontSize: 13,
-                    fontFamily: "Inter, sans-serif",
-                    border: "1px solid rgba(255, 255, 255, 0.08)",
-                    borderRadius: 1,
-                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
-                  }}
-                >
-                  <MenuItem value="">Device</MenuItem>
-                  {filterOptions?.deviceTypes?.map((d) => (
-                    <MenuItem key={d} value={d}>
-                      {d}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </Box>
-              <Box sx={{ width: 160 }}>
+              <Box sx={{ width: 140 }}>
                 <Select
                   fullWidth
                   size="small"
                   value={filters.travelClass}
-                  onChange={(e) => handleFilterChange("travelClass", e.target.value)}
+                  onChange={(e) =>
+                    handleFilterChange("travelClass", e.target.value)
+                  }
                   displayEmpty
-                  sx={{
-                    bgcolor: "#0B0F16",
-                    color: "#FFFFFF",
-                    fontSize: 13,
-                    fontFamily: "Inter, sans-serif",
-                    border: "1px solid rgba(255, 255, 255, 0.08)",
-                    borderRadius: 1,
-                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
-                  }}
+                  sx={selectStyles}
+                  MenuProps={selectMenuProps}
                 >
                   <MenuItem value="">Class</MenuItem>
-                  {filterOptions?.travelClasses?.map((tc) => (
-                    <MenuItem key={tc} value={tc}>
-                      {tc}
-                    </MenuItem>
-                  ))}
+                  <MenuItem value="economy">Economy</MenuItem>
+                  <MenuItem value="business">Business</MenuItem>
+                  <MenuItem value="first">First</MenuItem>
                 </Select>
               </Box>
-              {filterOptions?.countries?.length > 0 && (
-                <Box sx={{ width: 180 }}>
-                  <Select
-                    fullWidth
-                    size="small"
-                    value={filters.country}
-                    onChange={(e) => handleFilterChange("country", e.target.value)}
-                    displayEmpty
-                    sx={{
-                      bgcolor: "#0B0F16",
-                      color: "#FFFFFF",
-                      fontSize: 13,
-                      fontFamily: "Inter, sans-serif",
-                      border: "1px solid rgba(255, 255, 255, 0.08)",
-                      borderRadius: 1,
-                      '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
-                    }}
-                  >
-                    <MenuItem value="">Country</MenuItem>
-                    {filterOptions?.countries?.map((c) => (
-                      <MenuItem key={c} value={c}>
-                        {c}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </Box>
-              )}
-              <Box sx={{ flex: 1 }} />
-              <Stack direction="row" spacing={1} justifyContent="flex-end">
-                <Button
-                  variant="outlined"
+              <Box sx={{ width: 140 }}>
+                <Select
+                  fullWidth
                   size="small"
-                  onClick={clearFilters}
-                  startIcon={<ClearIcon sx={{ fontSize: 16 }} />}
-                  sx={{
-                    borderColor: "rgba(60, 66, 72, 0.4)",
-                    color: "#e5e7eb",
-                    textTransform: "none",
-                  }}
+                  value={filters.device}
+                  onChange={(e) => handleFilterChange("device", e.target.value)}
+                  displayEmpty
+                  sx={selectStyles}
+                  MenuProps={selectMenuProps}
                 >
-                  Clear
-                </Button>
-                <Button
-                  variant="contained"
+                  <MenuItem value="">Device</MenuItem>
+                  <MenuItem value="desktop">Desktop</MenuItem>
+                  <MenuItem value="mobile">Mobile</MenuItem>
+                  <MenuItem value="tablet">Tablet</MenuItem>
+                </Select>
+              </Box>
+              <Box sx={{ width: 160 }}>
+                <Select
+                  fullWidth
                   size="small"
-                  onClick={applyFilters}
-                  sx={{
-                    textTransform: "none",
-                    bgcolor: "#2563eb",
-                    "&:hover": { bgcolor: "#1d4ed8" },
-                  }}
+                  value={filters.browser}
+                  onChange={(e) =>
+                    handleFilterChange("browser", e.target.value)
+                  }
+                  displayEmpty
+                  sx={selectStyles}
+                  MenuProps={selectMenuProps}
                 >
-                  Search
-                </Button>
-              </Stack>
+                  <MenuItem value="">Browser</MenuItem>
+                  <MenuItem value="chrome">Chrome</MenuItem>
+                  <MenuItem value="safari">Safari</MenuItem>
+                  <MenuItem value="firefox">Firefox</MenuItem>
+                  <MenuItem value="edge">Edge</MenuItem>
+                </Select>
+              </Box>
+              <Button
+                variant="outlined"
+                size="small"
+                startIcon={<ClearIcon />}
+                onClick={handleClearFilters}
+                sx={{
+                  borderColor: "rgba(239, 68, 68, 0.3)",
+                  color: "#ef4444",
+                  fontFamily: "Inter",
+                  textTransform: "none",
+                  height: 36,
+                  "&:hover": {
+                    borderColor: "#ef4444",
+                    bgcolor: "rgba(239, 68, 68, 0.1)",
+                  },
+                }}
+              >
+                Clear
+              </Button>
             </Stack>
           </Stack>
 
-          {logs.length === 0 ? (
-            <Typography sx={{ textAlign: "center", color: "#9ca3af", py: 4, fontSize: 13 }}>
-              No logs found matching your filters.
-            </Typography>
-          ) : (
-            <>
-              <TableContainer sx={{ overflowX: "auto" }}>
-                <Table sx={{ minWidth: 650 }}>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell sx={{ color: "#71717A", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em", fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>Timestamp</TableCell>
-                      <TableCell sx={{ color: "#71717A", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em", fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>Route</TableCell>
-                      <TableCell sx={{ color: "#71717A", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em", fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>Trip type</TableCell>
-                      <TableCell sx={{ color: "#71717A", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em", fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>Passengers</TableCell>
-                      <TableCell sx={{ color: "#71717A", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em", fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>Class</TableCell>
-                      <TableCell sx={{ color: "#71717A", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em", fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>Device</TableCell>
-                      <TableCell sx={{ color: "#71717A", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em", fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>Browser</TableCell>
-                      <TableCell sx={{ color: "#71717A", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em", fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>OS</TableCell>
-                      <TableCell sx={{ color: "#71717A", fontSize: 12, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em", fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>Location</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {logs.map((log) => (
-                      <TableRow key={log.id} sx={{ '&:hover': { bgcolor: "rgba(255, 255, 255, 0.02)" } }}>
-                        <TableCell sx={{ color: "#71717A", fontSize: 12, fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>
-                          {new Date(log.createdAt).toLocaleString()}
-                        </TableCell>
-                        <TableCell sx={{ color: "#FFFFFF", fontSize: 13, fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>
-                          {log.origin} → {log.destination}
-                        </TableCell>
-                        <TableCell sx={{ borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>
-                          <Chip
-                            size="small"
-                            label={log.tripType}
-                            sx={{
-                              bgcolor: "rgba(59,130,246,0.15)",
-                              color: "#93c5fd",
-                              borderRadius: 999,
-                              fontSize: 11,
-                              fontFamily: "Inter, sans-serif",
-                            }}
-                          />
-                        </TableCell>
-                        <TableCell sx={{ color: "#FFFFFF", fontSize: 13, fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>
-                          {log.adults}A
-                          {log.children > 0 && `, ${log.children}C`}
-                        </TableCell>
-                        <TableCell sx={{ color: "#FFFFFF", fontSize: 13, fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>
-                          {log.travelClass || "Unknown"}
-                        </TableCell>
-                        <TableCell sx={{ color: "#FFFFFF", fontSize: 13, fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>
-                          {log.deviceType || "Unknown"}
-                        </TableCell>
-                        <TableCell sx={{ color: "#FFFFFF", fontSize: 13, fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>
-                          {log.browser
-                            ? `${log.browser} ${(log.browserVersion || "").trim()}`.trim()
-                            : "Unknown"}
-                        </TableCell>
-                        <TableCell sx={{ color: "#FFFFFF", fontSize: 13, fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>
-                          {log.os
-                            ? `${log.os} ${(log.osVersion || "").trim()}`.trim()
-                            : "Unknown"}
-                        </TableCell>
-                        <TableCell sx={{ color: "#FFFFFF", fontSize: 13, fontFamily: "Inter, sans-serif", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", py: 2 }}>
-                          {log.country || log.region
-                            ? `${log.country || ""} ${log.region || ""}`.trim()
-                            : "Unknown"}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+          {/* Table */}
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow
+                  sx={{ borderBottom: "1px solid rgba(255, 255, 255, 0.08)" }}
+                >
+                  <TableCell
+                    sx={{
+                      color: "#9ca3af",
+                      fontFamily: "Inter",
+                      fontSize: "0.875rem",
+                      fontWeight: 600,
+                      borderBottom: "none",
+                    }}
+                  >
+                    TIMESTAMP
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: "#9ca3af",
+                      fontFamily: "Inter",
+                      fontSize: "0.875rem",
+                      fontWeight: 600,
+                      borderBottom: "none",
+                    }}
+                  >
+                    TRIP TYPE
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: "#9ca3af",
+                      fontFamily: "Inter",
+                      fontSize: "0.875rem",
+                      fontWeight: 600,
+                      borderBottom: "none",
+                    }}
+                  >
+                    PASSENGERS
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: "#9ca3af",
+                      fontFamily: "Inter",
+                      fontSize: "0.875rem",
+                      fontWeight: 600,
+                      borderBottom: "none",
+                    }}
+                  >
+                    CLASS
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: "#9ca3af",
+                      fontFamily: "Inter",
+                      fontSize: "0.875rem",
+                      fontWeight: 600,
+                      borderBottom: "none",
+                    }}
+                  >
+                    DEVICE
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: "#9ca3af",
+                      fontFamily: "Inter",
+                      fontSize: "0.875rem",
+                      fontWeight: 600,
+                      borderBottom: "none",
+                    }}
+                  >
+                    BROWSER
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: "#9ca3af",
+                      fontFamily: "Inter",
+                      fontSize: "0.875rem",
+                      fontWeight: 600,
+                      borderBottom: "none",
+                    }}
+                  >
+                    OS
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: "#9ca3af",
+                      fontFamily: "Inter",
+                      fontSize: "0.875rem",
+                      fontWeight: 600,
+                      borderBottom: "none",
+                    }}
+                  >
+                    LOCATION
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {filteredLogs.map((log) => (
+                  <TableRow
+                    key={log.id}
+                    sx={{
+                      borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
+                      "&:hover": { bgcolor: "rgba(59, 130, 246, 0.05)" },
+                    }}
+                  >
+                    <TableCell
+                      sx={{
+                        color: "#e5e7eb",
+                        fontFamily: "Inter",
+                        fontSize: "0.875rem",
+                        borderBottom: "none",
+                      }}
+                    >
+                      {log.timestamp}
+                    </TableCell>
+                    <TableCell sx={{ borderBottom: "none" }}>
+                      <Chip
+                        label={log.tripType}
+                        size="small"
+                        sx={{
+                          bgcolor:
+                            log.tripType === "one-way"
+                              ? "rgba(59, 130, 246, 0.1)"
+                              : "rgba(34, 197, 94, 0.1)",
+                          color:
+                            log.tripType === "one-way" ? "#3b82f6" : "#22c55e",
+                          fontFamily: "Inter",
+                          fontSize: "0.75rem",
+                        }}
+                      />
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        color: "#e5e7eb",
+                        fontFamily: "Inter",
+                        fontSize: "0.875rem",
+                        borderBottom: "none",
+                      }}
+                    >
+                      {log.passengers}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        color: "#e5e7eb",
+                        fontFamily: "Inter",
+                        fontSize: "0.875rem",
+                        borderBottom: "none",
+                      }}
+                    >
+                      {log.class}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        color: "#e5e7eb",
+                        fontFamily: "Inter",
+                        fontSize: "0.875rem",
+                        borderBottom: "none",
+                      }}
+                    >
+                      {log.device}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        color: "#e5e7eb",
+                        fontFamily: "Inter",
+                        fontSize: "0.875rem",
+                        borderBottom: "none",
+                      }}
+                    >
+                      {log.browser}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        color: "#e5e7eb",
+                        fontFamily: "Inter",
+                        fontSize: "0.875rem",
+                        borderBottom: "none",
+                      }}
+                    >
+                      {log.os}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        color: "#e5e7eb",
+                        fontFamily: "Inter",
+                        fontSize: "0.875rem",
+                        borderBottom: "none",
+                      }}
+                    >
+                      {log.location}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
 
-              <Box
-                sx={{
-                  mt: 3,
-                  pt: 2,
-                  borderTop: "1px solid rgba(60, 66, 72, 0.3)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  gap: 2,
-                }}
-              >
-                <Typography sx={{ fontSize: 12, color: "#9ca3af" }}>
-                  Page {pagination?.page || 1} of {pagination?.totalPages || 1} ({
-                    pagination?.total || 0
-                  }{" "}
-                  total)
-                </Typography>
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <IconButton
-                    size="small"
-                    onClick={() => handlePageChange((pagination?.page || 1) - 1)}
-                    disabled={(pagination?.page || 1) === 1}
-                    sx={{ color: "#e5e7eb", border: "1px solid rgba(31,41,55,0.9)" }}
-                  >
-                    <ChevronLeftIcon sx={{ fontSize: 18 }} />
-                  </IconButton>
-                  <IconButton
-                    size="small"
-                    onClick={() => handlePageChange((pagination?.page || 1) + 1)}
-                    disabled={(pagination?.page || 1) >= (pagination?.totalPages || 1)}
-                    sx={{ color: "#e5e7eb", border: "1px solid rgba(31,41,55,0.9)" }}
-                  >
-                    <ChevronRightIcon sx={{ fontSize: 18 }} />
-                  </IconButton>
-                </Stack>
-              </Box>
-            </>
+          {filteredLogs.length === 0 && (
+            <Box sx={{ textAlign: "center", py: 6 }}>
+              <Typography sx={{ color: "#71717A", fontFamily: "Inter" }}>
+                No logs found matching your filters
+              </Typography>
+            </Box>
           )}
+
+          {/* Pagination Info */}
+          <Box
+            sx={{
+              mt: 3,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Typography
+              variant="caption"
+              sx={{ color: "#71717A", fontFamily: "Inter" }}
+            >
+              Page 1 of 1 ({filteredLogs.length} logs)
+            </Typography>
+          </Box>
         </CardContent>
       </Card>
     </Box>
