@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Box,
   Grid,
@@ -39,55 +39,63 @@ import {
   CartesianGrid,
 } from "recharts";
 
-// Mock data
-const kpiData = {
-  totalSearches: { value: 48237, change: 12.4 },
-  clickoutRate: { value: 34.2, change: 5.1 },
-  uniqueVisitors: { value: 18740, change: 7.8 },
-  apiHealth: { value: 99.8, change: 0.2 },
+import {
+  useAdminMetrics,
+  useAdminTimeseries,
+  useAdminBreakdown,
+  useTopRoutes,
+} from "@/hooks/useAdminReports";
+import { useMonitoringHealth } from "@/hooks/useMonitoring";
+
+// Helpers to compute date range from timeRange
+const getRange = (timeRange) => {
+  const now = new Date();
+  const endDate = now.toISOString();
+  const start = new Date(now);
+  if (timeRange === "24h") start.setDate(now.getDate() - 1);
+  else if (timeRange === "7days") start.setDate(now.getDate() - 7);
+  else if (timeRange === "30days") start.setDate(now.getDate() - 30);
+  else if (timeRange === "90days") start.setDate(now.getDate() - 90);
+  const startDate = start.toISOString();
+  return { startDate, endDate };
 };
 
-const searchTimeseries = [
-  { label: "00:00", searches: 820, clickouts: 260 },
-  { label: "04:00", searches: 640, clickouts: 190 },
-  { label: "08:00", searches: 2310, clickouts: 810 },
-  { label: "12:00", searches: 3180, clickouts: 1120 },
-  { label: "16:00", searches: 2890, clickouts: 970 },
-  { label: "20:00", searches: 2140, clickouts: 720 },
-  { label: "23:59", searches: 1650, clickouts: 550 },
-];
-
-const topRoutes = [
-  { route: "ALA → IST", searches: 9560, clickouts: 3420, conversion: 35.8 },
-  { route: "ALA → DXB", searches: 8123, clickouts: 2851, conversion: 35.1 },
-  { route: "ALA → SAW", searches: 6890, clickouts: 2075, conversion: 30.1 },
-  { route: "ALA → KUL", searches: 5321, clickouts: 1423, conversion: 26.7 },
-  { route: "TSE → IST", searches: 4210, clickouts: 1267, conversion: 30.1 },
-];
-
-const deviceShare = [
-  { name: "Desktop", value: 58, color: "#60a5fa" },
-  { name: "Mobile", value: 34, color: "#22c55e" },
-  { name: "Tablet", value: 8, color: "#f97316" },
-];
-
-const geoDistribution = [
-  { country: "Kazakhstan", code: "KZ", visitors: 12450, percentage: 40 },
-  { country: "Turkey", code: "TR", visitors: 7421, percentage: 24 },
-  { country: "UAE", code: "AE", visitors: 5320, percentage: 17 },
-  { country: "Russia", code: "RU", visitors: 3895, percentage: 13 },
-  { country: "Germany", code: "DE", visitors: 2144, percentage: 6 },
-];
-
-const apiServices = [
-  { name: "Backend API", status: "operational", latency: 145, uptime: 99.98 },
-  { name: "Amadeus API", status: "operational", latency: 234, uptime: 99.95 },
-  { name: "Database", status: "operational", latency: 12, uptime: 99.99 },
-  { name: "Redis Cache", status: "operational", latency: 3, uptime: 99.97 },
-];
+// (legacy mock removed)
 
 export default function Dashboard() {
   const [timeRange, setTimeRange] = useState("7days");
+
+  const { startDate, endDate } = useMemo(
+    () => getRange(timeRange),
+    [timeRange]
+  );
+
+  // Queries
+  const { data: metrics } = useAdminMetrics({ startDate, endDate });
+  const { data: timeseries } = useAdminTimeseries({
+    metric: "searches",
+    interval: timeRange === "24h" ? "hourly" : "daily",
+    startDate,
+    endDate,
+  });
+  const { data: deviceBreakdown } = useAdminBreakdown({
+    type: "device",
+    startDate,
+    endDate,
+  });
+  const { data: geoBreakdown } = useAdminBreakdown({
+    type: "geo",
+    startDate,
+    endDate,
+  });
+  const { data: topRoutesData } = useTopRoutes({
+    startDate,
+    endDate,
+    limit: 10,
+  });
+
+  // Monitoring (poll every 2 min via hooks)
+  const { data: healthData } = useMonitoringHealth();
 
   const handleExport = () => {
     console.log("Exporting dashboard data");
@@ -201,7 +209,7 @@ export default function Dashboard() {
                       fontFamily: "Inter",
                     }}
                   >
-                    {kpiData.totalSearches.value.toLocaleString()}
+                    {(metrics?.totalSearches?.value ?? 0).toLocaleString()}
                   </Typography>
                   <Stack
                     direction="row"
@@ -218,7 +226,7 @@ export default function Dashboard() {
                         fontSize: "0.75rem",
                       }}
                     >
-                      +{kpiData.totalSearches.change}% from last period
+                      +{metrics?.totalSearches?.change ?? 0}% from last period
                     </Typography>
                   </Stack>
                 </Box>
@@ -276,7 +284,7 @@ export default function Dashboard() {
                       fontFamily: "Inter",
                     }}
                   >
-                    {kpiData.clickoutRate.value}%
+                    {metrics?.clickoutRate?.value ?? 0}%
                   </Typography>
                   <Stack
                     direction="row"
@@ -293,7 +301,7 @@ export default function Dashboard() {
                         fontSize: "0.75rem",
                       }}
                     >
-                      +{kpiData.clickoutRate.change}% from last period
+                      +{metrics?.clickoutRate?.change ?? 0}% from last period
                     </Typography>
                   </Stack>
                 </Box>
@@ -351,7 +359,7 @@ export default function Dashboard() {
                       fontFamily: "Inter",
                     }}
                   >
-                    {kpiData.uniqueVisitors.value.toLocaleString()}
+                    {(metrics?.uniqueVisitors?.value ?? 0).toLocaleString()}
                   </Typography>
                   <Stack
                     direction="row"
@@ -368,7 +376,7 @@ export default function Dashboard() {
                         fontSize: "0.75rem",
                       }}
                     >
-                      +{kpiData.uniqueVisitors.change}% from last period
+                      +{metrics?.uniqueVisitors?.change ?? 0}% from last period
                     </Typography>
                   </Stack>
                 </Box>
@@ -426,7 +434,7 @@ export default function Dashboard() {
                       fontFamily: "Inter",
                     }}
                   >
-                    {kpiData.apiHealth.value}%
+                    {metrics?.apiHealth?.value ?? 0}%
                   </Typography>
                   <Stack
                     direction="row"
@@ -507,7 +515,13 @@ export default function Dashboard() {
               </Stack>
               <Box sx={{ width: "100%", height: 280 }}>
                 <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={searchTimeseries}>
+                  <AreaChart
+                    data={(timeseries?.data ?? []).map((d) => ({
+                      label: d.label ?? d.date ?? d.hour ?? "",
+                      searches: d.searches ?? d.value ?? 0,
+                      clickouts: d.clickouts ?? 0,
+                    }))}
+                  >
                     <defs>
                       <linearGradient
                         id="colorSearches"
@@ -621,7 +635,13 @@ export default function Dashboard() {
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
-                      data={deviceShare}
+                      data={(deviceBreakdown?.data ?? []).map((d, i) => ({
+                        name: d.name ?? d.device ?? "Unknown",
+                        value: d.value ?? d.count ?? 0,
+                        color: ["#60a5fa", "#22c55e", "#f97316", "#a78bfa"][
+                          i % 4
+                        ],
+                      }))}
                       dataKey="value"
                       nameKey="name"
                       cx="50%"
@@ -631,8 +651,15 @@ export default function Dashboard() {
                       paddingAngle={3}
                       label={({ name, value }) => `${name} ${value}%`}
                     >
-                      {deviceShare.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      {(deviceBreakdown?.data ?? []).map((_, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={
+                            ["#60a5fa", "#22c55e", "#f97316", "#a78bfa"][
+                              index % 4
+                            ]
+                          }
+                        />
                       ))}
                     </Pie>
                     <Tooltip
@@ -741,7 +768,7 @@ export default function Dashboard() {
                 </tr>
               </thead>
               <tbody>
-                {topRoutes.map((route, index) => (
+                {(topRoutesData?.data ?? []).map((route, index) => (
                   <tr
                     key={index}
                     style={{
@@ -757,7 +784,8 @@ export default function Dashboard() {
                         color: "#e5e7eb",
                       }}
                     >
-                      {route.route}
+                      {route.route ??
+                        `${route.origin ?? ""} → ${route.destination ?? ""}`}
                     </td>
                     <td
                       style={{
@@ -767,7 +795,7 @@ export default function Dashboard() {
                         color: "#9ca3af",
                       }}
                     >
-                      {route.searches.toLocaleString()}
+                      {(route.searches ?? 0).toLocaleString()}
                     </td>
                     <td
                       style={{
@@ -777,11 +805,11 @@ export default function Dashboard() {
                         color: "#9ca3af",
                       }}
                     >
-                      {route.clickouts.toLocaleString()}
+                      {(route.clickouts ?? 0).toLocaleString()}
                     </td>
                     <td style={{ padding: "12px 16px" }}>
                       <Chip
-                        label={`${route.conversion}%`}
+                        label={`${route.conversion ?? 0}%`}
                         size="small"
                         sx={{
                           bgcolor: "rgba(34, 197, 94, 0.1)",
@@ -840,7 +868,7 @@ export default function Dashboard() {
                 <TravelExplore sx={{ fontSize: 20, color: "#22c55e" }} />
               </Stack>
               <Stack spacing={1.5}>
-                {geoDistribution.map((geo, index) => (
+                {(geoBreakdown?.data ?? []).map((geo, index) => (
                   <Box key={index}>
                     <Stack
                       direction="row"
@@ -856,13 +884,13 @@ export default function Dashboard() {
                           fontSize: "0.875rem",
                         }}
                       >
-                        {geo.country}
+                        {geo.country ?? geo.name ?? "Unknown"}
                       </Typography>
                       <Typography
                         variant="caption"
                         sx={{ color: "#9ca3af", fontFamily: "Inter" }}
                       >
-                        {geo.visitors.toLocaleString()}
+                        {(geo.visitors ?? geo.count ?? 0).toLocaleString()}
                       </Typography>
                     </Stack>
                     <LinearProgress
@@ -923,7 +951,36 @@ export default function Dashboard() {
                 <Speed sx={{ fontSize: 20, color: "#38bdf8" }} />
               </Stack>
               <Stack spacing={1.5}>
-                {apiServices.map((service, index) => (
+                {[
+                  {
+                    name: "Backend API",
+                    status:
+                      healthData?.json?.status === "green"
+                        ? "operational"
+                        : healthData?.json?.status === "yellow"
+                        ? "degraded"
+                        : healthData?.json?.status === "red"
+                        ? "down"
+                        : "unknown",
+                    latency: healthData?.ms ?? "—",
+                  },
+                  {
+                    name: "Database",
+                    status: healthData?.json?.checks?.database ?? "unknown",
+                    latency: "—",
+                  },
+                  {
+                    name: "Amadeus API",
+                    status: healthData?.json?.checks?.amadeus ?? "unknown",
+                    latency: "—",
+                  },
+                  // Quota usage can be represented as a pseudo-service row if desired
+                  // {
+                  //   name: "Quota Usage",
+                  //   status: quotaData?.json?.alert?.level ? quotaData.json.alert.level : "ok",
+                  //   latency: "—",
+                  // },
+                ].map((service, index) => (
                   <Box
                     key={index}
                     sx={{
@@ -951,7 +1008,9 @@ export default function Dashboard() {
                         variant="caption"
                         sx={{ color: "#9ca3af", fontFamily: "Inter" }}
                       >
-                        {service.latency}ms · {service.uptime}% uptime
+                        {typeof service.latency === "number"
+                          ? `${service.latency}ms`
+                          : "—"}
                       </Typography>
                     </Box>
                     <Chip

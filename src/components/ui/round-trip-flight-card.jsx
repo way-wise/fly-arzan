@@ -12,6 +12,7 @@ import { generateAndStoreSimilarFlights } from "../../utils/similarFlightsUtils"
 import { generateForwardLink } from "../../utils/forwardLinkUtils";
 import BaggageIcons from "./baggage-icons";
 import PropTypes from "prop-types";
+import { logClickOutEvent } from "@/lib/analytics";
 
 const FlightSegment = ({ flights }) => {
   if (!flights || flights.length === 0) return null;
@@ -195,6 +196,23 @@ const RoundTripFlightCard = ({
 
       // Generate and store similar flights using the passed available flights
       generateAndStoreSimilarFlights(itinerary, allAvailableFlights, 5);
+
+      // Log click-out event (fire-and-forget) for round-trip
+      const origin = outboundFlights?.[0]?.departure?.iataCode;
+      const destination =
+        returnFlights?.[returnFlights.length - 1]?.arrival?.iataCode ||
+        outboundFlights?.[outboundFlights.length - 1]?.arrival?.iataCode;
+      const partner =
+        outboundFlights?.[0]?.operating?.carrierCode ||
+        outboundFlights?.[0]?.airlineCode;
+      if (origin && destination) {
+        logClickOutEvent({
+          origin,
+          destination,
+          tripType: "round-trip",
+          partner,
+        });
+      }
 
       // Navigate to details page
       navigate("/flight/details");
