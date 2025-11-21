@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Box,
   Grid,
@@ -30,56 +30,97 @@ import {
   CartesianGrid,
 } from "recharts";
 
-// Mock data tailored for route analytics (replace with real API later)
-const topRoutes = [
-  { origin: "ALA", destination: "IST", searches: 9560, clickouts: 3420, conversion: 35.8, avgPrice: 289 },
-  { origin: "ALA", destination: "DXB", searches: 8123, clickouts: 2851, conversion: 35.1, avgPrice: 356 },
-  { origin: "ALA", destination: "SAW", searches: 6892, clickouts: 1823, conversion: 26.4, avgPrice: 244 },
-  { origin: "TSE", destination: "IST", searches: 5621, clickouts: 1456, conversion: 25.9, avgPrice: 267 },
-  { origin: "ALA", destination: "KUL", searches: 5234, clickouts: 1398, conversion: 26.7, avgPrice: 412 },
-  { origin: "ALA", destination: "FRA", searches: 4892, clickouts: 1234, conversion: 25.2, avgPrice: 389 },
-  { origin: "ALA", destination: "LHR", searches: 4523, clickouts: 1198, conversion: 26.5, avgPrice: 356 },
-  { origin: "TSE", destination: "DXB", searches: 4234, clickouts: 1123, conversion: 26.5, avgPrice: 298 },
-];
+import {
+  useTopRoutes,
+  useRegionsBreakdown,
+  useAdminBreakdown,
+  useRoutesTrending,
+} from "@/hooks/useAdminReports";
 
-const routesByRegion = [
-  { region: "Central Asia", searches: 18543, color: "#60a5fa" },
-  { region: "Middle East", searches: 14234, color: "#22c55e" },
-  { region: "Europe", searches: 9892, color: "#f97316" },
-  { region: "Southeast Asia", searches: 7456, color: "#a855f7" },
-];
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
-const cabinDistribution = [
-  { name: "Economy", value: 67, color: "#60a5fa" },
-  { name: "Premium Econ", value: 18, color: "#22c55e" },
-  { name: "Business", value: 12, color: "#facc15" },
-  { name: "First", value: 3, color: "#a855f7" },
-];
-
-const trendingRoutes = [
-  { route: "ALA → IST", growth: 45.2, searches: 9560 },
-  { route: "ALA → DXB", growth: 38.7, searches: 8123 },
-  { route: "TSE → IST", growth: 32.4, searches: 5621 },
-  { route: "ALA → KUL", growth: 28.9, searches: 5234 },
-];
-
-const kpi = {
-  totalSearches: 48237,
-  uniqueRoutes: 2847,
-  avgConversion: 26.3,
-  topDestination: "IST",
-  topDestinationSearches: 8543,
+// Helper to compute date range from toggle
+const getRange = (range) => {
+  const now = new Date();
+  const endDate = now.toISOString();
+  const start = new Date(now);
+  if (range === "24h") start.setDate(now.getDate() - 1);
+  else if (range === "7d") start.setDate(now.getDate() - 7);
+  else if (range === "30d") start.setDate(now.getDate() - 30);
+  const startDate = start.toISOString();
+  return { startDate, endDate };
 };
+
+// (mock blocks removed; now fed by live queries)
 
 export default function SearchRoutes() {
   const [range, setRange] = useState("7d");
   const [query, setQuery] = useState("");
 
-  const filteredRoutes = topRoutes.filter(
+  const { startDate, endDate } = useMemo(() => getRange(range), [range]);
+  const { data: routesData, isLoading: routesLoading } = useTopRoutes({
+    startDate,
+    endDate,
+    limit: 10,
+  });
+  const { data: regionsData, isLoading: regionsLoading } = useRegionsBreakdown({
+    startDate,
+    endDate,
+    group: "country",
+    top: 6,
+  });
+  const { data: cabinData, isLoading: cabinLoading } = useAdminBreakdown({
+    type: "travelClass",
+    startDate,
+    endDate,
+  });
+  const { data: trendingData, isLoading: trendingLoading } = useRoutesTrending({
+    limit: 10,
+  });
+
+  const filteredRoutes = (routesData?.data ?? []).filter(
     (r) =>
-      r.origin.toLowerCase().includes(query.toLowerCase()) ||
-      r.destination.toLowerCase().includes(query.toLowerCase())
+      (r.origin ?? "").toLowerCase().includes(query.toLowerCase()) ||
+      (r.destination ?? "").toLowerCase().includes(query.toLowerCase())
   );
+
+  const { totalSearches, uniqueRoutes, avgConv, topDest, topDestSearches } =
+    useMemo(() => {
+      const rows = routesData?.data ?? [];
+      const totalSearches = rows.reduce((a, r) => a + (r.searches ?? 0), 0);
+      const totalClickouts = rows.reduce((a, r) => a + (r.clickouts ?? 0), 0);
+      const uniqueRoutes = rows.length;
+      const avgConv = totalSearches
+        ? Math.round((totalClickouts / totalSearches) * 100 * 10) / 10
+        : 0; // weighted by searches
+      const destMap = new Map();
+      for (const r of rows) {
+        const d = r.destination ?? "—";
+        destMap.set(d, (destMap.get(d) || 0) + (r.searches ?? 0));
+      }
+      let topDest = "—";
+      let topDestSearches = 0;
+      for (const [d, s] of destMap.entries()) {
+        if (s > topDestSearches) {
+          topDest = d;
+          topDestSearches = s;
+        }
+      }
+      return { totalSearches, uniqueRoutes, avgConv, topDest, topDestSearches };
+    }, [routesData]);
+
+  const handleExport = () => {
+    try {
+      const url = new URL(`${API_BASE_URL}/api/admin/reports/top-routes`);
+      url.searchParams.set("format", "csv");
+      url.searchParams.set("startDate", startDate);
+      url.searchParams.set("endDate", endDate);
+      url.searchParams.set("limit", String(50));
+      window.open(url.toString(), "_blank");
+    } catch {
+      return;
+    }
+  };
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
@@ -94,11 +135,22 @@ export default function SearchRoutes() {
         }}
       >
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 700, color: "#FFFFFF", fontFamily: "Inter, sans-serif" }}>
+          <Typography
+            variant="h5"
+            sx={{
+              fontWeight: 700,
+              color: "#FFFFFF",
+              fontFamily: "Inter, sans-serif",
+            }}
+          >
             Routes Analytics
           </Typography>
-          <Typography variant="body2" sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter, sans-serif" }}>
-            See which routes are most popular and convert best across your audience.
+          <Typography
+            variant="body2"
+            sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter, sans-serif" }}
+          >
+            See which routes are most popular and convert best across your
+            audience.
           </Typography>
         </Box>
         <Stack direction="row" spacing={1.5} alignItems="center">
@@ -145,6 +197,7 @@ export default function SearchRoutes() {
               fontSize: 13,
               "&:hover": { bgcolor: "#1d4ed8" },
             }}
+            onClick={handleExport}
           />
         </Stack>
       </Box>
@@ -156,21 +209,48 @@ export default function SearchRoutes() {
             sx={{
               borderRadius: 2,
               bgcolor: "#1A1D23",
-              background: "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 3 }}>
-              <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="flex-start"
+              >
                 <Box>
-                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter, sans-serif", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: "#71717A",
+                      fontFamily: "Inter, sans-serif",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
                     Total route searches
                   </Typography>
-                  <Typography variant="h6" sx={{ color: "#FFFFFF", fontWeight: 600, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
-                    {kpi.totalSearches.toLocaleString()}
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      color: "#FFFFFF",
+                      fontWeight: 600,
+                      mt: 0.5,
+                      fontFamily: "Inter, sans-serif",
+                    }}
+                  >
+                    {totalSearches.toLocaleString()}
                   </Typography>
-                  <Stack direction="row" spacing={0.5} sx={{ mt: 0.5 }} alignItems="center">
+                  <Stack
+                    direction="row"
+                    spacing={0.5}
+                    sx={{ mt: 0.5 }}
+                    alignItems="center"
+                  >
                     <TrendingUp sx={{ fontSize: 15, color: "#4ade80" }} />
                     <Typography variant="caption" sx={{ color: "#4ade80" }}>
                       vs previous period
@@ -200,21 +280,46 @@ export default function SearchRoutes() {
             sx={{
               borderRadius: 2,
               bgcolor: "#1A1D23",
-              background: "linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(147, 51, 234, 0.02) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(147, 51, 234, 0.02) 100%)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 3 }}>
-              <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="flex-start"
+              >
                 <Box>
-                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter, sans-serif", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: "#71717A",
+                      fontFamily: "Inter, sans-serif",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
                     Unique routes
                   </Typography>
-                  <Typography variant="h6" sx={{ color: "#FFFFFF", fontWeight: 600, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
-                    {kpi.uniqueRoutes.toLocaleString()}
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      color: "#FFFFFF",
+                      fontWeight: 600,
+                      mt: 0.5,
+                      fontFamily: "Inter, sans-serif",
+                    }}
+                  >
+                    {uniqueRoutes.toLocaleString()}
                   </Typography>
-                  <Typography variant="caption" sx={{ color: "#a855f7", mt: 0.5 }}>
+                  <Typography
+                    variant="caption"
+                    sx={{ color: "#a855f7", mt: 0.5 }}
+                  >
                     Active route pairs in this period
                   </Typography>
                 </Box>
@@ -241,21 +346,46 @@ export default function SearchRoutes() {
             sx={{
               borderRadius: 2,
               bgcolor: "#1A1D23",
-              background: "linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.02) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.02) 100%)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 3 }}>
-              <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="flex-start"
+              >
                 <Box>
-                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter, sans-serif", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: "#71717A",
+                      fontFamily: "Inter, sans-serif",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
                     Avg conversion
                   </Typography>
-                  <Typography variant="h6" sx={{ color: "#FFFFFF", fontWeight: 600, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
-                    {kpi.avgConversion}%
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      color: "#FFFFFF",
+                      fontWeight: 600,
+                      mt: 0.5,
+                      fontFamily: "Inter, sans-serif",
+                    }}
+                  >
+                    {avgConv}%
                   </Typography>
-                  <Typography variant="caption" sx={{ color: "#4ade80", mt: 0.5 }}>
+                  <Typography
+                    variant="caption"
+                    sx={{ color: "#4ade80", mt: 0.5 }}
+                  >
                     Clickouts per search across all routes
                   </Typography>
                 </Box>
@@ -269,22 +399,47 @@ export default function SearchRoutes() {
             sx={{
               borderRadius: 2,
               bgcolor: "#1A1D23",
-              background: "linear-gradient(135deg, rgba(75, 85, 99, 0.05) 0%, rgba(75, 85, 99, 0.02) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(75, 85, 99, 0.05) 0%, rgba(75, 85, 99, 0.02) 100%)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 3 }}>
-              <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="flex-start"
+              >
                 <Box>
-                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter, sans-serif", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: "#71717A",
+                      fontFamily: "Inter, sans-serif",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
                     Top destination
                   </Typography>
-                  <Typography variant="h6" sx={{ color: "#FFFFFF", fontWeight: 600, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
-                    {kpi.topDestination}
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      color: "#FFFFFF",
+                      fontWeight: 600,
+                      mt: 0.5,
+                      fontFamily: "Inter, sans-serif",
+                    }}
+                  >
+                    {topDest}
                   </Typography>
-                  <Typography variant="caption" sx={{ color: "#9ca3af", mt: 0.5 }}>
-                    {kpi.topDestinationSearches.toLocaleString()} searches
+                  <Typography
+                    variant="caption"
+                    sx={{ color: "#9ca3af", mt: 0.5 }}
+                  >
+                    {topDestSearches.toLocaleString()} searches
                   </Typography>
                 </Box>
                 <Box
@@ -314,9 +469,11 @@ export default function SearchRoutes() {
               height: "100%",
               borderRadius: 2,
               bgcolor: "#1A1D23",
-              background: "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
@@ -334,23 +491,63 @@ export default function SearchRoutes() {
             />
             <CardContent sx={{ px: 2.5, pb: 2.5 }}>
               <Box sx={{ height: 280 }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={topRoutes} layout="vertical">
-                    <CartesianGrid strokeDasharray="3 3" stroke="#111827" />
-                    <XAxis type="number" stroke="#6b7280" fontSize={11} />
-                    <YAxis
-                      dataKey={(d) => `${d.origin} → ${d.destination}`}
-                      type="category"
-                      stroke="#9ca3af"
-                      fontSize={11}
-                      width={110}
-                    />
-                    <Tooltip contentStyle={{ backgroundColor: "#020617", border: "1px solid #1f2937" }} />
-                    <Legend />
-                    <Bar dataKey="searches" fill="#60a5fa" radius={[0, 8, 8, 0]} name="Searches" />
-                    <Bar dataKey="clickouts" fill="#4ade80" radius={[0, 8, 8, 0]} name="Clickouts" />
-                  </BarChart>
-                </ResponsiveContainer>
+                {routesLoading ? (
+                  <Stack
+                    alignItems="center"
+                    justifyContent="center"
+                    sx={{ height: 1 }}
+                  >
+                    <Typography sx={{ color: "#9ca3af" }}>Loading…</Typography>
+                  </Stack>
+                ) : (routesData?.data ?? []).length === 0 ? (
+                  <Stack
+                    alignItems="center"
+                    justifyContent="center"
+                    sx={{ height: 1 }}
+                  >
+                    <Typography sx={{ color: "#9ca3af" }}>No data</Typography>
+                  </Stack>
+                ) : (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart
+                      data={(routesData?.data ?? []).map((r) => ({
+                        route: `${r.origin ?? ""} → ${r.destination ?? ""}`,
+                        searches: r.searches ?? 0,
+                        clickouts: r.clickouts ?? 0,
+                      }))}
+                      layout="vertical"
+                    >
+                      <CartesianGrid strokeDasharray="3 3" stroke="#111827" />
+                      <XAxis type="number" stroke="#6b7280" fontSize={11} />
+                      <YAxis
+                        dataKey={(d) => d.route}
+                        type="category"
+                        stroke="#9ca3af"
+                        fontSize={11}
+                        width={110}
+                      />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: "#020617",
+                          border: "1px solid #1f2937",
+                        }}
+                      />
+                      <Legend />
+                      <Bar
+                        dataKey="searches"
+                        fill="#60a5fa"
+                        radius={[0, 8, 8, 0]}
+                        name="Searches"
+                      />
+                      <Bar
+                        dataKey="clickouts"
+                        fill="#4ade80"
+                        radius={[0, 8, 8, 0]}
+                        name="Clickouts"
+                      />
+                    </BarChart>
+                  </ResponsiveContainer>
+                )}
               </Box>
             </CardContent>
           </Card>
@@ -362,9 +559,11 @@ export default function SearchRoutes() {
               height: "100%",
               borderRadius: 2,
               bgcolor: "#1A1D23",
-              background: "linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.02) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.02) 100%)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
@@ -382,24 +581,77 @@ export default function SearchRoutes() {
             />
             <CardContent sx={{ px: 2.5, pb: 2.5 }}>
               <Box sx={{ height: 260 }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={routesByRegion}
-                      dataKey="searches"
-                      nameKey="region"
-                      cx="50%"
-                      cy="50%"
-                      outerRadius={90}
-                      label={({ region, percent }) => `${region} ${(percent * 100).toFixed(0)}%`}
-                    >
-                      {routesByRegion.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
-                      ))}
-                    </Pie>
-                    <Tooltip contentStyle={{ backgroundColor: "#020617", border: "1px solid #1f2937" }} />
-                  </PieChart>
-                </ResponsiveContainer>
+                {regionsLoading ? (
+                  <Stack
+                    alignItems="center"
+                    justifyContent="center"
+                    sx={{ height: 1 }}
+                  >
+                    <Typography sx={{ color: "#9ca3af" }}>Loading…</Typography>
+                  </Stack>
+                ) : (regionsData?.data ?? []).length === 0 ? (
+                  <Stack
+                    alignItems="center"
+                    justifyContent="center"
+                    sx={{ height: 1 }}
+                  >
+                    <Typography sx={{ color: "#9ca3af" }}>No data</Typography>
+                  </Stack>
+                ) : (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      {(() => {
+                        const labelKey =
+                          regionsData?.group === "country"
+                            ? "country"
+                            : "region";
+                        return (
+                          <Pie
+                            data={(regionsData?.data ?? []).map((r) => ({
+                              ...r,
+                              color: "#60a5fa",
+                            }))}
+                            dataKey="searches"
+                            nameKey={labelKey}
+                            cx="50%"
+                            cy="50%"
+                            outerRadius={90}
+                            label={(entry) => {
+                              const name = entry[labelKey];
+                              const pct =
+                                typeof entry.percent === "number"
+                                  ? (entry.percent * 100).toFixed(0)
+                                  : "0";
+                              return `${name} ${pct}%`;
+                            }}
+                          >
+                            {(regionsData?.data ?? []).map((_, index) => (
+                              <Cell
+                                key={`cell-${index}`}
+                                fill={
+                                  [
+                                    "#60a5fa",
+                                    "#22c55e",
+                                    "#f97316",
+                                    "#a855f7",
+                                    "#facc15",
+                                    "#06b6d4",
+                                  ][index % 6]
+                                }
+                              />
+                            ))}
+                          </Pie>
+                        );
+                      })()}
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: "#020617",
+                          border: "1px solid #1f2937",
+                        }}
+                      />
+                    </PieChart>
+                  </ResponsiveContainer>
+                )}
               </Box>
             </CardContent>
           </Card>
@@ -414,9 +666,11 @@ export default function SearchRoutes() {
               height: "100%",
               borderRadius: 2,
               bgcolor: "#1A1D23",
-              background: "linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(147, 51, 234, 0.02) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(147, 51, 234, 0.02) 100%)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
@@ -434,19 +688,57 @@ export default function SearchRoutes() {
             />
             <CardContent sx={{ px: 2.5, pb: 2.5 }}>
               <Box sx={{ height: 240 }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={cabinDistribution}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#111827" />
-                    <XAxis dataKey="name" stroke="#6b7280" fontSize={11} />
-                    <YAxis stroke="#6b7280" fontSize={11} />
-                    <Tooltip contentStyle={{ backgroundColor: "#020617", border: "1px solid #1f2937" }} />
-                    <Bar dataKey="value" radius={[6, 6, 0, 0]}>
-                      {cabinDistribution.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
+                {cabinLoading ? (
+                  <Stack
+                    alignItems="center"
+                    justifyContent="center"
+                    sx={{ height: 1 }}
+                  >
+                    <Typography sx={{ color: "#9ca3af" }}>Loading…</Typography>
+                  </Stack>
+                ) : (cabinData?.data ?? []).length === 0 ? (
+                  <Stack
+                    alignItems="center"
+                    justifyContent="center"
+                    sx={{ height: 1 }}
+                  >
+                    <Typography sx={{ color: "#9ca3af" }}>No data</Typography>
+                  </Stack>
+                ) : (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart
+                      data={(cabinData?.data ?? []).map((c, i) => ({
+                        name: c.name ?? "Unknown",
+                        value: c.value ?? 0,
+                        color: ["#60a5fa", "#22c55e", "#facc15", "#a855f7"][
+                          i % 4
+                        ],
+                      }))}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" stroke="#111827" />
+                      <XAxis dataKey="name" stroke="#6b7280" fontSize={11} />
+                      <YAxis stroke="#6b7280" fontSize={11} />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: "#020617",
+                          border: "1px solid #1f2937",
+                        }}
+                      />
+                      <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+                        {(cabinData?.data ?? []).map((_, index) => (
+                          <Cell
+                            key={`cell-${index}`}
+                            fill={
+                              ["#60a5fa", "#22c55e", "#facc15", "#a855f7"][
+                                index % 4
+                              ]
+                            }
+                          />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                )}
               </Box>
             </CardContent>
           </Card>
@@ -458,9 +750,11 @@ export default function SearchRoutes() {
               height: "100%",
               borderRadius: 2,
               bgcolor: "#1A1D23",
-              background: "linear-gradient(135deg, rgba(251, 113, 133, 0.05) 0%, rgba(251, 113, 133, 0.02) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(251, 113, 133, 0.05) 0%, rgba(251, 113, 133, 0.02) 100%)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
@@ -495,40 +789,162 @@ export default function SearchRoutes() {
                 />
               </Box>
               <Box sx={{ overflowX: "auto" }}>
-                <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                  <thead>
-                    <tr>
-                      <th style={{ textAlign: "left", padding: "8px", color: "#9ca3af", fontSize: 12 }}>#</th>
-                      <th style={{ textAlign: "left", padding: "8px", color: "#9ca3af", fontSize: 12 }}>Route</th>
-                      <th style={{ textAlign: "right", padding: "8px", color: "#9ca3af", fontSize: 12 }}>Searches</th>
-                      <th style={{ textAlign: "right", padding: "8px", color: "#9ca3af", fontSize: 12 }}>Clickouts</th>
-                      <th style={{ textAlign: "right", padding: "8px", color: "#9ca3af", fontSize: 12 }}>Conversion</th>
-                      <th style={{ textAlign: "right", padding: "8px", color: "#9ca3af", fontSize: 12 }}>Avg price</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredRoutes.map((route, index) => (
-                      <tr key={`${route.origin}-${route.destination}`} style={{ borderTop: "1px solid #020617" }}>
-                        <td style={{ padding: "8px", fontSize: 13, color: "#9ca3af" }}>#{index + 1}</td>
-                        <td style={{ padding: "8px", fontSize: 13, color: "#e5e7eb" }}>
-                          {route.origin} &nbsp;→&nbsp; {route.destination}
-                        </td>
-                        <td style={{ padding: "8px", fontSize: 13, color: "#e5e7eb", textAlign: "right" }}>
-                          {route.searches.toLocaleString()}
-                        </td>
-                        <td style={{ padding: "8px", fontSize: 13, color: "#e5e7eb", textAlign: "right" }}>
-                          {route.clickouts.toLocaleString()}
-                        </td>
-                        <td style={{ padding: "8px", fontSize: 13, color: "#bbf7d0", textAlign: "right" }}>
-                          {route.conversion.toFixed(1)}%
-                        </td>
-                        <td style={{ padding: "8px", fontSize: 13, color: "#e5e7eb", textAlign: "right" }}>
-                          ${route.avgPrice}
-                        </td>
+                {routesLoading ? (
+                  <Stack
+                    alignItems="center"
+                    justifyContent="center"
+                    sx={{ py: 4 }}
+                  >
+                    <Typography sx={{ color: "#9ca3af" }}>Loading…</Typography>
+                  </Stack>
+                ) : filteredRoutes.length === 0 ? (
+                  <Stack
+                    alignItems="center"
+                    justifyContent="center"
+                    sx={{ py: 4 }}
+                  >
+                    <Typography sx={{ color: "#9ca3af" }}>No data</Typography>
+                  </Stack>
+                ) : (
+                  <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                    <thead>
+                      <tr>
+                        <th
+                          style={{
+                            textAlign: "left",
+                            padding: "8px",
+                            color: "#9ca3af",
+                            fontSize: 12,
+                          }}
+                        >
+                          #
+                        </th>
+                        <th
+                          style={{
+                            textAlign: "left",
+                            padding: "8px",
+                            color: "#9ca3af",
+                            fontSize: 12,
+                          }}
+                        >
+                          Route
+                        </th>
+                        <th
+                          style={{
+                            textAlign: "right",
+                            padding: "8px",
+                            color: "#9ca3af",
+                            fontSize: 12,
+                          }}
+                        >
+                          Searches
+                        </th>
+                        <th
+                          style={{
+                            textAlign: "right",
+                            padding: "8px",
+                            color: "#9ca3af",
+                            fontSize: 12,
+                          }}
+                        >
+                          Clickouts
+                        </th>
+                        <th
+                          style={{
+                            textAlign: "right",
+                            padding: "8px",
+                            color: "#9ca3af",
+                            fontSize: 12,
+                          }}
+                        >
+                          Conversion
+                        </th>
+                        <th
+                          style={{
+                            textAlign: "right",
+                            padding: "8px",
+                            color: "#9ca3af",
+                            fontSize: 12,
+                          }}
+                        >
+                          Avg price
+                        </th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {filteredRoutes.map((route, index) => (
+                        <tr
+                          key={`${route.origin}-${route.destination}-${index}`}
+                          style={{ borderTop: "1px solid #020617" }}
+                        >
+                          <td
+                            style={{
+                              padding: "8px",
+                              fontSize: 13,
+                              color: "#9ca3af",
+                            }}
+                          >
+                            #{index + 1}
+                          </td>
+                          <td
+                            style={{
+                              padding: "8px",
+                              fontSize: 13,
+                              color: "#e5e7eb",
+                            }}
+                          >
+                            {route.origin} &nbsp;→&nbsp; {route.destination}
+                          </td>
+                          <td
+                            style={{
+                              padding: "8px",
+                              fontSize: 13,
+                              color: "#e5e7eb",
+                              textAlign: "right",
+                            }}
+                          >
+                            {(route.searches ?? 0).toLocaleString()}
+                          </td>
+                          <td
+                            style={{
+                              padding: "8px",
+                              fontSize: 13,
+                              color: "#e5e7eb",
+                              textAlign: "right",
+                            }}
+                          >
+                            {(route.clickouts ?? 0).toLocaleString()}
+                          </td>
+                          <td
+                            style={{
+                              padding: "8px",
+                              fontSize: 13,
+                              color: "#bbf7d0",
+                              textAlign: "right",
+                            }}
+                          >
+                            {(route.conversion ?? 0).toFixed?.(1) ??
+                              route.conversion ??
+                              0}
+                            %
+                          </td>
+                          <td
+                            style={{
+                              padding: "8px",
+                              fontSize: 13,
+                              color: "#e5e7eb",
+                              textAlign: "right",
+                            }}
+                          >
+                            {route.avgPrice != null
+                              ? `$${route.avgPrice}`
+                              : "—"}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
               </Box>
             </CardContent>
           </Card>
@@ -540,9 +956,11 @@ export default function SearchRoutes() {
         sx={{
           borderRadius: 2,
           bgcolor: "#1A1D23",
-          background: "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
+          background:
+            "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
           border: "1px solid rgba(255, 255, 255, 0.08)",
-          boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+          boxShadow:
+            "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
         }}
       >
         <CardHeader
@@ -560,53 +978,67 @@ export default function SearchRoutes() {
         />
         <CardContent sx={{ px: 2.5, pb: 2.5 }}>
           <Stack spacing={1.5}>
-            {trendingRoutes.map((r, index) => (
-              <Box
-                key={r.route}
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  p: 1.5,
-                  borderRadius: 2,
-                  bgcolor: "rgba(15,23,42,1)",
-                  border: "1px solid rgba(31,41,55,0.9)",
-                }}
-              >
-                <Stack direction="row" spacing={1.5} alignItems="center">
-                  <Box
-                    sx={{
-                      width: 32,
-                      height: 32,
-                      borderRadius: 999,
-                      bgcolor: "rgba(37,99,235,0.4)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: 13,
-                      fontWeight: 600,
-                      color: "#e5e7eb",
-                    }}
-                  >
-                    #{index + 1}
-                  </Box>
-                  <Box>
-                    <Typography sx={{ color: "#e5e7eb", fontWeight: 500, fontSize: 14 }}>
-                      {r.route}
+            {trendingLoading ? (
+              <Stack alignItems="center" justifyContent="center" sx={{ py: 3 }}>
+                <Typography sx={{ color: "#9ca3af" }}>Loading…</Typography>
+              </Stack>
+            ) : (trendingData?.data ?? []).length === 0 ? (
+              <Stack alignItems="center" justifyContent="center" sx={{ py: 3 }}>
+                <Typography sx={{ color: "#9ca3af" }}>No data</Typography>
+              </Stack>
+            ) : (
+              (trendingData?.data ?? []).map((r, index) => (
+                <Box
+                  key={`${r.route}-${index}`}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    p: 1.5,
+                    borderRadius: 2,
+                    bgcolor: "rgba(15,23,42,1)",
+                    border: "1px solid rgba(31,41,55,0.9)",
+                  }}
+                >
+                  <Stack direction="row" spacing={1.5} alignItems="center">
+                    <Box
+                      sx={{
+                        width: 32,
+                        height: 32,
+                        borderRadius: 999,
+                        bgcolor: "rgba(37,99,235,0.4)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: 13,
+                        fontWeight: 600,
+                        color: "#e5e7eb",
+                      }}
+                    >
+                      #{index + 1}
+                    </Box>
+                    <Box>
+                      <Typography
+                        sx={{ color: "#e5e7eb", fontWeight: 500, fontSize: 14 }}
+                      >
+                        {r.route}
+                      </Typography>
+                      <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>
+                        {r.searches.toLocaleString()} searches this period
+                      </Typography>
+                    </Box>
+                  </Stack>
+                  <Stack direction="row" spacing={0.75} alignItems="center">
+                    <TrendingUp sx={{ fontSize: 18, color: "#4ade80" }} />
+                    <Typography
+                      sx={{ color: "#4ade80", fontWeight: 600, fontSize: 14 }}
+                    >
+                      +{r.growth.toFixed(1)}%
                     </Typography>
-                    <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>
-                      {r.searches.toLocaleString()} searches this period
-                    </Typography>
-                  </Box>
-                </Stack>
-                <Stack direction="row" spacing={0.75} alignItems="center">
-                  <TrendingUp sx={{ fontSize: 18, color: "#4ade80" }} />
-                  <Typography sx={{ color: "#4ade80", fontWeight: 600, fontSize: 14 }}>
-                    +{r.growth.toFixed(1)}%
-                  </Typography>
-                </Stack>
-              </Box>
-            ))}
+                  </Stack>
+                </Box>
+              ))
+            )}
           </Stack>
         </CardContent>
       </Card>

@@ -94,12 +94,22 @@ export const useRoutesTrending = ({ limit = 10 } = {}) => {
   });
 };
 
-export const useRegionsBreakdown = () => {
+export const useRegionsBreakdown = ({
+  startDate,
+  endDate,
+  group = "region",
+  top = 6,
+} = {}) => {
   return useQuery({
-    queryKey: ["admin", "regions"],
+    queryKey: ["admin", "regions", { startDate, endDate, group, top }],
     queryFn: async () => {
-      const rows = await fetcher("/admin/reports/geo/regions");
-      return { data: Array.isArray(rows) ? rows : [] };
+      const rows = await fetcher("/admin/reports/geo/regions", {
+        startDate,
+        endDate,
+        group,
+        top,
+      });
+      return { data: Array.isArray(rows) ? rows : [], group };
     },
   });
 };
