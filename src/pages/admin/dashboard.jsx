@@ -868,46 +868,56 @@ export default function Dashboard() {
                 <TravelExplore sx={{ fontSize: 20, color: "#22c55e" }} />
               </Stack>
               <Stack spacing={1.5}>
-                {(geoBreakdown?.data ?? []).map((geo, index) => (
-                  <Box key={index}>
-                    <Stack
-                      direction="row"
-                      justifyContent="space-between"
-                      alignItems="center"
-                      sx={{ mb: 0.5 }}
-                    >
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          color: "#e5e7eb",
-                          fontFamily: "Inter",
-                          fontSize: "0.875rem",
-                        }}
-                      >
-                        {geo.country ?? geo.name ?? "Unknown"}
-                      </Typography>
-                      <Typography
-                        variant="caption"
-                        sx={{ color: "#9ca3af", fontFamily: "Inter" }}
-                      >
-                        {(geo.visitors ?? geo.count ?? 0).toLocaleString()}
-                      </Typography>
-                    </Stack>
-                    <LinearProgress
-                      variant="determinate"
-                      value={geo.percentage}
-                      sx={{
-                        height: 6,
-                        borderRadius: 999,
-                        bgcolor: "rgba(15,23,42,1)",
-                        "& .MuiLinearProgress-bar": {
-                          borderRadius: 999,
-                          bgcolor: "#60a5fa",
-                        },
-                      }}
-                    />
-                  </Box>
-                ))}
+                {(() => {
+                  const rows = geoBreakdown?.data ?? [];
+                  const total =
+                    rows.reduce((acc, r) => acc + (r.value ?? 0), 0) || 0;
+                  return rows.map((geo, index) => {
+                    const pct = total
+                      ? Math.round(((geo.value ?? 0) / total) * 100)
+                      : 0;
+                    return (
+                      <Box key={index}>
+                        <Stack
+                          direction="row"
+                          justifyContent="space-between"
+                          alignItems="center"
+                          sx={{ mb: 0.5 }}
+                        >
+                          <Typography
+                            variant="body2"
+                            sx={{
+                              color: "#e5e7eb",
+                              fontFamily: "Inter",
+                              fontSize: "0.875rem",
+                            }}
+                          >
+                            {geo.name ?? "Unknown"}
+                          </Typography>
+                          <Typography
+                            variant="caption"
+                            sx={{ color: "#9ca3af", fontFamily: "Inter" }}
+                          >
+                            {(geo.value ?? 0).toLocaleString()} ({pct}%)
+                          </Typography>
+                        </Stack>
+                        <LinearProgress
+                          variant="determinate"
+                          value={pct}
+                          sx={{
+                            height: 6,
+                            borderRadius: 999,
+                            bgcolor: "rgba(15,23,42,1)",
+                            "& .MuiLinearProgress-bar": {
+                              borderRadius: 999,
+                              bgcolor: "#60a5fa",
+                            },
+                          }}
+                        />
+                      </Box>
+                    );
+                  });
+                })()}
               </Stack>
             </CardContent>
           </Card>
@@ -955,24 +965,24 @@ export default function Dashboard() {
                   {
                     name: "Backend API",
                     status:
-                      healthData?.json?.status === "green"
-                        ? "operational"
-                        : healthData?.json?.status === "yellow"
-                        ? "degraded"
-                        : healthData?.json?.status === "red"
-                        ? "down"
+                      typeof healthData?.ms === "number"
+                        ? healthData.ms < 500
+                          ? "operational"
+                          : "degraded"
                         : "unknown",
                     latency: healthData?.ms ?? "—",
                   },
                   {
                     name: "Database",
                     status: healthData?.json?.checks?.database ?? "unknown",
-                    latency: "—",
+                    latency:
+                      healthData?.json?.checks?.latencies?.databaseMs ?? "—",
                   },
                   {
                     name: "Amadeus API",
                     status: healthData?.json?.checks?.amadeus ?? "unknown",
-                    latency: "—",
+                    latency:
+                      healthData?.json?.checks?.latencies?.amadeusMs ?? "—",
                   },
                   // Quota usage can be represented as a pseudo-service row if desired
                   // {
@@ -1017,8 +1027,22 @@ export default function Dashboard() {
                       label={service.status}
                       size="small"
                       sx={{
-                        bgcolor: "rgba(34, 197, 94, 0.1)",
-                        color: "#22c55e",
+                        bgcolor:
+                          service.status === "down"
+                            ? "rgba(239,68,68,0.12)"
+                            : service.status === "degraded"
+                            ? "rgba(234,179,8,0.12)"
+                            : service.status === "unknown"
+                            ? "rgba(107,114,128,0.12)"
+                            : "rgba(34, 197, 94, 0.1)",
+                        color:
+                          service.status === "down"
+                            ? "#ef4444"
+                            : service.status === "degraded"
+                            ? "#eab308"
+                            : service.status === "unknown"
+                            ? "#9ca3af"
+                            : "#22c55e",
                         fontFamily: "Inter",
                         fontSize: "0.75rem",
                         textTransform: "capitalize",

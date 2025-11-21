@@ -27,21 +27,38 @@ export const useAdminTimeseries = ({
 } = {}) => {
   return useQuery({
     queryKey: ["admin", "timeseries", { metric, interval, startDate, endDate }],
-    queryFn: () =>
-      fetcher("/admin/reports/metrics/timeseries", {
+    queryFn: async () => {
+      const json = await fetcher("/admin/reports/metrics/timeseries", {
         metric,
         interval,
         startDate,
         endDate,
-      }),
+      });
+      // Backend returns { series: [...] }
+      return { data: json.series ?? [] };
+    },
   });
 };
 
 export const useAdminBreakdown = ({ type, startDate, endDate } = {}) => {
   return useQuery({
     queryKey: ["admin", "breakdown", { type, startDate, endDate }],
-    queryFn: () =>
-      fetcher("/admin/reports/metrics/breakdown", { type, startDate, endDate }),
+    queryFn: async () => {
+      const json = await fetcher("/admin/reports/metrics/breakdown", {
+        type,
+        startDate,
+        endDate,
+      });
+      // Backend returns { breakdown: [{ key, count }]} or for geo we may map to { name, value }
+      const items = json.breakdown ?? [];
+      // Normalize shape to { name, value }
+      return {
+        data: items.map((i) => ({
+          name: i.name ?? i.key ?? "Unknown",
+          value: i.value ?? i.count ?? 0,
+        })),
+      };
+    },
     enabled: Boolean(type),
   });
 };
@@ -54,12 +71,15 @@ export const useTopRoutes = ({
 } = {}) => {
   return useQuery({
     queryKey: ["admin", "top-routes", { startDate, endDate, limit, sortBy }],
-    queryFn: () =>
-      fetcher("/admin/reports/top-routes", {
+    queryFn: async () => {
+      const rows = await fetcher("/admin/reports/top-routes", {
         startDate,
         endDate,
         limit,
         sortBy,
-      }),
+      });
+      // Backend returns an array; wrap as { data }
+      return { data: Array.isArray(rows) ? rows : [] };
+    },
   });
 };
