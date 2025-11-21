@@ -490,7 +490,7 @@ export default function SearchRoutes() {
               sx={{ px: 2.5, pt: 2.25, pb: 1.5 }}
             />
             <CardContent sx={{ px: 2.5, pb: 2.5 }}>
-              <Box sx={{ height: 280 }}>
+              <Box sx={{ height: 280, minWidth: 0, width: "100%" }}>
                 {routesLoading ? (
                   <Stack
                     alignItems="center"
@@ -580,7 +580,7 @@ export default function SearchRoutes() {
               sx={{ px: 2.5, pt: 2.25, pb: 1.5 }}
             />
             <CardContent sx={{ px: 2.5, pb: 2.5 }}>
-              <Box sx={{ height: 260 }}>
+              <Box sx={{ height: 260, minWidth: 0, width: "100%" }}>
                 {regionsLoading ? (
                   <Stack
                     alignItems="center"
@@ -687,7 +687,7 @@ export default function SearchRoutes() {
               sx={{ px: 2.5, pt: 2.25, pb: 1.5 }}
             />
             <CardContent sx={{ px: 2.5, pb: 2.5 }}>
-              <Box sx={{ height: 240 }}>
+              <Box sx={{ height: 240, minWidth: 0, width: "100%" }}>
                 {cabinLoading ? (
                   <Stack
                     alignItems="center"

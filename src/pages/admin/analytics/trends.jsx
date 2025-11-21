@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Box,
   Grid,
@@ -31,79 +31,152 @@ import {
   CartesianGrid,
 } from "recharts";
 
-// Mock Data
-const mockSearchTrends = [
-  { month: "Jan", searches: 12450, clickouts: 3234, bookings: 892 },
-  { month: "Feb", searches: 14230, clickouts: 3892, bookings: 1045 },
-  { month: "Mar", searches: 16780, clickouts: 4523, bookings: 1234 },
-  { month: "Apr", searches: 15340, clickouts: 4123, bookings: 1123 },
-  { month: "May", searches: 18920, clickouts: 5234, bookings: 1456 },
-  { month: "Jun", searches: 21450, clickouts: 6123, bookings: 1723 },
-  { month: "Jul", searches: 24560, clickouts: 7234, bookings: 2034 },
-  { month: "Aug", searches: 23120, clickouts: 6892, bookings: 1923 },
-  { month: "Sep", searches: 19870, clickouts: 5678, bookings: 1598 },
-  { month: "Oct", searches: 17230, clickouts: 4923, bookings: 1389 },
-  { month: "Nov", searches: 15890, clickouts: 4456, bookings: 1256 },
-  { month: "Dec", searches: 18450, clickouts: 5234, bookings: 1478 },
-];
+import { useTrendSearches, useTrendPrices } from "@/hooks/useAdminReports";
 
-const mockPriceTrends = [
-  { month: "Jan", avgPrice: 289, minPrice: 156, maxPrice: 892 },
-  { month: "Feb", avgPrice: 312, minPrice: 178, maxPrice: 945 },
-  { month: "Mar", avgPrice: 345, minPrice: 189, maxPrice: 1023 },
-  { month: "Apr", avgPrice: 298, minPrice: 167, maxPrice: 923 },
-  { month: "May", avgPrice: 378, minPrice: 198, maxPrice: 1123 },
-  { month: "Jun", avgPrice: 423, minPrice: 234, maxPrice: 1289 },
-  { month: "Jul", avgPrice: 489, minPrice: 267, maxPrice: 1456 },
-  { month: "Aug", avgPrice: 456, minPrice: 245, maxPrice: 1389 },
-  { month: "Sep", avgPrice: 389, minPrice: 212, maxPrice: 1156 },
-  { month: "Oct", avgPrice: 334, minPrice: 189, maxPrice: 1023 },
-  { month: "Nov", avgPrice: 312, minPrice: 178, maxPrice: 967 },
-  { month: "Dec", avgPrice: 398, minPrice: 223, maxPrice: 1198 },
-];
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
-const mockUserGrowth = [
-  { month: "Jan", newUsers: 2340, returningUsers: 8920 },
-  { month: "Feb", newUsers: 2789, returningUsers: 10230 },
-  { month: "Mar", newUsers: 3234, returningUsers: 12450 },
-  { month: "Apr", newUsers: 2923, returningUsers: 11340 },
-  { month: "May", newUsers: 3678, returningUsers: 14230 },
-  { month: "Jun", newUsers: 4234, returningUsers: 16780 },
-  { month: "Jul", newUsers: 4892, returningUsers: 19230 },
-  { month: "Aug", newUsers: 4567, returningUsers: 18120 },
-  { month: "Sep", newUsers: 3892, returningUsers: 15340 },
-  { month: "Oct", newUsers: 3456, returningUsers: 13670 },
-  { month: "Nov", newUsers: 3123, returningUsers: 12450 },
-  { month: "Dec", newUsers: 3678, returningUsers: 14120 },
-];
-
-const mockConversionTrends = [
-  { month: "Jan", conversionRate: 7.2 },
-  { month: "Feb", conversionRate: 7.3 },
-  { month: "Mar", conversionRate: 7.4 },
-  { month: "Apr", conversionRate: 7.3 },
-  { month: "May", conversionRate: 7.7 },
-  { month: "Jun", conversionRate: 8.0 },
-  { month: "Jul", conversionRate: 8.3 },
-  { month: "Aug", conversionRate: 8.3 },
-  { month: "Sep", conversionRate: 8.0 },
-  { month: "Oct", conversionRate: 8.1 },
-  { month: "Nov", conversionRate: 7.9 },
-  { month: "Dec", conversionRate: 8.0 },
-];
-
-const mockMetrics = [
-  { title: "Search Growth", value: "+24.5%", trend: "up", description: "vs last year" },
-  { title: "Avg Ticket Price", value: "$367", trend: "up", description: "+$23 vs last month" },
-  { title: "Conversion Rate", value: "8.0%", trend: "up", description: "+0.8% vs last month" },
-  { title: "User Retention", value: "76.4%", trend: "up", description: "+3.2% vs last month" },
-];
+// Mock blocks removed; user growth not yet backed by backend
 
 export default function TrendCharts() {
   const [timeRange, setTimeRange] = useState("12m");
 
-  const handleExport = () => {
-    console.log("Exporting trend data");
+  const months = useMemo(
+    () => (timeRange === "6m" ? 6 : timeRange === "24m" ? 24 : 12),
+    [timeRange]
+  );
+  const { data: searchesTrend, isLoading: searchesLoading } = useTrendSearches({
+    months,
+  });
+  const { data: priceTrend, isLoading: priceLoading } = useTrendPrices({
+    months,
+  });
+
+  const conversionSeries = useMemo(() => {
+    const rows = searchesTrend?.data ?? [];
+    return rows.map((r) => ({
+      month: r.month,
+      conversionRate: r.searches
+        ? Math.round((r.clickouts / r.searches) * 100 * 10) / 10
+        : 0,
+    }));
+  }, [searchesTrend]);
+
+  const metrics = useMemo(() => {
+    const s = searchesTrend?.data ?? [];
+    const p = priceTrend?.data ?? [];
+    const last = s.length - 1;
+    const prev = s.length - 2;
+    const lastSearches = last >= 0 ? s[last].searches : 0;
+    const prevSearches = prev >= 0 ? s[prev].searches : 0;
+    const lastClickouts = last >= 0 ? s[last].clickouts : 0;
+    const prevClickouts = prev >= 0 ? s[prev].clickouts : 0;
+    const latestAvgPrice = p.length ? p[p.length - 1].avgPrice : 0;
+    const latestConv = lastSearches
+      ? Math.round((lastClickouts / lastSearches) * 100 * 10) / 10
+      : 0;
+    const pct = (curr, pr) =>
+      !pr ? (curr ? 100 : 0) : Math.round(((curr - pr) / pr) * 1000) / 10;
+    const searchGrowth = pct(lastSearches, prevSearches);
+    const clickoutGrowth = pct(lastClickouts, prevClickouts);
+    return [
+      {
+        title: "Search Growth",
+        value: `${searchGrowth >= 0 ? "+" : ""}${searchGrowth}%`,
+        trend: searchGrowth >= 0 ? "up" : "down",
+        description: "vs previous month",
+      },
+      {
+        title: "Avg Ticket Price",
+        value: latestAvgPrice ? `$${latestAvgPrice}` : "$0",
+        trend: "up",
+        description: "latest month",
+      },
+      {
+        title: "Conversion Rate",
+        value: `${latestConv}%`,
+        trend: "up",
+        description: "latest month",
+      },
+      {
+        title: "Clickout Growth",
+        value: `${clickoutGrowth >= 0 ? "+" : ""}${clickoutGrowth}%`,
+        trend: clickoutGrowth >= 0 ? "up" : "down",
+        description: "vs previous month",
+      },
+    ];
+  }, [searchesTrend, priceTrend]);
+
+  const insights = useMemo(() => {
+    const s = searchesTrend?.data ?? [];
+    const p = priceTrend?.data ?? [];
+    // Peak season by searches
+    let peakMonth = "—";
+    let peakSearches = 0;
+    for (const row of s) {
+      if ((row.searches ?? 0) > peakSearches) {
+        peakSearches = row.searches ?? 0;
+        peakMonth = row.month ?? "—";
+      }
+    }
+    // Price volatility
+    const prices = p
+      .map((r) => r.avgPrice ?? 0)
+      .filter((v) => typeof v === "number");
+    const minP = prices.length ? Math.min(...prices) : 0;
+    const maxP = prices.length ? Math.max(...prices) : 0;
+    const volPct =
+      minP > 0 ? Math.round(((maxP - minP) / minP) * 1000) / 10 : 0;
+    // Conversion improvement
+    const firstConv = conversionSeries.length
+      ? conversionSeries[0].conversionRate ?? 0
+      : 0;
+    const lastConv = conversionSeries.length
+      ? conversionSeries[conversionSeries.length - 1].conversionRate ?? 0
+      : 0;
+    const convDiff = Math.round((lastConv - firstConv) * 10) / 10; // percentage points
+    // Clickouts momentum
+    const firstClick = s.length ? s[0].clickouts ?? 0 : 0;
+    const lastClick = s.length ? s[s.length - 1].clickouts ?? 0 : 0;
+    const clickGrowth = firstClick
+      ? Math.round(((lastClick - firstClick) / firstClick) * 1000) / 10
+      : lastClick
+      ? 100
+      : 0;
+    return {
+      peakMonth,
+      peakSearches,
+      minP,
+      maxP,
+      volPct,
+      firstConv,
+      lastConv,
+      convDiff,
+      firstClick,
+      lastClick,
+      clickGrowth,
+    };
+  }, [searchesTrend, priceTrend, conversionSeries]);
+
+  const handleExportSearches = () => {
+    try {
+      const url = new URL(`${API_BASE_URL}/api/admin/reports/trends/searches`);
+      url.searchParams.set("months", String(months));
+      url.searchParams.set("format", "csv");
+      window.open(url.toString(), "_blank");
+    } catch {
+      return;
+    }
+  };
+
+  const handleExportPrices = () => {
+    try {
+      const url = new URL(`${API_BASE_URL}/api/admin/reports/trends/prices`);
+      url.searchParams.set("months", String(months));
+      url.searchParams.set("format", "csv");
+      window.open(url.toString(), "_blank");
+    } catch {
+      return;
+    }
   };
 
   return (
@@ -118,10 +191,20 @@ export default function TrendCharts() {
         }}
       >
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 700, color: "#FFFFFF", fontFamily: "Inter, sans-serif" }}>
+          <Typography
+            variant="h5"
+            sx={{
+              fontWeight: 700,
+              color: "#FFFFFF",
+              fontFamily: "Inter, sans-serif",
+            }}
+          >
             Trend charts
           </Typography>
-          <Typography variant="body2" sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter, sans-serif" }}>
+          <Typography
+            variant="body2"
+            sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter, sans-serif" }}
+          >
             Long-term evolution of searches, prices, users and conversion.
           </Typography>
         </Box>
@@ -157,47 +240,105 @@ export default function TrendCharts() {
             <ToggleButton value="12m">12m</ToggleButton>
             <ToggleButton value="24m">24m</ToggleButton>
           </ToggleButtonGroup>
-          <Chip
-            size="small"
-            label={
-              <Stack direction="row" spacing={0.5} alignItems="center">
-                <DownloadIcon sx={{ fontSize: 16 }} />
-                <span>Export CSV</span>
-              </Stack>
-            }
-            onClick={handleExport}
-            sx={{
-              height: 32,
-              bgcolor: "#2563eb",
-              color: "#e5e7eb",
-              borderRadius: 999,
-              cursor: "pointer",
-              fontSize: 13,
-              "&:hover": { bgcolor: "#1d4ed8" },
-            }}
-          />
+          <Stack direction="row" spacing={1}>
+            <Chip
+              size="small"
+              label={
+                <Stack direction="row" spacing={0.5} alignItems="center">
+                  <DownloadIcon sx={{ fontSize: 16 }} />
+                  <span>Export Searches</span>
+                </Stack>
+              }
+              onClick={handleExportSearches}
+              sx={{
+                height: 32,
+                bgcolor: "#2563eb",
+                color: "#e5e7eb",
+                borderRadius: 999,
+                cursor: "pointer",
+                fontSize: 13,
+                "&:hover": { bgcolor: "#1d4ed8" },
+              }}
+            />
+            <Chip
+              size="small"
+              label={
+                <Stack direction="row" spacing={0.5} alignItems="center">
+                  <DownloadIcon sx={{ fontSize: 16 }} />
+                  <span>Export Prices</span>
+                </Stack>
+              }
+              onClick={handleExportPrices}
+              sx={{
+                height: 32,
+                bgcolor: "#0ea5e9",
+                color: "#e5e7eb",
+                borderRadius: 999,
+                cursor: "pointer",
+                fontSize: 13,
+                "&:hover": { bgcolor: "#0284c7" },
+              }}
+            />
+          </Stack>
         </Stack>
       </Box>
 
       <Grid container spacing={2.5}>
-        {mockMetrics.map((metric, index) => (
+        {(metrics.length ? metrics : [{}, {}, {}, {}]).map((metric, index) => (
           <Grid item xs={12} md={3} key={metric.title} sx={{ minWidth: 0 }}>
             <Card
               sx={{
                 borderRadius: 2,
                 bgcolor: "#1A1D23",
-                backgroundImage: `linear-gradient(135deg, rgba(${index === 0 ? '59, 130, 246' : index === 1 ? '245, 158, 11' : index === 2 ? '16, 185, 129' : '168, 85, 247'}, 0.05) 0%, rgba(${index === 0 ? '59, 130, 246' : index === 1 ? '245, 158, 11' : index === 2 ? '16, 185, 129' : '168, 85, 247'}, 0.02) 100%)`,
+                backgroundImage: `linear-gradient(135deg, rgba(${
+                  index === 0
+                    ? "59, 130, 246"
+                    : index === 1
+                    ? "245, 158, 11"
+                    : index === 2
+                    ? "16, 185, 129"
+                    : "168, 85, 247"
+                }, 0.05) 0%, rgba(${
+                  index === 0
+                    ? "59, 130, 246"
+                    : index === 1
+                    ? "245, 158, 11"
+                    : index === 2
+                    ? "16, 185, 129"
+                    : "168, 85, 247"
+                }, 0.02) 100%)`,
                 border: "1px solid rgba(255, 255, 255, 0.08)",
-                boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)"
+                boxShadow:
+                  "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
               }}
             >
               <CardContent sx={{ p: 3 }}>
-                <Typography sx={{ fontSize: 12, color: "#71717A", fontFamily: "Inter", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-                  {metric.title}
+                <Typography
+                  sx={{
+                    fontSize: 12,
+                    color: "#71717A",
+                    fontFamily: "Inter",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                  }}
+                >
+                  {metric.title || "—"}
                 </Typography>
-                <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: 1 }}>
-                  <Typography sx={{ fontSize: 28, fontWeight: 600, color: "#FFFFFF", fontFamily: "Inter" }}>
-                    {metric.value}
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  alignItems="center"
+                  sx={{ mt: 1 }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: 28,
+                      fontWeight: 600,
+                      color: "#FFFFFF",
+                      fontFamily: "Inter",
+                    }}
+                  >
+                    {metric.value || "—"}
                   </Typography>
                   {metric.trend === "up" ? (
                     <TrendingUpIcon sx={{ fontSize: 18, color: "#10B981" }} />
@@ -205,8 +346,15 @@ export default function TrendCharts() {
                     <TrendingDownIcon sx={{ fontSize: 18, color: "#F97316" }} />
                   )}
                 </Stack>
-                <Typography sx={{ fontSize: 12, color: "#71717A", mt: 0.5, fontFamily: "Inter" }}>
-                  {metric.description}
+                <Typography
+                  sx={{
+                    fontSize: 12,
+                    color: "#71717A",
+                    mt: 0.5,
+                    fontFamily: "Inter",
+                  }}
+                >
+                  {metric.description || ""}
                 </Typography>
               </CardContent>
             </Card>
@@ -221,9 +369,11 @@ export default function TrendCharts() {
               height: "100%",
               borderRadius: 2,
               bgcolor: "#1A1D23",
-              background: "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
@@ -240,38 +390,74 @@ export default function TrendCharts() {
               sx={{ px: 2.5, pt: 2.25, pb: 1.5 }}
             />
             <CardContent sx={{ px: 2.5, pb: 2.5 }}>
-              <Box sx={{ height: 320 }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <ComposedChart data={mockSearchTrends}>
-                    <defs>
-                      <linearGradient id="colorSearches" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.35} />
-                        <stop offset="95%" stopColor="#020617" stopOpacity={0} />
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#111827" />
-                    <XAxis dataKey="month" stroke="#6b7280" fontSize={11} />
-                    <YAxis stroke="#6b7280" fontSize={11} />
-                    <Tooltip contentStyle={{ backgroundColor: "#020617", border: "1px solid #1f2937" }} />
-                    <Legend />
-                    <Area
-                      type="monotone"
-                      dataKey="searches"
-                      stroke="#60a5fa"
-                      fill="url(#colorSearches)"
-                      strokeWidth={2}
-                      name="Searches"
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="clickouts"
-                      stroke="#4ade80"
-                      strokeWidth={2}
-                      name="Clickouts"
-                    />
-                    <Bar dataKey="bookings" fill="#a855f7" radius={[4, 4, 0, 0]} name="Bookings" />
-                  </ComposedChart>
-                </ResponsiveContainer>
+              <Box sx={{ height: 320, minWidth: 0, width: "100%" }}>
+                {searchesLoading ? (
+                  <Stack
+                    alignItems="center"
+                    justifyContent="center"
+                    sx={{ height: 1 }}
+                  >
+                    <Typography sx={{ color: "#9ca3af" }}>Loading…</Typography>
+                  </Stack>
+                ) : (searchesTrend?.data ?? []).length === 0 ? (
+                  <Stack
+                    alignItems="center"
+                    justifyContent="center"
+                    sx={{ height: 1 }}
+                  >
+                    <Typography sx={{ color: "#9ca3af" }}>No data</Typography>
+                  </Stack>
+                ) : (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <ComposedChart data={searchesTrend.data}>
+                      <defs>
+                        <linearGradient
+                          id="colorSearches"
+                          x1="0"
+                          y1="0"
+                          x2="0"
+                          y2="1"
+                        >
+                          <stop
+                            offset="5%"
+                            stopColor="#3b82f6"
+                            stopOpacity={0.35}
+                          />
+                          <stop
+                            offset="95%"
+                            stopColor="#020617"
+                            stopOpacity={0}
+                          />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#111827" />
+                      <XAxis dataKey="month" stroke="#6b7280" fontSize={11} />
+                      <YAxis stroke="#6b7280" fontSize={11} />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: "#020617",
+                          border: "1px solid #1f2937",
+                        }}
+                      />
+                      <Legend />
+                      <Area
+                        type="monotone"
+                        dataKey="searches"
+                        stroke="#60a5fa"
+                        fill="url(#colorSearches)"
+                        strokeWidth={2}
+                        name="Searches"
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="clickouts"
+                        stroke="#4ade80"
+                        strokeWidth={2}
+                        name="Clickouts"
+                      />
+                    </ComposedChart>
+                  </ResponsiveContainer>
+                )}
               </Box>
             </CardContent>
           </Card>
@@ -283,9 +469,11 @@ export default function TrendCharts() {
               height: "100%",
               borderRadius: 2,
               bgcolor: "#1A1D23",
-              background: "linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.02) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.02) 100%)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
@@ -302,39 +490,62 @@ export default function TrendCharts() {
               sx={{ px: 2.5, pt: 2.25, pb: 1.5 }}
             />
             <CardContent sx={{ px: 2.5, pb: 2.5 }}>
-              <Box sx={{ height: 260 }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={mockPriceTrends}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#111827" />
-                    <XAxis dataKey="month" stroke="#6b7280" fontSize={11} />
-                    <YAxis stroke="#6b7280" fontSize={11} />
-                    <Tooltip contentStyle={{ backgroundColor: "#020617", border: "1px solid #1f2937" }} />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="avgPrice"
-                      stroke="#60a5fa"
-                      strokeWidth={3}
-                      name="Avg price"
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="minPrice"
-                      stroke="#4ade80"
-                      strokeWidth={2}
-                      strokeDasharray="5 5"
-                      name="Min price"
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="maxPrice"
-                      stroke="#f97316"
-                      strokeWidth={2}
-                      strokeDasharray="5 5"
-                      name="Max price"
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
+              <Box sx={{ height: 260, minWidth: 0, width: "100%" }}>
+                {priceLoading ? (
+                  <Stack
+                    alignItems="center"
+                    justifyContent="center"
+                    sx={{ height: 1 }}
+                  >
+                    <Typography sx={{ color: "#9ca3af" }}>Loading…</Typography>
+                  </Stack>
+                ) : (priceTrend?.data ?? []).length === 0 ? (
+                  <Stack
+                    alignItems="center"
+                    justifyContent="center"
+                    sx={{ height: 1 }}
+                  >
+                    <Typography sx={{ color: "#9ca3af" }}>No data</Typography>
+                  </Stack>
+                ) : (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={priceTrend.data}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#111827" />
+                      <XAxis dataKey="month" stroke="#6b7280" fontSize={11} />
+                      <YAxis stroke="#6b7280" fontSize={11} />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: "#020617",
+                          border: "1px solid #1f2937",
+                        }}
+                      />
+                      <Legend />
+                      <Line
+                        type="monotone"
+                        dataKey="avgPrice"
+                        stroke="#60a5fa"
+                        strokeWidth={3}
+                        name="Avg price"
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="minPrice"
+                        stroke="#4ade80"
+                        strokeWidth={2}
+                        strokeDasharray="5 5"
+                        name="Min price"
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="maxPrice"
+                        stroke="#f97316"
+                        strokeWidth={2}
+                        strokeDasharray="5 5"
+                        name="Max price"
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                )}
               </Box>
             </CardContent>
           </Card>
@@ -348,37 +559,72 @@ export default function TrendCharts() {
               height: "100%",
               borderRadius: 2,
               bgcolor: "#1A1D23",
-              backgroundImage: "linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
+              backgroundImage:
+                "linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)"
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
               title={
                 <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>
-                  User growth
+                  Monthly volume breakdown
                 </Typography>
               }
               subheader={
                 <Typography variant="caption" sx={{ color: "#9ca3af" }}>
-                  New vs returning users over time.
+                  Searches vs clickouts by month.
                 </Typography>
               }
               sx={{ px: 2.5, pt: 2.25, pb: 1.5 }}
             />
             <CardContent sx={{ px: 2.5, pb: 2.5 }}>
               <Box sx={{ height: 260 }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={mockUserGrowth}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#111827" />
-                    <XAxis dataKey="month" stroke="#6b7280" fontSize={11} />
-                    <YAxis stroke="#6b7280" fontSize={11} />
-                    <Tooltip contentStyle={{ backgroundColor: "#020617", border: "1px solid #1f2937" }} />
-                    <Legend />
-                    <Bar dataKey="newUsers" fill="#60a5fa" radius={[4, 4, 0, 0]} name="New users" />
-                    <Bar dataKey="returningUsers" fill="#22c55e" radius={[4, 4, 0, 0]} name="Returning users" />
-                  </BarChart>
-                </ResponsiveContainer>
+                {searchesLoading ? (
+                  <Stack
+                    alignItems="center"
+                    justifyContent="center"
+                    sx={{ height: 1 }}
+                  >
+                    <Typography sx={{ color: "#9ca3af" }}>Loading…</Typography>
+                  </Stack>
+                ) : (searchesTrend?.data ?? []).length === 0 ? (
+                  <Stack
+                    alignItems="center"
+                    justifyContent="center"
+                    sx={{ height: 1 }}
+                  >
+                    <Typography sx={{ color: "#9ca3af" }}>No data</Typography>
+                  </Stack>
+                ) : (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={searchesTrend.data}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#111827" />
+                      <XAxis dataKey="month" stroke="#6b7280" fontSize={11} />
+                      <YAxis stroke="#6b7280" fontSize={11} />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: "#020617",
+                          border: "1px solid #1f2937",
+                        }}
+                      />
+                      <Legend />
+                      <Bar
+                        dataKey="searches"
+                        fill="#60a5fa"
+                        radius={[4, 4, 0, 0]}
+                        name="Searches"
+                      />
+                      <Bar
+                        dataKey="clickouts"
+                        fill="#22c55e"
+                        radius={[4, 4, 0, 0]}
+                        name="Clickouts"
+                      />
+                    </BarChart>
+                  </ResponsiveContainer>
+                )}
               </Box>
             </CardContent>
           </Card>
@@ -390,9 +636,11 @@ export default function TrendCharts() {
               height: "100%",
               borderRadius: 2,
               bgcolor: "#1A1D23",
-              backgroundImage: "linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(245, 158, 11, 0.02) 100%)",
+              backgroundImage:
+                "linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(245, 158, 11, 0.02) 100%)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)"
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
@@ -410,28 +658,65 @@ export default function TrendCharts() {
             />
             <CardContent sx={{ px: 2.5, pb: 2.5 }}>
               <Box sx={{ height: 260 }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={mockConversionTrends}>
-                    <defs>
-                      <linearGradient id="colorConversion" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#a855f7" stopOpacity={0.35} />
-                        <stop offset="95%" stopColor="#020617" stopOpacity={0} />
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#111827" />
-                    <XAxis dataKey="month" stroke="#6b7280" fontSize={11} />
-                    <YAxis stroke="#6b7280" fontSize={11} domain={[6, 9]} />
-                    <Tooltip contentStyle={{ backgroundColor: "#020617", border: "1px solid #1f2937" }} />
-                    <Area
-                      type="monotone"
-                      dataKey="conversionRate"
-                      stroke="#a855f7"
-                      fill="url(#colorConversion)"
-                      strokeWidth={3}
-                      name="Conversion rate (%)"
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
+                {searchesLoading ? (
+                  <Stack
+                    alignItems="center"
+                    justifyContent="center"
+                    sx={{ height: 1 }}
+                  >
+                    <Typography sx={{ color: "#9ca3af" }}>Loading…</Typography>
+                  </Stack>
+                ) : conversionSeries.length === 0 ? (
+                  <Stack
+                    alignItems="center"
+                    justifyContent="center"
+                    sx={{ height: 1 }}
+                  >
+                    <Typography sx={{ color: "#9ca3af" }}>No data</Typography>
+                  </Stack>
+                ) : (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart data={conversionSeries}>
+                      <defs>
+                        <linearGradient
+                          id="colorConversion"
+                          x1="0"
+                          y1="0"
+                          x2="0"
+                          y2="1"
+                        >
+                          <stop
+                            offset="5%"
+                            stopColor="#a855f7"
+                            stopOpacity={0.35}
+                          />
+                          <stop
+                            offset="95%"
+                            stopColor="#020617"
+                            stopOpacity={0}
+                          />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#111827" />
+                      <XAxis dataKey="month" stroke="#6b7280" fontSize={11} />
+                      <YAxis stroke="#6b7280" fontSize={11} />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: "#020617",
+                          border: "1px solid #1f2937",
+                        }}
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="conversionRate"
+                        stroke="#a855f7"
+                        fill="url(#colorConversion)"
+                        strokeWidth={3}
+                        name="Conversion rate (%)"
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                )}
               </Box>
             </CardContent>
           </Card>
@@ -442,9 +727,11 @@ export default function TrendCharts() {
         sx={{
           borderRadius: 2,
           bgcolor: "#1A1D23",
-          background: "linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(147, 51, 234, 0.02) 100%)",
+          background:
+            "linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(147, 51, 234, 0.02) 100%)",
           border: "1px solid rgba(255, 255, 255, 0.08)",
-          boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+          boxShadow:
+            "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
         }}
       >
         <CardHeader
@@ -466,16 +753,33 @@ export default function TrendCharts() {
                   p: 3,
                   borderRadius: 2,
                   bgcolor: "#0B0F16",
-                  background: "linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0.03) 100%)",
+                  background:
+                    "linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0.03) 100%)",
                   border: "1px solid rgba(255, 255, 255, 0.08)",
-                  boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+                  boxShadow:
+                    "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
                 }}
               >
-                <Typography sx={{ fontWeight: 600, color: "#FFFFFF", mb: 0.5, fontSize: 14, fontFamily: "Inter, sans-serif" }}>
+                <Typography
+                  sx={{
+                    fontWeight: 600,
+                    color: "#FFFFFF",
+                    mb: 0.5,
+                    fontSize: 14,
+                    fontFamily: "Inter, sans-serif",
+                  }}
+                >
                   Peak season
                 </Typography>
-                <Typography sx={{ fontSize: 13, color: "#71717A", fontFamily: "Inter, sans-serif" }}>
-                  July shows the highest search volume with 24,560 searches — peak travel season.
+                <Typography
+                  sx={{
+                    fontSize: 13,
+                    color: "#71717A",
+                    fontFamily: "Inter, sans-serif",
+                  }}
+                >
+                  {insights.peakMonth} shows the highest search volume with{" "}
+                  {insights.peakSearches.toLocaleString()} searches.
                 </Typography>
               </Box>
             </Grid>
@@ -485,16 +789,33 @@ export default function TrendCharts() {
                   p: 3,
                   borderRadius: 2,
                   bgcolor: "#0B0F16",
-                  background: "linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(34, 197, 94, 0.03) 100%)",
+                  background:
+                    "linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(34, 197, 94, 0.03) 100%)",
                   border: "1px solid rgba(255, 255, 255, 0.08)",
-                  boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+                  boxShadow:
+                    "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
                 }}
               >
-                <Typography sx={{ fontWeight: 600, color: "#FFFFFF", mb: 0.5, fontSize: 14, fontFamily: "Inter, sans-serif" }}>
+                <Typography
+                  sx={{
+                    fontWeight: 600,
+                    color: "#FFFFFF",
+                    mb: 0.5,
+                    fontSize: 14,
+                    fontFamily: "Inter, sans-serif",
+                  }}
+                >
                   Price volatility
                 </Typography>
-                <Typography sx={{ fontSize: 13, color: "#71717A", fontFamily: "Inter, sans-serif" }}>
-                  Summer months (Jun–Aug) show ~35% higher average prices compared to winter.
+                <Typography
+                  sx={{
+                    fontSize: 13,
+                    color: "#71717A",
+                    fontFamily: "Inter, sans-serif",
+                  }}
+                >
+                  Average price ranged from ${insights.minP} to ${insights.maxP}{" "}
+                  (≈ {insights.volPct}% swing).
                 </Typography>
               </Box>
             </Grid>
@@ -504,16 +825,35 @@ export default function TrendCharts() {
                   p: 3,
                   borderRadius: 2,
                   bgcolor: "#0B0F16",
-                  background: "linear-gradient(135deg, rgba(251, 113, 133, 0.08) 0%, rgba(251, 113, 133, 0.03) 100%)",
+                  background:
+                    "linear-gradient(135deg, rgba(251, 113, 133, 0.08) 0%, rgba(251, 113, 133, 0.03) 100%)",
                   border: "1px solid rgba(255, 255, 255, 0.08)",
-                  boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+                  boxShadow:
+                    "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
                 }}
               >
-                <Typography sx={{ fontWeight: 600, color: "#FFFFFF", mb: 0.5, fontSize: 14, fontFamily: "Inter, sans-serif" }}>
-                  User retention
+                <Typography
+                  sx={{
+                    fontWeight: 600,
+                    color: "#FFFFFF",
+                    mb: 0.5,
+                    fontSize: 14,
+                    fontFamily: "Inter, sans-serif",
+                  }}
+                >
+                  Clickouts momentum
                 </Typography>
-                <Typography sx={{ fontSize: 13, color: "#71717A", fontFamily: "Inter, sans-serif" }}>
-                  Returning users consistently outnumber new users by ~4:1, indicating strong loyalty.
+                <Typography
+                  sx={{
+                    fontSize: 13,
+                    color: "#71717A",
+                    fontFamily: "Inter, sans-serif",
+                  }}
+                >
+                  Clickouts changed from {insights.firstClick.toLocaleString()}{" "}
+                  to {insights.lastClick.toLocaleString()} (
+                  {insights.clickGrowth >= 0 ? "+" : ""}
+                  {insights.clickGrowth}%).
                 </Typography>
               </Box>
             </Grid>
@@ -523,16 +863,34 @@ export default function TrendCharts() {
                   p: 3,
                   borderRadius: 2,
                   bgcolor: "#0B0F16",
-                  background: "linear-gradient(135deg, rgba(147, 51, 234, 0.08) 0%, rgba(147, 51, 234, 0.03) 100%)",
+                  background:
+                    "linear-gradient(135deg, rgba(147, 51, 234, 0.08) 0%, rgba(147, 51, 234, 0.03) 100%)",
                   border: "1px solid rgba(255, 255, 255, 0.08)",
-                  boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+                  boxShadow:
+                    "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
                 }}
               >
-                <Typography sx={{ fontWeight: 600, color: "#FFFFFF", mb: 0.5, fontSize: 14, fontFamily: "Inter, sans-serif" }}>
+                <Typography
+                  sx={{
+                    fontWeight: 600,
+                    color: "#FFFFFF",
+                    mb: 0.5,
+                    fontSize: 14,
+                    fontFamily: "Inter, sans-serif",
+                  }}
+                >
                   Conversion improvement
                 </Typography>
-                <Typography sx={{ fontSize: 13, color: "#71717A", fontFamily: "Inter, sans-serif" }}>
-                  Conversion rate improved from 7.2% to 8.0% over the year (~11% uplift).
+                <Typography
+                  sx={{
+                    fontSize: 13,
+                    color: "#71717A",
+                    fontFamily: "Inter, sans-serif",
+                  }}
+                >
+                  Conversion rate changed from {insights.firstConv}% to{" "}
+                  {insights.lastConv}% (
+                  {(insights.convDiff >= 0 ? "+" : "") + insights.convDiff} pp).
                 </Typography>
               </Box>
             </Grid>
