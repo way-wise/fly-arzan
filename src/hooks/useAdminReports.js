@@ -83,3 +83,65 @@ export const useTopRoutes = ({
     },
   });
 };
+
+export const useRoutesTrending = ({ limit = 10 } = {}) => {
+  return useQuery({
+    queryKey: ["admin", "routes-trending", { limit }],
+    queryFn: async () => {
+      const rows = await fetcher("/admin/reports/routes/trending", { limit });
+      return { data: Array.isArray(rows) ? rows : [] };
+    },
+  });
+};
+
+export const useRegionsBreakdown = () => {
+  return useQuery({
+    queryKey: ["admin", "regions"],
+    queryFn: async () => {
+      const rows = await fetcher("/admin/reports/geo/regions");
+      return { data: Array.isArray(rows) ? rows : [] };
+    },
+  });
+};
+
+export const useEngagementSeries = ({ range = "7d" } = {}) => {
+  return useQuery({
+    queryKey: ["admin", "engagement-series", { range }],
+    queryFn: async () => {
+      const json = await fetcher("/admin/reports/engagement/series", { range });
+      return { data: json?.buckets ?? [] };
+    },
+  });
+};
+
+export const useTrendSearches = ({ months = 12 } = {}) => {
+  return useQuery({
+    queryKey: ["admin", "trends-searches", { months }],
+    queryFn: async () => {
+      const rows = await fetcher("/admin/reports/trends/searches", { months });
+      return { data: Array.isArray(rows) ? rows : [] };
+    },
+  });
+};
+
+export const useTrendPrices = ({ months = 12 } = {}) => {
+  return useQuery({
+    queryKey: ["admin", "trends-prices", { months }],
+    queryFn: async () => {
+      const rows = await fetcher("/admin/reports/trends/prices", { months });
+      return { data: Array.isArray(rows) ? rows : [] };
+    },
+  });
+};
+
+export const useEngagementSummary = ({ range = "7d" } = {}) => {
+  return useQuery({
+    queryKey: ["admin", "engagement-summary", { range }],
+    queryFn: async () => {
+      const json = await fetcher("/admin/reports/engagement/summary", {
+        range,
+      });
+      return json;
+    },
+  });
+};

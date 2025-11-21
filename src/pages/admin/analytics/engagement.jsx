@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Box,
   Grid,
@@ -11,16 +11,9 @@ import {
   ToggleButtonGroup,
   ToggleButton,
 } from "@mui/material";
-import {
-  People,
-  Timeline,
-  Mouse,
-  AccessTime,
-} from "@mui/icons-material";
+import { People, Timeline, Mouse, AccessTime } from "@mui/icons-material";
 import {
   ResponsiveContainer,
-  LineChart,
-  Line,
   AreaChart,
   Area,
   BarChart,
@@ -32,46 +25,65 @@ import {
   CartesianGrid,
 } from "recharts";
 
-// Mock data tailored for search engagement (replace with real analytics API later)
-const engagementSeries = [
-  { date: "Mon", searches: 4200, sessions: 1240, avgDuration: 245, bounceRate: 32 },
-  { date: "Tue", searches: 4860, sessions: 1380, avgDuration: 268, bounceRate: 29 },
-  { date: "Wed", searches: 5312, sessions: 1520, avgDuration: 290, bounceRate: 26 },
-  { date: "Thu", searches: 4988, sessions: 1450, avgDuration: 275, bounceRate: 28 },
-  { date: "Fri", searches: 6230, sessions: 1680, avgDuration: 310, bounceRate: 24 },
-  { date: "Sat", searches: 5780, sessions: 1590, avgDuration: 295, bounceRate: 25 },
-  { date: "Sun", searches: 6024, sessions: 1720, avgDuration: 320, bounceRate: 22 },
-];
+import {
+  useEngagementSeries,
+  useTopRoutes,
+  useAdminBreakdown,
+} from "@/hooks/useAdminReports";
+import { useEngagementSummary } from "@/hooks/useAdminReports";
 
-const funnelData = [
-  { stage: "Search initiated", count: 48237 },
-  { stage: "Search results viewed", count: 41780 },
-  { stage: "Details opened", count: 23890 },
-  { stage: "Clickouts", count: 16490 },
-];
-
-const deviceStats = [
-  { device: "Desktop", searches: 28560, sessions: 18920, avgTime: "5:32" },
-  { device: "Mobile", searches: 16240, sessions: 12340, avgTime: "3:45" },
-  { device: "Tablet", searches: 3437, sessions: 3210, avgTime: "4:12" },
-];
-
-const routeBehavior = [
-  { route: "ALA → IST", searches: 9560, clickouts: 3420, clickRate: 35.8 },
-  { route: "ALA → DXB", searches: 8123, clickouts: 2851, clickRate: 35.1 },
-  { route: "TSE → IST", searches: 5310, clickouts: 1670, clickRate: 31.4 },
-  { route: "ALA → SAW", searches: 4892, clickouts: 1422, clickRate: 29.1 },
-];
-
-const kpis = {
-  sessions: { value: 10580, change: 12.5 },
-  avgDuration: { value: "4:32", change: 8.2 },
-  ctr: { value: 34.2, change: 5.1 },
-  bounceRate: { value: 26.8, change: -3.4 },
+// Helper to compute date range from toggle
+const getRange = (range) => {
+  const now = new Date();
+  const endDate = now.toISOString();
+  const start = new Date(now);
+  if (range === "24h") start.setDate(now.getDate() - 1);
+  else if (range === "7d") start.setDate(now.getDate() - 7);
+  else if (range === "30d") start.setDate(now.getDate() - 30);
+  const startDate = start.toISOString();
+  return { startDate, endDate };
 };
+
+// Funnel will be built from live totals (Searches vs Clickouts) for now
+const buildFunnel = (summary) => {
+  const s = summary?.current?.searches ?? 0;
+  const c = summary?.current?.clickouts ?? 0;
+  return [
+    { stage: "Searches", count: s },
+    { stage: "Clickouts", count: c },
+  ];
+};
+
+// (device and route mock tables removed; now fed by live queries)
+
+// KPI placeholders for fields we don't instrument yet
+const formatPct = (n) =>
+  typeof n === "number" ? `${(Math.round(n * 10) / 10).toFixed(1)}` : "0.0";
 
 export default function EngagementMetrics() {
   const [range, setRange] = useState("7d");
+
+  const { startDate, endDate } = useMemo(() => getRange(range), [range]);
+
+  // Live data hooks
+  const { data: engagement } = useEngagementSeries({ range });
+  const { data: topRoutes } = useTopRoutes({ startDate, endDate, limit: 10 });
+  const { data: deviceBreakdown } = useAdminBreakdown({ type: "device" });
+  const { data: summary } = useEngagementSummary({ range });
+
+  const sessionsValue = summary?.current?.sessions ?? 0;
+  const sessionsDelta = summary?.deltas?.sessions ?? 0;
+  const ctrValue = summary?.current?.ctr
+    ? Math.round(summary.current.ctr * 10) / 10
+    : 0;
+  const ctrDelta = summary?.deltas?.ctr
+    ? Math.round(summary.deltas.ctr * 10) / 10
+    : 0;
+  const funnelData = buildFunnel(summary);
+  const avgDurationText = "—";
+  const avgDurationDelta = 0;
+  const bounceRateValue = 0;
+  const bounceRateDelta = 0;
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
@@ -86,10 +98,20 @@ export default function EngagementMetrics() {
         }}
       >
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 700, color: "#FFFFFF", fontFamily: "Inter, sans-serif" }}>
+          <Typography
+            variant="h5"
+            sx={{
+              fontWeight: 700,
+              color: "#FFFFFF",
+              fontFamily: "Inter, sans-serif",
+            }}
+          >
             Search Analytics
           </Typography>
-          <Typography variant="body2" sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter, sans-serif" }}>
+          <Typography
+            variant="body2"
+            sx={{ color: "#71717A", mt: 0.5, fontFamily: "Inter, sans-serif" }}
+          >
             Understand how users search for flights and interact with results.
           </Typography>
         </Box>
@@ -148,24 +170,55 @@ export default function EngagementMetrics() {
             sx={{
               borderRadius: 2,
               bgcolor: "#1A1D23",
-              background: "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 3 }}>
-              <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="flex-start"
+              >
                 <Box>
-                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter, sans-serif", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: "#71717A",
+                      fontFamily: "Inter, sans-serif",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
                     Total sessions
                   </Typography>
-                  <Typography variant="h6" sx={{ color: "#FFFFFF", fontWeight: 600, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
-                    {kpis.sessions.value.toLocaleString()}
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      color: "#FFFFFF",
+                      fontWeight: 600,
+                      mt: 0.5,
+                      fontFamily: "Inter, sans-serif",
+                    }}
+                  >
+                    {sessionsValue.toLocaleString()}
                   </Typography>
-                  <Stack direction="row" spacing={0.5} sx={{ mt: 0.5 }} alignItems="center">
+                  <Stack
+                    direction="row"
+                    spacing={0.5}
+                    sx={{ mt: 0.5 }}
+                    alignItems="center"
+                  >
                     <Timeline sx={{ fontSize: 15, color: "#4ade80" }} />
-                    <Typography variant="caption" sx={{ color: "#4ade80" }}>
-                      +{kpis.sessions.change}% vs last period
+                    <Typography
+                      variant="caption"
+                      sx={{ color: sessionsDelta >= 0 ? "#4ade80" : "#ef4444" }}
+                    >
+                      {sessionsDelta >= 0 ? "+" : ""}
+                      {formatPct(sessionsDelta)}% vs last period
                     </Typography>
                   </Stack>
                 </Box>
@@ -192,24 +245,57 @@ export default function EngagementMetrics() {
             sx={{
               borderRadius: 2,
               bgcolor: "#1A1D23",
-              background: "linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(147, 51, 234, 0.02) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(147, 51, 234, 0.02) 100%)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 3 }}>
-              <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="flex-start"
+              >
                 <Box>
-                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter, sans-serif", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: "#71717A",
+                      fontFamily: "Inter, sans-serif",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
                     Avg session duration
                   </Typography>
-                  <Typography variant="h6" sx={{ color: "#FFFFFF", fontWeight: 600, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
-                    {kpis.avgDuration.value}
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      color: "#FFFFFF",
+                      fontWeight: 600,
+                      mt: 0.5,
+                      fontFamily: "Inter, sans-serif",
+                    }}
+                  >
+                    {avgDurationText}
                   </Typography>
-                  <Stack direction="row" spacing={0.5} sx={{ mt: 0.5 }} alignItems="center">
+                  <Stack
+                    direction="row"
+                    spacing={0.5}
+                    sx={{ mt: 0.5 }}
+                    alignItems="center"
+                  >
                     <AccessTime sx={{ fontSize: 15, color: "#c4b5fd" }} />
-                    <Typography variant="caption" sx={{ color: "#a855f7" }}>
-                      +{kpis.avgDuration.change}% vs last period
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: avgDurationDelta >= 0 ? "#a855f7" : "#ef4444",
+                      }}
+                    >
+                      {avgDurationDelta >= 0 ? "+" : ""}
+                      {formatPct(avgDurationDelta)}% vs last period
                     </Typography>
                   </Stack>
                 </Box>
@@ -236,24 +322,55 @@ export default function EngagementMetrics() {
             sx={{
               borderRadius: 2,
               bgcolor: "#1A1D23",
-              background: "linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.02) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.02) 100%)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 3 }}>
-              <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="flex-start"
+              >
                 <Box>
-                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter, sans-serif", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: "#71717A",
+                      fontFamily: "Inter, sans-serif",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
                     Click-through rate
                   </Typography>
-                  <Typography variant="h6" sx={{ color: "#FFFFFF", fontWeight: 600, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
-                    {kpis.ctr.value}%
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      color: "#FFFFFF",
+                      fontWeight: 600,
+                      mt: 0.5,
+                      fontFamily: "Inter, sans-serif",
+                    }}
+                  >
+                    {ctrValue}%
                   </Typography>
-                  <Stack direction="row" spacing={0.5} sx={{ mt: 0.5 }} alignItems="center">
+                  <Stack
+                    direction="row"
+                    spacing={0.5}
+                    sx={{ mt: 0.5 }}
+                    alignItems="center"
+                  >
                     <Mouse sx={{ fontSize: 15, color: "#4ade80" }} />
-                    <Typography variant="caption" sx={{ color: "#4ade80" }}>
-                      +{kpis.ctr.change}% vs last period
+                    <Typography
+                      variant="caption"
+                      sx={{ color: ctrDelta >= 0 ? "#4ade80" : "#ef4444" }}
+                    >
+                      {ctrDelta >= 0 ? "+" : ""}
+                      {formatPct(ctrDelta)}% vs last period
                     </Typography>
                   </Stack>
                 </Box>
@@ -280,22 +397,49 @@ export default function EngagementMetrics() {
             sx={{
               borderRadius: 2,
               bgcolor: "#1A1D23",
-              background: "linear-gradient(135deg, rgba(75, 85, 99, 0.05) 0%, rgba(75, 85, 99, 0.02) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(75, 85, 99, 0.05) 0%, rgba(75, 85, 99, 0.02) 100%)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardContent sx={{ p: 3 }}>
-              <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="flex-start"
+              >
                 <Box>
-                  <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter, sans-serif", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: "#71717A",
+                      fontFamily: "Inter, sans-serif",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
                     Bounce rate
                   </Typography>
-                  <Typography variant="h6" sx={{ color: "#FFFFFF", fontWeight: 600, mt: 0.5, fontFamily: "Inter, sans-serif" }}>
-                    {kpis.bounceRate.value}%
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      color: "#FFFFFF",
+                      fontWeight: 600,
+                      mt: 0.5,
+                      fontFamily: "Inter, sans-serif",
+                    }}
+                  >
+                    {bounceRateValue}%
                   </Typography>
-                  <Typography variant="caption" sx={{ color: "#a3e635", mt: 0.5 }}>
-                    {kpis.bounceRate.change}% vs last period (lower is better)
+                  <Typography
+                    variant="caption"
+                    sx={{ color: "#a3e635", mt: 0.5 }}
+                  >
+                    {bounceRateDelta >= 0 ? "+" : ""}
+                    {formatPct(bounceRateDelta)}% vs last period (lower is
+                    better)
                   </Typography>
                 </Box>
               </Stack>
@@ -312,9 +456,11 @@ export default function EngagementMetrics() {
               height: "100%",
               borderRadius: 2,
               bgcolor: "#1A1D23",
-              background: "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
@@ -333,21 +479,60 @@ export default function EngagementMetrics() {
             <CardContent sx={{ px: 2.5, pb: 2.5 }}>
               <Box sx={{ height: 260 }}>
                 <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={engagementSeries}>
+                  <AreaChart
+                    data={(engagement?.data ?? []).map((b) => ({
+                      label: b.label,
+                      searches: b.searches ?? 0,
+                      sessions: b.sessions ?? 0,
+                    }))}
+                  >
                     <defs>
-                      <linearGradient id="colorSearches" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.35} />
-                        <stop offset="95%" stopColor="#020617" stopOpacity={0} />
+                      <linearGradient
+                        id="colorSearches"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop
+                          offset="5%"
+                          stopColor="#3b82f6"
+                          stopOpacity={0.35}
+                        />
+                        <stop
+                          offset="95%"
+                          stopColor="#020617"
+                          stopOpacity={0}
+                        />
                       </linearGradient>
-                      <linearGradient id="colorSessions" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#22c55e" stopOpacity={0.3} />
-                        <stop offset="95%" stopColor="#020617" stopOpacity={0} />
+                      <linearGradient
+                        id="colorSessions"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop
+                          offset="5%"
+                          stopColor="#22c55e"
+                          stopOpacity={0.3}
+                        />
+                        <stop
+                          offset="95%"
+                          stopColor="#020617"
+                          stopOpacity={0}
+                        />
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="#111827" />
-                    <XAxis dataKey="date" stroke="#6b7280" fontSize={11} />
+                    <XAxis dataKey="label" stroke="#6b7280" fontSize={11} />
                     <YAxis stroke="#6b7280" fontSize={11} />
-                    <Tooltip contentStyle={{ backgroundColor: "#020617", border: "1px solid #1f2937" }} />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: "#020617",
+                        border: "1px solid #1f2937",
+                      }}
+                    />
                     <Legend />
                     <Area
                       type="monotone"
@@ -378,9 +563,11 @@ export default function EngagementMetrics() {
               height: "100%",
               borderRadius: 2,
               bgcolor: "#1A1D23",
-              background: "linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.02) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.02) 100%)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
@@ -402,9 +589,24 @@ export default function EngagementMetrics() {
                   <BarChart data={funnelData} layout="vertical">
                     <CartesianGrid strokeDasharray="3 3" stroke="#111827" />
                     <XAxis type="number" stroke="#6b7280" fontSize={11} />
-                    <YAxis dataKey="stage" type="category" stroke="#9ca3af" fontSize={11} width={140} />
-                    <Tooltip contentStyle={{ backgroundColor: "#020617", border: "1px solid #1f2937" }} />
-                    <Bar dataKey="count" fill="#60a5fa" radius={[0, 10, 10, 0]} />
+                    <YAxis
+                      dataKey="stage"
+                      type="category"
+                      stroke="#9ca3af"
+                      fontSize={11}
+                      width={140}
+                    />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: "#020617",
+                        border: "1px solid #1f2937",
+                      }}
+                    />
+                    <Bar
+                      dataKey="count"
+                      fill="#60a5fa"
+                      radius={[0, 10, 10, 0]}
+                    />
                   </BarChart>
                 </ResponsiveContainer>
               </Box>
@@ -421,9 +623,11 @@ export default function EngagementMetrics() {
               height: "100%",
               borderRadius: 2,
               bgcolor: "#1A1D23",
-              background: "linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(147, 51, 234, 0.02) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(147, 51, 234, 0.02) 100%)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
@@ -444,27 +648,107 @@ export default function EngagementMetrics() {
                 <table style={{ width: "100%", borderCollapse: "collapse" }}>
                   <thead>
                     <tr>
-                      <th style={{ textAlign: "left", padding: "8px", color: "#9ca3af", fontSize: 12 }}>Route</th>
-                      <th style={{ textAlign: "right", padding: "8px", color: "#9ca3af", fontSize: 12 }}>Searches</th>
-                      <th style={{ textAlign: "right", padding: "8px", color: "#9ca3af", fontSize: 12 }}>Clickouts</th>
-                      <th style={{ textAlign: "right", padding: "8px", color: "#9ca3af", fontSize: 12 }}>Click rate</th>
+                      <th
+                        style={{
+                          textAlign: "left",
+                          padding: "8px",
+                          color: "#9ca3af",
+                          fontSize: 12,
+                        }}
+                      >
+                        Route
+                      </th>
+                      <th
+                        style={{
+                          textAlign: "right",
+                          padding: "8px",
+                          color: "#9ca3af",
+                          fontSize: 12,
+                        }}
+                      >
+                        Searches
+                      </th>
+                      <th
+                        style={{
+                          textAlign: "right",
+                          padding: "8px",
+                          color: "#9ca3af",
+                          fontSize: 12,
+                        }}
+                      >
+                        Clickouts
+                      </th>
+                      <th
+                        style={{
+                          textAlign: "right",
+                          padding: "8px",
+                          color: "#9ca3af",
+                          fontSize: 12,
+                        }}
+                      >
+                        Click rate
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {routeBehavior.map((row) => (
-                      <tr key={row.route} style={{ borderTop: "1px solid #020617" }}>
-                        <td style={{ padding: "8px", fontSize: 13, color: "#e5e7eb" }}>{row.route}</td>
-                        <td style={{ padding: "8px", fontSize: 13, color: "#e5e7eb", textAlign: "right" }}>
-                          {row.searches.toLocaleString()}
-                        </td>
-                        <td style={{ padding: "8px", fontSize: 13, color: "#e5e7eb", textAlign: "right" }}>
-                          {row.clickouts.toLocaleString()}
-                        </td>
-                        <td style={{ padding: "8px", fontSize: 13, color: "#bbf7d0", textAlign: "right" }}>
-                          {row.clickRate.toFixed(1)}%
-                        </td>
-                      </tr>
-                    ))}
+                    {(topRoutes?.data ?? []).map((r) => {
+                      const routeLabel = `${r.origin ?? ""} → ${
+                        r.destination ?? ""
+                      }`;
+                      const searches = r.searches ?? 0;
+                      const clickouts = r.clickouts ?? 0;
+                      const clickRate =
+                        r.conversion ??
+                        (searches
+                          ? Math.round((clickouts / searches) * 1000) / 10
+                          : 0);
+                      return (
+                        <tr
+                          key={routeLabel}
+                          style={{ borderTop: "1px solid #020617" }}
+                        >
+                          <td
+                            style={{
+                              padding: "8px",
+                              fontSize: 13,
+                              color: "#e5e7eb",
+                            }}
+                          >
+                            {routeLabel}
+                          </td>
+                          <td
+                            style={{
+                              padding: "8px",
+                              fontSize: 13,
+                              color: "#e5e7eb",
+                              textAlign: "right",
+                            }}
+                          >
+                            {searches.toLocaleString()}
+                          </td>
+                          <td
+                            style={{
+                              padding: "8px",
+                              fontSize: 13,
+                              color: "#e5e7eb",
+                              textAlign: "right",
+                            }}
+                          >
+                            {clickouts.toLocaleString()}
+                          </td>
+                          <td
+                            style={{
+                              padding: "8px",
+                              fontSize: 13,
+                              color: "#bbf7d0",
+                              textAlign: "right",
+                            }}
+                          >
+                            {clickRate.toFixed?.(1) ?? clickRate}%
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </Box>
@@ -478,9 +762,11 @@ export default function EngagementMetrics() {
               height: "100%",
               borderRadius: 2,
               bgcolor: "#1A1D23",
-              background: "linear-gradient(135deg, rgba(251, 113, 133, 0.05) 0%, rgba(251, 113, 133, 0.02) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(251, 113, 133, 0.05) 0%, rgba(251, 113, 133, 0.02) 100%)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
             }}
           >
             <CardHeader
@@ -501,24 +787,92 @@ export default function EngagementMetrics() {
                 <table style={{ width: "100%", borderCollapse: "collapse" }}>
                   <thead>
                     <tr>
-                      <th style={{ textAlign: "left", padding: "8px", color: "#9ca3af", fontSize: 12 }}>Device</th>
-                      <th style={{ textAlign: "right", padding: "8px", color: "#9ca3af", fontSize: 12 }}>Searches</th>
-                      <th style={{ textAlign: "right", padding: "8px", color: "#9ca3af", fontSize: 12 }}>Sessions</th>
-                      <th style={{ textAlign: "right", padding: "8px", color: "#9ca3af", fontSize: 12 }}>Avg time</th>
+                      <th
+                        style={{
+                          textAlign: "left",
+                          padding: "8px",
+                          color: "#9ca3af",
+                          fontSize: 12,
+                        }}
+                      >
+                        Device
+                      </th>
+                      <th
+                        style={{
+                          textAlign: "right",
+                          padding: "8px",
+                          color: "#9ca3af",
+                          fontSize: 12,
+                        }}
+                      >
+                        Searches
+                      </th>
+                      <th
+                        style={{
+                          textAlign: "right",
+                          padding: "8px",
+                          color: "#9ca3af",
+                          fontSize: 12,
+                        }}
+                      >
+                        Sessions
+                      </th>
+                      <th
+                        style={{
+                          textAlign: "right",
+                          padding: "8px",
+                          color: "#9ca3af",
+                          fontSize: 12,
+                        }}
+                      >
+                        Avg time
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {deviceStats.map((row) => (
-                      <tr key={row.device} style={{ borderTop: "1px solid #020617" }}>
-                        <td style={{ padding: "8px", fontSize: 13, color: "#e5e7eb" }}>{row.device}</td>
-                        <td style={{ padding: "8px", fontSize: 13, color: "#e5e7eb", textAlign: "right" }}>
-                          {row.searches.toLocaleString()}
+                    {(deviceBreakdown?.data ?? []).map((row) => (
+                      <tr
+                        key={row.name}
+                        style={{ borderTop: "1px solid #020617" }}
+                      >
+                        <td
+                          style={{
+                            padding: "8px",
+                            fontSize: 13,
+                            color: "#e5e7eb",
+                          }}
+                        >
+                          {row.name ?? "Unknown"}
                         </td>
-                        <td style={{ padding: "8px", fontSize: 13, color: "#e5e7eb", textAlign: "right" }}>
-                          {row.sessions.toLocaleString()}
+                        <td
+                          style={{
+                            padding: "8px",
+                            fontSize: 13,
+                            color: "#e5e7eb",
+                            textAlign: "right",
+                          }}
+                        >
+                          {(row.value ?? 0).toLocaleString()}
                         </td>
-                        <td style={{ padding: "8px", fontSize: 13, color: "#9ca3af", textAlign: "right" }}>
-                          {row.avgTime}
+                        <td
+                          style={{
+                            padding: "8px",
+                            fontSize: 13,
+                            color: "#e5e7eb",
+                            textAlign: "right",
+                          }}
+                        >
+                          —
+                        </td>
+                        <td
+                          style={{
+                            padding: "8px",
+                            fontSize: 13,
+                            color: "#9ca3af",
+                            textAlign: "right",
+                          }}
+                        >
+                          —
                         </td>
                       </tr>
                     ))}
