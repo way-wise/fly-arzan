@@ -34,6 +34,11 @@ import {
   Security as SecurityIcon,
   Settings as SettingsIcon,
   Feedback as FeedbackIcon,
+  Description as DescriptionIcon,
+  HelpCenter as HelpCenterIcon,
+  PrivacyTip as PrivacyTipIcon,
+  ContactPage as ContactPageIcon,
+  Public as PublicIcon,
 } from "@mui/icons-material";
 
 const drawerWidth = 280;
@@ -46,6 +51,24 @@ const navSections = [
         label: "Dashboard",
         icon: DashboardIcon,
         path: "/admin",
+      },
+    ],
+  },
+  {
+    title: "CMS",
+    items: [
+      { label: "About Us", icon: DescriptionIcon, path: "/admin/cms/about-us" },
+      { label: "FAQ", icon: HelpCenterIcon, path: "/admin/cms/faq" },
+      {
+        label: "Privacy Policy",
+        icon: PrivacyTipIcon,
+        path: "/admin/cms/privacy-policy",
+      },
+      { label: "Contact", icon: ContactPageIcon, path: "/admin/cms/contact" },
+      {
+        label: "Visa Requirements",
+        icon: PublicIcon,
+        path: "/admin/cms/visa-requirements",
       },
     ],
   },
@@ -126,7 +149,8 @@ const navSections = [
   },
 ];
 
-const shellBackground = "radial-gradient(circle at top, rgba(17,24,39,1), rgba(15,23,42,1))";
+const shellBackground =
+  "radial-gradient(circle at top, rgba(17,24,39,1), rgba(15,23,42,1))";
 
 const AdminLayout = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -147,12 +171,13 @@ const AdminLayout = () => {
   const drawer = <AdminLayoutDrawer onItemClick={() => setMobileOpen(false)} />;
 
   return (
-    <Box 
-      sx={{ 
-        display: "flex", 
-        minHeight: "100vh", 
+    <Box
+      sx={{
+        display: "flex",
+        minHeight: "100vh",
         bgcolor: "#0B0F16",
-        fontFamily: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+        fontFamily:
+          "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
       }}
     >
       <CssBaseline />
@@ -171,7 +196,12 @@ const AdminLayout = () => {
         }}
       >
         <Toolbar sx={{ minHeight: 64, px: 3 }}>
-          <Stack direction="row" alignItems="center" spacing={2} sx={{ flex: 1 }}>
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={2}
+            sx={{ flex: 1 }}
+          >
             <IconButton
               color="inherit"
               edge="start"
@@ -182,10 +212,16 @@ const AdminLayout = () => {
             </IconButton>
 
             <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, color: "#FFFFFF", fontFamily: "Inter" }}>
+              <Typography
+                variant="h6"
+                sx={{ fontWeight: 600, color: "#FFFFFF", fontFamily: "Inter" }}
+              >
                 Fly Arzan Admin
               </Typography>
-              <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
+              <Typography
+                variant="caption"
+                sx={{ color: "#71717A", fontFamily: "Inter" }}
+              >
                 Control center for analytics, monitoring and users
               </Typography>
             </Box>
@@ -194,14 +230,28 @@ const AdminLayout = () => {
           <Stack direction="row" spacing={2} alignItems="center">
             <Stack direction="row" spacing={1.5} alignItems="center">
               <Box sx={{ textAlign: "right" }}>
-                <Typography variant="body2" sx={{ color: "#FFFFFF", fontWeight: 500, fontFamily: "Inter" }}>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: "#FFFFFF",
+                    fontWeight: 500,
+                    fontFamily: "Inter",
+                  }}
+                >
                   Admin User
                 </Typography>
-                <Typography variant="caption" sx={{ color: "#71717A", fontFamily: "Inter" }}>
+                <Typography
+                  variant="caption"
+                  sx={{ color: "#71717A", fontFamily: "Inter" }}
+                >
                   admin@flyarzan.com
                 </Typography>
               </Box>
-              <IconButton color="inherit" onClick={handleProfileMenuOpen} sx={{ ml: 0.5 }}>
+              <IconButton
+                color="inherit"
+                onClick={handleProfileMenuOpen}
+                sx={{ ml: 0.5 }}
+              >
                 <Avatar
                   sx={{
                     width: 36,
@@ -242,7 +292,10 @@ const AdminLayout = () => {
         </Toolbar>
       </AppBar>
 
-      <Box component="nav" sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}>
+      <Box
+        component="nav"
+        sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
+      >
         {/* Mobile drawer */}
         <Drawer
           variant="temporary"
@@ -286,7 +339,8 @@ const AdminLayout = () => {
           p: 3,
           pt: 10,
           bgcolor: "#000000",
-          backgroundImage: "radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.03) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.02) 0%, transparent 50%)",
+          backgroundImage:
+            "radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.03) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.02) 0%, transparent 50%)",
         }}
       >
         <Outlet />
@@ -300,7 +354,10 @@ const AdminLayoutDrawer = ({ onItemClick = () => {} }) => {
 
   const isActivePath = (path) => {
     if (path === "/admin") {
-      return location.pathname === "/admin" || location.pathname === "/admin/dashboard";
+      return (
+        location.pathname === "/admin" ||
+        location.pathname === "/admin/dashboard"
+      );
     }
     return location.pathname.startsWith(path);
   };
@@ -325,12 +382,15 @@ const AdminLayoutDrawer = ({ onItemClick = () => {} }) => {
           borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
         }}
       >
-        <Link to="/admin" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
-          <img
-            src="/logo.png"
-            alt="Logo"
-            style={{ height: 32 }}
-          />
+        <Link
+          to="/admin"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            textDecoration: "none",
+          }}
+        >
+          <img src="/logo.png" alt="Logo" style={{ height: 32 }} />
         </Link>
       </Box>
 
@@ -366,23 +426,23 @@ const AdminLayoutDrawer = ({ onItemClick = () => {} }) => {
                       borderRadius: 1.5,
                       px: 2,
                       py: 1.25,
-                      background: active 
-                        ? "linear-gradient(90deg, rgba(59, 130, 246, 0.15), rgba(59, 130, 246, 0.05))" 
+                      background: active
+                        ? "linear-gradient(90deg, rgba(59, 130, 246, 0.15), rgba(59, 130, 246, 0.05))"
                         : "transparent",
-                      "& .MuiListItemIcon-root": { 
+                      "& .MuiListItemIcon-root": {
                         color: active ? "#3B82F6" : "#71717A",
                         minWidth: 20,
-                        mr: 1.5
+                        mr: 1.5,
                       },
-                      "& .MuiTypography-root": { 
-                        color: active ? "#FFFFFF" : "#A1A1AA", 
+                      "& .MuiTypography-root": {
+                        color: active ? "#FFFFFF" : "#A1A1AA",
                         fontWeight: active ? 500 : 400,
                         fontFamily: "Inter",
-                        fontSize: "0.875rem"
+                        fontSize: "0.875rem",
                       },
                       "&:hover": {
-                        background: active 
-                          ? "linear-gradient(90deg, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.08))" 
+                        background: active
+                          ? "linear-gradient(90deg, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.08))"
                           : "rgba(255, 255, 255, 0.05)",
                       },
                       "&:hover .MuiTypography-root": { color: "#FFFFFF" },
@@ -400,8 +460,8 @@ const AdminLayoutDrawer = ({ onItemClick = () => {} }) => {
                         "& .MuiTypography-root": {
                           fontFamily: "Inter",
                           fontSize: "0.875rem",
-                          fontWeight: active ? 500 : 400
-                        }
+                          fontWeight: active ? 500 : 400,
+                        },
                       }}
                     />
                   </ListItemButton>
@@ -411,7 +471,6 @@ const AdminLayoutDrawer = ({ onItemClick = () => {} }) => {
           </Box>
         ))}
       </Box>
-
     </Box>
   );
 };

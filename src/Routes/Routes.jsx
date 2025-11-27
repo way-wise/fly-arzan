@@ -23,7 +23,21 @@ import VisaRequirements from "../header-footer/VisaRequirements";
 import Airport from "../header-footer/Airport";
 import FlightSearchPage from "../pages/search/flight-search-page";
 import FlightDetailsPage from "@/pages/details/flight-details-page";
-import { AdminLayout, Dashboard as AdminDashboard, Users, UserDetails, Settings, Feedback, AnalyticsLogs } from "../pages/admin";
+import {
+  AdminLayout,
+  Dashboard as AdminDashboard,
+  Users,
+  UserDetails,
+  Settings,
+  Feedback,
+  AnalyticsLogs,
+} from "../pages/admin";
+// Admin CMS Pages
+import AdminCmsAbout from "../pages/admin/cms/about-us";
+import AdminCmsFaq from "../pages/admin/cms/faq";
+import AdminCmsPrivacy from "../pages/admin/cms/privacy-policy";
+import AdminCmsContact from "../pages/admin/cms/contact";
+import AdminCmsVisa from "../pages/admin/cms/visa-requirements";
 import Roles from "../pages/admin/roles";
 
 // Analytics Pages
@@ -49,26 +63,32 @@ const Routes = () => {
       children: [
         { index: true, element: <AdminDashboard /> },
         { path: "dashboard", element: <AdminDashboard /> },
-        
+
         // Analytics Routes
         { path: "logs", element: <AnalyticsLogs /> },
         { path: "analytics/engagement", element: <EngagementMetrics /> },
         { path: "analytics/routes", element: <SearchRoutes /> },
         { path: "analytics/trends", element: <TrendCharts /> },
-        
+        // CMS routes
+        { path: "cms/about-us", element: <AdminCmsAbout /> },
+        { path: "cms/faq", element: <AdminCmsFaq /> },
+        { path: "cms/privacy-policy", element: <AdminCmsPrivacy /> },
+        { path: "cms/contact", element: <AdminCmsContact /> },
+        { path: "cms/visa-requirements", element: <AdminCmsVisa /> },
+
         // Monitoring Routes
         { path: "monitoring/health", element: <APIHealth /> },
         { path: "monitoring/alerts", element: <SystemAlerts /> },
         { path: "monitoring/logs", element: <SystemLogs /> },
-        
+
         // Auth Routes
         { path: "auth/sessions", element: <Sessions /> },
-        
+
         // User Management
         { path: "users", element: <Users /> },
         { path: "users/:id", element: <UserDetails /> },
         { path: "roles", element: <Roles /> },
-        
+
         // Settings & Feedback
         { path: "settings", element: <Settings /> },
         { path: "feedback", element: <Feedback /> },
