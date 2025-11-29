@@ -15,7 +15,56 @@ const fetcher = async (path, params = {}) => {
 export const useAdminMetrics = ({ startDate, endDate } = {}) => {
   return useQuery({
     queryKey: ["admin", "metrics", { startDate, endDate }],
-    queryFn: () => fetcher("/admin/reports/metrics", { startDate, endDate }),
+    queryFn: async () => {
+      // Fetch both metrics and engagement summary for complete data
+      const [metricsJson, summaryJson] = await Promise.all([
+        fetcher("/admin/reports/metrics", { startDate, endDate }),
+        fetcher("/admin/reports/engagement/summary", {
+          range: startDate ? "custom" : "7d",
+          startDate,
+          endDate,
+        }).catch(() => null),
+      ]);
+
+      // Calculate percentage change
+      const pctChange = (curr, prev) => {
+        if (!prev) return curr ? 100 : 0;
+        return Math.round(((curr - prev) / prev) * 100);
+      };
+
+      const last = metricsJson.last24h ?? {};
+      const prev = metricsJson.prev24h ?? {};
+
+      // Transform to the structure the dashboard expects
+      return {
+        totalSearches: {
+          value: summaryJson?.current?.searches ?? last.totalSearches ?? 0,
+          change: summaryJson?.deltas?.searches
+            ? Math.round(summaryJson.deltas.searches)
+            : pctChange(last.totalSearches, prev.totalSearches),
+        },
+        clickoutRate: {
+          value: summaryJson?.current?.ctr
+            ? Math.round(summaryJson.current.ctr * 10) / 10
+            : Math.round((last.clickOutRate ?? 0) * 100 * 10) / 10,
+          change: summaryJson?.deltas?.ctr
+            ? Math.round(summaryJson.deltas.ctr)
+            : pctChange(last.clickOutRate, prev.clickOutRate),
+        },
+        uniqueVisitors: {
+          value: summaryJson?.current?.sessions ?? 0,
+          change: summaryJson?.deltas?.sessions
+            ? Math.round(summaryJson.deltas.sessions)
+            : 0,
+        },
+        apiHealth: {
+          value: 100, // Will be updated from monitoring hook
+          change: 0,
+        },
+        // Keep raw data for other uses
+        raw: metricsJson,
+      };
+    },
   });
 };
 
@@ -154,4 +203,61 @@ export const useEngagementSummary = ({ range = "7d" } = {}) => {
       return json;
     },
   });
+};
+
+// Search logs hooks
+export const useSearchLogs = ({
+  page = 1,
+  limit = 50,
+  startDate,
+  endDate,
+  origin,
+  destination,
+  tripType,
+  travelClass,
+  deviceType,
+  browser,
+  os,
+  country,
+} = {}) => {
+  return useQuery({
+    queryKey: [
+      "admin",
+      "search-logs",
+      { page, limit, startDate, endDate, origin, destination, tripType, travelClass, deviceType, browser, os, country },
+    ],
+    queryFn: async () => {
+      const json = await fetcher("/admin/logs/search-logs", {
+        page,
+        limit,
+        startDate,
+        endDate,
+        origin,
+        destination,
+        tripType,
+        travelClass,
+        deviceType,
+        browser,
+        os,
+        country,
+      });
+      return json;
+    },
+  });
+};
+
+export const useSearchLogsFilterOptions = () => {
+  return useQuery({
+    queryKey: ["admin", "search-logs-filter-options"],
+    queryFn: () => fetcher("/admin/logs/filter-options"),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
+};
+
+export const getSearchLogsExportUrl = (params = {}) => {
+  const url = new URL(`${API_BASE_URL}/api/admin/logs/search-logs/export`);
+  Object.entries(params).forEach(([k, v]) => {
+    if (v !== undefined && v !== null && v !== "") url.searchParams.set(k, v);
+  });
+  return url.toString();
 };

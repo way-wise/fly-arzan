@@ -30,6 +30,11 @@ body {
     sans-serif;
 }
 
+/* Admin panel dark background - prevents white flash */
+body.admin-loading {
+  background-color: #0b0f16;
+}
+
 :root {
   --primary-color: #50add8;
   --dark-purple-color: #000057;

@@ -11,7 +11,7 @@ import { signInSchema } from "@/schema/authSchema";
 import { useSignIn } from "@/hooks/useAuth";
 import { toast } from "sonner";
 
-const NewLoginForm = () => {
+const NewLoginForm = ({ onSuccess }) => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -30,10 +30,15 @@ const NewLoginForm = () => {
       onSuccess: (response) => {
         if (response?.user) {
           toast.success("Login successful!");
+          // Close modal if callback provided
+          if (onSuccess) onSuccess();
+          // Navigate to admin if user is admin, otherwise stay
+          if (response.user.role === "admin") {
+            navigate("/admin");
+          }
         } else {
           toast.error("Login failed. Please try again.");
         }
-        navigate("/admin");
       },
       onError: (error) => {
         toast.error(error.message || "Login failed. Please try again.");

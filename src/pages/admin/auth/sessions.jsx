@@ -19,17 +19,13 @@ import {
   TableRow,
   IconButton,
 } from "@mui/material";
-import {
-  Devices as DevicesIcon,
-  Smartphone as SmartphoneIcon,
-  Tablet as TabletIcon,
-  LocationOn as LocationIcon,
-  Schedule as ScheduleIcon,
-  Shield as ShieldIcon,
-  Close as CloseIcon,
-  Search as SearchIcon,
-  Security as SecurityIcon,
-} from "@mui/icons-material";
+import DevicesIcon from "@mui/icons-material/Devices";
+import SmartphoneIcon from "@mui/icons-material/Smartphone";
+import TabletIcon from "@mui/icons-material/Tablet";
+import LocationIcon from "@mui/icons-material/LocationOn";
+import ShieldIcon from "@mui/icons-material/Shield";
+import CloseIcon from "@mui/icons-material/Close";
+import SearchIcon from "@mui/icons-material/Search";
 import {
   ResponsiveContainer,
   PieChart,
@@ -43,7 +39,17 @@ import {
   CartesianGrid,
 } from "recharts";
 
-// Mock Data
+// Import consistent styles
+import {
+  cardStyles,
+  tableStyles,
+  typographyStyles,
+  inputStyles,
+  selectStyles,
+  buttonStyles,
+} from "../styles/dashboard-styles";
+
+// Mock Data - In production, this would come from better-auth admin.listUserSessions
 const mockSessions = [
   {
     id: 1,
@@ -168,41 +174,38 @@ export default function Sessions() {
         }}
       >
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 700, color: "#e5e7eb" }}>
+          <Typography variant="h5" sx={typographyStyles.pageTitle}>
             Active Sessions
           </Typography>
-          <Typography variant="body2" sx={{ color: "#9ca3af", mt: 0.5 }}>
+          <Typography variant="body2" sx={typographyStyles.pageSubtitle}>
             Monitor and manage user sessions across devices and locations.
           </Typography>
         </Box>
         <Button
           variant="contained"
           size="small"
-          sx={{
-            textTransform: "none",
-            bgcolor: "#2563eb",
-            "&:hover": { bgcolor: "#1d4ed8" },
-          }}
+          startIcon={<ShieldIcon sx={{ fontSize: 18 }} />}
+          sx={buttonStyles.primary}
         >
-          <ShieldIcon sx={{ fontSize: 18, mr: 1 }} /> Security Settings
+          Security Settings
         </Button>
       </Box>
 
       {/* Session Statistics */}
       <Grid container spacing={2.5}>
         <Grid item xs={12} md={6} sx={{ minWidth: 0 }}>
-          <Card sx={{ height: "100%", borderRadius: 3, bgcolor: "#151515", border: "1px solid #262626" }}>
+          <Card sx={cardStyles.base}>
             <CardHeader
               title={
-                <Typography sx={{ color: "#9ca3af", fontSize: 13 }}>Active Sessions</Typography>
+                <Typography sx={{ color: "#71717A", fontSize: 13, fontFamily: "Inter" }}>Active Sessions</Typography>
               }
               sx={{ px: 2.25, pt: 2.25, pb: 1 }}
             />
             <CardContent sx={{ px: 2.25, pb: 2.25 }}>
-              <Typography sx={{ color: "#e5e7eb", fontSize: 28, fontWeight: 700 }}>
+              <Typography sx={{ color: "#FFFFFF", fontSize: 28, fontWeight: 700, fontFamily: "Inter" }}>
                 {activeCount}
               </Typography>
-              <Typography sx={{ color: "#4ade80", fontSize: 12, mt: 0.5 }}>
+              <Typography sx={{ color: "#22C55E", fontSize: 12, mt: 0.5, fontFamily: "Inter" }}>
                 Out of {totalSessions} total sessions
               </Typography>
             </CardContent>
@@ -210,7 +213,7 @@ export default function Sessions() {
         </Grid>
 
         <Grid item xs={12} md={6} sx={{ minWidth: 0 }}>
-          <Card sx={{ height: "100%", borderRadius: 3, bgcolor: "#151515", border: "1px solid #262626" }}>
+          <Card sx={cardStyles.base}>
             <CardHeader
               title={
                 <Typography sx={{ color: "#9ca3af", fontSize: 13 }}>Sessions by Device</Typography>
@@ -246,15 +249,11 @@ export default function Sessions() {
       </Grid>
 
       {/* Sessions Chart */}
-      <Card sx={{ borderRadius: 3, bgcolor: "#151515", border: "1px solid #262626" }}>
+      <Card sx={cardStyles.base}>
         <CardHeader
-          title={
-            <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>
-              Sessions by Hour
-            </Typography>
-          }
+          title={<Typography sx={typographyStyles.cardTitle}>Sessions by Hour</Typography>}
           subheader={
-            <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+            <Typography variant="caption" sx={typographyStyles.cardSubtitle}>
               Active session count throughout the day.
             </Typography>
           }
@@ -276,13 +275,11 @@ export default function Sessions() {
       </Card>
 
       {/* Filters & Sessions Table */}
-      <Card sx={{ borderRadius: 3, bgcolor: "#151515", border: "1px solid #262626" }}>
+      <Card sx={cardStyles.base}>
         <CardHeader
-          title={
-            <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>Active User Sessions</Typography>
-          }
+          title={<Typography sx={typographyStyles.cardTitle}>Active User Sessions</Typography>}
           subheader={
-            <Typography variant="caption" sx={{ color: "#9ca3af" }}>
+            <Typography variant="caption" sx={typographyStyles.cardSubtitle}>
               Monitor user activity, devices, and locations.
             </Typography>
           }
@@ -298,21 +295,16 @@ export default function Sessions() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 InputProps={{
-                  startAdornment: <SearchIcon sx={{ fontSize: 18, mr: 1, color: "#6b7280" }} />,
+                  startAdornment: <SearchIcon sx={{ fontSize: 18, mr: 1, color: "#71717A" }} />,
                 }}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    bgcolor: "#101010",
-                    "& input": { color: "#e5e7eb", fontSize: 13 },
-                  },
-                  borderRadius: 999,
-                }}
+                sx={inputStyles.search}
               />
               <Select
                 size="small"
                 value={filterDevice}
                 onChange={(e) => setFilterDevice(e.target.value)}
-                sx={{ bgcolor: "#101010", color: "#e5e7eb", fontSize: 13, minWidth: 140 }}
+                sx={selectStyles.base}
+                MenuProps={selectStyles.menuProps}
               >
                 <MenuItem value="all">All Devices</MenuItem>
                 <MenuItem value="desktop">Desktop</MenuItem>
@@ -323,7 +315,8 @@ export default function Sessions() {
                 size="small"
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
-                sx={{ bgcolor: "#101010", color: "#e5e7eb", fontSize: 13, minWidth: 140 }}
+                sx={selectStyles.base}
+                MenuProps={selectStyles.menuProps}
               >
                 <MenuItem value="all">All Status</MenuItem>
                 <MenuItem value="active">Active</MenuItem>
@@ -336,10 +329,10 @@ export default function Sessions() {
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  <TableCell sx={{ color: "#9ca3af", borderColor: "#262626", fontSize: 12 }}>User</TableCell>
-                  <TableCell sx={{ color: "#9ca3af", borderColor: "#262626", fontSize: 12 }}>Device</TableCell>
-                  <TableCell sx={{ color: "#9ca3af", borderColor: "#262626", fontSize: 12 }}>Browser</TableCell>
-                  <TableCell sx={{ color: "#9ca3af", borderColor: "#262626", fontSize: 12 }}>Location</TableCell>
+                  <TableCell sx={tableStyles.headerCell}>User</TableCell>
+                  <TableCell sx={tableStyles.headerCell}>Device</TableCell>
+                  <TableCell sx={tableStyles.headerCell}>Browser</TableCell>
+                  <TableCell sx={tableStyles.headerCell}>Location</TableCell>
                   <TableCell sx={{ color: "#9ca3af", borderColor: "#262626", fontSize: 12 }}>Status</TableCell>
                   <TableCell sx={{ color: "#9ca3af", borderColor: "#262626", fontSize: 12 }}>Last Active</TableCell>
                   <TableCell align="right" sx={{ color: "#9ca3af", borderColor: "#262626", fontSize: 12 }}>Action</TableCell>

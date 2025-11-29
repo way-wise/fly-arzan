@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Loginimg from "../../assets/Images/Login.png";
+import { useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import logo from "../../assets/Images/loginlogo.png";
 import apple from "../../assets/Images/apple.png";
 import google from "../../assets/Images/google.png";
@@ -8,15 +7,22 @@ import { useTranslation } from "react-i18next";
 import { loginSchema, registrationSchema } from "../Schemas/Schemas";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { BackendUrl } from "../../baseUrl";
-import { usePost } from "../../utils/ApiMethod";
+import { useSignIn, useSignUp } from "@/hooks/useAuth";
+import { toast } from "sonner";
 
-const Login = ({ setShowPopup }) => {
+const Login = ({ setShowPopup, redirectTo }) => {
   const [isSignup, setIsSignup] = useState(false); // Track which form is visible
-  const { postData, loading, error } = usePost(
-    !isSignup ? "/auth/login" : "/auth/register",
-    BackendUrl
-  );
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Get redirect path from props, location state, or default to /admin
+  const from = redirectTo || location.state?.from || "/admin";
+  
+  const signInMutation = useSignIn();
+  const signUpMutation = useSignUp();
+  
+  const loading = signInMutation.isPending || signUpMutation.isPending;
+  const error = signInMutation.error?.message || signUpMutation.error?.message;
 
   const {
     register,
@@ -28,18 +34,50 @@ const Login = ({ setShowPopup }) => {
   const { t } = useTranslation();
 
   const onSubmit = async (data) => {
-    const response = await postData(data);
-    if (response?.status === true) {
-      setShowPopup(false);
-      localStorage.setItem("token", response?.token);
-      localStorage.setItem("user", JSON.stringify(response?.data));
+    try {
+      if (isSignup) {
+        await signUpMutation.mutateAsync({
+          name: data.email.split("@")[0], // Use email prefix as name
+          email: data.email,
+          password: data.password,
+        });
+        toast.success("Account created successfully!");
+        setIsSignup(false); // Switch to login
+      } else {
+        const response = await signInMutation.mutateAsync({
+          email: data.email,
+          password: data.password,
+        });
+        if (response?.user) {
+          toast.success("Login successful!");
+          if (setShowPopup) {
+            setShowPopup(false);
+          } else {
+            // Navigate based on role (only super can access admin)
+            const userRole = response.user.role;
+            const isSuperAdmin = userRole === "super";
+            // Super admins go to /admin, others go to /dashboard (or original destination if not /admin)
+            let destination;
+            if (isSuperAdmin) {
+              destination = "/admin";
+            } else if (from && from !== "/admin") {
+              destination = from;
+            } else {
+              destination = "/dashboard";
+            }
+            navigate(destination, { replace: true });
+          }
+        }
+      }
+    } catch (err) {
+      toast.error(err.message || "Authentication failed");
     }
   };
 
   return (
-    <>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4">
       {!isSignup ? (
-        <section className="Login-sec">
+        <section className="Login-sec" style={{ maxWidth: '480px', width: '100%', margin: '0 auto' }}>
           <div className="Login-main">
             <div className="Login-form-box">
               <div className="Login-form-logo">
@@ -121,7 +159,7 @@ const Login = ({ setShowPopup }) => {
           </div>
         </section>
       ) : (
-        <section className="Login-sec singup-page">
+        <section className="Login-sec singup-page" style={{ maxWidth: '480px', width: '100%', margin: '0 auto' }}>
           <div className="Login-main">
             <div className="Login-form-box">
               <div className="Login-form-logo">
@@ -226,7 +264,7 @@ const Login = ({ setShowPopup }) => {
           </div>
         </section>
       )}
-    </>
+    </div>
   );
 };
 

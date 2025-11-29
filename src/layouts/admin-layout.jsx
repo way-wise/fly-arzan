@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useSession, useSignOut } from "@/hooks/useAuth";
 import {
   AppBar,
   Toolbar,
@@ -16,9 +17,7 @@ import {
   Avatar,
   Menu,
   MenuItem,
-  Chip,
   Stack,
-  Tooltip,
 } from "@mui/material";
 import {
   Menu as MenuIcon,
@@ -149,12 +148,24 @@ const navSections = [
   },
 ];
 
-const shellBackground =
-  "radial-gradient(circle at top, rgba(17,24,39,1), rgba(15,23,42,1))";
-
 const AdminLayout = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profileAnchorEl, setProfileAnchorEl] = useState(null);
+  const navigate = useNavigate();
+  
+  // Get session and sign out mutation
+  const { data: session } = useSession();
+  const signOutMutation = useSignOut();
+  
+  const user = session?.user;
+  const userName = user?.name || "Admin User";
+  const userEmail = user?.email || "admin@flyarzan.com";
+  const userInitials = userName
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prev) => !prev);
@@ -166,6 +177,15 @@ const AdminLayout = () => {
 
   const handleProfileMenuClose = () => {
     setProfileAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    handleProfileMenuClose();
+    signOutMutation.mutate(undefined, {
+      onSuccess: () => {
+        navigate("/Login");
+      },
+    });
   };
 
   const drawer = <AdminLayoutDrawer onItemClick={() => setMobileOpen(false)} />;
@@ -238,13 +258,13 @@ const AdminLayout = () => {
                     fontFamily: "Inter",
                   }}
                 >
-                  Admin User
+                  {userName}
                 </Typography>
                 <Typography
                   variant="caption"
                   sx={{ color: "#71717A", fontFamily: "Inter" }}
                 >
-                  admin@flyarzan.com
+                  {userEmail}
                 </Typography>
               </Box>
               <IconButton
@@ -261,7 +281,7 @@ const AdminLayout = () => {
                     fontWeight: 600,
                   }}
                 >
-                  AD
+                  {userInitials}
                 </Avatar>
               </IconButton>
             </Stack>
@@ -286,7 +306,7 @@ const AdminLayout = () => {
               <MenuItem onClick={handleProfileMenuClose}>Profile</MenuItem>
               <MenuItem onClick={handleProfileMenuClose}>Settings</MenuItem>
               <Divider sx={{ borderColor: "rgba(31,41,55,0.9)" }} />
-              <MenuItem onClick={handleProfileMenuClose}>Log out</MenuItem>
+              <MenuItem onClick={handleLogout}>Log out</MenuItem>
             </Menu>
           </Stack>
         </Toolbar>

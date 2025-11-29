@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   Box,
@@ -12,198 +11,202 @@ import {
   Avatar,
   IconButton,
   Divider,
+  Button,
+  CircularProgress,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import MailIcon from "@mui/icons-material/Mail";
-import PhoneIcon from "@mui/icons-material/Phone";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 import EventIcon from "@mui/icons-material/Event";
 import DevicesIcon from "@mui/icons-material/Devices";
-import QueryStatsIcon from "@mui/icons-material/QueryStats";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import RouteIcon from "@mui/icons-material/Route";
-
-// Mock user data
-const getUserById = (id) => {
-  const users = {
-    1: {
-      id: 1,
-      name: "John Doe",
-      email: "john@example.com",
-      phone: "+1 (555) 123-4567",
-      location: "New York, NY",
-      joinDate: "January 15, 2023",
-      avatar: "/avatars/01.png",
-      totalBookings: 12,
-      totalSpent: "$4,234",
-    },
-    2: {
-      id: 2,
-      name: "Jane Smith",
-      email: "jane@example.com",
-      phone: "+1 (555) 987-6543",
-      location: "Los Angeles, CA",
-      joinDate: "March 22, 2023",
-      avatar: "/avatars/02.png",
-      totalBookings: 8,
-      totalSpent: "$2,876",
-    },
-    3: {
-      id: 3,
-      name: "Mike Johnson",
-      email: "mike@example.com",
-      phone: "+1 (555) 456-7890",
-      location: "Chicago, IL",
-      joinDate: "May 10, 2023",
-      avatar: "/avatars/03.png",
-      totalBookings: 15,
-      totalSpent: "$6,543",
-    },
-    4: {
-      id: 4,
-      name: "Sarah Wilson",
-      email: "sarah@example.com",
-      phone: "+1 (555) 321-0987",
-      location: "Miami, FL",
-      joinDate: "July 5, 2023",
-      avatar: "/avatars/04.png",
-      totalBookings: 6,
-      totalSpent: "$1,987",
-    },
-  };
-  return users[id];
-};
+import BlockIcon from "@mui/icons-material/Block";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import DeleteIcon from "@mui/icons-material/Delete";
+import {
+  useUser,
+  useUserSessions,
+  useBanUser,
+  useUnbanUser,
+  useSetUserRole,
+  useRevokeSession,
+  useRevokeAllSessions,
+} from "@/hooks/useUsers";
+import {
+  cardStyles,
+  tableStyles,
+  typographyStyles,
+  buttonStyles,
+  getRoleChipStyle,
+  getStatusChipStyle,
+} from "./styles/dashboard-styles";
 
 export default function UserDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const user = getUserById(id);
 
-  const sessions = useMemo(
-    () =>
-      user
-        ? [
-            {
-              id: 1,
-              startedAt: "Today 09:24",
-              device: "Desktop · Chrome",
-              location: "Almaty, KZ",
-              searches: 7,
-              lastRoute: "ALA → IST",
-              duration: "12m",
-            },
-            {
-              id: 2,
-              startedAt: "Yesterday 21:03",
-              device: "Mobile · Safari",
-              location: "Almaty, KZ",
-              searches: 3,
-              lastRoute: "ALA → DXB",
-              duration: "5m",
-            },
-          ]
-        : [],
-    [user]
-  );
+  // Fetch user data
+  const { data: user, isLoading, error } = useUser(id);
+  const { data: sessions = [], isLoading: sessionsLoading } = useUserSessions(id);
 
-  if (!user) {
+  // Mutations
+  const banUserMutation = useBanUser();
+  const unbanUserMutation = useUnbanUser();
+  const setRoleMutation = useSetUserRole();
+  const revokeSessionMutation = useRevokeSession();
+  const revokeAllSessionsMutation = useRevokeAllSessions();
+
+  const handleBanToggle = async () => {
+    if (!user) return;
+    try {
+      if (user.banned) {
+        await unbanUserMutation.mutateAsync({ userId: user.id });
+      } else {
+        await banUserMutation.mutateAsync({ userId: user.id, banReason: "Banned by admin" });
+      }
+    } catch (err) {
+      console.error("Ban/Unban failed:", err);
+    }
+  };
+
+  const handleRoleChange = async (role) => {
+    if (!user) return;
+    try {
+      await setRoleMutation.mutateAsync({ userId: user.id, role });
+    } catch (err) {
+      console.error("Role change failed:", err);
+    }
+  };
+
+  const handleRevokeSession = async (sessionToken) => {
+    try {
+      await revokeSessionMutation.mutateAsync({ sessionToken });
+    } catch (err) {
+      console.error("Revoke session failed:", err);
+    }
+  };
+
+  const handleRevokeAllSessions = async () => {
+    if (!user) return;
+    try {
+      await revokeAllSessionsMutation.mutateAsync({ userId: user.id });
+    } catch (err) {
+      console.error("Revoke all sessions failed:", err);
+    }
+  };
+
+  const getInitials = (name, email) => {
+    if (name) return name.split(" ").map((n) => n[0]).join("").toUpperCase();
+    return email?.charAt(0).toUpperCase() || "?";
+  };
+
+  const formatDate = (dateStr) => {
+    if (!dateStr) return "—";
+    return new Date(dateStr).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
+  const formatSessionTime = (dateStr) => {
+    if (!dateStr) return "—";
+    const d = new Date(dateStr);
+    return d.toLocaleString();
+  };
+
+  if (isLoading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: 400 }}>
+        <CircularProgress sx={{ color: "#3B82F6" }} />
+      </Box>
+    );
+  }
+
+  if (error || !user) {
     return (
       <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
         <IconButton
           size="small"
           onClick={() => navigate("/admin/users")}
-          sx={{ alignSelf: "flex-start", color: "#e5e7eb" }}
+          sx={{ alignSelf: "flex-start", color: "#FFFFFF" }}
         >
-          <ArrowBackIcon sx={{ fontSize: 18 }} />
+          <ArrowBackIcon sx={{ fontSize: 20 }} />
         </IconButton>
-        <Card
-          sx={{
-            borderRadius: 3,
-            bgcolor: "rgba(15,23,42,0.95)",
-            border: "1px solid rgba(51,65,85,0.9)",
-          }}
-        >
+        <Card sx={cardStyles.base}>
           <CardContent sx={{ p: 3 }}>
-            <Typography sx={{ color: "#9ca3af" }}>User not found.</Typography>
+            <Typography sx={{ color: "#71717A", fontFamily: "Inter" }}>
+              {error?.message || "User not found."}
+            </Typography>
           </CardContent>
         </Card>
       </Box>
     );
   }
 
-  const initials = user.name
-    .split(" ")
-    .map((n) => n[0])
-    .join("");
-
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-      <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={2}>
+      {/* Header */}
+      <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={2} flexWrap="wrap">
         <Stack direction="row" spacing={2} alignItems="center">
           <IconButton
             size="small"
             onClick={() => navigate(-1)}
-            sx={{ color: "#e5e7eb", mr: 0.5 }}
+            sx={{ color: "#FFFFFF" }}
           >
             <ArrowBackIcon sx={{ fontSize: 20 }} />
           </IconButton>
           <Box>
-            <Typography variant="h5" sx={{ fontWeight: 700, color: "#e5e7eb" }}>
-              {user.name}
+            <Typography variant="h5" sx={typographyStyles.pageTitle}>
+              {user.name || "Unnamed User"}
             </Typography>
-            <Typography variant="body2" sx={{ color: "#9ca3af" }}>
-              User profile & behavior
+            <Typography variant="body2" sx={typographyStyles.pageSubtitle}>
+              User profile and session management
             </Typography>
           </Box>
         </Stack>
-        <Chip
-          size="small"
-          label={`Role: ${user.role || "Admin"}`}
-          sx={{ bgcolor: "rgba(15,23,42,0.9)", color: "#e5e7eb", borderRadius: 999 }}
-        />
+        <Stack direction="row" spacing={1} alignItems="center">
+          <Chip
+            size="small"
+            label={user.role || "user"}
+            sx={getRoleChipStyle(user.role)}
+          />
+          <Chip
+            size="small"
+            icon={user.banned ? <BlockIcon sx={{ fontSize: 14 }} /> : <CheckCircleIcon sx={{ fontSize: 14 }} />}
+            label={user.banned ? "Banned" : "Active"}
+            sx={getStatusChipStyle(user.banned ? "banned" : "active")}
+          />
+        </Stack>
       </Stack>
 
       <Grid container spacing={2.5}>
+        {/* User Information Card */}
         <Grid item xs={12} md={8} sx={{ minWidth: 0 }}>
-          <Card
-            sx={{
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.95)",
-              border: "1px solid rgba(51,65,85,0.9)",
-            }}
-          >
+          <Card sx={cardStyles.base}>
             <CardHeader
-              title={
-                <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>
-                  User information
-                </Typography>
-              }
-              subheader={
-                <Typography variant="caption" sx={{ color: "#9ca3af" }}>
-                  Identity, contact details and geography.
-                </Typography>
-              }
+              title={<Typography sx={typographyStyles.cardTitle}>User Information</Typography>}
+              subheader={<Typography variant="caption" sx={typographyStyles.cardSubtitle}>Account details and verification status</Typography>}
               sx={{ px: 2.5, pt: 2.25, pb: 1.5 }}
             />
             <CardContent sx={{ px: 2.5, pb: 2.5 }}>
               <Stack direction="row" spacing={2.5} alignItems="center" sx={{ mb: 3 }}>
                 <Avatar
-                  sx={{
-                    width: 56,
-                    height: 56,
-                    bgcolor: "#1f2937",
-                    fontSize: 20,
-                    fontWeight: 600,
-                  }}
+                  src={user.image}
+                  sx={{ width: 64, height: 64, bgcolor: "#1f2937", fontSize: 24, fontWeight: 600, fontFamily: "Inter" }}
                 >
-                  {initials}
+                  {getInitials(user.name, user.email)}
                 </Avatar>
                 <Box>
-                  <Typography sx={{ color: "#e5e7eb", fontWeight: 600, fontSize: 18 }}>
-                    {user.name}
+                  <Typography sx={{ color: "#FFFFFF", fontWeight: 600, fontSize: 18, fontFamily: "Inter" }}>
+                    {user.name || "Unnamed User"}
                   </Typography>
-                  <Typography sx={{ color: "#9ca3af", fontSize: 13 }}>
-                    Customer since {user.joinDate}
+                  <Typography sx={{ color: "#71717A", fontSize: 13, fontFamily: "Inter" }}>
+                    Member since {formatDate(user.createdAt)}
                   </Typography>
                 </Box>
               </Stack>
@@ -211,39 +214,37 @@ export default function UserDetails() {
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <Stack direction="row" spacing={1.5} alignItems="center">
-                    <MailIcon sx={{ fontSize: 18, color: "#9ca3af" }} />
+                    <MailIcon sx={{ fontSize: 18, color: "#71717A" }} />
                     <Box>
-                      <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Email</Typography>
-                      <Typography sx={{ color: "#e5e7eb", fontSize: 13 }}>{user.email}</Typography>
+                      <Typography sx={typographyStyles.label}>Email</Typography>
+                      <Typography sx={typographyStyles.value}>{user.email}</Typography>
                     </Box>
                   </Stack>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Stack direction="row" spacing={1.5} alignItems="center">
-                    <PhoneIcon sx={{ fontSize: 18, color: "#9ca3af" }} />
+                    <CheckCircleIcon sx={{ fontSize: 18, color: user.emailVerified ? "#22C55E" : "#71717A" }} />
                     <Box>
-                      <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Phone</Typography>
-                      <Typography sx={{ color: "#e5e7eb", fontSize: 13 }}>{user.phone}</Typography>
+                      <Typography sx={typographyStyles.label}>Email Verified</Typography>
+                      <Typography sx={typographyStyles.value}>{user.emailVerified ? "Yes" : "No"}</Typography>
                     </Box>
                   </Stack>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Stack direction="row" spacing={1.5} alignItems="center">
-                    <LocationOnIcon sx={{ fontSize: 18, color: "#9ca3af" }} />
+                    <AdminPanelSettingsIcon sx={{ fontSize: 18, color: "#71717A" }} />
                     <Box>
-                      <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Location</Typography>
-                      <Typography sx={{ color: "#e5e7eb", fontSize: 13 }}>
-                        {user.location}
-                      </Typography>
+                      <Typography sx={typographyStyles.label}>Role</Typography>
+                      <Typography sx={typographyStyles.value}>{user.role || "user"}</Typography>
                     </Box>
                   </Stack>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Stack direction="row" spacing={1.5} alignItems="center">
-                    <EventIcon sx={{ fontSize: 18, color: "#9ca3af" }} />
+                    <EventIcon sx={{ fontSize: 18, color: "#71717A" }} />
                     <Box>
-                      <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Join date</Typography>
-                      <Typography sx={{ color: "#e5e7eb", fontSize: 13 }}>{user.joinDate}</Typography>
+                      <Typography sx={typographyStyles.label}>Created</Typography>
+                      <Typography sx={typographyStyles.value}>{formatDate(user.createdAt)}</Typography>
                     </Box>
                   </Stack>
                 </Grid>
@@ -252,137 +253,129 @@ export default function UserDetails() {
           </Card>
         </Grid>
 
+        {/* Actions Card */}
         <Grid item xs={12} md={4} sx={{ minWidth: 0 }}>
-          <Card
-            sx={{
-              borderRadius: 3,
-              bgcolor: "rgba(15,23,42,0.95)",
-              border: "1px solid rgba(51,65,85,0.9)",
-            }}
-          >
+          <Card sx={cardStyles.base}>
             <CardHeader
-              title={
-                <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>
-                  Flight activity
-                </Typography>
-              }
-              subheader={
-                <Typography variant="caption" sx={{ color: "#9ca3af" }}>
-                  High-level metrics for this user.
-                </Typography>
-              }
+              title={<Typography sx={typographyStyles.cardTitle}>Actions</Typography>}
+              subheader={<Typography variant="caption" sx={typographyStyles.cardSubtitle}>Manage this user account</Typography>}
               sx={{ px: 2.5, pt: 2.25, pb: 1.5 }}
             />
             <CardContent sx={{ px: 2.5, pb: 2.5 }}>
-              <Stack spacing={1.75}>
-                <Stack direction="row" justifyContent="space-between" alignItems="center">
-                  <Stack direction="row" spacing={1.2} alignItems="center">
-                    <QueryStatsIcon sx={{ fontSize: 20, color: "#60a5fa" }} />
-                    <Box>
-                      <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Total searches</Typography>
-                      <Typography sx={{ color: "#e5e7eb", fontSize: 16, fontWeight: 600 }}>
-                        {user.totalBookings}
-                      </Typography>
-                    </Box>
-                  </Stack>
+              <Stack spacing={1.5}>
+                <Button
+                  fullWidth
+                  size="small"
+                  startIcon={user.banned ? <CheckCircleIcon /> : <BlockIcon />}
+                  onClick={handleBanToggle}
+                  disabled={banUserMutation.isPending || unbanUserMutation.isPending}
+                  sx={user.banned ? buttonStyles.primary : buttonStyles.danger}
+                >
+                  {user.banned ? "Unban User" : "Ban User"}
+                </Button>
+
+                <Divider sx={{ borderColor: "rgba(255,255,255,0.08)" }} />
+
+                <Typography sx={{ color: "#71717A", fontSize: 12, fontFamily: "Inter" }}>Change Role</Typography>
+                <Stack direction="row" spacing={1}>
+                  {["admin", "user"].map((role) => (
+                    <Button
+                      key={role}
+                      size="small"
+                      variant={user.role === role ? "contained" : "outlined"}
+                      onClick={() => handleRoleChange(role)}
+                      disabled={setRoleMutation.isPending}
+                      sx={{
+                        flex: 1,
+                        textTransform: "capitalize",
+                        ...(user.role === role ? buttonStyles.primary : buttonStyles.secondary),
+                      }}
+                    >
+                      {role}
+                    </Button>
+                  ))}
                 </Stack>
-                <Stack direction="row" spacing={1.2} alignItems="center">
-                  <DevicesIcon sx={{ fontSize: 20, color: "#a5b4fc" }} />
-                  <Box>
-                    <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Preferred device</Typography>
-                    <Typography sx={{ color: "#e5e7eb", fontSize: 13 }}>Desktop / Chrome</Typography>
-                  </Box>
-                </Stack>
-                <Stack direction="row" spacing={1.2} alignItems="center">
-                  <AccessTimeIcon sx={{ fontSize: 20, color: "#f97316" }} />
-                  <Box>
-                    <Typography sx={{ color: "#9ca3af", fontSize: 12 }}>Last seen</Typography>
-                    <Typography sx={{ color: "#e5e7eb", fontSize: 13 }}>Today, 09:24</Typography>
-                  </Box>
-                </Stack>
-              </Stack>
-              <Divider sx={{ my: 2, borderColor: "#111827" }} />
-              <Typography sx={{ color: "#9ca3af", fontSize: 12, mb: 0.5 }}>
-                Top routes searched
-              </Typography>
-              <Stack spacing={0.5}>
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <RouteIcon sx={{ fontSize: 16, color: "#60a5fa" }} />
-                  <Typography sx={{ color: "#e5e7eb", fontSize: 13 }}>ALA → IST</Typography>
-                </Stack>
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <RouteIcon sx={{ fontSize: 16, color: "#60a5fa" }} />
-                  <Typography sx={{ color: "#e5e7eb", fontSize: 13 }}>ALA → DXB</Typography>
-                </Stack>
+
+                <Divider sx={{ borderColor: "rgba(255,255,255,0.08)" }} />
+
+                <Button
+                  fullWidth
+                  size="small"
+                  startIcon={<DeleteIcon />}
+                  onClick={handleRevokeAllSessions}
+                  disabled={revokeAllSessionsMutation.isPending || sessions.length === 0}
+                  sx={buttonStyles.secondary}
+                >
+                  Revoke All Sessions ({sessions.length})
+                </Button>
               </Stack>
             </CardContent>
           </Card>
         </Grid>
       </Grid>
 
-      <Card
-        sx={{
-          borderRadius: 3,
-          bgcolor: "rgba(15,23,42,0.95)",
-          border: "1px solid rgba(51,65,85,0.9)",
-        }}
-      >
+      {/* Sessions Card */}
+      <Card sx={cardStyles.base}>
         <CardHeader
           title={
-            <Typography sx={{ color: "#e5e7eb", fontWeight: 600 }}>
-              Recent sessions
-            </Typography>
+            <Stack direction="row" spacing={1} alignItems="center">
+              <DevicesIcon sx={{ fontSize: 20, color: "#3B82F6" }} />
+              <Typography sx={typographyStyles.cardTitle}>Active Sessions</Typography>
+            </Stack>
           }
-          subheader={
-            <Typography variant="caption" sx={{ color: "#9ca3af" }}>
-              Flight search sessions with device, location and last route.
-            </Typography>
-          }
+          subheader={<Typography variant="caption" sx={typographyStyles.cardSubtitle}>User&apos;s active login sessions</Typography>}
           sx={{ px: 2.5, pt: 2.25, pb: 1.5 }}
         />
         <CardContent sx={{ px: 2.5, pb: 2.5 }}>
-          {sessions.length === 0 ? (
-            <Typography sx={{ color: "#9ca3af", fontSize: 13 }}>
-              No recent sessions available.
+          {sessionsLoading ? (
+            <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+              <CircularProgress size={24} sx={{ color: "#3B82F6" }} />
+            </Box>
+          ) : sessions.length === 0 ? (
+            <Typography sx={{ color: "#71717A", fontSize: 13, fontFamily: "Inter", textAlign: "center", py: 4 }}>
+              No active sessions
             </Typography>
           ) : (
             <Box sx={{ overflowX: "auto" }}>
-              <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                <thead>
-                  <tr>
-                    <th style={{ textAlign: "left", padding: "8px", color: "#9ca3af", fontSize: 12 }}>
-                      Started at
-                    </th>
-                    <th style={{ textAlign: "left", padding: "8px", color: "#9ca3af", fontSize: 12 }}>
-                      Device
-                    </th>
-                    <th style={{ textAlign: "left", padding: "8px", color: "#9ca3af", fontSize: 12 }}>
-                      Location
-                    </th>
-                    <th style={{ textAlign: "left", padding: "8px", color: "#9ca3af", fontSize: 12 }}>
-                      Searches
-                    </th>
-                    <th style={{ textAlign: "left", padding: "8px", color: "#9ca3af", fontSize: 12 }}>
-                      Last route
-                    </th>
-                    <th style={{ textAlign: "left", padding: "8px", color: "#9ca3af", fontSize: 12 }}>
-                      Duration
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {sessions.map((s) => (
-                    <tr key={s.id} style={{ borderTop: "1px solid #020617" }}>
-                      <td style={{ padding: "8px", fontSize: 13, color: "#e5e7eb" }}>{s.startedAt}</td>
-                      <td style={{ padding: "8px", fontSize: 13, color: "#9ca3af" }}>{s.device}</td>
-                      <td style={{ padding: "8px", fontSize: 13, color: "#9ca3af" }}>{s.location}</td>
-                      <td style={{ padding: "8px", fontSize: 13, color: "#e5e7eb" }}>{s.searches}</td>
-                      <td style={{ padding: "8px", fontSize: 13, color: "#e5e7eb" }}>{s.lastRoute}</td>
-                      <td style={{ padding: "8px", fontSize: 13, color: "#9ca3af" }}>{s.duration}</td>
-                    </tr>
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell sx={tableStyles.headerCell}>Created</TableCell>
+                    <TableCell sx={tableStyles.headerCell}>Expires</TableCell>
+                    <TableCell sx={tableStyles.headerCell}>IP Address</TableCell>
+                    <TableCell sx={tableStyles.headerCell}>User Agent</TableCell>
+                    <TableCell align="right" sx={tableStyles.headerCell}>Action</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {sessions.map((session) => (
+                    <TableRow key={session.id}>
+                      <TableCell sx={tableStyles.bodyCell}>
+                        {formatSessionTime(session.createdAt)}
+                      </TableCell>
+                      <TableCell sx={{ ...tableStyles.bodyCell, color: "#71717A" }}>
+                        {formatSessionTime(session.expiresAt)}
+                      </TableCell>
+                      <TableCell sx={{ ...tableStyles.bodyCell, color: "#71717A" }}>
+                        {session.ipAddress || "—"}
+                      </TableCell>
+                      <TableCell sx={{ ...tableStyles.bodyCell, color: "#71717A", maxWidth: 200, overflow: "hidden", textOverflow: "ellipsis" }}>
+                        {session.userAgent || "—"}
+                      </TableCell>
+                      <TableCell align="right" sx={tableStyles.bodyCell}>
+                        <IconButton
+                          size="small"
+                          onClick={() => handleRevokeSession(session.token)}
+                          disabled={revokeSessionMutation.isPending}
+                          sx={{ color: "#EF4444" }}
+                        >
+                          <DeleteIcon sx={{ fontSize: 18 }} />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
                   ))}
-                </tbody>
-              </table>
+                </TableBody>
+              </Table>
             </Box>
           )}
         </CardContent>

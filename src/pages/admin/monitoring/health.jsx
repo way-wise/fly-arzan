@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo } from "react";
 import {
   Box,
   Grid,
@@ -8,8 +8,6 @@ import {
   Typography,
   Stack,
   Chip,
-  Button,
-  LinearProgress,
   IconButton,
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -18,9 +16,7 @@ import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SpeedIcon from "@mui/icons-material/Speed";
-import StorageIcon from "@mui/icons-material/Storage";
 import DnsIcon from "@mui/icons-material/Dns";
-import PublicIcon from "@mui/icons-material/Public";
 import LoopIcon from "@mui/icons-material/Loop";
 import {
   ResponsiveContainer,
@@ -33,59 +29,12 @@ import {
   Tooltip,
   CartesianGrid,
 } from "recharts";
+import {
+  useMonitoringHealth,
+  useMonitoringAlerts,
+} from "@/hooks/useMonitoring";
 
-// Mock Data
-const mockServices = [
-  {
-    name: "Backend API",
-    status: "operational",
-    uptime: 99.98,
-    responseTime: 145,
-    lastCheck: "30 seconds ago",
-    endpoint: "https://api.flyarzan.com",
-  },
-  {
-    name: "Amadeus API",
-    status: "operational",
-    uptime: 99.95,
-    responseTime: 234,
-    lastCheck: "1 minute ago",
-    endpoint: "https://api.amadeus.com",
-  },
-  {
-    name: "Database",
-    status: "operational",
-    uptime: 99.99,
-    responseTime: 12,
-    lastCheck: "15 seconds ago",
-    endpoint: "PostgreSQL Primary",
-  },
-  {
-    name: "Redis Cache",
-    status: "operational",
-    uptime: 99.97,
-    responseTime: 3,
-    lastCheck: "20 seconds ago",
-    endpoint: "Redis Cluster",
-  },
-  {
-    name: "Email Service",
-    status: "degraded",
-    uptime: 98.45,
-    responseTime: 567,
-    lastCheck: "2 minutes ago",
-    endpoint: "SendGrid API",
-  },
-  {
-    name: "Payment Gateway",
-    status: "operational",
-    uptime: 99.92,
-    responseTime: 289,
-    lastCheck: "45 seconds ago",
-    endpoint: "Stripe API",
-  },
-];
-
+// Static mock data for charts (these would need historical data endpoints)
 const mockResponseTimes = [
   { time: "00:00", backend: 145, amadeus: 234, database: 12 },
   { time: "04:00", backend: 152, amadeus: 245, database: 14 },
@@ -106,32 +55,80 @@ const mockUptimeHistory = [
   { date: "Sun", uptime: 99.98 },
 ];
 
-const mockIncidents = [
-  {
-    id: 1,
-    title: "Email Service Degradation",
-    severity: "warning",
-    status: "investigating",
-    startTime: "2 hours ago",
-    description: "Increased latency in email delivery",
-  },
-  {
-    id: 2,
-    title: "Amadeus API Rate Limit",
-    severity: "info",
-    status: "resolved",
-    startTime: "Yesterday",
-    description: "Temporary rate limiting resolved",
-  },
-];
-
 export default function APIHealth() {
-  const [refreshing, setRefreshing] = useState(false);
+  // Fetch real data from backend
+  const { data: healthData, isFetching: refreshing, refetch: refetchHealth } = useMonitoringHealth();
+  const { data: alertsData } = useMonitoringAlerts();
 
   const handleRefresh = () => {
-    setRefreshing(true);
-    setTimeout(() => setRefreshing(false), 1000);
+    refetchHealth();
   };
+
+  // Build services list from real health data
+  const services = useMemo(() => {
+    const health = healthData?.json;
+    if (!health) return [];
+
+    const mapStatus = (status) => {
+      if (status === "healthy") return "operational";
+      if (status === "degraded") return "degraded";
+      if (status === "down") return "down";
+      return "unknown";
+    };
+
+    const formatLastCheck = (isoStr) => {
+      if (!isoStr) return "—";
+      const d = new Date(isoStr);
+      const now = new Date();
+      const diffSec = Math.floor((now - d) / 1000);
+      if (diffSec < 60) return `${diffSec} seconds ago`;
+      if (diffSec < 3600) return `${Math.floor(diffSec / 60)} minutes ago`;
+      return d.toLocaleTimeString();
+    };
+
+    return [
+      {
+        name: "Backend API",
+        status: healthData?.ms < 500 ? "operational" : "degraded",
+        uptime: 99.9,
+        responseTime: healthData?.ms ?? 0,
+        lastCheck: "Just now",
+        endpoint: "Backend Server",
+      },
+      {
+        name: "Database",
+        status: mapStatus(health.checks?.database),
+        uptime: 99.9,
+        responseTime: health.checks?.latencies?.databaseMs ?? 0,
+        lastCheck: formatLastCheck(health.lastChecked?.database),
+        endpoint: "PostgreSQL",
+      },
+      {
+        name: "Amadeus API",
+        status: mapStatus(health.checks?.amadeus),
+        uptime: 99.9,
+        responseTime: health.checks?.latencies?.amadeusMs ?? 0,
+        lastCheck: formatLastCheck(health.lastChecked?.amadeus),
+        endpoint: "https://api.amadeus.com",
+      },
+    ];
+  }, [healthData]);
+
+  // Build incidents from alerts
+  const incidents = useMemo(() => {
+    const alerts = alertsData?.json?.alerts ?? [];
+    return alerts.map((alert, idx) => ({
+      id: idx + 1,
+      title: alert.message,
+      severity: alert.level === "critical" ? "critical" : "warning",
+      status: "active",
+      startTime: alert.timestamp ? new Date(alert.timestamp).toLocaleString() : "Unknown",
+      description: alert.error || `${alert.type} alert`,
+    }));
+  }, [alertsData]);
+
+  const operationalCount = services.filter((s) => s.status === "operational").length;
+  const totalServices = services.length || 3;
 
   const getStatusIcon = (status) => {
     switch (status) {
@@ -158,9 +155,6 @@ export default function APIHealth() {
         return { bg: "#1f2933", color: "#e5e7eb" };
     }
   };
-
-  const operationalCount = mockServices.filter((s) => s.status === "operational").length;
-  const totalServices = mockServices.length;
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
@@ -469,7 +463,7 @@ export default function APIHealth() {
         />
         <CardContent sx={{ px: 2.5, pb: 2.5 }}>
           <Stack spacing={1.5}>
-            {mockServices.map((service) => {
+            {services.map((service) => {
               const chip = getStatusChipColor(service.status);
               return (
                 <Box
@@ -561,13 +555,13 @@ export default function APIHealth() {
           sx={{ px: 2.5, pt: 2.25, pb: 1.5 }}
         />
         <CardContent sx={{ px: 2.5, pb: 2.5 }}>
-          {mockIncidents.length === 0 ? (
+          {incidents.length === 0 ? (
             <Typography sx={{ color: "#9ca3af", fontSize: 13 }}>
               No recent incidents.
             </Typography>
           ) : (
             <Stack spacing={1.5}>
-              {mockIncidents.map((incident) => (
+              {incidents.map((incident) => (
                 <Box
                   key={incident.id}
                   sx={{

@@ -11,7 +11,7 @@ import { signUpSchema } from "@/schema/authSchema";
 import { useSignUp } from "@/hooks/useAuth";
 import { toast } from "sonner";
 
-const NewRegisterForm = () => {
+const NewRegisterForm = ({ onSuccess }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -28,7 +28,9 @@ const NewRegisterForm = () => {
     signUpMutation.mutate(data, {
       onSuccess: (response) => {
         if (response?.user) {
-          toast.success("Registration successful!");
+          toast.success("Registration successful! Please log in.");
+          // Call onSuccess to switch to login form
+          if (onSuccess) onSuccess();
         } else {
           toast.error("Registration failed. Please try again.");
         }

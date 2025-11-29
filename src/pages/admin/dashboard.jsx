@@ -649,7 +649,7 @@ export default function Dashboard() {
                       innerRadius={50}
                       outerRadius={90}
                       paddingAngle={3}
-                      label={({ name, value }) => `${name} ${value}%`}
+                      label={({ name, value }) => `${name}: ${value}`}
                     >
                       {(deviceBreakdown?.data ?? []).map((_, index) => (
                         <Cell

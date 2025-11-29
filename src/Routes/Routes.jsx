@@ -32,6 +32,7 @@ import {
   Feedback,
   AnalyticsLogs,
 } from "../pages/admin";
+import AdminAuthGuard from "../components/auth/AdminAuthGuard";
 // Admin CMS Pages
 import AdminCmsAbout from "../pages/admin/cms/about-us";
 import AdminCmsFaq from "../pages/admin/cms/faq";
@@ -53,13 +54,31 @@ import SystemLogs from "../pages/admin/monitoring/logs";
 // Auth Pages
 import Sessions from "../pages/admin/auth/sessions";
 
+// User Pages
+import UserDashboard from "../pages/user/UserDashboard";
+import UserAuthGuard from "../components/auth/UserAuthGuard";
+
 const Routes = () => {
   return useRoutes([
     { path: "", element: <LandingFlights /> },
 
+    // User Dashboard (for authenticated non-admin users)
+    {
+      path: "/dashboard",
+      element: (
+        <UserAuthGuard>
+          <UserDashboard />
+        </UserAuthGuard>
+      ),
+    },
+
     {
       path: "/admin",
-      element: <AdminLayout />,
+      element: (
+        <AdminAuthGuard>
+          <AdminLayout />
+        </AdminAuthGuard>
+      ),
       children: [
         { index: true, element: <AdminDashboard /> },
         { path: "dashboard", element: <AdminDashboard /> },

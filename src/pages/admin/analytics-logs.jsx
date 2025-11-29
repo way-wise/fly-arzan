@@ -17,80 +17,17 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Pagination,
+  CircularProgress,
 } from "@mui/material";
 import DownloadIcon from "@mui/icons-material/Download";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import ClearIcon from "@mui/icons-material/Clear";
 import SearchIcon from "@mui/icons-material/Search";
-
-// Mock data
-const mockLogs = [
-  {
-    id: 1,
-    timestamp: "10/23/2025, 9:33:03 PM",
-    origin: "DXB",
-    destination: "JED",
-    tripType: "one-way",
-    passengers: "1A",
-    class: "economy",
-    device: "desktop",
-    browser: "Chrome 141.0.0",
-    os: "Windows 10/11",
-    location: "Unknown",
-  },
-  {
-    id: 2,
-    timestamp: "10/23/2025, 8:15:22 PM",
-    origin: "ALA",
-    destination: "IST",
-    tripType: "round-trip",
-    passengers: "2A",
-    class: "business",
-    device: "mobile",
-    browser: "Safari 17.2",
-    os: "iOS 17",
-    location: "Kazakhstan",
-  },
-  {
-    id: 3,
-    timestamp: "10/23/2025, 7:42:11 PM",
-    origin: "TSE",
-    destination: "DXB",
-    tripType: "one-way",
-    passengers: "1A, 1C",
-    class: "economy",
-    device: "desktop",
-    browser: "Firefox 120",
-    os: "macOS",
-    location: "Kazakhstan",
-  },
-  {
-    id: 4,
-    timestamp: "10/23/2025, 6:28:45 PM",
-    origin: "ALA",
-    destination: "SAW",
-    tripType: "round-trip",
-    passengers: "3A",
-    class: "economy",
-    device: "tablet",
-    browser: "Chrome 141.0.0",
-    os: "Android 14",
-    location: "Turkey",
-  },
-  {
-    id: 5,
-    timestamp: "10/23/2025, 5:55:33 PM",
-    origin: "DXB",
-    destination: "LHR",
-    tripType: "one-way",
-    passengers: "1A",
-    class: "first",
-    device: "desktop",
-    browser: "Edge 120",
-    os: "Windows 10/11",
-    location: "UAE",
-  },
-];
+import {
+  useSearchLogs,
+  getSearchLogsExportUrl,
+} from "@/hooks/useAdminReports";
 
 // Consistent styling
 const selectStyles = {
@@ -125,6 +62,7 @@ const selectMenuProps = {
 };
 
 export default function AnalyticsLogs() {
+  const [page, setPage] = useState(1);
   const [filters, setFilters] = useState({
     searchQuery: "",
     tripType: "",
@@ -133,8 +71,26 @@ export default function AnalyticsLogs() {
     browser: "",
   });
 
+  // Fetch logs from backend
+  const { data: logsData, isLoading, refetch } = useSearchLogs({
+    page,
+    limit: 50,
+    origin: filters.searchQuery || undefined,
+    tripType: filters.tripType || undefined,
+    travelClass: filters.travelClass || undefined,
+    deviceType: filters.device || undefined,
+    browser: filters.browser || undefined,
+  });
+
+  // Fetch filter options (available for dynamic dropdowns)
+  // const { data: filterOptions } = useSearchLogsFilterOptions();
+
+  const logs = logsData?.logs ?? [];
+  const pagination = logsData?.pagination ?? { page: 1, totalPages: 1, total: 0 };
+
   const handleFilterChange = (field, value) => {
     setFilters((prev) => ({ ...prev, [field]: value }));
+    setPage(1); // Reset to first page on filter change
   };
 
   const handleClearFilters = () => {
@@ -145,33 +101,40 @@ export default function AnalyticsLogs() {
       device: "",
       browser: "",
     });
+    setPage(1);
   };
 
   const handleExport = () => {
-    console.log("Exporting logs as CSV");
+    const url = getSearchLogsExportUrl({
+      origin: filters.searchQuery || undefined,
+      tripType: filters.tripType || undefined,
+      travelClass: filters.travelClass || undefined,
+      deviceType: filters.device || undefined,
+      browser: filters.browser || undefined,
+    });
+    window.open(url, "_blank");
   };
 
-  const filteredLogs = mockLogs.filter((log) => {
-    const matchesSearch =
-      !filters.searchQuery ||
-      log.origin.toLowerCase().includes(filters.searchQuery.toLowerCase()) ||
-      log.destination.toLowerCase().includes(filters.searchQuery.toLowerCase());
-    const matchesTripType =
-      !filters.tripType || log.tripType === filters.tripType;
-    const matchesClass =
-      !filters.travelClass || log.class === filters.travelClass;
-    const matchesDevice = !filters.device || log.device === filters.device;
-    const matchesBrowser =
-      !filters.browser ||
-      log.browser.toLowerCase().includes(filters.browser.toLowerCase());
-    return (
-      matchesSearch &&
-      matchesTripType &&
-      matchesClass &&
-      matchesDevice &&
-      matchesBrowser
-    );
-  });
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  // Format timestamp for display
+  const formatTimestamp = (dateStr) => {
+    try {
+      return new Date(dateStr).toLocaleString();
+    } catch {
+      return dateStr;
+    }
+  };
+
+  // Format passengers display
+  const formatPassengers = (adults, children) => {
+    const parts = [];
+    if (adults) parts.push(`${adults}A`);
+    if (children) parts.push(`${children}C`);
+    return parts.join(", ") || "1A";
+  };
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
@@ -223,6 +186,8 @@ export default function AnalyticsLogs() {
             variant="outlined"
             size="small"
             startIcon={<RefreshIcon />}
+            onClick={() => refetch()}
+            disabled={isLoading}
             sx={{
               borderColor: "rgba(59, 130, 246, 0.3)",
               color: "#3B82F6",
@@ -254,7 +219,7 @@ export default function AnalyticsLogs() {
             <Typography
               sx={{ color: "#FFFFFF", fontWeight: 600, fontFamily: "Inter" }}
             >
-              Search Logs ({filteredLogs.length} total)
+              Search Logs ({pagination.total} total)
             </Typography>
           }
           subheader={
@@ -513,107 +478,115 @@ export default function AnalyticsLogs() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {filteredLogs.map((log) => (
-                  <TableRow
-                    key={log.id}
-                    sx={{
-                      borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
-                      "&:hover": { bgcolor: "rgba(59, 130, 246, 0.05)" },
-                    }}
-                  >
-                    <TableCell
-                      sx={{
-                        color: "#e5e7eb",
-                        fontFamily: "Inter",
-                        fontSize: "0.875rem",
-                        borderBottom: "none",
-                      }}
-                    >
-                      {log.timestamp}
-                    </TableCell>
-                    <TableCell sx={{ borderBottom: "none" }}>
-                      <Chip
-                        label={log.tripType}
-                        size="small"
-                        sx={{
-                          bgcolor:
-                            log.tripType === "one-way"
-                              ? "rgba(59, 130, 246, 0.1)"
-                              : "rgba(34, 197, 94, 0.1)",
-                          color:
-                            log.tripType === "one-way" ? "#3b82f6" : "#22c55e",
-                          fontFamily: "Inter",
-                          fontSize: "0.75rem",
-                        }}
-                      />
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        color: "#e5e7eb",
-                        fontFamily: "Inter",
-                        fontSize: "0.875rem",
-                        borderBottom: "none",
-                      }}
-                    >
-                      {log.passengers}
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        color: "#e5e7eb",
-                        fontFamily: "Inter",
-                        fontSize: "0.875rem",
-                        borderBottom: "none",
-                      }}
-                    >
-                      {log.class}
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        color: "#e5e7eb",
-                        fontFamily: "Inter",
-                        fontSize: "0.875rem",
-                        borderBottom: "none",
-                      }}
-                    >
-                      {log.device}
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        color: "#e5e7eb",
-                        fontFamily: "Inter",
-                        fontSize: "0.875rem",
-                        borderBottom: "none",
-                      }}
-                    >
-                      {log.browser}
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        color: "#e5e7eb",
-                        fontFamily: "Inter",
-                        fontSize: "0.875rem",
-                        borderBottom: "none",
-                      }}
-                    >
-                      {log.os}
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        color: "#e5e7eb",
-                        fontFamily: "Inter",
-                        fontSize: "0.875rem",
-                        borderBottom: "none",
-                      }}
-                    >
-                      {log.location}
+                {isLoading ? (
+                  <TableRow>
+                    <TableCell colSpan={8} sx={{ borderBottom: "none", textAlign: "center", py: 4 }}>
+                      <CircularProgress size={24} sx={{ color: "#3B82F6" }} />
                     </TableCell>
                   </TableRow>
-                ))}
+                ) : (
+                  logs.map((log) => (
+                    <TableRow
+                      key={log.id}
+                      sx={{
+                        borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
+                        "&:hover": { bgcolor: "rgba(59, 130, 246, 0.05)" },
+                      }}
+                    >
+                      <TableCell
+                        sx={{
+                          color: "#e5e7eb",
+                          fontFamily: "Inter",
+                          fontSize: "0.875rem",
+                          borderBottom: "none",
+                        }}
+                      >
+                        {formatTimestamp(log.createdAt)}
+                      </TableCell>
+                      <TableCell sx={{ borderBottom: "none" }}>
+                        <Chip
+                          label={log.tripType}
+                          size="small"
+                          sx={{
+                            bgcolor:
+                              log.tripType === "one-way"
+                                ? "rgba(59, 130, 246, 0.1)"
+                                : "rgba(34, 197, 94, 0.1)",
+                            color:
+                              log.tripType === "one-way" ? "#3b82f6" : "#22c55e",
+                            fontFamily: "Inter",
+                            fontSize: "0.75rem",
+                          }}
+                        />
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          color: "#e5e7eb",
+                          fontFamily: "Inter",
+                          fontSize: "0.875rem",
+                          borderBottom: "none",
+                        }}
+                      >
+                        {formatPassengers(log.adults, log.children)}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          color: "#e5e7eb",
+                          fontFamily: "Inter",
+                          fontSize: "0.875rem",
+                          borderBottom: "none",
+                        }}
+                      >
+                        {log.travelClass || "economy"}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          color: "#e5e7eb",
+                          fontFamily: "Inter",
+                          fontSize: "0.875rem",
+                          borderBottom: "none",
+                        }}
+                      >
+                        {log.deviceType || "—"}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          color: "#e5e7eb",
+                          fontFamily: "Inter",
+                          fontSize: "0.875rem",
+                          borderBottom: "none",
+                        }}
+                      >
+                        {log.browser ? `${log.browser} ${log.browserVersion || ""}`.trim() : "—"}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          color: "#e5e7eb",
+                          fontFamily: "Inter",
+                          fontSize: "0.875rem",
+                          borderBottom: "none",
+                        }}
+                      >
+                        {log.os ? `${log.os} ${log.osVersion || ""}`.trim() : "—"}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          color: "#e5e7eb",
+                          fontFamily: "Inter",
+                          fontSize: "0.875rem",
+                          borderBottom: "none",
+                        }}
+                      >
+                        {log.country || "Unknown"}
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
               </TableBody>
             </Table>
           </TableContainer>
 
-          {filteredLogs.length === 0 && (
+          {!isLoading && logs.length === 0 && (
             <Box sx={{ textAlign: "center", py: 6 }}>
               <Typography sx={{ color: "#71717A", fontFamily: "Inter" }}>
                 No logs found matching your filters
@@ -621,7 +594,7 @@ export default function AnalyticsLogs() {
             </Box>
           )}
 
-          {/* Pagination Info */}
+          {/* Pagination */}
           <Box
             sx={{
               mt: 3,
@@ -634,8 +607,25 @@ export default function AnalyticsLogs() {
               variant="caption"
               sx={{ color: "#71717A", fontFamily: "Inter" }}
             >
-              Page 1 of 1 ({filteredLogs.length} logs)
+              Page {pagination.page} of {pagination.totalPages} ({pagination.total} logs)
             </Typography>
+            {pagination.totalPages > 1 && (
+              <Pagination
+                count={pagination.totalPages}
+                page={page}
+                onChange={handlePageChange}
+                size="small"
+                sx={{
+                  "& .MuiPaginationItem-root": {
+                    color: "#9ca3af",
+                    "&.Mui-selected": {
+                      bgcolor: "rgba(59, 130, 246, 0.2)",
+                      color: "#3B82F6",
+                    },
+                  },
+                }}
+              />
+            )}
           </Box>
         </CardContent>
       </Card>

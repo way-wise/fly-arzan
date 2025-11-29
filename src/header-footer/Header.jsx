@@ -294,7 +294,7 @@ const Header = () => {
                 transition={{ type: "spring", bounce: 0, duration: 0.4 }}
                 layout
               >
-                <NewLoginForm />
+                <NewLoginForm onSuccess={() => setAuthModal(false)} />
                 <div className="tw:mt-4 tw:flex tw:flex-wrap tw:items-center tw:justify-center tw:gap-1 tw:text-center">
                   <span className="tw:text-secondary">
                     Don&apos;t have an account?
@@ -315,7 +315,7 @@ const Header = () => {
                 transition={{ type: "spring", bounce: 0, duration: 0.4 }}
                 layout
               >
-                <NewRegisterForm />
+                <NewRegisterForm onSuccess={() => setShowLogin(true)} />
                 <div className="tw:mt-4 tw:flex tw:flex-wrap tw:items-center tw:justify-center tw:gap-1 tw:text-center">
                   <span className="tw:text-secondary">
                     Already have an account?
