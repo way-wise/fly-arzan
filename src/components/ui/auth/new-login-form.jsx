@@ -32,9 +32,12 @@ const NewLoginForm = ({ onSuccess }) => {
           toast.success("Login successful!");
           // Close modal if callback provided
           if (onSuccess) onSuccess();
-          // Navigate to admin if user is admin, otherwise stay
-          if (response.user.role === "admin") {
+          // Navigate based on role (only super can access admin)
+          const isSuperAdmin = response.user.role === "super";
+          if (isSuperAdmin) {
             navigate("/admin");
+          } else {
+            navigate("/dashboard");
           }
         } else {
           toast.error("Login failed. Please try again.");
