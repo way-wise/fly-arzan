@@ -13,7 +13,7 @@ const Modal = ({ children, isOpen = false, isPending = false, onClose }) => {
       open={isOpen}
       onClose={close}
       transition
-      className="tw:relative tw:z-50"
+      className="tw:relative tw:z-[99999]"
     >
       <DialogBackdrop
         transition
