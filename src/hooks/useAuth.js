@@ -1,7 +1,11 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import { authClient } from "@/lib/auth-client";
 
 // API base URL - adjust based on your backend setup
 const API_BASE_URL = import.meta.env.VITE_API_URL;
+
+// Re-export useSession from better-auth client for consistent session management
+export { useSession } from "@/lib/auth-client";
 
 // Sign In API call
 const signIn = async (credentials) => {
@@ -46,99 +50,38 @@ const signUp = async (userData) => {
   return data;
 };
 
-// Sign Out API call - uses better-auth endpoint
-const signOut = async () => {
-  const response = await fetch(`${API_BASE_URL}/api/auth/sign-out`, {
-    credentials: "include",
-    method: "POST",
-  });
-
-  if (!response.ok) {
-    const data = await response.json().catch(() => ({}));
-    throw new Error(data.message || "Sign out failed");
-  }
-
-  return { success: true };
-};
-
-// Get Session API call
-const getSession = async () => {
-  const response = await fetch(`${API_BASE_URL}/api/auth/get-session`, {
-    credentials: "include",
-    method: "GET",
-  });
-
-  if (!response.ok) {
-    if (response.status === 401) {
-      return null; // Not authenticated
-    }
-    throw new Error("Failed to get session");
-  }
-
-  const data = await response.json();
-  return data;
-};
-
 // Sign In Hook
 export const useSignIn = () => {
-  const queryClient = useQueryClient();
-  
   return useMutation({
-    mutationFn: signIn,
-    mutationKey: ["auth", "sign-in"],
-    onSuccess: async (data) => {
-      // Set the session data directly to avoid race conditions
-      if (data?.user) {
-        queryClient.setQueryData(["auth", "session"], data);
-      }
-      // Also invalidate to ensure fresh data
-      await queryClient.invalidateQueries({ queryKey: ["auth", "session"] });
+    mutationFn: async (credentials) => {
+      const result = await signIn(credentials);
+      // Refresh the session cache after successful login
+      await authClient.getSession({ fetchOptions: { throw: false } });
+      return result;
     },
+    mutationKey: ["auth", "sign-in"],
   });
 };
 
 // Sign Up Hook
 export const useSignUp = () => {
-  const queryClient = useQueryClient();
-  
   return useMutation({
     mutationFn: signUp,
     mutationKey: ["auth", "sign-up"],
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["auth", "session"] });
-    },
   });
 };
 
-// Sign Out Hook
+// Sign Out Hook - uses better-auth client
 export const useSignOut = () => {
-  const queryClient = useQueryClient();
-  
   return useMutation({
-    mutationFn: signOut,
+    mutationFn: () => authClient.signOut(),
     mutationKey: ["auth", "sign-out"],
-    onSuccess: () => {
-      // Clear session data
-      queryClient.setQueryData(["auth", "session"], null);
-      queryClient.invalidateQueries({ queryKey: ["auth", "session"] });
-    },
-  });
-};
-
-// Session Hook - get current user session
-export const useSession = () => {
-  return useQuery({
-    queryKey: ["auth", "session"],
-    queryFn: getSession,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    retry: false,
-    refetchOnWindowFocus: false, // Prevent refetch loops
   });
 };
 
 // Helper hook to check if user is authenticated
 export const useIsAuthenticated = () => {
-  const { data: session, isLoading } = useSession();
+  const { data: session, isPending: isLoading } = authClient.useSession();
   return {
     isAuthenticated: !!session?.user,
     isLoading,
@@ -172,8 +115,11 @@ export const useIsSuperAdmin = () => {
 // Helper hook to check if user is moderator or higher
 export const useIsModerator = () => {
   const { isAuthenticated, user, isLoading } = useIsAuthenticated();
-  const isModerator = isAuthenticated && 
-    (user?.role === "super" || user?.role === "admin" || user?.role === "moderator");
+  const isModerator =
+    isAuthenticated &&
+    (user?.role === "super" ||
+      user?.role === "admin" ||
+      user?.role === "moderator");
   return {
     isModerator,
     isLoading,
