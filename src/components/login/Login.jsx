@@ -8,7 +8,7 @@ import { loginSchema, registrationSchema } from "../Schemas/Schemas";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSignIn, useSignUp } from "@/hooks/useAuth";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 
 const Login = ({ setShowPopup }) => {
   const [isSignup, setIsSignup] = useState(false);

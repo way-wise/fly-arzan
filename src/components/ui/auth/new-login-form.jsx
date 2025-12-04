@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signInSchema } from "@/schema/authSchema";
 import { useSignIn } from "@/hooks/useAuth";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 
 const NewLoginForm = ({ onSuccess }) => {
   const [showPassword, setShowPassword] = useState(false);
