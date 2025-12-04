@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "../../assets/Images/loginlogo.png";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa6";
@@ -12,12 +12,13 @@ import { toast } from "react-toastify";
 
 const Login = ({ setShowPopup }) => {
   const [isSignup, setIsSignup] = useState(false);
-  const navigate = useNavigate();
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   const signInMutation = useSignIn();
   const signUpMutation = useSignUp();
 
-  const loading = signInMutation.isPending || signUpMutation.isPending;
+  const loading =
+    signInMutation.isPending || signUpMutation.isPending || isRedirecting;
 
   const {
     register,
@@ -47,16 +48,28 @@ const Login = ({ setShowPopup }) => {
           password: data.password,
         });
         console.log("Login response:", response);
-        if (response?.user) {
-          toast.success("Login successful!");
+
+        // Use confirmedUser from session polling, fallback to response.user
+        const user = response?.confirmedUser || response?.user;
+
+        if (user) {
+          toast.success("Login successful! Redirecting...");
+          setIsRedirecting(true);
+
+          // Determine redirect path based on confirmed user role
+          const redirectPath =
+            user.role === "admin" || user.role === "super"
+              ? "/admin"
+              : "/dashboard";
+
           if (setShowPopup) {
-            // Modal login - close popup and navigate
             setShowPopup(false);
-            navigate("/dashboard", { replace: true });
-          } else {
-            // Standalone /Login page - use hard redirect for clean state
-            window.location.href = "/dashboard";
           }
+
+          // Small delay to ensure UI updates, then redirect
+          setTimeout(() => {
+            window.location.href = redirectPath;
+          }, 100);
         } else {
           toast.error("Login failed - no user in response");
         }
@@ -66,6 +79,48 @@ const Login = ({ setShowPopup }) => {
       toast.error(err.message || "Authentication failed");
     }
   };
+
+  // Show full-screen loader when redirecting
+  if (isRedirecting) {
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)",
+          gap: "20px",
+        }}
+      >
+        <div
+          style={{
+            width: "48px",
+            height: "48px",
+            border: "4px solid #e5e7eb",
+            borderTopColor: "#50add8",
+            borderRadius: "50%",
+            animation: "spin 1s linear infinite",
+          }}
+        />
+        <p
+          style={{
+            color: "#6b7280",
+            fontSize: "16px",
+            fontFamily: "Rubik, sans-serif",
+          }}
+        >
+          Login successful! Redirecting to your dashboard...
+        </p>
+        <style>{`
+          @keyframes spin {
+            to { transform: rotate(360deg); }
+          }
+        `}</style>
+      </div>
+    );
+  }
 
   return (
     <div

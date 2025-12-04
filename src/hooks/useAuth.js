@@ -55,8 +55,33 @@ export const useSignIn = () => {
   return useMutation({
     mutationFn: async (credentials) => {
       const result = await signIn(credentials);
-      // Refresh the session cache after successful login
-      await authClient.getSession({ fetchOptions: { throw: false } });
+
+      // Wait for session to be fully established
+      // Poll until session is confirmed (max 5 seconds)
+      let sessionConfirmed = false;
+      let attempts = 0;
+      const maxAttempts = 10;
+
+      while (!sessionConfirmed && attempts < maxAttempts) {
+        attempts++;
+        const sessionData = await authClient.getSession({
+          fetchOptions: { throw: false },
+        });
+
+        if (sessionData?.data?.user) {
+          sessionConfirmed = true;
+          // Return the confirmed session user data
+          result.confirmedUser = sessionData.data.user;
+        } else {
+          // Wait 500ms before next attempt
+          await new Promise((resolve) => setTimeout(resolve, 500));
+        }
+      }
+
+      if (!sessionConfirmed) {
+        console.warn("Session not confirmed after login, proceeding anyway");
+      }
+
       return result;
     },
     mutationKey: ["auth", "sign-in"],
